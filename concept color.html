@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>concept</title>
+    <style>
+        .con{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 500px;
+            /* border: 1px solid black; */
+        }
+        .logo{
+            box-sizing: border-box;
+            width: 400px;
+            height: 300px;
+            background: url("KakaoTalk_20221011_161514674.png"), no-repeat;
+            background-size: cover;
+            /* border: 1px solid black; */
+        }
+        .pallet{
+            width: 100%;
+            display: flex;
+            justify-content: space-evenly;
+        }
+        span{
+
+            width: 100px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: blue;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            width: 33%;
+        }
+        .p1 span:first-child{
+            background-color: #EEEEED;
+            color: black
+        }
+        .p1 span:nth-child(2){
+            background-color: #E6E6E6;
+            color: black
+        }
+        .p1 span:nth-child(3){
+            background-color: #BCBCBC;
+        }
+        .p2 span:first-child{
+            background-color: #6F6F6F;
+        }
+        .p2 span:nth-child(2){
+            background-color: #595D69;
+        }
+        .p2 span:nth-child(3){
+            background-color: #36424A;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+        <div class="pallet p1">
+            <span>#B1D33D</span>
+            <span>#92BF3D</span>
+            <span>#82B440</span>
+        </div>
+        <div class="logo"></div>
+        <div class="pallet p2">
+            <span>#6EB041</span>
+            <span>#58A146</span>
+            <span>#368B46</span>
+        </div>
+
+    </div>
+</body>
+</html>

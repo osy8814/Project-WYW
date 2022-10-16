@@ -1,0 +1,75 @@
+/* 최상단 좌측 로그인 메뉴 */
+.top-loginSet {
+  height: 50px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  margin-top: 10px;
+  padding-right: 10px;
+}
+.top-loginSet a {
+  font-weight: 600;
+  color: #565656;
+}
+#top-loginSet-list {
+  font-size: 12px;
+  display: flex;
+}
+#top-loginSet-list li {
+  margin-left: 10px;
+}
+#top-loginSet__iconSet {
+  width: 40px;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+#top-loginSet__iconSet a {
+  color: #565656;
+}
+
+/* 로고 타이틀 */
+.logoSet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #bcbcbc;
+  font-size: 50px;
+  font-weight: bold;
+}
+.logoSet__logo {
+  height: 80px;
+  width: 80px;
+  background: url("../img/WYWlogo.png");
+  background-size: cover;
+  background-position: center;
+  margin-right: 10px;
+}
+
+/* 상단 네이게이션 메뉴 */
+.nav {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+.nav__topNav {
+  display: flex;
+  height: 40px;
+  width: 400px;
+  justify-content: space-evenly;
+  list-style: none;
+}
+#topNav li {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+#topNav a {
+  font-weight: 600;
+  color: #6f6f6f;
+}
+#topNav li:hover {
+  cursor: pointer;
+  border-bottom: 2px solid black;
+}

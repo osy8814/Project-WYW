@@ -1,0 +1,38 @@
+.main {
+  height: 100%;
+  /* background-color: black; */
+}
+
+.main__slide {
+  width: 100%;
+  height: 30%;
+}
+.main__slide img {
+  width: 100%;
+  height: 100%;
+}
+.main__best {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 33%;
+  /* background-color: aqua; */
+}
+.main__new-title,
+.main__best-title {
+  width: 20%;
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  border-bottom: 2px solid black;
+}
+.main__new {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 33%;
+}
