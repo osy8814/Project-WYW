@@ -26,25 +26,44 @@
   margin-left: 10px;
 }
 #top-loginSet__iconSet a {
+  position: relative;
   color: #565656;
+}
+
+/* search input */
+#search {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  padding: 10px;
+  padding-left: 15px;
+  border: 4px solid #36424a;
+  border-radius: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+.hidden {
+  display: none;
 }
 
 /* 로고 타이틀 */
 .logoSet {
   display: flex;
   justify-content: center;
+}
+.logoSet a {
+  display: flex;
+  justify-content: center;
   align-items: center;
   color: #bcbcbc;
-  font-size: 50px;
+  font-size: 3vmax;
   font-weight: bold;
 }
 .logoSet__logo {
-  height: 80px;
-  width: 80px;
+  height: 5vmax;
+  width: 5vmax;
   background: url("../img/WYWlogo.png");
   background-size: cover;
   background-position: center;
-  margin-right: 10px;
 }
 
 /* 상단 네이게이션 메뉴 */
@@ -60,16 +79,49 @@
   justify-content: space-evenly;
   list-style: none;
 }
-#topNav li {
+.nav__topNav li {
+  position: relative;
   display: flex;
   align-items: center;
   height: 100%;
 }
-#topNav a {
+.nav__topNav a {
   font-weight: 600;
   color: #6f6f6f;
 }
-#topNav li:hover {
+.nav__topNav > li:hover {
+  display: flex;
+  justify-content: center;
   cursor: pointer;
   border-bottom: 2px solid black;
+}
+
+/* nav하위 메뉴 */
+.nav__topNav li > ul {
+  display: none;
+  padding: 10px;
+  font-size: 1.2vmin;
+  color: #6f6f6f;
+  background-color: rgba(255, 255, 255, 0.3);
+  animation: fadeIn 0.5s ease-in-out;
+}
+.nav__topNav li > ul > li {
+  margin-top: 10px;
+}
+
+#CompanyList,
+#ShopList {
+  position: absolute;
+  width: inherit;
+  z-index: 10;
+  top: 40px;
+}
+.nav__topNav > li:hover #CompanyList,
+.nav__topNav > li:hover #ShopList {
+  display: block;
+}
+#CompanyList li:hover a,
+#ShopList li:hover a {
+  color: white;
+  text-shadow: 1px 1px 5px black;
 }
