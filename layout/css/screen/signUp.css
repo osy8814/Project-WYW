@@ -1,0 +1,64 @@
+.signUpMain {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+/* 회원정보입력 */
+.signUpMain__register__userInfo-title,
+.signUpMain__register__terms-title {
+  font-size: 3vmin;
+  font-weight: bold;
+}
+
+.signUpMain__register__userInfo__infomation,
+.signUpMain__register__terms__Outter {
+  margin-top: 10px;
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(50, 52, 62, 0.4);
+}
+
+.mobileCss {
+  width: 50px;
+}
+table,
+th {
+  border: 1px solid rgba(50, 52, 62, 0.2);
+  border-collapse: collapse;
+  width: 1fr;
+}
+th {
+  background-color: rgba(50, 52, 62, 0.4);
+  color: white;
+  font-size: 13px;
+  padding-left: 10px;
+  width: 150px;
+  text-align: left;
+  line-height: 40px;
+}
+td {
+  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+  width: 40vmax;
+  padding-left: 10px;
+}
+
+.infoHint {
+  font-size: 10px;
+}
+@media screen and (max-width: 1200px) {
+  .infoHint {
+    margin-top: 2px;
+    display: block;
+  }
+  td {
+    height: 50px;
+  }
+}
+
+/* 약관 */
+.signUpMain__register__terms {
+  margin-top: 50px;
+  /* border: 1px solid black; */
+  height: 600px;
+}
