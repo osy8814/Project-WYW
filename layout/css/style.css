@@ -9,8 +9,10 @@
 
 /* screen */
 @import url("screen/IntroduceScreen.css");
+@import url("screen/signUp.css");
 
 /* 메인페이지 */
+
 body {
   flex-direction: column;
 }

@@ -67,25 +67,93 @@
       </ul>
     </div>
 
-    <div class="IntroduceMain">
-      <div class="IntroduceMain__img"></div>
-      <div class="IntroduceMain__img"></div>
-      <div class="IntroduceMain__img"></div>
-      <div class="IntroduceMain__script">
-        <h1 class="IntroduceMain__script-title">
-          "<strong style="color: #32343e; margin-left: 15px">W</strong>HAT
-          <strong style="color: #32343e; margin-left: 15px">Y</strong>OU
-          <strong style="color: #32343e; margin-left: 15px">W</strong>ANT "
-        </h1>
-        <p>
-          아름다움의 기준은 개성과 같이 다릅니다.<br />
-          형식화 되어있지 않은 개성을 존중하며, 어떤것이든 표현할 수 있는 현대의
-          시점에서 바랍봅니다. 모던미는 현대미술의 관점은 하나의 표현,디자인,
-          형상 등 을 각자 다르게 받아들일 수 있으며, "자신의 생각이 옳다면
-          답이다." 라는 주관적인 정의를 내립니다. 색다르게 보는 이로 하여금
-          호기심과 관심을 느낄 수 있는 제품을 유통하는데 목표를 두고 있습니다.
-        </p>
-      </div>
+    <div class="signUpMain">
+      <form action="#" class="signUpMain__register">
+        <div class="signUpMain__register__userInfo">
+          <h1 class="signUpMain__register__userInfo-title">회원 정보</h1>
+          <div class="signUpMain__register__userInfo__infomation">
+            <table>
+              <tr>
+                <th>
+                  아이디
+                  <strong style="color: blue">*</strong>
+                </th>
+                <td>
+                  <input type="text" name="id" id="info_id" />
+                  <span class="infoHint">(영문소문자/숫자, 4~16자)</span>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  비밀번호
+                  <strong style="color: blue">*</strong>
+                </th>
+                <td>
+                  <input type="password" name="pwd" id="info_pwd" />
+                  <span class="infoHint">
+                    (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자 이상)
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  비밀번호 확인
+                  <strong style="color: blue">*</strong>
+                </th>
+                <td>
+                  <input type="password" name="pwdchk" id="info_pwdchk" />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  이름
+                  <strong style="color: blue">*</strong>
+                </th>
+                <td>
+                  <input type="text" name="name" id="info_name" />
+                </td>
+              </tr>
+              <tr>
+                <th>휴대전화</th>
+                <td>
+                  <select name="mobil1" id="info_mobile1" class="mobileCss">
+                    <option value="010">010</option>
+                    <option value="010">011</option>
+                  </select>
+                  <input
+                    type="text"
+                    name="mobile2"
+                    id="info_mobile2"
+                    class="mobileCss"
+                  />
+                  <input
+                    type="text"
+                    name="mobile3"
+                    id="info_mobile3"
+                    class="mobileCss"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <th>
+                  이메일
+                  <strong style="color: blue">*</strong>
+                </th>
+                <td>
+                  <input type="email" name="email" id="info_email" />
+                  <span class="infoHint">
+                    아이디/비밀번호 찾기에 활용됩니다. 정확히 입력해주세요.
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="signUpMain__register__terms">
+          <h1 class="signUpMain__register__terms-title">약관</h1>
+          <div class="signUpMain__register__terms__Outter"></div>
+        </div>
+      </form>
     </div>
 
     <div class="bottomNavBox">
