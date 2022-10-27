@@ -6,18 +6,38 @@
 }
 
 /* 외부박스 */
-.signUp_complete_main_regist-info {
+.signUp_complete_main_regist-outter {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 60%;
+  margin-bottom: 50px;
+}
+.signUp_complete_main_regist-info_title {
+  width: 100%;
+  font-size: 3vmin;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+/* 내부박스 */
+.signUp_complete_main_regist-info {
+  width: 100%;
   height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   border: 1px solid rgba(50, 52, 62, 0.2);
-  margin: 40px;
+  margin: 20px 0;
+  padding: 30px 0;
 }
 
-/* 내부박스 */
+/* 가입정보 */
 .signUp_complete_main_regist-info_infoSet {
   display: flex;
   flex-direction: column;
@@ -40,7 +60,7 @@
   color: rgba(50, 52, 62);
 }
 
-.signUp_complete_main_regist-info_infoSet-thanksTo {
+.signUp_complete_main_regist-info_thanksTo {
   text-align: center;
   font-size: 13px;
 }
@@ -73,7 +93,7 @@
   border: none;
   font-size: 15px;
   width: 150px;
-  height: 40px;
+  height: 50px;
   transition: 0.3s ease-in-out;
 }
 #confirm:hover {
@@ -84,10 +104,14 @@
 
 /* 미디어쿼리 */
 @media screen and (max-width: 900px) {
-  .signUp_complete_main_regist-info {
+  .signUp_complete_main_regist-outter {
     width: 100%;
     border-left: none;
     border-right: none;
     margin: 40px 0;
+  }
+  .signUp_complete_main_regist-info_title {
+    width: 100%;
+    font-size: 20px;
   }
 }

@@ -22,6 +22,7 @@
 .signUpMain__register__userInfo-title,
 .signUpMain__register__terms-title {
   font-size: 3vmin;
+  padding-left: 10px;
   font-weight: bold;
 }
 
@@ -181,6 +182,10 @@ td {
     margin-top: 2px;
     display: block;
   }
+  .signUpMain__register__userInfo-title,
+  .signUpMain__register__terms-title {
+    font-size: 20px;
+  }
 
   .signUpMain__register {
     width: 100%;
@@ -196,6 +201,7 @@ td {
     font-size: 1.7vmax;
     line-height: 1.5;
   }
+
   .terms__descriptionbox > p {
     font-size: 12px;
   }
