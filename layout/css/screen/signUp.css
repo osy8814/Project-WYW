@@ -107,6 +107,7 @@ td {
   border-bottom: 1px solid rgba(50, 52, 62, 0.2);
 }
 
+/* 약관제목 */
 .terms_title {
   display: flex;
   justify-content: left;
@@ -117,6 +118,7 @@ td {
   margin-bottom: 10px;
 }
 
+/* 약관내용 */
 .terms__descriptionbox {
   width: 98%;
   box-sizing: border-box;
@@ -128,7 +130,7 @@ td {
   border: 1px solid rgba(50, 52, 62, 0.5);
 }
 .terms__descriptionbox > p {
-  font-size: 1.2vmax;
+  font-size: 15px;
 }
 
 .agreeChk {
@@ -136,6 +138,7 @@ td {
   align-items: center;
   margin-top: 10px;
   width: 100%;
+  font-size: 13px;
 }
 
 .agreeChk > label {
@@ -167,6 +170,7 @@ td {
   font-weight: bold;
 }
 
+/* 체크박스CSS */
 .signUpMain__register input[type="checkbox"] {
   accent-color: rgba(50, 52, 62, 1);
 }
@@ -191,5 +195,8 @@ td {
   .signUpMain__register__terms__inner__selectAll label {
     font-size: 1.7vmax;
     line-height: 1.5;
+  }
+  .terms__descriptionbox > p {
+    font-size: 12px;
   }
 }
