@@ -17,7 +17,7 @@ function allchk() {
 }
 
 //천체 동의체크박스가 'Change'될 때 이벤트
-allChkBox.addEventListener("change", allchk);
+allChkBox?.addEventListener("change", allchk);
 
 //하위 동의체크박스 중 하나가 'Change'될 때 이벤트
 for (let i = 0; i < termsChkBoxs.length; i++) {

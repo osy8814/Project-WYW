@@ -67,24 +67,42 @@
       </ul>
     </div>
 
-    <div class="IntroduceMain">
-      <div class="IntroduceMain__img"></div>
-      <div class="IntroduceMain__img"></div>
-      <div class="IntroduceMain__img"></div>
-      <div class="IntroduceMain__script">
-        <h1 class="IntroduceMain__script-title">
-          "<strong style="color: #32343e; margin-left: 15px">W</strong>HAT
-          <strong style="color: #32343e; margin-left: 15px">Y</strong>OU
-          <strong style="color: #32343e; margin-left: 15px">W</strong>ANT "
-        </h1>
-        <p>
-          아름다움의 기준은 개성과 같이 다릅니다.<br />
-          형식화 되어있지 않은 개성을 존중하며, 어떤것이든 표현할 수 있는 현대의
-          시점에서 바랍봅니다. 모던미는 현대미술의 관점은 하나의 표현,디자인,
-          형상 등 을 각자 다르게 받아들일 수 있으며, "자신의 생각이 옳다면
-          답이다." 라는 주관적인 정의를 내립니다. 색다르게 보는 이로 하여금
-          호기심과 관심을 느낄 수 있는 제품을 유통하는데 목표를 두고 있습니다.
-        </p>
+    <div class="login_main">
+      <div class="login_main-outter">
+        <h1 class="login_main_title">로그인</h1>
+        <form class="login_main_form">
+          <h1 class="login_main_form_title">
+            <i class="fas fa-unlock-alt"></i>회원 로그인
+          </h1>
+
+          <div class="login_main_form_inputAndBtn">
+            <div class="login_main_form_idAndPwd">
+              <label for="login_main_form-id"
+                ><input
+                  type="text"
+                  id="login_main_form-id"
+                  name="id"
+                  placeholder="아이디"
+                  autofocus
+              /></label>
+              <label for="login_main_form-pwd"
+                ><input
+                  type="password"
+                  id="login_main_form-pwd"
+                  name="pwd"
+                  placeholder="비밀번호"
+              /></label>
+            </div>
+            <button id="confirm">로그인</button>
+          </div>
+          <ul class="login_main_findAndRegInfo">
+            <li><a href="#">아이디 찾기</a></li>
+            <li>|</li>
+            <li><a href="#">비밀번호 찾기</a></li>
+            <li>|</li>
+            <li><a href="signUp.html">회원가입</a></li>
+          </ul>
+        </form>
       </div>
     </div>
 
@@ -138,5 +156,6 @@
 
     <script src="js/search.js"></script>
     <script src="js/navScroll.js"></script>
+    <script src="js/termsChk.js"></script>
   </body>
 </html>
