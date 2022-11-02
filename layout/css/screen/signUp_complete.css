@@ -87,13 +87,13 @@
 }
 
 /* 확인버튼 */
-#confirm {
+#signup_confirm {
   background-color: rgba(50, 52, 62);
   color: white;
   border: none;
   font-size: 15px;
   width: 150px;
-  height: 50px;
+  height: 40px;
   transition: 0.3s ease-in-out;
 }
 #confirm:hover {

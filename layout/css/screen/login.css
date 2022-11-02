@@ -92,7 +92,7 @@
   color: rgba(50, 52, 62);
 }
 .login_main_findAndRegInfo {
-  width: 60%;
+  width: 300px;
   display: flex;
   justify-content: space-evenly;
 }
