@@ -1,4 +1,4 @@
-.signUp_complete_main {
+.find_id_main {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
 }
 
 /* 외부박스 */
-.signUp_complete_main_regist-outter {
+.find_id_main-outter {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,9 @@
   width: 60%;
   margin-bottom: 50px;
 }
-.signUp_complete_main_regist-info_title {
+
+/* 페이지타이틀  */
+.find_id_title {
   width: 100%;
   font-size: 3vmin;
   font-weight: bold;
@@ -25,7 +27,7 @@
 }
 
 /* 내부박스 */
-.signUp_complete_main_regist-info {
+.find_id_form {
   width: 100%;
   height: 300px;
   display: flex;
@@ -37,63 +39,46 @@
   padding: 30px 0;
 }
 
-/* 가입정보 */
-.signUp_complete_main_regist-info_infoSet {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  width: 300px;
-  height: 150px;
-  border: 1px solid rgba(50, 52, 62, 0.2);
-}
-
-/* 완료메시지 */
-.signUp_complete_main_regist-info_msg {
+/* 로그인폼 타이틀 */
+.find_id_form_title {
   display: flex;
   align-items: center;
   font-size: 20px;
   font-weight: bold;
 }
-.signUp_complete_main_regist-info_msg > i {
+.find_id_form_title > i {
   font-size: 30px;
   margin-right: 10px;
   color: rgba(50, 52, 62);
 }
 
-.signUp_complete_main_regist-info_thanksTo {
-  text-align: center;
-  font-size: 13px;
-}
-.signUp_complete_main_regist-info_infoSet-box {
+/* 로그인 정보  */
+.find_id_form_inputAndBtn {
   display: flex;
+  gap: 10px;
+}
+.find_id_form_name_email {
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   font-size: 14px;
+  gap: 10px;
 }
-.signUp_complete_main_regist-info_infoSet-id-h,
-.signUp_complete_main_regist-info_infoSet-name-h,
-.signUp_complete_main_regist-info_infoSet-email-h,
-.signUp_complete_main_regist-info_infoSet-grade-h {
+.find_id_form_name_email input {
+  width: 250px;
+  height: 30px;
   padding-left: 20px;
-  width: 30%;
-  /* background-color: aqua; */
-}
-.signUp_complete_main_regist-info_infoSet-id-d,
-.signUp_complete_main_regist-info_infoSet-name-d,
-.signUp_complete_main_regist-info_infoSet-email-d,
-.signUp_complete_main_regist-info_infoSet-grade-d {
-  width: 70%;
-  text-align: center;
-  /* background-color: brown; */
+  border: 1px solid rgba(50, 52, 62, 0.2);
 }
 
-/* 확인버튼 */
-#signup_confirm {
+/* 로그인버튼 */
+#confirm {
   background-color: rgba(50, 52, 62);
   color: white;
   border: none;
   font-size: 15px;
   width: 150px;
-  height: 40px;
+  height: 100%;
   transition: 0.3s ease-in-out;
 }
 #confirm:hover {
@@ -101,17 +86,27 @@
   color: rgba(50, 52, 62, 1);
   font-weight: bold;
 }
+/* 아이디 비밀번호 찾기 회원가입 */
+.find_id_findAndRegInfo,
+.find_id_findAndRegInfo a {
+  color: rgba(50, 52, 62);
+}
+.find_id_findAndRegInfo {
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+}
 
 /* 미디어쿼리 */
+/* 미디어쿼리 */
 @media screen and (max-width: 900px) {
-  .signUp_complete_main_regist-outter {
+  .find_id_main-outter {
     width: 100%;
     border-left: none;
     border-right: none;
     margin: 40px 0;
   }
-  .signUp_complete_main_regist-info_title {
-    width: 100%;
+  .find_id_title {
     font-size: 20px;
   }
 }
