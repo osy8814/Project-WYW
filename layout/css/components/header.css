@@ -111,19 +111,25 @@
   margin-top: 10px;
 }
 
-#CompanyList,
-#ShopList {
+#company_list,
+#shop_list,
+#community_List {
   position: absolute;
-  width: inherit;
   z-index: 10;
   top: 40px;
 }
-.nav__topNav > li:hover #CompanyList,
-.nav__topNav > li:hover #ShopList {
+#community_List {
+  width: 80px;
+}
+
+.nav__topNav > li:hover #company_list,
+.nav__topNav > li:hover #shop_list,
+.nav__topNav > li:hover #community_List {
   display: block;
 }
-#CompanyList li:hover a,
-#ShopList li:hover a {
+#company_list li:hover a,
+#shop_list li:hover a,
+#community_List li:hover a {
   color: white;
   text-shadow: 1px 1px 5px black;
 }

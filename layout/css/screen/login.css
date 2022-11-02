@@ -18,6 +18,7 @@
 
 /* 페이지타이틀  */
 .login_main_title {
+  box-sizing: border-box;
   width: 100%;
   font-size: 3vmin;
   font-weight: bold;
