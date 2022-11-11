@@ -39,8 +39,9 @@ public class UsersDaoImpl implements UsersDao {
     }
 	
 	@Override
-	public int delete(String email, String name) throws Exception {
+	public int delete(String user_id, String email, String name) throws Exception {
         Map map = new HashMap();
+        map.put("user_id", user_id);
         map.put("email", email);
         map.put("name", name);
         return session.delete(namespace+"delete", map);
