@@ -1,8 +1,7 @@
 package com.project.WYW.service;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.catalina.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
