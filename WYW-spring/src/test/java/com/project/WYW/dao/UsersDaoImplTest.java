@@ -1,4 +1,4 @@
-package com.project.WYW;
+package com.project.WYW.dao;
 
 import static org.junit.Assert.assertTrue;
 
@@ -46,20 +46,20 @@ public class UsersDaoImplTest {
         UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010-1234-1234");
         assertTrue(usersDao.insert(usersDto)==1);
         String email = usersDao.selectAll().get(0).getEmail();
-        assertTrue(usersDao.delete(email, usersDto.getName())==1);
+        assertTrue(usersDao.delete(usersDto.getUser_id() ,email, usersDto.getName())==1);
         assertTrue(usersDao.count()==0);
 
         assertTrue(usersDao.insert(usersDto)==1);
         String name = usersDao.selectAll().get(0).getName();
-        assertTrue(usersDao.delete(usersDto.getEmail(), name)==1);
+        assertTrue(usersDao.delete(usersDto.getUser_id(), usersDto.getEmail(), name)==1);
         assertTrue(usersDao.count()==0);
 
         assertTrue(usersDao.insert(usersDto)==1);
         name = usersDao.selectAll().get(0).getName();
-        assertTrue(usersDao.delete(usersDto.getEmail(), name+"22")==0);
+        assertTrue(usersDao.delete(usersDto.getUser_id(), usersDto.getEmail(), name+"22")==0);
         assertTrue(usersDao.count()==1);
         
-        assertTrue(usersDao.delete(usersDto.getEmail(), name)==1);
+        assertTrue(usersDao.delete(usersDto.getUser_id(), usersDto.getEmail(), name)==1);
         assertTrue(usersDao.count()==0);
         
     }
@@ -107,6 +107,7 @@ public class UsersDaoImplTest {
 		usersDao.deleteAll();
 		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010-1234-1234");
 		assertTrue(usersDao.insert(usersDto)==1);
+
 	}
 	
 	@Test
