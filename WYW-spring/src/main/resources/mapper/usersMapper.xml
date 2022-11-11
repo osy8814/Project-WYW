@@ -27,7 +27,7 @@
     </delete>
     
     <delete id="delete" parameterType="map">
-        DELETE FROM users WHERE email = #{email} and name = #{name}
+        DELETE FROM users WHERE user_id = #{user_id} and email = #{email} and name = #{name} 
     </delete>
     
     <insert id="insert" parameterType="UsersDto">

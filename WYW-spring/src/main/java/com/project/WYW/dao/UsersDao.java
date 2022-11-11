@@ -14,10 +14,11 @@ public interface UsersDao {
 
 	int deleteAll();
 
-	int delete(String email, String user_id) throws Exception;
+	int delete(String user_id, String email, String name) throws Exception;
 
 	int insert(UsersDto dto) throws Exception;
 
 	int update(UsersDto dto) throws Exception;
+
 
 }
