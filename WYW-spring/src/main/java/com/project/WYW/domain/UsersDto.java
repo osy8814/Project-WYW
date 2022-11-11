@@ -3,6 +3,9 @@ package com.project.WYW.domain;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 public class UsersDto {
 
 	private int id;
@@ -10,7 +13,12 @@ public class UsersDto {
 	private String name;
 	private String password;
 	private String email;
+	
 	private String mobile;
+	private String mobile1;
+	private String mobile2;
+	private String mobile3;
+	
 	private String address;
 	private Date created_at;
 	private boolean is_admin;
@@ -26,6 +34,7 @@ public class UsersDto {
 	public void setUser_id(String user_id) {
 		this.user_id = user_id;
 	}
+		
 	public String getName() {
 		return name;
 	}
@@ -44,12 +53,40 @@ public class UsersDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@NotEmpty
 	public String getMobile() {
+		if(mobile1==""||mobile2==""||mobile3=="") {
+			mobile="";
+		}else {
+			mobile=mobile1+"-"+mobile2+"-"+mobile3;
+		}
 		return mobile;
 	}
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+		
+	public String getMobile1() {
+		return mobile1;
+	}
+	public void setMobile1(String mobile1) {
+		this.mobile1 = mobile1;
+	}
+	public String getMobile2() {
+		return mobile2;
+	}
+	public void setMobile2(String mobile2) {
+		this.mobile2 = mobile2;
+	}
+	public String getMobile3() {
+		return mobile3;
+	}
+	public void setMobile3(String mobile3) {
+		this.mobile3 = mobile3;
+	}
+	
+	
 	public String getAddress() {
 		return address;
 	}
@@ -71,19 +108,21 @@ public class UsersDto {
 	
 	public UsersDto() {}
 	
-	public UsersDto(String user_id, String name, String password, String email, String mobile) {
+	public UsersDto(String user_id, String name, String password, String email,String mobile1, String mobile2, String mobile3) {
 				
 		this.user_id = user_id;
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.mobile = mobile;
+		this.mobile1 = mobile1;
+		this.mobile2 = mobile2;
+		this.mobile3 = mobile3;
 		this.address = address;
 		this.created_at = created_at;
 		this.is_admin = is_admin;
 	}
 	
-	public UsersDto(int id, String user_id, String name, String password, String email, String mobile, String address,
+	public UsersDto(int id, String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3, String address,
 			Date created_at, boolean is_admin) {
 		
 		this.id = id;
@@ -91,7 +130,9 @@ public class UsersDto {
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.mobile = mobile;
+		this.mobile1 = mobile1;
+		this.mobile2 = mobile2;
+		this.mobile3 = mobile3;
 		this.address = address;
 		this.created_at = created_at;
 		this.is_admin = is_admin;
