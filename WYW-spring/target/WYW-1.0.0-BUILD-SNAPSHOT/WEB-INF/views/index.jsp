@@ -149,7 +149,5 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/mainSlide.js"></script>
-    <script src="js/search.js"></script>
-    <script src="js/navScroll.js"></script>
   </body>
 </html>
