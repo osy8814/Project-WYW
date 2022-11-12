@@ -95,6 +95,17 @@
                   </span>
                 </td>
               </tr>
+              <tr>
+                <th id="addrth">주소</th>
+                <td id="addrtd">
+                  <input type="text" id="sample6_postcode" placeholder="우편번호">
+                  <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                  <input type="text" id="sample6_address" placeholder="주소"><br>
+                  <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                  <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                </td>
+              </tr>
+
             </table>
           </div>
         </div>
@@ -952,13 +963,11 @@
       </form>
     </div>
 
-    <script src="${pageContext.request.contextPath}/js/termsChk.js"/>
     <jsp:include page="index_bottom.jsp" flush="false"/>
 
-    <script
-      src="https://kit.fontawesome.com/6478f529f2.js"
-      crossorigin="anonymous"
-    ></script>
-
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="${pageContext.request.contextPath}/js/addressAPI.js"></script>
+  <script src="${pageContext.request.contextPath}/js/termsChk.js"></script>
+  <script src="https://kit.fontawesome.com/6478f529f2.js" crossorigin="anonymous" ></script>
   </body>
 </html>

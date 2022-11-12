@@ -64,6 +64,21 @@ td {
   font-size: 10px;
 }
 
+/* 주소입력창 */
+#addrth {
+  height: 100px;
+}
+
+#addrtd input {
+  margin-bottom: 10px;
+
+}
+
+#sample6_address {
+  width: 352px;
+}
+
+
 /* 약관 */
 .signUpMain__register__terms {
   margin-top: 50px;
