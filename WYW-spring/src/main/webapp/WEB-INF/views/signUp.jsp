@@ -28,7 +28,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="user_id" id="info_id" />
+                  <input type="text" name="user_id" id="info_id" required/>
                   <span class="infoHint">(영문소문자/숫자, 4~16자)</span>
                 </td>
               </tr>
@@ -38,7 +38,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" name="password" id="info_pwd" />
+                  <input type="password" name="password" id="info_pwd" required/>
                   <span class="infoHint">
                     (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자 이상)
                   </span>
@@ -50,7 +50,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" id="info_pwdchk" />
+                  <input type="password" id="info_pwdchk" required/>
                 </td>
               </tr>
               <tr>
@@ -59,7 +59,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="name" id="info_name" />
+                  <input type="text" name="name" id="info_name" required/>
                 </td>
               </tr>
               <tr>
@@ -89,7 +89,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="email" name="email" id="info_email" />
+                  <input type="email" name="email" id="info_email" required/>
                   <span class="infoHint">
                     아이디/비밀번호 찾기에 활용됩니다. 정확히 입력해주세요.
                   </span>
