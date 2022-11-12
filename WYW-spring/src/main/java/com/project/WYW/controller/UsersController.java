@@ -5,8 +5,10 @@ import com.project.WYW.domain.UsersDto;
 import com.project.WYW.service.UsersSecvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
@@ -30,10 +32,11 @@ public class UsersController {
     }
 
     @PostMapping("/signup")
-    public String postSignup(@Valid UsersDto usersDto) throws Exception {
+    public String postSignup(@Valid UsersDto usersDto, Model m) throws Exception {
 
+        m.addAttribute(usersDto);
         usersSecvice.singUp(usersDto);
-        return "redirect:/signUp_complete";
+        return "signUp_complete";
     }
 
 
