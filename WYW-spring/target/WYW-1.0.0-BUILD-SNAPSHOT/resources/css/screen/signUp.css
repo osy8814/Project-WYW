@@ -182,7 +182,7 @@ td {
 
 .registerSubmit:hover {
   background-color: rgba(50, 52, 62, 0.2);
-  color: rgba(50, 52, 62, 1);
+  font-size: 18px;
   font-weight: bold;
 }
 
