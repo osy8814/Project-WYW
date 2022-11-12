@@ -28,7 +28,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="user_id" id="info_id" required/>
+                  <input type="text" name="user_id" id="info_id" minlength="4" maxlength="16" required/>
                   <span class="infoHint">(영문소문자/숫자, 4~16자)</span>
                 </td>
               </tr>
@@ -38,7 +38,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" name="password" id="info_pwd" required/>
+                  <input type="password" name="password" id="info_pwd" minlength="8" required/>
                   <span class="infoHint">
                     (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자 이상)
                   </span>
@@ -74,12 +74,16 @@
                     name="mobile2"
                     id="info_mobile2"
                     class="mobileCss"
+                    minlength="4"
+                    maxlength="4"
                   />
                   <input
                     type="text"
                     name="mobile3"
                     id="info_mobile3"
                     class="mobileCss"
+                    minlength="4"
+                    maxlength="4"
                   />
                 </td>
               </tr>
