@@ -54,7 +54,7 @@ public class UsersDto {
 		this.email = email;
 	}
 	
-	@NotEmpty
+	@NotNull
 	public String getMobile() {
 		if(mobile1==""||mobile2==""||mobile3=="") {
 			mobile="";
@@ -117,9 +117,7 @@ public class UsersDto {
 		this.mobile1 = mobile1;
 		this.mobile2 = mobile2;
 		this.mobile3 = mobile3;
-		this.address = address;
-		this.created_at = created_at;
-		this.is_admin = is_admin;
+
 	}
 	
 	public UsersDto(int id, String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3, String address,

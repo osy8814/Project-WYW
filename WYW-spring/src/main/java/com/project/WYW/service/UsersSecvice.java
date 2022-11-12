@@ -14,9 +14,9 @@ public interface UsersSecvice {
 
 	int remove(String user_id, String email, String name) throws Exception;
 	
-	int insert(UsersDto usersDto) throws Exception;
+	int singUp(UsersDto usersDto)throws Exception;
 
-	int modify(UsersDto usersDto) throws Exception;
+    int modify(UsersDto usersDto) throws Exception;
 
 
 }

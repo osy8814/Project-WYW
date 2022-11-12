@@ -37,7 +37,7 @@ public class UsersServiceImpl implements UsersSecvice {
 	}
 	
 	@Override
-	public int insert(UsersDto usersDto)throws Exception{
+	public int singUp(UsersDto usersDto)throws Exception{
 		return usersDao.insert(usersDto);
 	}
 	

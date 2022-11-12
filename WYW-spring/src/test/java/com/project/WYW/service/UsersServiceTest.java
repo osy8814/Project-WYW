@@ -26,7 +26,7 @@ public class UsersServiceTest {
 		usersDao.deleteAll();
 		for (int i = 1; i <= 20; i++) {
 			UsersDto usersDto = new UsersDto("id"+i, "name1", "1234", "aaa"+i+"@aaa.com", "010","1234","123"+i);
-			usersSecvice.insert(usersDto);	
+			usersSecvice.singUp(usersDto);
 		}
 		assertTrue(usersSecvice.getList().size()==20);
 	}
@@ -37,7 +37,7 @@ public class UsersServiceTest {
 		assertTrue(usersSecvice.getList().size()==0);
 		
 		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
-		assertTrue(usersSecvice.insert(usersDto)==1);
+		assertTrue(usersSecvice.singUp(usersDto)==1);
 		
 		String user_id = usersDao.selectAll().get(0).getUser_id();
 		String email = usersDao.selectAll().get(0).getEmail();
@@ -53,10 +53,10 @@ public class UsersServiceTest {
 	public void modifyTest() throws Exception{
 		usersDao.deleteAll();
 		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
-		assertTrue(usersSecvice.insert(usersDto)==1);
+		assertTrue(usersSecvice.singUp(usersDto)==1);
 		
 		UsersDto usersDto2 = new UsersDto("id2", "name2", "1234", "bbb@aaa.com", "010","1234","4321");
-		assertTrue(usersSecvice.insert(usersDto2)==1);
+		assertTrue(usersSecvice.singUp(usersDto2)==1);
 
 		assertTrue(usersSecvice.getList().size()==2);
 		
@@ -72,7 +72,7 @@ public class UsersServiceTest {
 		usersDao.deleteAll();
 		
 		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
-		assertTrue(usersSecvice.insert(usersDto)==1);
+		assertTrue(usersSecvice.singUp(usersDto)==1);
 		assertTrue(usersDao.selectAll().size()==1);
 		
 		String user_id = usersDao.selectAll().get(0).getUser_id();
@@ -81,7 +81,7 @@ public class UsersServiceTest {
 		
 		UsersDto usersDto2 = new UsersDto("id2", "name1", "1234", "bbb@aaa.com", "010","4321","4321");
 				
-		assertTrue(usersSecvice.insert(usersDto2)==1);
+		assertTrue(usersSecvice.singUp(usersDto2)==1);
 		assertTrue(usersSecvice.getCount()==2);
 		
 		assertTrue(usersSecvice.remove(user_id, email, name)==1);
