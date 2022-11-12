@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -15,7 +17,7 @@
     <jsp:include page="index_top.jsp" flush="false"/>
 
     <div class="signUpMain">
-      <form action="signUp_complete.html" class="signUpMain__register">
+      <form role="form" method="post" class="signUpMain__register">
         <div class="signUpMain__register__userInfo">
           <h1 class="signUpMain__register__userInfo-title">회원 정보</h1>
           <div class="signUpMain__register__userInfo__infomation">
@@ -26,7 +28,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="id" id="info_id" />
+                  <input type="text" name="user_id" id="info_id" />
                   <span class="infoHint">(영문소문자/숫자, 4~16자)</span>
                 </td>
               </tr>
@@ -36,7 +38,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" name="pwd" id="info_pwd" />
+                  <input type="password" name="password" id="info_pwd" />
                   <span class="infoHint">
                     (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자 이상)
                   </span>
@@ -48,7 +50,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" name="pwdchk" id="info_pwdchk" />
+                  <input type="password" id="info_pwdchk" />
                 </td>
               </tr>
               <tr>
@@ -63,7 +65,7 @@
               <tr>
                 <th>휴대전화</th>
                 <td>
-                  <select name="mobil1" id="info_mobile1" class="mobileCss">
+                  <select name="mobile1" id="info_mobile1" class="mobileCss">
                     <option value="010">010</option>
                     <option value="010">011</option>
                   </select>
@@ -945,11 +947,12 @@
             </div>
           </div>
         </div>
-        <button class="registerSubmit">회원가입</button>
+        <button type="submit" class="registerSubmit">회원가입</button>
         <span id="result"></span>
       </form>
     </div>
 
+    <script src="${pageContext.request.contextPath}/js/termsChk.js"/>
     <jsp:include page="index_bottom.jsp" flush="false"/>
 
     <script

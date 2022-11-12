@@ -66,16 +66,7 @@
                 이메일
               </h2>
             </div>
-            <div
-              class="signUp_complete_main_regist-info_infoSet-box infoSet-grade"
-            >
-              <h2 class="signUp_complete_main_regist-info_infoSet-grade-h">
-                등급
-              </h2>
-              <h2 class="signUp_complete_main_regist-info_infoSet-grade-d">
-                등급
-              </h2>
-            </div>
+
           </div>
           <form action="index.html">
             <button id="signup_confirm">확인</button>
