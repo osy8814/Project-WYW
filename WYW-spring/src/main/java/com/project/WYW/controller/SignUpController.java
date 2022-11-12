@@ -10,4 +10,10 @@ public class SignUpController {
 	public String signUp() {
 		return "signUp";
 	}
+	@GetMapping("/signUp_complete")
+	public String signUp_complete() {
+		return "signUp_complete";
+	}
+	//	임시매핑
+
 }
