@@ -1,0 +1,89 @@
+.mypage_main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 외부박스 */
+.mypage_main-outter {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  margin-bottom: 50px;
+}
+
+/* 페이지타이틀  */
+.mypage_main_title {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 3vmin;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+/* 내부박스 */
+.mypage_main_box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  padding: 30px 0;
+}
+.mypage_list {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  grid-auto-rows: minmax(250px, auto);
+  grid-gap: 10px;
+}
+.mypage_list div {
+  width: 200px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid rgba(50, 52, 62, 0.2);
+  border-radius: 5px;
+  color: rgba(50, 52, 62, 1);
+}
+.mypage_list div i {
+  font-size: 50px;
+}
+.mypage_list div h1 {
+  font-size: 20px;
+  font-weight: bold;
+}
+.mypage_list div h2 {
+  font-size: 15px;
+}
+.mypage_list div p {
+  font-size: 15px;
+  width: 90%;
+  text-align: center;
+}
+
+/* 미디어쿼리 */
+/* 미디어쿼리 */
+@media screen and (max-width: 900px) {
+  .mypage_main-outter {
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    margin: 40px 0;
+  }
+  .mypage_main_title {
+    font-size: 20px;
+  }
+}
