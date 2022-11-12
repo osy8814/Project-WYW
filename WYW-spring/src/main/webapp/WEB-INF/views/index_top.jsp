@@ -81,7 +81,7 @@
       src="https://kit.fontawesome.com/6478f529f2.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/search.js"></script>
-    <script src="js/navScroll.js"></script>
+    <script src="${pageContext.request.contextPath}/js/search.js"></script>
+    <script src="${pageContext.request.contextPath}/js/navScroll.js"></script>
   </body>
 </html>
