@@ -10,7 +10,7 @@ public class HomeController {
     public String index(){
         return "index";
 
-    }@GetMapping("/Introduce")
+    }@GetMapping("/introduce")
     public String Intro(){
         return "Introduce";
     }
