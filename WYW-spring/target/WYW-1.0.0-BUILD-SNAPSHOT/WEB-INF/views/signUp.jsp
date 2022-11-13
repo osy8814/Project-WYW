@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="img/WYWlogo.png" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
     <title>WYW</title>
     <style></style>
   </head>
@@ -29,7 +30,8 @@
                 </th>
                 <td>
                   <input type="text" name="user_id" id="info_id" minlength="4" maxlength="16" required/>
-                  <span class="infoHint">(영문소문자/숫자, 4~16자)</span>
+                  <span class="infoHint">(영어 대소문자/숫자, 4~16자)</span>
+                  <span class="idErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -40,8 +42,9 @@
                 <td>
                   <input type="password" name="password" id="info_pwd" minlength="8" required/>
                   <span class="infoHint">
-                    (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자 이상)
+                    (영어 대소문자/숫자/특수문자 조합, 8자 이상)
                   </span>
+                  <span class="pwdErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -50,7 +53,8 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" id="info_pwdchk" required/>
+                  <input type="password" name="chkPassword" id="info_pwdchk" required/>
+                  <span class="pwdChkErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -969,9 +973,84 @@
 
     <jsp:include page="index_bottom.jsp" flush="false"/>
 
+
   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
   <script src="${pageContext.request.contextPath}/js/addressAPI.js"></script>
   <script src="${pageContext.request.contextPath}/js/termsChk.js"></script>
   <script src="https://kit.fontawesome.com/6478f529f2.js" crossorigin="anonymous" ></script>
+  <script>
+    $("#info_id").keyup(function (){
+
+      let query = {user_id : $("#info_id").val()};
+      console.log(query);
+
+      $.ajax({
+        url : "${pageContext.request.contextPath}/Users/idChk",
+        type : "post",
+        data : query,
+        success : function(data){
+          console.log(data);
+          if(data==1){
+            $(".idErrorMsg").text("사용불가능한 ID입니다.");
+            $(".idErrorMsg").attr("style", "color:red");
+
+          }else{
+            $(".idErrorMsg").text("사용가능한 ID입니다.");
+            $(".idErrorMsg").attr("style", "color:blue");
+
+          }
+        }
+      });
+    });
+
+
+    $("#info_pwd").keyup(function (){
+
+      let query = {password : $("#info_pwd").val()};
+      console.log(query);
+
+      $.ajax({
+        url : "${pageContext.request.contextPath}/Users/pwdChk",
+        type : "post",
+        data : query,
+        success : function(data){
+          console.log(data);
+          if(data==1){
+            $(".pwdErrorMsg").text("요구패턴에 일치하지 않습니다.");
+            $(".pwdErrorMsg").attr("style", "color:red");
+
+          }else{
+            $(".pwdErrorMsg").text("사용가능한 비밀번호입니다.");
+            $(".pwdErrorMsg").attr("style", "color:blue");
+
+          }
+        }
+      });
+    });
+
+    $("#info_pwdchk").keyup(function (){
+
+      let query = {password : $("#info_pwd").val(), pwdchk : $("#info_pwdchk").val()};
+      console.log(query);
+
+      $.ajax({
+        url : "${pageContext.request.contextPath}/Users/pwdChk2",
+        type : "post",
+        data : query,
+        success : function(data){
+          console.log(data);
+          if(data==1){
+            $(".pwdChkErrorMsg").text("비밀번호가 일치하지 않습니다.");
+            $(".pwdChkErrorMsg").attr("style", "color:red");
+
+          }else{
+            $(".pwdChkErrorMsg").text("확인완료");
+            $(".pwdChkErrorMsg").attr("style", "color:blue");
+
+          }
+        }
+      });
+    });
+  </script>
   </body>
 </html>

@@ -77,7 +77,12 @@ td {
 #sample6_address {
   width: 352px;
 }
-
+/*id중복체크 메시지*/
+.idErrorMsg,
+.pwdErrorMsg{
+  font-size: 12px;
+  font-weight: bold;
+}
 
 /* 약관 */
 .signUpMain__register__terms {
@@ -180,11 +185,6 @@ td {
   transition: 0.3s ease-in-out;
 }
 
-.registerSubmit:hover {
-  background-color: rgba(50, 52, 62, 0.2);
-  font-size: 18px;
-  font-weight: bold;
-}
 
 /* 체크박스CSS */
 .signUpMain__register input[type="checkbox"] {
