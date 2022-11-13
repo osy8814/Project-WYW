@@ -63,7 +63,7 @@ public class UsersDto {
 		this.email = email;
 	}
 	
-	@NotNull
+
 	public String getMobile() {
 		if(mobile1==""||mobile2==""||mobile3=="") {
 			mobile="";

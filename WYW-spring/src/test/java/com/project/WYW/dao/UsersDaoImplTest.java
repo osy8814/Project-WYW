@@ -30,7 +30,7 @@ public class UsersDaoImplTest {
 		assertTrue(usersDao.insert(usersDto)==1);
 		assertTrue(usersDao.deleteAll()==1);
 		assertTrue(usersDao.count()==0);
-				
+
 		assertTrue(usersDao.insert(usersDto)==1);
 		usersDto = new UsersDto("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 		assertTrue(usersDao.deleteAll()==1);
@@ -105,7 +105,30 @@ public class UsersDaoImplTest {
 		
 		usersDao.deleteAll();
 		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		System.out.println("usersDto = " + usersDto);
 		assertTrue(usersDao.insert(usersDto)==1);
+
+		//mobile중복
+		usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		usersDto.setUser_id("id2");
+		usersDto.setEmail("bbb@bbb.com");
+		assertTrue(usersDao.insert(usersDto)!=1);
+
+		//email중복
+		usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		usersDto.setUser_id("id2");
+		usersDto.setMobile1("010");
+		usersDto.setMobile2("4321");
+		usersDto.setMobile3("4321");
+		assertTrue(usersDao.insert(usersDto)!=1);
+
+		//id중복
+		usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		usersDto.setMobile1("010");
+		usersDto.setMobile2("4321");
+		usersDto.setMobile3("4321");
+		usersDto.setEmail("bbb@bbb.com");
+		assertTrue(usersDao.insert(usersDto)!=1);
 
 	}
 	

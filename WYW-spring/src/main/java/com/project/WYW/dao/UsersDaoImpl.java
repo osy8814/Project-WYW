@@ -13,7 +13,8 @@ import com.project.WYW.domain.UsersDto;
 
 @Repository
 public class UsersDaoImpl implements UsersDao {
-	
+
+	final int FAIL = 0;
 	@Autowired
 	private SqlSession session;
 	private static String namespace="com.project.WYW.dao.usersMapper.";
@@ -44,17 +45,42 @@ public class UsersDaoImpl implements UsersDao {
         map.put("user_id", user_id);
         map.put("email", email);
         map.put("name", name);
-        return session.delete(namespace+"delete", map);
+		int rowCnt;
+
+		try {
+		rowCnt = session.delete(namespace+"delete", map);
+
+		}catch(Exception e){
+			e.printStackTrace();
+			return FAIL;
+		}
+        return rowCnt;
     }
 	
 	@Override
 	public int insert(UsersDto dto) throws Exception {
-        return session.insert(namespace+"insert", dto);
+		int rowCnt;
+
+		try {
+			rowCnt = session.insert(namespace+"insert", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			return FAIL;
+		}
+        return rowCnt;
     }
 
 	@Override
     public int update(UsersDto dto) throws Exception {
-        return session.update(namespace+"update", dto);
+		int rowCnt;
+
+		try {
+			rowCnt = session.update(namespace+"update", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			return FAIL;
+		}
+        return rowCnt;
     }
 	
 }
