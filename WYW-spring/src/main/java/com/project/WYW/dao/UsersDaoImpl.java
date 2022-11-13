@@ -4,16 +4,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.WYW.domain.Users;
+import com.project.WYW.domain.UsersDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.project.WYW.domain.UsersDto;
 
 
 @Repository
 public class UsersDaoImpl implements UsersDao {
-	
+
+	final int FAIL = 0;
 	@Autowired
 	private SqlSession session;
 	private static String namespace="com.project.WYW.dao.usersMapper.";
@@ -29,8 +31,8 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public UsersDto select(String user_id) throws Exception{
-		return session.selectOne(namespace+"select", user_id);
+	public UsersDto select(String userId) throws Exception{
+		return session.selectOne(namespace+"select", userId);
 	}
 	
 	@Override
@@ -39,22 +41,47 @@ public class UsersDaoImpl implements UsersDao {
     }
 	
 	@Override
-	public int delete(String user_id, String email, String name) throws Exception {
+	public int delete(String userId, String email, String name) throws Exception {
         Map map = new HashMap();
-        map.put("user_id", user_id);
+        map.put("user_id", userId);
         map.put("email", email);
         map.put("name", name);
-        return session.delete(namespace+"delete", map);
+		int rowCnt;
+
+		try {
+		rowCnt = session.delete(namespace+"delete", map);
+
+		}catch(Exception e){
+			e.printStackTrace();
+			return FAIL;
+		}
+        return rowCnt;
     }
 	
 	@Override
 	public int insert(UsersDto dto) throws Exception {
-        return session.insert(namespace+"insert", dto);
+		int rowCnt;
+
+		try {
+			rowCnt = session.insert(namespace+"insert", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			return FAIL;
+		}
+        return rowCnt;
     }
 
 	@Override
     public int update(UsersDto dto) throws Exception {
-        return session.update(namespace+"update", dto);
+		int rowCnt;
+
+		try {
+			rowCnt = session.update(namespace+"update", dto);
+		}catch(Exception e){
+			e.printStackTrace();
+			return FAIL;
+		}
+        return rowCnt;
     }
 	
 }

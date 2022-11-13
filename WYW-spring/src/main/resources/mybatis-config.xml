@@ -5,6 +5,6 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="UsersDto" type="com.project.WYW.domain.UsersDto"/>
-        
+        <typeAlias alias="Users" type="com.project.WYW.domain.Users"/>
     </typeAliases>
 </configuration>

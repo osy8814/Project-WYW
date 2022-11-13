@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
 <html lang="kr">
   <head>
@@ -7,70 +9,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="img/WYWlogo.png" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+    <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
     <title>WYW</title>
     <style></style>
   </head>
 
-  <body>
-    <div class="top-loginSet">
-      <ul id="top-loginSet-list">
-        <li><a href="login.html">Login</a></li>
-        <li><a href="signUp.html">SignUp</a></li>
-        <li><a href="mypage.html">My Page</a></li>
-      </ul>
-      <div id="top-loginSet__iconSet">
-        <a href="#"
-          ><i class="fas fa-search"></i>
-          <form action="#">
-            <input
-              type="text"
-              class="hidden"
-              id="search"
-              name="search"
-              placeholder="검색어를 입력하세요."
-            />
-          </form>
-        </a>
-        <!-- <a href="#"><i class="fas fa-bars"></i></a> -->
-      </div>
-    </div>
-    <div class="logoSet">
-      <h1 class="logoSet__title">
-        <a href="index.html">
-          <div class="logoSet__logo"></div>
-          <strong style="color: #32343e; margin-left: 15px">W</strong>HAT
-          <strong style="color: #32343e; margin-left: 15px">Y</strong>OU
-          <strong style="color: #32343e; margin-left: 15px">W</strong>ANT
-        </a>
-      </h1>
-    </div>
-    <div class="nav">
-      <ul class="nav__topNav" id="topNav">
-        <li>
-          <a href="#">COMPANY</a>
-          <ul id="CompanyList">
-            <li><a href="Introduce.html">INTRODUCE</a></li>
-            <li><a href="#">LOCATION</a></li>
-          </ul>
-        </li>
-        <li>
-          <a href="#">SHOP</a>
-          <ul id="ShopList">
-            <li><a href="#">NEW</a></li>
-            <li><a href="#">BEST</a></li>
-            <li><a href="#">BEDROOM</a></li>
-            <li><a href="#">KITCHEN</a></li>
-            <li><a href="#">BATHROOM</a></li>
-          </ul>
-        </li>
-        <li><a href="#">GALLERY</a></li>
-        <li><a href="#">COMMUNITY</a></li>
-      </ul>
-    </div>
+    <jsp:include page="index_top.jsp" flush="false"/>
 
     <div class="signUpMain">
-      <form action="signUp_complete.html" class="signUpMain__register">
+      <form role="form" method="post" class="signUpMain__register">
         <div class="signUpMain__register__userInfo">
           <h1 class="signUpMain__register__userInfo-title">회원 정보</h1>
           <div class="signUpMain__register__userInfo__infomation">
@@ -81,8 +29,9 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="id" id="info_id" />
-                  <span class="infoHint">(영문소문자/숫자, 4~16자)</span>
+                  <input type="text" name="user_id" id="info_id" minlength="4" maxlength="16" required/>
+                  <span class="infoHint">(영어 대소문자/숫자, 4~16자)</span>
+                  <span class="idErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -91,10 +40,11 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" name="pwd" id="info_pwd" />
+                  <input type="password" name="password" id="info_pwd" minlength="8" required/>
                   <span class="infoHint">
-                    (영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 8자 이상)
+                    (영어 대소문자/숫자/특수문자 조합, 8자 이상)
                   </span>
+                  <span class="pwdErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -103,7 +53,8 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="password" name="pwdchk" id="info_pwdchk" />
+                  <input type="password" name="chkPassword" id="info_pwdchk" required/>
+                  <span class="pwdChkErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -112,13 +63,13 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="name" id="info_name" />
+                  <input type="text" name="name" id="info_name" required/>
                 </td>
               </tr>
               <tr>
                 <th>휴대전화</th>
                 <td>
-                  <select name="mobil1" id="info_mobile1" class="mobileCss">
+                  <select name="mobile1" id="info_mobile1" class="mobileCss">
                     <option value="010">010</option>
                     <option value="010">011</option>
                   </select>
@@ -127,12 +78,16 @@
                     name="mobile2"
                     id="info_mobile2"
                     class="mobileCss"
+                    minlength="4"
+                    maxlength="4"
                   />
                   <input
                     type="text"
                     name="mobile3"
                     id="info_mobile3"
                     class="mobileCss"
+                    minlength="4"
+                    maxlength="4"
                   />
                 </td>
               </tr>
@@ -142,12 +97,23 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="email" name="email" id="info_email" />
+                  <input type="email" name="email" id="info_email" required/>
                   <span class="infoHint">
                     아이디/비밀번호 찾기에 활용됩니다. 정확히 입력해주세요.
                   </span>
                 </td>
               </tr>
+              <tr>
+                <th id="addrth">주소</th>
+                <td id="addrtd">
+                  <input type="text" id="sample6_postcode" placeholder="우편번호">
+                  <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                  <input type="text" id="sample6_address" placeholder="주소"><br>
+                  <input type="text" id="sample6_detailAddress" placeholder="상세주소">
+                  <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                </td>
+              </tr>
+
             </table>
           </div>
         </div>
@@ -1000,61 +966,19 @@
             </div>
           </div>
         </div>
-        <button class="registerSubmit">회원가입</button>
+        <button type="submit" class="registerSubmit">회원가입</button>
         <span id="result"></span>
       </form>
     </div>
 
-    <div class="bottomNavBox">
-      <div class="bottomNavBox__navBox">
-        <ul class="bottomNavBox__navBox-nav">
-          <li><a href="index.html">HOME</a></li>
-          <li>|</li>
-          <li><a href="">AGREEMENT</a></li>
-          <li>|</li>
-          <li><a href="">PRIVACY</a></li>
-          <li>|</li>
-          <li><a href="">GUIDE</a></li>
-        </ul>
-      </div>
-      <div class="bottomNavBox__main">
-        <div class="bottomNavBox__main__box Customer">
-          <h3 class="bottomNavBox__main__box-title">customer center</h3>
-          <h1 class="bottomNavBox__main__box-number">010-1234-1234</h1>
-          <p class="bottomNavBox__main__box-script">
-            평일,토요일 : Am 07:00 ~ Pm 06:00<br />
-            일요일,공휴일은 휴무입니다.
-          </p>
-        </div>
-        <div class="bottomNavBox__main__box Banking">
-          <h3 class="bottomNavBox__main__box-title">banking account</h3>
-          <h1 class="bottomNavBox__main__box-number">352-0000-0000-00</h1>
-          <p class="bottomNavBox__main__box-script">농협/000</p>
-          <h1 class="bottomNavBox__main__box-number">352-0000-0000-00</h1>
-          <p class="bottomNavBox__main__box-script">농협/000</p>
-        </div>
-        <div class="bottomNavBox__main__box Cominfo">
-          <h3 class="bottomNavBox__main__box-title">Company info</h3>
-          <p class="bottomNavBox__main__box-script">COMPANY : S.Y.H</p>
-          <p class="bottomNavBox__main__box-script">CALL : 043-123-4567</p>
-          <p class="bottomNavBox__main__box-script">EMAIL : SYH@gmail.com</p>
-          <p class="bottomNavBox__main__box-script">ADRESS :</p>
-          <p class="bottomNavBox__main__box-script">
-            BUSINESS NUMBER : 301-20-00123
-          </p>
-        </div>
-      </div>
-      <div class="copy">
-        <p class="copyScript">Copyright(c) S.Y.H all rights reserved.</p>
-      </div>
-    </div>
-    <script
-      src="https://kit.fontawesome.com/6478f529f2.js"
-      crossorigin="anonymous"
-    ></script>
+    <jsp:include page="index_bottom.jsp" flush="false"/>
 
-    <script src="js/search.js"></script>
-    <script src="js/navScroll.js"></script>
-    <script src="js/termsChk.js"></script>
+
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="${pageContext.request.contextPath}/js/addressAPI.js"></script>
+  <script src="${pageContext.request.contextPath}/js/termsChk.js"></script>
+  <script src="https://kit.fontawesome.com/6478f529f2.js" crossorigin="anonymous" ></script>
+  <script src="${pageContext.request.contextPath}/js/ValiUsers.js"></script>
+
   </body>
 </html>

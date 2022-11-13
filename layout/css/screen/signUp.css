@@ -60,8 +60,23 @@ td {
   padding-left: 10px;
 }
 
+
 .infoHint {
   font-size: 10px;
+}
+
+/* 주소입력창 */
+#addrth {
+  height: 100px;
+}
+
+#addrtd input {
+  margin-bottom: 10px;
+
+}
+
+#sample6_address {
+  width: 352px;
 }
 
 /* 약관 */
@@ -130,7 +145,8 @@ td {
   padding-left: 10px;
   border: 1px solid rgba(50, 52, 62, 0.5);
 }
-.terms__descriptionbox > p {
+
+.terms__descriptionbox>p {
   font-size: 15px;
 }
 
@@ -142,12 +158,12 @@ td {
   font-size: 13px;
 }
 
-.agreeChk > label {
+.agreeChk>label {
   display: flex;
   align-items: center;
 }
 
-.agreeChk > label > input {
+.agreeChk>label>input {
   width: 20px;
   height: 20px;
   margin-left: 20px;
@@ -182,6 +198,7 @@ td {
     margin-top: 2px;
     display: block;
   }
+
   .signUpMain__register__userInfo-title,
   .signUpMain__register__terms-title {
     font-size: 20px;
@@ -202,7 +219,7 @@ td {
     line-height: 1.5;
   }
 
-  .terms__descriptionbox > p {
+  .terms__descriptionbox>p {
     font-size: 12px;
   }
 }

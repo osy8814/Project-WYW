@@ -15,6 +15,7 @@ build/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+!WYW-project/WYW-spring/target
 
 ### IntelliJ IDEA ###
 .idea
@@ -34,3 +35,5 @@ out/
 
 ### VS Code ###
 .vscode/
+
+
