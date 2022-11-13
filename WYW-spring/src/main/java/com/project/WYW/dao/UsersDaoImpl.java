@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.project.WYW.domain.Users;
+import com.project.WYW.domain.UsersDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.project.WYW.domain.UsersDto;
 
 
 @Repository
@@ -30,8 +31,8 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public UsersDto select(String user_id) throws Exception{
-		return session.selectOne(namespace+"select", user_id);
+	public UsersDto select(String userId) throws Exception{
+		return session.selectOne(namespace+"select", userId);
 	}
 	
 	@Override
@@ -40,9 +41,9 @@ public class UsersDaoImpl implements UsersDao {
     }
 	
 	@Override
-	public int delete(String user_id, String email, String name) throws Exception {
+	public int delete(String userId, String email, String name) throws Exception {
         Map map = new HashMap();
-        map.put("user_id", user_id);
+        map.put("user_id", userId);
         map.put("email", email);
         map.put("name", name);
 		int rowCnt;

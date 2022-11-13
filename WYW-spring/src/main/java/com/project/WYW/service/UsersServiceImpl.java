@@ -2,18 +2,18 @@ package com.project.WYW.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.WYW.domain.Users;
+import com.project.WYW.domain.UsersDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.project.WYW.dao.UsersDao;
-import com.project.WYW.domain.UsersDto;
 
 @Service
+@RequiredArgsConstructor
 public class UsersServiceImpl implements UsersSecvice {
 
-	@Autowired
-	UsersDao usersDao;
+	final UsersDao usersDao;
 	
 	@Override
 	public int getCount() throws Exception{
@@ -26,23 +26,22 @@ public class UsersServiceImpl implements UsersSecvice {
 	}
 	
 	@Override
-	public UsersDto read(String user_id)throws Exception{
+	public UsersDto read(String user_id) throws Exception{
 		return usersDao.select(user_id);
 	}
 	
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public int remove(String user_id, String email, String name)throws Exception{
+	public int remove(String user_id, String email, String name) throws Exception{
 		return usersDao.delete(user_id, email, name);
 	}
 	
 	@Override
-	public int singUp(UsersDto usersDto)throws Exception{
+	public int singUp(UsersDto usersDto) throws Exception{
 		return usersDao.insert(usersDto);
 	}
 	
 	@Override
-	public int modify(UsersDto usersDto)throws Exception{
+	public int modify(UsersDto usersDto) throws Exception{
 		return usersDao.update(usersDto);
 	}
 }

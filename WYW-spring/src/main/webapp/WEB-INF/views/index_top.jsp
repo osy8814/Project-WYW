@@ -16,8 +16,8 @@
   <body>
     <div class="top-loginSet">
       <ul id="top-loginSet-list">
-        <li><a href="<c:url value='/Users/login'/>">Login</a></li>
-        <li><a href="<c:url value='/Users/signup'/>">SignUp</a></li>
+        <li><a href="<c:url value='/users/login'/>">Login</a></li>
+        <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
         <li><a href="mypage.html">My Page</a></li>
       </ul>
       <div id="top-loginSet__iconSet">
@@ -38,7 +38,7 @@
     </div>
     <div class="logoSet">
       <h1 class="logoSet__title">
-        <a href="index.html">
+        <a href="${pageContext.request.contextPath}">
           <div class="logoSet__logo"></div>
           <strong style="color: #32343e; margin-left: 15px">W</strong>HAT
           <strong style="color: #32343e; margin-left: 15px">Y</strong>OU

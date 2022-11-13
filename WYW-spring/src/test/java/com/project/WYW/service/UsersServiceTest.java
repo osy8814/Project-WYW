@@ -2,6 +2,7 @@ package com.project.WYW.service;
 
 import static org.junit.Assert.assertTrue;
 
+import com.project.WYW.domain.Users;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class UsersServiceTest {
 	
 		usersDto.setUser_id(user_id);
 		usersDto.setEmail(email);
-		UsersDto usersDto2 = usersSecvice.read(user_id); 
+		UsersDto usersDto2 = usersSecvice.read(user_id);
 		
 		assertTrue(usersDto.equals(usersDto2));
 	}

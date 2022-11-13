@@ -1,8 +1,11 @@
 package com.project.WYW.dao;
 
+import com.project.WYW.domain.Users;
+import com.project.WYW.domain.UsersDto;
+
+
 import java.util.List;
 
-import com.project.WYW.domain.UsersDto;
 
 public interface UsersDao {
 
@@ -10,7 +13,7 @@ public interface UsersDao {
 
 	List<UsersDto> selectAll() throws Exception;
 
-	UsersDto select(String user_id) throws Exception;
+	UsersDto select(String userId) throws Exception;
 
 	int deleteAll();
 
@@ -19,6 +22,4 @@ public interface UsersDao {
 	int insert(UsersDto dto) throws Exception;
 
 	int update(UsersDto dto) throws Exception;
-
-
 }

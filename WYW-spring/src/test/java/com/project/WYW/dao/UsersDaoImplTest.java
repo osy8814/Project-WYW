@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import com.project.WYW.domain.Users;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,11 @@ public class UsersDaoImplTest {
 
 		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersDto)==1);
+		System.out.println("list" + usersDao.selectAll());
         String email = usersDao.selectAll().get(0).getEmail();
+		System.out.println("getUser_id = " + usersDto.getUser_id());
+		System.out.println("email = " + email);
+		System.out.println("getName = " + usersDto.getName());
         assertTrue(usersDao.delete(usersDto.getUser_id() ,email, usersDto.getName())==1);
         assertTrue(usersDao.count()==0);
 
@@ -94,7 +99,7 @@ public class UsersDaoImplTest {
 
         String user_id = usersDao.selectAll().get(0).getUser_id();
         usersDto.setUser_id(user_id);
-        UsersDto usersDto2 = usersDao.select(user_id);
+		UsersDto usersDto2 = usersDao.select(user_id);
         System.out.println("usersDto : " + usersDto);
         System.out.println("usersDto2 : " + usersDto2);
         assertTrue(usersDto.equals(usersDto2));
@@ -164,7 +169,7 @@ public class UsersDaoImplTest {
         
         assertTrue(usersDao.update(usersDto)==1);
 
-        UsersDto usersDto2 = usersDao.select(user_id);
+		UsersDto usersDto2 = usersDao.select(user_id);
         System.out.println("usersDto : " + usersDto);
         System.out.println("usersDto2 : " + usersDto2);
         assertTrue(usersDto.equals(usersDto2));
