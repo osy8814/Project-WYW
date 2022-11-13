@@ -22,4 +22,8 @@ public interface UsersDao {
 	int insert(UsersDto dto) throws Exception;
 
 	int update(UsersDto dto) throws Exception;
+
+	UsersDto emailChk(String email) throws Exception;
+
+	UsersDto mobileChk(String mobile) throws Exception;
 }

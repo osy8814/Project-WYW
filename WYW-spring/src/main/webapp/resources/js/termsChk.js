@@ -19,7 +19,7 @@ function allchk() {
       termsChkBoxs[i].checked = false;
     }
   }
-  // reqChk();
+  reqChk();
 };
 
 //천체 동의체크박스가 'Change'될 때 이벤트;
@@ -38,24 +38,16 @@ function allUnChk() {
     allChkBox.checked = false;
 
    }
-  // reqChk();
+  reqChk();
 
   }
 
 };
 
-// reqChk();
-//
-// function reqChk(){
-//   if(!agree1.checked || !agree2.checked){
-//     signupBtn.style.backgroundColor = "gray";
-//     signupBtn.disabled = true;
-//
-//   }else if(agree1.checked && agree2.checked){
-//     signupBtn.style.backgroundColor = `rgb(50, 52, 62)`;
-//     signupBtn.disabled = false;
-//   }
-//   if(agree1.checked && agree2.checked && agree3.checked) {
-//     allChkBox.checked = true;
-//   }
-// }
+reqChk();
+
+function reqChk(){
+  if(agree1.checked && agree2.checked && agree3.checked) {
+    allChkBox.checked = true;
+  }
+}

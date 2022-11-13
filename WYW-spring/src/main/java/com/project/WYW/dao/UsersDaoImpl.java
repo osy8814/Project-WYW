@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.project.WYW.domain.Users;
 import com.project.WYW.domain.UsersDto;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,5 +82,14 @@ public class UsersDaoImpl implements UsersDao {
 		}
         return rowCnt;
     }
-	
+
+	@Override
+	public UsersDto emailChk(String email) throws Exception{
+		return session.selectOne(namespace+"emailChk", email);
+	}
+
+	@Override
+	public UsersDto mobileChk(String mobile) throws Exception{
+		return session.selectOne(namespace+"mobileChk", mobile);
+	}
 }

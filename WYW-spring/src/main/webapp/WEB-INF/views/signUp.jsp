@@ -89,6 +89,7 @@
                     minlength="4"
                     maxlength="4"
                   />
+                  <span class="mobileErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -101,6 +102,7 @@
                   <span class="infoHint">
                     아이디/비밀번호 찾기에 활용됩니다. 정확히 입력해주세요.
                   </span>
+                  <span class="emailErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -966,7 +968,7 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="registerSubmit">회원가입</button>
+        <button type="submit" class="registerSubmit" disabled>회원가입</button>
         <span id="result"></span>
       </form>
     </div>

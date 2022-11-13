@@ -80,7 +80,9 @@ td {
 /*id중복체크 메시지*/
 .idErrorMsg,
 .pwdErrorMsg,
-.pwdChkErrorMsg{
+.pwdChkErrorMsg,
+.emailErrorMsg,
+.mobileErrorMsg{
   font-size: 12px;
   font-weight: bold;
 }

@@ -18,4 +18,8 @@ public interface UsersSecvice {
 	int singUp(UsersDto usersDto)throws Exception;
 
     int modify(UsersDto usersDto) throws Exception;
+
+    UsersDto emailChk(String email) throws Exception;
+
+	UsersDto mobileChk(String mobile) throws Exception;
 }

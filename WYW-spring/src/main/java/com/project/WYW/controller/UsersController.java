@@ -66,4 +66,33 @@ public class UsersController {
         return 0;
     }
 
+    @ResponseBody
+    @PostMapping("/emailChk")
+    public int emailChk(HttpServletRequest request) throws Exception{
+        String email = request.getParameter("email");
+        UsersDto usersDto = usersSecvice.emailChk(email);
+
+        if(usersDto!=null){
+            return 1;
+        }
+        return 0;
+    }
+
+    @ResponseBody
+    @PostMapping("/mobileChk")
+    public int mobileChk(HttpServletRequest request) throws Exception{
+        String mobile1 = request.getParameter("mobile1");
+        String mobile2 = request.getParameter("mobile2");
+        String mobile3 = request.getParameter("mobile3");
+        String mobile = mobile1+"-"+mobile2+"-"+mobile3;
+
+        System.out.println("mobile = " + mobile);
+
+        UsersDto usersDto = usersSecvice.mobileChk(mobile);
+
+        if(usersDto!=null){
+            return 1;
+        }
+        return 0;
+    }
 }

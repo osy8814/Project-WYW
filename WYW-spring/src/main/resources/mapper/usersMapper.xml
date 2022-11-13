@@ -21,6 +21,17 @@
         <include refid="selectFromUser"/>
         WHERE user_id = #{user_id}
     </select>
+
+    <select id="emailChk" parameterType="String" resultType="UsersDto">
+        <include refid="selectFromUser"/>
+        WHERE email = #{email}
+    </select>
+
+    <select id="mobileChk" parameterType="String" resultType="UsersDto">
+        <include refid="selectFromUser"/>
+        WHERE mobile = #{mobile}
+    </select>
+
     
     <delete id="deleteAll">
         DELETE FROM users

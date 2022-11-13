@@ -2,7 +2,6 @@ package com.project.WYW.service;
 
 import java.util.List;
 
-import com.project.WYW.domain.Users;
 import com.project.WYW.domain.UsersDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -43,5 +42,14 @@ public class UsersServiceImpl implements UsersSecvice {
 	@Override
 	public int modify(UsersDto usersDto) throws Exception{
 		return usersDao.update(usersDto);
+	}
+
+	@Override
+	public UsersDto emailChk(String email) throws Exception{
+		return usersDao.emailChk(email);
+	}
+	@Override
+	public UsersDto mobileChk(String mobile) throws Exception{
+		return usersDao.mobileChk(mobile);
 	}
 }
