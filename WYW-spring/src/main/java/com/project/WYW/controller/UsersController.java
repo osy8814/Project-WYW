@@ -6,12 +6,11 @@ import com.project.WYW.service.UsersSecvice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -23,8 +22,47 @@ public class UsersController {
     final UsersDao dao;
 
     @GetMapping("/login")
-    public String login() throws Exception{
+    public String getLogin() throws Exception{
         return "login";
+    }
+
+    @PostMapping ("/login")
+    public String postLogin(UsersDto usersDto, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+
+
+        UsersDto loginUser = null;
+        String loginUserPwd = null;
+        String inputPass = null;
+        HttpSession session = req.getSession();
+        try {
+            loginUser = usersSecvice.login(usersDto.getUser_id());
+            loginUserPwd = loginUser.getPassword();
+            inputPass = usersDto.getPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("loggedInUser", null);
+            rttr.addFlashAttribute("inputId",usersDto.getUser_id());
+            rttr.addFlashAttribute("msg", false);
+            return "redirect:/users/login";
+        }
+
+        if(loginUserPwd.equals(inputPass)){
+            session.setAttribute("loggedInUser", loginUser);
+        }else{
+            session.setAttribute("loggedInUser", null);
+            rttr.addFlashAttribute("msg", false);
+            return "redirect:/users/login";
+        }
+
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) throws Exception{
+        session.invalidate();
+
+        return "redirect:/";
     }
 
     @GetMapping("/signup")

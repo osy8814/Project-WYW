@@ -38,6 +38,11 @@ public class UsersServiceImpl implements UsersSecvice {
 	public int singUp(UsersDto usersDto) throws Exception{
 		return usersDao.insert(usersDto);
 	}
+
+	@Override
+	public UsersDto login(String user_id) throws Exception{
+		return usersDao.login(user_id);
+	}
 	
 	@Override
 	public int modify(UsersDto usersDto) throws Exception{

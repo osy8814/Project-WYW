@@ -22,6 +22,11 @@
         WHERE user_id = #{user_id}
     </select>
 
+    <select id="login" parameterType="String" resultType="UsersDto">
+        <include refid="selectFromUser"/>
+        WHERE user_id = #{user_id}
+    </select>
+
     <select id="emailChk" parameterType="String" resultType="UsersDto">
         <include refid="selectFromUser"/>
         WHERE email = #{email}

@@ -33,6 +33,12 @@ public class UsersDaoImpl implements UsersDao {
 	public UsersDto select(String userId) throws Exception{
 		return session.selectOne(namespace+"select", userId);
 	}
+
+	@Override
+	public UsersDto login(String userId) throws Exception{
+		return session.selectOne(namespace+"select", userId);
+	}
+
 	
 	@Override
 	public int deleteAll() {

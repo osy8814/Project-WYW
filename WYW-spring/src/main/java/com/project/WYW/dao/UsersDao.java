@@ -15,7 +15,9 @@ public interface UsersDao {
 
 	UsersDto select(String userId) throws Exception;
 
-	int deleteAll();
+    UsersDto login(String userId) throws Exception;
+
+    int deleteAll();
 
 	int delete(String user_id, String email, String name) throws Exception;
 

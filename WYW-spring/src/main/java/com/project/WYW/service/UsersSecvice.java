@@ -17,6 +17,8 @@ public interface UsersSecvice {
 	
 	int singUp(UsersDto usersDto)throws Exception;
 
+	UsersDto login(String user_id) throws Exception;
+
     int modify(UsersDto usersDto) throws Exception;
 
     UsersDto emailChk(String email) throws Exception;

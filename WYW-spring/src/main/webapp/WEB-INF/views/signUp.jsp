@@ -111,7 +111,7 @@
                   <input type="text"  name="API_postcode" id="API_postcode" placeholder="우편번호">
                   <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                   <input type="text"  name="API_address" id="API_address" placeholder="주소"><br>
-                  <input type="text"  name="API_detailAddress id="API_detailAddress" placeholder="상세주소">
+                  <input type="text"  name="API_detailAddress" id="API_detailAddress" placeholder="상세주소">
                   <input type="text"  name="API_extraAddress" id="API_extraAddress" placeholder="참고항목">
                 </td>
               </tr>
@@ -968,8 +968,8 @@
             </div>
           </div>
         </div>
+        <span style="font-weight: bold; font-size: 12px; margin-top: 20px">* 가입조건이 만족되면 버튼이 활성화 됩니다.</span>
         <button type="submit" class="registerSubmit" disabled>회원가입</button>
-        <span id="result"></span>
       </form>
     </div>
 
