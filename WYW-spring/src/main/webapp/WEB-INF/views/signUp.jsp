@@ -18,7 +18,7 @@
     <jsp:include page="index_top.jsp" flush="false"/>
 
     <div class="signUpMain">
-      <form role="form" method="post" class="signUpMain__register">
+      <form role="form" method="post" onsubmit="return confirm('회원가입 하시겠습니까?');" class="signUpMain__register">
         <div class="signUpMain__register__userInfo">
           <h1 class="signUpMain__register__userInfo-title">회원 정보</h1>
           <div class="signUpMain__register__userInfo__infomation">
@@ -125,7 +125,7 @@
             <div class="signUpMain__register__terms__inner">
               <div class="signUpMain__register__terms__inner__selectAll">
                 <label for="selectAll">
-                  <input type="checkbox" id="selectAll" name="selectAll" />
+                  <input type="checkbox" class="chkbox" id="selectAll" name="selectAll" />
                   이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에 모두
                   동의합니다.
                 </label>

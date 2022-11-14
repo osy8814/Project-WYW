@@ -86,8 +86,6 @@ public class UsersController {
         String mobile3 = request.getParameter("mobile3");
         String mobile = mobile1+"-"+mobile2+"-"+mobile3;
 
-        System.out.println("mobile = " + mobile);
-
         UsersDto usersDto = usersSecvice.mobileChk(mobile);
 
         if(usersDto!=null){
