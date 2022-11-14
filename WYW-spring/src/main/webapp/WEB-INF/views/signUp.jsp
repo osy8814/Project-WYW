@@ -18,7 +18,7 @@
     <jsp:include page="index_top.jsp" flush="false"/>
 
     <div class="signUpMain">
-      <form role="form" method="post" class="signUpMain__register">
+      <form role="form" method="post" onsubmit="return confirm('회원가입 하시겠습니까?');" class="signUpMain__register">
         <div class="signUpMain__register__userInfo">
           <h1 class="signUpMain__register__userInfo-title">회원 정보</h1>
           <div class="signUpMain__register__userInfo__infomation">
@@ -89,6 +89,7 @@
                     minlength="4"
                     maxlength="4"
                   />
+                  <span class="mobileErrorMsg"></span>
                 </td>
               </tr>
               <tr>
@@ -101,16 +102,17 @@
                   <span class="infoHint">
                     아이디/비밀번호 찾기에 활용됩니다. 정확히 입력해주세요.
                   </span>
+                  <span class="emailErrorMsg"></span>
                 </td>
               </tr>
               <tr>
                 <th id="addrth">주소</th>
                 <td id="addrtd">
-                  <input type="text" id="sample6_postcode" placeholder="우편번호">
+                  <input type="text"  name="API_postcode" id="API_postcode" placeholder="우편번호">
                   <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                  <input type="text" id="sample6_address" placeholder="주소"><br>
-                  <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                  <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                  <input type="text"  name="API_address" id="API_address" placeholder="주소"><br>
+                  <input type="text"  name="API_detailAddress" id="API_detailAddress" placeholder="상세주소">
+                  <input type="text"  name="API_extraAddress" id="API_extraAddress" placeholder="참고항목">
                 </td>
               </tr>
 
@@ -123,7 +125,7 @@
             <div class="signUpMain__register__terms__inner">
               <div class="signUpMain__register__terms__inner__selectAll">
                 <label for="selectAll">
-                  <input type="checkbox" id="selectAll" name="selectAll" />
+                  <input type="checkbox" class="chkbox" id="selectAll" name="selectAll" />
                   이용약관 및 개인정보수집 및 이용, 쇼핑정보 수신(선택)에 모두
                   동의합니다.
                 </label>
@@ -966,8 +968,8 @@
             </div>
           </div>
         </div>
-        <button type="submit" class="registerSubmit">회원가입</button>
-        <span id="result"></span>
+        <span style="font-weight: bold; font-size: 12px; margin-top: 20px">* 가입조건이 만족되면 버튼이 활성화 됩니다.</span>
+        <button type="submit" class="registerSubmit" disabled>회원가입</button>
       </form>
     </div>
 

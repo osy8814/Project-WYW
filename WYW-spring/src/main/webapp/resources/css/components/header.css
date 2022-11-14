@@ -13,11 +13,12 @@
   color: #565656;
 }
 #top-loginSet-list {
-  font-size: 12px;
+
   display: flex;
 }
 #top-loginSet-list li {
   margin-left: 10px;
+  font-size: 15px;
 }
 #top-loginSet__iconSet {
   width: 40px;

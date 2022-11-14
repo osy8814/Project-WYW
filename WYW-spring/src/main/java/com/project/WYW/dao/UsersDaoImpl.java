@@ -4,8 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.project.WYW.domain.Users;
-import com.project.WYW.domain.UsersDto;
+import com.project.WYW.domain.UsersVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,14 +25,20 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public List<UsersDto> selectAll() throws Exception{
+	public List<UsersVo> selectAll() throws Exception{
 		return session.selectList(namespace + "selectAll");
 	}
 	
 	@Override
-	public UsersDto select(String userId) throws Exception{
+	public UsersVo select(String userId) throws Exception{
 		return session.selectOne(namespace+"select", userId);
 	}
+
+	@Override
+	public UsersVo login(String userId) throws Exception{
+		return session.selectOne(namespace+"select", userId);
+	}
+
 	
 	@Override
 	public int deleteAll() {
@@ -59,11 +64,11 @@ public class UsersDaoImpl implements UsersDao {
     }
 	
 	@Override
-	public int insert(UsersDto dto) throws Exception {
+	public int insert(UsersVo vo) throws Exception {
 		int rowCnt;
 
 		try {
-			rowCnt = session.insert(namespace+"insert", dto);
+			rowCnt = session.insert(namespace+"insert", vo);
 		}catch(Exception e){
 			e.printStackTrace();
 			return FAIL;
@@ -72,16 +77,25 @@ public class UsersDaoImpl implements UsersDao {
     }
 
 	@Override
-    public int update(UsersDto dto) throws Exception {
+    public int update(UsersVo vo) throws Exception {
 		int rowCnt;
 
 		try {
-			rowCnt = session.update(namespace+"update", dto);
+			rowCnt = session.update(namespace+"update", vo);
 		}catch(Exception e){
 			e.printStackTrace();
 			return FAIL;
 		}
         return rowCnt;
     }
-	
+
+	@Override
+	public UsersVo emailChk(String email) throws Exception{
+		return session.selectOne(namespace+"emailChk", email);
+	}
+
+	@Override
+	public UsersVo mobileChk(String mobile) throws Exception{
+		return session.selectOne(namespace+"mobileChk", mobile);
+	}
 }
