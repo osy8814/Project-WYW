@@ -3,7 +3,7 @@ package com.project.WYW.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class UsersDto {
+public class UsersVo {
 
 
     private String user_id;
@@ -21,6 +21,12 @@ public class UsersDto {
 
     private String address;
 
+    private String API_postcode;
+    private String API_address;
+    private String API_extraAddress;
+    private String API_detailAddress;
+    private Date created_at;
+    private boolean is_admin;
 
     public String getUser_id() {
         return user_id;
@@ -77,15 +83,66 @@ public class UsersDto {
     }
 
     public String getAddress() {
+
+        if(API_postcode==""||API_address==""||API_extraAddress=="" || API_detailAddress=="") {
+            address="";
+        }else {
+            address=API_postcode+" "+API_address+" "+API_extraAddress+" "+API_detailAddress;
+        }
         return address;
     }
-    public void setAddress(String address) {
-        this.address = address;
+
+    public String getAPI_postcode() {
+        return API_postcode;
     }
 
-    public UsersDto() {}
+    public void setAPI_postcode(String API_postcode) {
+        this.API_postcode = API_postcode;
+    }
 
-    public UsersDto(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3) {
+    public String getAPI_address() {
+        return API_address;
+    }
+
+    public void setAPI_address(String API_address) {
+        this.API_address = API_address;
+    }
+
+    public String getAPI_extraAddress() {
+        return API_extraAddress;
+    }
+
+    public void setAPI_extraAddress(String API_extraAddress) {
+        this.API_extraAddress = API_extraAddress;
+    }
+
+    public String getAPI_detailAddress() {
+        return API_detailAddress;
+    }
+
+    public void setAPI_detailAddress(String API_detailAddress) {
+        this.API_detailAddress = API_detailAddress;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public boolean getIs_admin() {
+        return is_admin;
+    }
+
+    public void setIs_admin(boolean is_admin) {
+        this.is_admin = is_admin;
+    }
+
+    public UsersVo() {}
+
+    public UsersVo(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3) {
 
         this.user_id = user_id;
         this.name = name;
@@ -97,15 +154,32 @@ public class UsersDto {
 
     }
 
+    public UsersVo(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3, String API_postcode, String API_address, String API_extraAddress, String API_detailAddress) {
+
+        this.user_id = user_id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.mobile1 = mobile1;
+        this.mobile2 = mobile2;
+        this.mobile3 = mobile3;
+        this.API_postcode = API_postcode;
+        this.API_address = API_address;
+        this.API_extraAddress = API_extraAddress;
+        this.API_detailAddress = API_detailAddress;
+    }
+
     @Override
     public String toString() {
-        return "UsersDto{" +
+        return "UsersVo{" +
                 "user_id='" + user_id + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", address='" + address + '\'' +
+                ", created_at=" + created_at +
+                ", is_admin=" + is_admin +
                 '}';
     }
 
@@ -113,7 +187,7 @@ public class UsersDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersDto usersDto = (UsersDto) o;
+        UsersVo usersDto = (UsersVo) o;
         return Objects.equals(user_id, usersDto.user_id) && Objects.equals(name, usersDto.name) && Objects.equals(password, usersDto.password) && Objects.equals(email, usersDto.email) && Objects.equals(mobile, usersDto.mobile) && Objects.equals(address, usersDto.address);
     }
 
