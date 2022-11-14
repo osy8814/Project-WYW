@@ -165,8 +165,7 @@ public class UsersDaoImplTest {
         usersDto.setMobile2("4321");
         usersDto.setMobile3("4321");
         usersDto.setEmail("bbb@aaa.com");
-        usersDto.setAddress("Korea");
-        
+
         assertTrue(usersDao.update(usersDto)==1);
 
 		UsersDto usersDto2 = usersDao.select(user_id);

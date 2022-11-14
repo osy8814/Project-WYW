@@ -68,7 +68,7 @@
             </div>
 
           </div>
-          <form action="index.html">
+          <form action="${pageContext.request.contextPath}">
             <button id="signup_confirm">확인</button>
           </form>
         </div>

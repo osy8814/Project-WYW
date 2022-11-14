@@ -62,7 +62,6 @@ public class UsersServiceTest {
 		assertTrue(usersSecvice.getList().size()==2);
 		
 		usersDto.setPassword("4321");
-		usersDto.setAddress("korea");
 		assertTrue(usersSecvice.modify(usersDto)==1);
 		assertTrue(usersSecvice.read(usersDto.getUser_id()).equals(usersDto));
 

@@ -21,6 +21,10 @@ public class UsersDto {
 
     private String address;
 
+    private String API_postcode;
+    private String API_address;
+    private String API_extraAddress;
+    private String API_detailAddress;
 
     public String getUser_id() {
         return user_id;
@@ -77,10 +81,45 @@ public class UsersDto {
     }
 
     public String getAddress() {
+
+        if(API_postcode==""||API_address==""||API_extraAddress=="" || API_detailAddress=="") {
+            address="";
+        }else {
+            address=API_postcode+" "+API_address+" "+API_extraAddress+" "+API_detailAddress;
+        }
         return address;
     }
-    public void setAddress(String address) {
-        this.address = address;
+
+    public String getAPI_postcode() {
+        return API_postcode;
+    }
+
+    public void setAPI_postcode(String API_postcode) {
+        this.API_postcode = API_postcode;
+    }
+
+    public String getAPI_address() {
+        return API_address;
+    }
+
+    public void setAPI_address(String API_address) {
+        this.API_address = API_address;
+    }
+
+    public String getAPI_extraAddress() {
+        return API_extraAddress;
+    }
+
+    public void setAPI_extraAddress(String API_extraAddress) {
+        this.API_extraAddress = API_extraAddress;
+    }
+
+    public String getAPI_detailAddress() {
+        return API_detailAddress;
+    }
+
+    public void setAPI_detailAddress(String API_detailAddress) {
+        this.API_detailAddress = API_detailAddress;
     }
 
     public UsersDto() {}
@@ -95,6 +134,21 @@ public class UsersDto {
         this.mobile2 = mobile2;
         this.mobile3 = mobile3;
 
+    }
+
+    public UsersDto(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3, String API_postcode, String API_address, String API_extraAddress, String API_detailAddress) {
+
+        this.user_id = user_id;
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.mobile1 = mobile1;
+        this.mobile2 = mobile2;
+        this.mobile3 = mobile3;
+        this.API_postcode = API_postcode;
+        this.API_address = API_address;
+        this.API_extraAddress = API_extraAddress;
+        this.API_detailAddress = API_detailAddress;
     }
 
     @Override

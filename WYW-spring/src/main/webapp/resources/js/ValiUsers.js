@@ -7,7 +7,6 @@ $("#info_id").keyup(function (){
     $("#info_id").val(removeSpace);
     const regexp = /^[a-zA-Z0-9]{4,16}/;
     const result = regexp.test($("#info_id").val());
-    console.log("result"+ result);
 
     $.ajax({
         url : `/WYW/users/idChk`,
@@ -110,8 +109,6 @@ $("#info_pwdchk").keyup(function (){
 
     const pwd = $("#info_pwd").val();
     const pwdChk = $("#info_pwdchk").val();
-
-    console.log(pwd, pwdChk);
 
     if(pwd!=pwdChk){
         $(".pwdChkErrorMsg").text("비밀번호가 일치하지 않습니다.");
