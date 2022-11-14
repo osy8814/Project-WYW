@@ -27,7 +27,7 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/users/login.do"/>
-			<beans:bean id="lgoinINTCP" class="com.project.WYW.Interceptor.LoginINTCP"></beans:bean>
+			<beans:bean id="loginINTCP" class="com.project.WYW.Interceptor.LoginINTCP"></beans:bean>
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/**"/>
