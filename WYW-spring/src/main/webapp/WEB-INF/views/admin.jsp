@@ -44,17 +44,6 @@
                 </lI>
                 <lI>
                   <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04">카테고리 관리</a>
-
-                  <a class="admin_list_01">상품 등록</a>
-                </li>
-                <li>
-                  <a class="admin_list_02">상품 목록</a>
-                </li>
-                <lI>
-                  <a class="admin_list_03">카테고리 등록</a>
-                </lI>
-                <lI>
-                  <a class="admin_list_04">카테고리 관리</a>
                 </lI>
                 <lI>
                   <a class="admin_list_05">회원 관리</a>
