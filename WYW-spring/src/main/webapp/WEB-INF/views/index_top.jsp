@@ -7,7 +7,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/WYWlogo.png" />
+    <link rel="icon" href="/WYW/img/WYWlogo.png" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?after" />
     <title>WYW</title>
     <style></style>
@@ -16,9 +16,17 @@
   <body>
     <div class="top-loginSet">
       <ul id="top-loginSet-list">
-        <li><a href="<c:url value='/users/login'/>">Login</a></li>
-        <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
-        <li><a href="mypage.html">My Page</a></li>
+        <c:if test="${loggedInUser == null}">
+          <li><a href="<c:url value='/users/login'/>">Login</a></li>
+          <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
+        </c:if>
+        <c:if test="${loggedInUser != null}">
+          <li>
+            ${loggedInUser.name}님 환영합니다.
+          </li>
+          <li><a href="<c:url value='/users/logout'/>">LogOut</a></li>
+          <li><a href="mypage.html">My Page</a></li>
+        </c:if>
       </ul>
       <div id="top-loginSet__iconSet">
         <a href="#"
