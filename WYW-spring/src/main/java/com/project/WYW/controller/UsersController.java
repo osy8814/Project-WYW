@@ -1,17 +1,16 @@
 package com.project.WYW.controller;
 
 import com.project.WYW.dao.UsersDao;
-import com.project.WYW.domain.UsersDto;
+import com.project.WYW.domain.UsersVo;
 import com.project.WYW.service.UsersSecvice;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -23,8 +22,47 @@ public class UsersController {
     final UsersDao dao;
 
     @GetMapping("/login")
-    public String login() throws Exception{
+    public String getLogin() throws Exception{
         return "login";
+    }
+
+    @PostMapping ("/login.do")
+    public String postLogin(UsersVo vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+
+
+        UsersVo loginUser = null;
+        String loginUserPwd = null;
+        String inputPass = null;
+        HttpSession session = req.getSession();
+        try {
+            loginUser = usersSecvice.login(vo.getUser_id());
+            loginUserPwd = loginUser.getPassword();
+            inputPass = vo.getPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+            session.setAttribute("loggedInUser", null);
+            rttr.addFlashAttribute("inputId",vo.getUser_id());
+            rttr.addFlashAttribute("msg", false);
+            return "redirect:/users/login";
+        }
+
+        if(loginUserPwd.equals(inputPass)){
+            session.setAttribute("loggedInUser", loginUser);
+        }else{
+            session.setAttribute("loggedInUser", null);
+            rttr.addFlashAttribute("inputId",vo.getUser_id());
+            rttr.addFlashAttribute("msg", false);
+            return "redirect:/users/login";
+        }
+
+
+        return "redirect:/";
+    }
+
+    @ResponseBody
+    @PostMapping("/logout")
+    public void logout(HttpSession session) throws Exception{
+        session.invalidate();
     }
 
     @GetMapping("/signup")
@@ -33,11 +71,11 @@ public class UsersController {
     }
 
     @PostMapping("/signup")
-    public String postSignup(@Valid UsersDto usersDto, Model m) throws Exception {
-        int isSuccessful = usersSecvice.singUp(usersDto);
+    public String postSignup(@Valid UsersVo vo, Model m) throws Exception {
+        int isSuccessful = usersSecvice.singUp(vo);
 
         if(0 < isSuccessful){
-            m.addAttribute(usersDto);
+            m.addAttribute(vo);
             return "signUp_complete";
         }
 
@@ -58,12 +96,39 @@ public class UsersController {
     @PostMapping("idChk")
     public int idChk(HttpServletRequest request) throws Exception{
         String user_id = request.getParameter("user_id");
-        UsersDto usersDto = usersSecvice.read(user_id);
+        UsersVo vo = usersSecvice.read(user_id);
 
-        if(usersDto!=null){
+        if(vo!=null){
             return 1;
         }
         return 0;
     }
 
+    @ResponseBody
+    @PostMapping("/emailChk")
+    public int emailChk(HttpServletRequest request) throws Exception{
+        String email = request.getParameter("email");
+        UsersVo vo = usersSecvice.emailChk(email);
+
+        if(vo!=null){
+            return 1;
+        }
+        return 0;
+    }
+
+    @ResponseBody
+    @PostMapping("/mobileChk")
+    public int mobileChk(HttpServletRequest request) throws Exception{
+        String mobile1 = request.getParameter("mobile1");
+        String mobile2 = request.getParameter("mobile2");
+        String mobile3 = request.getParameter("mobile3");
+        String mobile = mobile1+"-"+mobile2+"-"+mobile3;
+
+        UsersVo vo = usersSecvice.mobileChk(mobile);
+
+        if(vo!=null){
+            return 1;
+        }
+        return 0;
+    }
 }

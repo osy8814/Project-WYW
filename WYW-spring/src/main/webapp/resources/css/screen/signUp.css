@@ -74,13 +74,15 @@ td {
 
 }
 
-#sample6_address {
+#API_address {
   width: 352px;
 }
 /*id중복체크 메시지*/
 .idErrorMsg,
 .pwdErrorMsg,
-.pwdChkErrorMsg{
+.pwdChkErrorMsg,
+.emailErrorMsg,
+.mobileErrorMsg{
   font-size: 12px;
   font-weight: bold;
 }
@@ -183,6 +185,7 @@ td {
   font-size: 15px;
   width: 150px;
   height: 40px;
+  cursor: pointer;
   transition: 0.3s ease-in-out;
 }
 

@@ -4,15 +4,13 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
-import com.project.WYW.domain.Users;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.project.WYW.dao.UsersDao;
-import com.project.WYW.domain.UsersDto;
+import com.project.WYW.domain.UsersVo;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,13 +25,13 @@ public class UsersDaoImplTest {
 		usersDao.deleteAll();
 		assertTrue(usersDao.count()==0);
 
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersDao.insert(usersDto)==1);
 		assertTrue(usersDao.deleteAll()==1);
 		assertTrue(usersDao.count()==0);
 
 		assertTrue(usersDao.insert(usersDto)==1);
-		usersDto = new UsersDto("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
+		usersDto = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 		assertTrue(usersDao.deleteAll()==1);
 		assertTrue(usersDao.count()==0);
 	}
@@ -43,7 +41,7 @@ public class UsersDaoImplTest {
         usersDao.deleteAll();
         assertTrue(usersDao.count()==0);
 
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersDto)==1);
 		System.out.println("list" + usersDao.selectAll());
         String email = usersDao.selectAll().get(0).getEmail();
@@ -73,16 +71,16 @@ public class UsersDaoImplTest {
 		usersDao.deleteAll();
 		assertTrue(usersDao.count()==0);
 		
-		List<UsersDto> list = usersDao.selectAll();
+		List<UsersVo> list = usersDao.selectAll();
 		assertTrue(list.size() == 0);
 		
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersDao.insert(usersDto)==1);
 		
 		list = usersDao.selectAll();
 		assertTrue(list.size() == 1);
 		
-		usersDto = new UsersDto("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
+		usersDto = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 		assertTrue(usersDao.insert(usersDto)==1);
 		list = usersDao.selectAll();
 		System.out.println("UserList : " + list);
@@ -94,12 +92,12 @@ public class UsersDaoImplTest {
         usersDao.deleteAll();
         assertTrue(usersDao.count()==0);
 
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersDto)==1);
 
         String user_id = usersDao.selectAll().get(0).getUser_id();
         usersDto.setUser_id(user_id);
-		UsersDto usersDto2 = usersDao.select(user_id);
+		UsersVo usersDto2 = usersDao.select(user_id);
         System.out.println("usersDto : " + usersDto);
         System.out.println("usersDto2 : " + usersDto2);
         assertTrue(usersDto.equals(usersDto2));
@@ -109,18 +107,18 @@ public class UsersDaoImplTest {
 	public void insertTest() throws Exception {
 		
 		usersDao.deleteAll();
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		System.out.println("usersDto = " + usersDto);
 		assertTrue(usersDao.insert(usersDto)==1);
 
 		//mobile중복
-		usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		usersDto.setUser_id("id2");
 		usersDto.setEmail("bbb@bbb.com");
 		assertTrue(usersDao.insert(usersDto)!=1);
 
 		//email중복
-		usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		usersDto.setUser_id("id2");
 		usersDto.setMobile1("010");
 		usersDto.setMobile2("4321");
@@ -128,7 +126,7 @@ public class UsersDaoImplTest {
 		assertTrue(usersDao.insert(usersDto)!=1);
 
 		//id중복
-		usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		usersDto.setMobile1("010");
 		usersDto.setMobile2("4321");
 		usersDto.setMobile3("4321");
@@ -142,11 +140,11 @@ public class UsersDaoImplTest {
 		usersDao.deleteAll();
 	    assertTrue(usersDao.count()==0);
 
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 	    assertTrue(usersDao.insert(usersDto)==1);
 	    assertTrue(usersDao.count()==1);
 
-		usersDto = new UsersDto("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
+		usersDto = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 	    assertTrue(usersDao.insert(usersDto)==1);
 	    assertTrue(usersDao.count()==2);
 	}
@@ -154,7 +152,7 @@ public class UsersDaoImplTest {
 	@Test
     public void updateTest() throws Exception {
         usersDao.deleteAll();
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersDto)==1);
 
         String user_id = usersDao.selectAll().get(0).getUser_id();
@@ -165,11 +163,10 @@ public class UsersDaoImplTest {
         usersDto.setMobile2("4321");
         usersDto.setMobile3("4321");
         usersDto.setEmail("bbb@aaa.com");
-        usersDto.setAddress("Korea");
-        
+
         assertTrue(usersDao.update(usersDto)==1);
 
-		UsersDto usersDto2 = usersDao.select(user_id);
+		UsersVo usersDto2 = usersDao.select(user_id);
         System.out.println("usersDto : " + usersDto);
         System.out.println("usersDto2 : " + usersDto2);
         assertTrue(usersDto.equals(usersDto2));

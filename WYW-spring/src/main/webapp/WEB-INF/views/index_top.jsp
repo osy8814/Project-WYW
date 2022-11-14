@@ -7,8 +7,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="img/WYWlogo.png" />
+    <link rel="icon" href="/WYW/img/WYWlogo.png" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?after" />
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
     <title>WYW</title>
     <style></style>
   </head>
@@ -16,9 +19,20 @@
   <body>
     <div class="top-loginSet">
       <ul id="top-loginSet-list">
-        <li><a href="<c:url value='/users/login'/>">Login</a></li>
-        <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
-        <li><a href="mypage.html">My Page</a></li>
+        <c:if test="${loggedInUser == null}">
+          <li><a href="<c:url value='/users/login.do'/>">Login</a></li>
+          <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
+        </c:if>
+        <c:if test="${loggedInUser != null}">
+          <li>
+            ${loggedInUser.name}님 환영합니다.
+          </li>
+          <li><a id="nav_logout" href="#">LogOut</a></li>
+          <li><a href="mypage.html">My Page</a></li>
+          <c:if test="${loggedInUser.is_admin}">
+            <li><a href="<c:url value='/admin/main'/>">관리자페이지</a></li>
+          </c:if>
+        </c:if>
       </ul>
       <div id="top-loginSet__iconSet">
         <a href="#"
@@ -51,9 +65,8 @@
         <li>
           <a href="#">COMPANY</a>
           <ul id="company_list">
-            <li><a href="Introduce.html">INTRODUCE</a></li>
-            <li><a href="#">LOCATION</a></li>
-          </ul>
+            <li><a href="<c:url value='/introduce'/>">INTRODUCE</a></li>
+            </ul>
         </li>
         <li>
           <a href="#">SHOP</a>
@@ -77,10 +90,26 @@
       </ul>
     </div>
 
+
     <script
       src="https://kit.fontawesome.com/6478f529f2.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      $("#nav_logout").click(function(){
+
+        if(confirm("로그아웃 하시겠습니까?")){
+        $.ajax({
+          type:"POST",
+          url:`/WYW/users/logout`,
+          success:function(data){
+            document.location.reload();
+          }
+        });
+      }
+
+      });
+    </script>
     <script src="${pageContext.request.contextPath}/js/search.js"></script>
     <script src="${pageContext.request.contextPath}/js/navScroll.js"></script>
   </body>
