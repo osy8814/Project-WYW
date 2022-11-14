@@ -31,7 +31,7 @@
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/**"/>
-			<beans:bean id="adminINTCP" class="com.project.WYW.interceptor.AdminINTCP"></beans:bean>
+			<beans:bean id="adminINTCP" class="com.project.WYW.Interceptor.AdminINTCP"></beans:bean>
 		</interceptor>
 	</interceptors>
 	<view-controller path="/" view-name="index"/>
