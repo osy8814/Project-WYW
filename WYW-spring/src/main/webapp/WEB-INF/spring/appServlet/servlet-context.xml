@@ -27,11 +27,11 @@
 	<interceptors>
 		<interceptor>
 			<mapping path="/users/login.do"/>
-			<beans:bean id="loginINTCP" class="com.project.WYW.interceptor."></beans:bean>
+			<beans:bean id="loginINTCP" class="com.project.WYW.Interceptor.LoginINTCP"></beans:bean>
 		</interceptor>
 		<interceptor>
 			<mapping path="/admin/**"/>
-			<beans:bean id="adminINTCP" class="com.project.WYW.interceptor.AdminINTCP"></beans:bean>
+			<beans:bean id="adminINTCP" class="com.project.WYW.Interceptor.AdminINTCP"></beans:bean>
 		</interceptor>
 	</interceptors>
 	<view-controller path="/" view-name="index"/>
