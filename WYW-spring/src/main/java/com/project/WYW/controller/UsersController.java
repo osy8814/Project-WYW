@@ -26,7 +26,7 @@ public class UsersController {
         return "login";
     }
 
-    @PostMapping ("/login")
+    @PostMapping ("/login.do")
     public String postLogin(UsersVo vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 
 

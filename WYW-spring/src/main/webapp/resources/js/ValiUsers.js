@@ -5,7 +5,7 @@ $("#info_id").keyup(function (){
     let query = {user_id : $("#info_id").val()};
     const removeSpace = $("#info_id").val().replace(/\s/gi,"");
     $("#info_id").val(removeSpace);
-    const regexp = /^[a-zA-Z0-9]{4,16}/;
+    const regexp = /^[a-zA-Z][a-zA-Z0-9]{4,16}/;
     const result = regexp.test($("#info_id").val());
 
     $.ajax({

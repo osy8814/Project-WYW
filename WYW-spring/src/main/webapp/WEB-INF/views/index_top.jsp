@@ -20,7 +20,7 @@
     <div class="top-loginSet">
       <ul id="top-loginSet-list">
         <c:if test="${loggedInUser == null}">
-          <li><a href="<c:url value='/users/login'/>">Login</a></li>
+          <li><a href="<c:url value='/users/login.do'/>">Login</a></li>
           <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
         </c:if>
         <c:if test="${loggedInUser != null}">
@@ -65,9 +65,8 @@
         <li>
           <a href="#">COMPANY</a>
           <ul id="company_list">
-            <li><a href="Introduce.html">INTRODUCE</a></li>
-            <li><a href="#">LOCATION</a></li>
-          </ul>
+            <li><a href="<c:url value='/introduce'/>">INTRODUCE</a></li>
+            </ul>
         </li>
         <li>
           <a href="#">SHOP</a>

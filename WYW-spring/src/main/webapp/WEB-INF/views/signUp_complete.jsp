@@ -68,7 +68,7 @@
             </div>
 
           </div>
-          <form action="${pageContext.request.contextPath}/users/login">
+          <form action="${pageContext.request.contextPath}/users/login.do">
             <button id="signup_confirm">로그인 페이지로</button>
           </form>
         </div>

@@ -132,7 +132,7 @@ public class UsersVo {
         this.created_at = created_at;
     }
 
-    public boolean isIs_admin() {
+    public boolean getIs_admin() {
         return is_admin;
     }
 
