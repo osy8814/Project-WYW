@@ -50,6 +50,7 @@ public class UsersController {
             session.setAttribute("loggedInUser", loginUser);
         }else{
             session.setAttribute("loggedInUser", null);
+            rttr.addFlashAttribute("inputId",vo.getUser_id());
             rttr.addFlashAttribute("msg", false);
             return "redirect:/users/login";
         }
@@ -58,11 +59,10 @@ public class UsersController {
         return "redirect:/";
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) throws Exception{
+    @ResponseBody
+    @PostMapping("/logout")
+    public void logout(HttpSession session) throws Exception{
         session.invalidate();
-
-        return "redirect:/";
     }
 
     @GetMapping("/signup")
