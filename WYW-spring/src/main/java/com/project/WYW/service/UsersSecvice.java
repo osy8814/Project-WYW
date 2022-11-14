@@ -2,25 +2,20 @@ package com.project.WYW.service;
 
 import java.util.List;
 
-import com.project.WYW.domain.UsersVo;
+import com.project.WYW.domain.Users;
+import com.project.WYW.domain.UsersDto;
 
 public interface UsersSecvice {
 
 	int getCount() throws Exception;
 
-	List<UsersVo> getList() throws Exception;
+	List<UsersDto> getList() throws Exception;
 
-	UsersVo read(String user_id) throws Exception;
+	UsersDto read(String user_id) throws Exception;
 
 	int remove(String user_id, String email, String name) throws Exception;
 	
-	int singUp(UsersVo vo)throws Exception;
+	int singUp(UsersDto usersDto)throws Exception;
 
-	UsersVo login(String user_id) throws Exception;
-
-    int modify(UsersVo vo) throws Exception;
-
-    UsersVo emailChk(String email) throws Exception;
-
-	UsersVo mobileChk(String mobile) throws Exception;
+    int modify(UsersDto usersDto) throws Exception;
 }

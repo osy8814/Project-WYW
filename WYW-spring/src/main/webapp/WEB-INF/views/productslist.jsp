@@ -33,16 +33,16 @@
             <div class="admin_navi_wrap">
               <ul>
                 <li >
-                  <a href="<c:url value="/admin/productsmanage"/>" class="admin_list_01">상품 등록</a>
+                  <a href="<c:url value="/admin/productsmanage"/> " class="admin_list_01">상품 등록</a>
                 </li>
                 <li>
-                  <a href="<c:url value="/admin/productslist"/>" class="admin_list_02">상품 목록</a>
+                  <a href="<c:url value="/admin/productslist"/> " class="admin_list_02">상품 목록</a>
                 </li>
                 <lI>
-                  <a href="<c:url value="/admin/category"/>" class="admin_list_03">카테고리 등록</a>
+                  <a href="<c:url value="/admin/category"/> " class="admin_list_03">카테고리 등록</a>
                 </lI>
                 <lI>
-                  <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04">카테고리 관리</a>
+                  <a href="<c:url value="/admin/categoryManage"/> " class="admin_list_04">카테고리 관리</a>
                 </lI>
                 <lI>
                   <a class="admin_list_05">회원 관리</a>
@@ -51,7 +51,8 @@
 
             </div>
             <div class="admin_content_wrap">
-              <div>관리자 페이지</div>
+              <div>상품 목록
+              </div>
             </div>
             <div class="clearfix"></div>
           </div>

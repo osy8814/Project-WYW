@@ -11,32 +11,16 @@
 		select * FROM users
 	</sql>
         
-    <select id="selectAll" resultType="UsersVo">
+    <select id="selectAll" resultType="UsersDto">
         <include refid="selectFromUser"/>
         ORDER BY created_at DESC, id DESC
     </select>
 
     
-    <select id="select" parameterType="String" resultType="UsersVo">
+    <select id="select" parameterType="String" resultType="UsersDto">
         <include refid="selectFromUser"/>
         WHERE user_id = #{user_id}
     </select>
-
-    <select id="login" parameterType="String" resultType="UsersVo">
-        <include refid="selectFromUser"/>
-        WHERE user_id = #{user_id}
-    </select>
-
-    <select id="emailChk" parameterType="String" resultType="UsersVo">
-        <include refid="selectFromUser"/>
-        WHERE email = #{email}
-    </select>
-
-    <select id="mobileChk" parameterType="String" resultType="UsersVo">
-        <include refid="selectFromUser"/>
-        WHERE mobile = #{mobile}
-    </select>
-
     
     <delete id="deleteAll">
         DELETE FROM users
@@ -46,14 +30,14 @@
         DELETE FROM users WHERE user_id = #{user_id} and email = #{email} and name = #{name} 
     </delete>
     
-    <insert id="insert" parameterType="UsersVo">
+    <insert id="insert" parameterType="UsersDto">
         INSERT INTO users
             (user_id, password, name, mobile, email, address)
         VALUES
             (#{user_id}, #{password}, #{name}, #{mobile}, #{email}, #{address})
     </insert>
     
-    <update id="update" parameterType="UsersVo">
+    <update id="update" parameterType="UsersDto">
     	UPDATE users
     	set password=#{password},name=#{name}, mobile=#{mobile}, email=#{email}, address=#{address}
     	Where user_id=#{user_id}

@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Users {
 
-    UsersVo usersDto = new UsersVo();
+    UsersDto usersDto = new UsersDto();
     private int id;
     private String user_id;
 

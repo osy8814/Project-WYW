@@ -38,7 +38,7 @@
 .admin_top_wrap{
   height:110px;
   line-height: 110px;
-  background-color: #5080bd;
+  background-color: #1F1F1F;
 }
 .admin_top_wrap>span{
   margin-left: 30px;
@@ -66,6 +66,10 @@
   line-height: 80px;
   text-align: center;
 }
+.admin_navi_wrap li:hover{
+  background-color: #6f6f6f;
+}
+
 .admin_navi_wrap li a{
   display: block;
   height: 100%;
@@ -75,11 +79,6 @@
   font-size: 30px;
   font-weight: bolder;
 }
-/*
-.admin_list_01{
-    background-color: #c8c8c8;
-} */
-
 
 /* 관리자페이지 컨텐츠 영역 */
 .admin_content_wrap{
@@ -95,9 +94,6 @@
   font-size: 50px;
   font-weight: bolder;
 }
-
-
-
 
 /* float 속성 해제 */
 .clearfix{

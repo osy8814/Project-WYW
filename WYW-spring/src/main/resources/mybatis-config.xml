@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <typeAliases>
-        <typeAlias alias="UsersVo" type="com.project.WYW.domain.UsersVo"/>
+        <typeAlias alias="UsersDto" type="com.project.WYW.domain.UsersDto"/>
         <typeAlias alias="Users" type="com.project.WYW.domain.Users"/>
     </typeAliases>
 </configuration>
