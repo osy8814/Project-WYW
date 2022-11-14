@@ -91,11 +91,15 @@
   background-color: rgba(50, 52, 62);
   color: white;
   border: none;
-  cursor: pointer;
   font-size: 15px;
   width: 150px;
   height: 40px;
   transition: 0.3s ease-in-out;
+}
+#confirm:hover {
+  background-color: rgba(50, 52, 62, 0.2);
+  color: rgba(50, 52, 62, 1);
+  font-weight: bold;
 }
 
 /* 미디어쿼리 */
