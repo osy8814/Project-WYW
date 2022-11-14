@@ -2,7 +2,6 @@ package com.project.WYW.service;
 
 import static org.junit.Assert.assertTrue;
 
-import com.project.WYW.domain.Users;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.project.WYW.dao.UsersDao;
-import com.project.WYW.domain.UsersDto;
+import com.project.WYW.domain.UsersVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
@@ -26,7 +25,7 @@ public class UsersServiceTest {
 	public void getListTest() throws Exception{
 		usersDao.deleteAll();
 		for (int i = 1; i <= 20; i++) {
-			UsersDto usersDto = new UsersDto("id"+i, "name1", "1234", "aaa"+i+"@aaa.com", "010","1234","123"+i);
+			UsersVo usersDto = new UsersVo("id"+i, "name1", "1234", "aaa"+i+"@aaa.com", "010","1234","123"+i);
 			usersSecvice.singUp(usersDto);
 		}
 		assertTrue(usersSecvice.getList().size()==20);
@@ -37,7 +36,7 @@ public class UsersServiceTest {
 		usersDao.deleteAll();
 		assertTrue(usersSecvice.getList().size()==0);
 		
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersSecvice.singUp(usersDto)==1);
 		
 		String user_id = usersDao.selectAll().get(0).getUser_id();
@@ -45,7 +44,7 @@ public class UsersServiceTest {
 	
 		usersDto.setUser_id(user_id);
 		usersDto.setEmail(email);
-		UsersDto usersDto2 = usersSecvice.read(user_id);
+		UsersVo usersDto2 = usersSecvice.read(user_id);
 		
 		assertTrue(usersDto.equals(usersDto2));
 	}
@@ -53,10 +52,10 @@ public class UsersServiceTest {
 	@Test
 	public void modifyTest() throws Exception{
 		usersDao.deleteAll();
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersSecvice.singUp(usersDto)==1);
 		
-		UsersDto usersDto2 = new UsersDto("id2", "name2", "1234", "bbb@aaa.com", "010","1234","4321");
+		UsersVo usersDto2 = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","1234","4321");
 		assertTrue(usersSecvice.singUp(usersDto2)==1);
 
 		assertTrue(usersSecvice.getList().size()==2);
@@ -71,7 +70,7 @@ public class UsersServiceTest {
 	public void removeTest() throws Exception {
 		usersDao.deleteAll();
 		
-		UsersDto usersDto = new UsersDto("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersSecvice.singUp(usersDto)==1);
 		assertTrue(usersDao.selectAll().size()==1);
 		
@@ -79,7 +78,7 @@ public class UsersServiceTest {
 		String email = usersDao.selectAll().get(0).getEmail();
 		String name = usersDao.selectAll().get(0).getName();
 		
-		UsersDto usersDto2 = new UsersDto("id2", "name1", "1234", "bbb@aaa.com", "010","4321","4321");
+		UsersVo usersDto2 = new UsersVo("id2", "name1", "1234", "bbb@aaa.com", "010","4321","4321");
 				
 		assertTrue(usersSecvice.singUp(usersDto2)==1);
 		assertTrue(usersSecvice.getCount()==2);

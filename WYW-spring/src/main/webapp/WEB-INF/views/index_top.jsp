@@ -26,6 +26,7 @@
           </li>
           <li><a href="<c:url value='/users/logout'/>">LogOut</a></li>
           <li><a href="mypage.html">My Page</a></li>
+          <c:if test="${loggedInUser.}"
         </c:if>
       </ul>
       <div id="top-loginSet__iconSet">

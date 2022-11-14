@@ -3,7 +3,7 @@ package com.project.WYW.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class UsersDto {
+public class UsersVo {
 
 
     private String user_id;
@@ -25,6 +25,8 @@ public class UsersDto {
     private String API_address;
     private String API_extraAddress;
     private String API_detailAddress;
+    private Date created_at;
+    private boolean is_admin;
 
     public String getUser_id() {
         return user_id;
@@ -122,9 +124,25 @@ public class UsersDto {
         this.API_detailAddress = API_detailAddress;
     }
 
-    public UsersDto() {}
+    public Date getCreated_at() {
+        return created_at;
+    }
 
-    public UsersDto(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3) {
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public boolean isIs_admin() {
+        return is_admin;
+    }
+
+    public void setIs_admin(boolean is_admin) {
+        this.is_admin = is_admin;
+    }
+
+    public UsersVo() {}
+
+    public UsersVo(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3) {
 
         this.user_id = user_id;
         this.name = name;
@@ -136,7 +154,7 @@ public class UsersDto {
 
     }
 
-    public UsersDto(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3, String API_postcode, String API_address, String API_extraAddress, String API_detailAddress) {
+    public UsersVo(String user_id, String name, String password, String email, String mobile1, String mobile2, String mobile3, String API_postcode, String API_address, String API_extraAddress, String API_detailAddress) {
 
         this.user_id = user_id;
         this.name = name;
@@ -153,13 +171,15 @@ public class UsersDto {
 
     @Override
     public String toString() {
-        return "UsersDto{" +
+        return "UsersVo{" +
                 "user_id='" + user_id + '\'' +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", address='" + address + '\'' +
+                ", created_at=" + created_at +
+                ", is_admin=" + is_admin +
                 '}';
     }
 
@@ -167,7 +187,7 @@ public class UsersDto {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UsersDto usersDto = (UsersDto) o;
+        UsersVo usersDto = (UsersVo) o;
         return Objects.equals(user_id, usersDto.user_id) && Objects.equals(name, usersDto.name) && Objects.equals(password, usersDto.password) && Objects.equals(email, usersDto.email) && Objects.equals(mobile, usersDto.mobile) && Objects.equals(address, usersDto.address);
     }
 
