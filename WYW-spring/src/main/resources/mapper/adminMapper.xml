@@ -16,4 +16,9 @@
         )
         SELECT cate_name, cate_code, cate_code_ref, level FROM p;
     </select>
+
+    <insert id="regProduct" parameterType="CategoryVo">
+        insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
+        values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
+    </insert>
 </mapper>

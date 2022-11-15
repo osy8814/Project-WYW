@@ -54,15 +54,46 @@
               <div>
                 <form role="form" method="post" autocomplete="off">
 
-                  <label>1차 분류</label>
-                  <select class="category1">
-                    <option value="">전체</option>
-                  </select>
+                  <div class="inputArea">
+                    <label>1차 분류</label>
+                    <select class="category1">
+                      <option value="">전체</option>
+                    </select>
 
-                  <label>2차 분류</label>
-                  <select class="category2">
-                    <option value="">전체</option>
-                  </select>
+                    <label>2차 분류</label>
+                    <select class="category2" name="cate_code">
+                      <option value="">전체</option>
+                    </select>
+                  </div>
+
+                  <div class="inputArea">
+                    <label for="gdsName">등록인</label>
+                    <input type="text" id="gdsUser" name="user_id" value="${loggedInUser.user_id}" readonly/>
+                  </div>
+
+                  <div class="inputArea">
+                    <label for="gdsName">상품명</label>
+                    <input type="text" id="gdsName" name="name" required />
+                  </div>
+
+                  <div class="inputArea">
+                    <label for="gdsPrice">상품가격</label>
+                    <input type="text" id="gdsPrice" name="price" required />
+                  </div>
+
+                  <div class="inputArea">
+                    <label for="gdsStock">상품수량</label>
+                    <input type="text" id="gdsStock" name="stock" required />
+                  </div>
+
+                  <div class="inputArea">
+                    <label for="gdsDes">상품소개</label>
+                    <textarea rows="5" cols="50" id="gdsDes" name="description" required></textarea>
+                  </div>
+
+                  <div class="inputArea">
+                    <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+                  </div>
 
                 </form>
               </div>
@@ -74,7 +105,12 @@
 
     </div>
     <jsp:include page="index_bottom.jsp" flush="false"/>
-
+    <script>
+      const msg = ${msg};
+      if(msg){
+        alert("삼품이 등록되었습니다.");
+      }
+    </script>
 
     <script
       src="https://kit.fontawesome.com/6478f529f2.js"
@@ -132,7 +168,7 @@
         $("option:selected", this).each(function(){
 
           let selectVal = $(this).val();
-          cate2Select.append("<option value=''>전체</option>");
+          cate2Select.append("<option value='"+selectVal+"'>전체</option>");
 
           for(let i = 0; i < cate2Arr.length; i++) {
             if(selectVal == cate2Arr[i].cate_code_ref) {

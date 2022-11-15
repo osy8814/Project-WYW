@@ -54,9 +54,6 @@
             <div class="admin_content_wrap">
               <div>관리자 페이지</div>
             </div>
-            <div class="admin_content_wrap">
-              <div>관리자 페이지 입니다.</div>
-            </div>
             <div class="clearfix"></div>
           </div>
         </div>
