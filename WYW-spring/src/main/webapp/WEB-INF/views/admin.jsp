@@ -34,7 +34,7 @@
               <ul>
                 <li >
 
-                  <a href="<c:url value="/admin/productsmanage"/>" class="admin_list_01">상품 등록</a>
+                  <a href="<c:url value="/admin/productsReg"/>" class="admin_list_01">상품 등록</a>
                 </li>
                 <li>
                   <a href="<c:url value="/admin/productslist"/>" class="admin_list_02">상품 목록</a>

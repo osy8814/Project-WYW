@@ -5,6 +5,6 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="UsersVo" type="com.project.WYW.domain.UsersVo"/>
-        <typeAlias alias="Users" type="com.project.WYW.domain.Users"/>
+        <typeAlias alias="CategoryVo" type="com.project.WYW.domain.CategoryVo"/>
     </typeAliases>
 </configuration>
