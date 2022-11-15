@@ -29,7 +29,6 @@ public class UsersController {
     @PostMapping ("/login.do")
     public String postLogin(UsersVo vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 
-
         UsersVo loginUser = null;
         String loginUserPwd = null;
         String inputPass = null;
@@ -43,7 +42,7 @@ public class UsersController {
             session.setAttribute("loggedInUser", null);
             rttr.addFlashAttribute("inputId",vo.getUser_id());
             rttr.addFlashAttribute("msg", false);
-            return "redirect:/users/login";
+            return "redirect:/users/login.do";
         }
 
         if(loginUserPwd.equals(inputPass)){
@@ -52,7 +51,7 @@ public class UsersController {
             session.setAttribute("loggedInUser", null);
             rttr.addFlashAttribute("inputId",vo.getUser_id());
             rttr.addFlashAttribute("msg", false);
-            return "redirect:/users/login";
+            return "redirect:/users/login.do";
         }
 
 
