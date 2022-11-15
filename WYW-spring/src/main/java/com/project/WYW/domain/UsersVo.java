@@ -84,7 +84,7 @@ public class UsersVo {
 
     public String getAddress() {
 
-        if(API_postcode==""||API_address==""||API_extraAddress=="" || API_detailAddress=="") {
+        if(API_postcode==""||API_address==""|| API_detailAddress=="") {
             address="";
         }else {
             address=API_postcode+" "+API_address+" "+API_extraAddress+" "+API_detailAddress;

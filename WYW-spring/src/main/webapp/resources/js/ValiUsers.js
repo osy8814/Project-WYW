@@ -90,7 +90,7 @@ $("#info_pwd").keyup(function (){
 
     const pwd = $("#info_pwd").val();
     const regexp = /^((?=.*\d)(?=.*[a-zA-Z])(?=.*[\W]).{8,})$/;
-    const result = regexp.test($("#info_pwd").val());
+    const result = regexp.test(pwd);
 
     if(!result){
         $(".pwdErrorMsg").text("요구패턴에 일치하지 않습니다.");

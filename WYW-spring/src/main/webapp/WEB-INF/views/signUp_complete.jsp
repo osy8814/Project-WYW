@@ -23,7 +23,7 @@
             <i class="fas fa-id-badge"></i>회원 가입이 완료 되었습니다.
           </h1>
           <h1 class="signUp_complete_main_regist-info_thanksTo">
-            "${usersDto.name}"님
+            "${usersVo.name}"님
             <strong
               style="
                 font-weight: bold;
@@ -43,7 +43,7 @@
                 아이디
               </h2>
               <h2 class="signUp_complete_main_regist-info_infoSet-id-d">
-                ${usersDto.user_id}
+                ${usersVo.user_id}
               </h2>
             </div>
             <div
@@ -53,7 +53,7 @@
                 이름
               </h2>
               <h2 class="signUp_complete_main_regist-info_infoSet-name-d">
-                ${usersDto.name}
+                ${usersVo.name}
               </h2>
             </div>
             <div
@@ -63,7 +63,7 @@
                 이메일
               </h2>
               <h2 class="signUp_complete_main_regist-info_infoSet-email-d">
-                ${usersDto.email}
+                ${usersVo.email}
               </h2>
             </div>
 
