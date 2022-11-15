@@ -53,6 +53,31 @@
             <div class="admin_content_wrap">
               <div>상품 목록
               </div>
+              <table>
+                <thead>
+                <tr>
+                  <th>등록인</th>
+                  <th>이름</th>
+                  <th>카테고리</th>
+                  <th>가격</th>
+                  <th>수량</th>
+                  <th>등록날짜</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${list}" var="list">
+                  <tr>
+                    <td>${list.user_id}</td>
+                    <td>${list.name}</td>
+                    <td>${list.cate_code}</td>
+                    <td>${list.price}</td>
+                    <td>${list.stock}</td>
+                    <td>${list.created_at}</td>
+                  </tr>
+                </c:forEach>
+                </tbody>
+              </table>
+
             </div>
             <div class="clearfix"></div>
           </div>

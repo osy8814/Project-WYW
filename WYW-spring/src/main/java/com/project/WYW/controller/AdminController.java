@@ -54,7 +54,10 @@ public class AdminController {
 
     /* 상품 목록 페이지 접속 */
     @GetMapping("/productslist")
-    public String getProductList() throws Exception {
+    public String getProductList(Model model) throws Exception {
+
+        List<ProductsVo> list = adminService.productList();
+        model.addAttribute("list", list);
 
         return "productslist";
     }

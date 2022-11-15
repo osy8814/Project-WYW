@@ -9,4 +9,6 @@ public interface AdminDao {
     List<CategoryVo> category() throws Exception;
 
     int regProduct(ProductsVo productsVo) throws Exception;
+
+    List<ProductsVo> productsList()throws Exception;
 }

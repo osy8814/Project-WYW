@@ -9,4 +9,6 @@ public interface AdminService {
     List<CategoryVo> category()throws Exception;
 
     int regProduct(ProductsVo productsVo)throws Exception;
+
+    List<ProductsVo> productList() throws Exception;
 }

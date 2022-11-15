@@ -26,4 +26,9 @@ public class AdminDaoImpl implements AdminDao {
     public int regProduct(ProductsVo productsVo) throws Exception{
         return session.insert(namespace+"regProduct", productsVo);
     }
+
+    @Override
+    public List<ProductsVo> productsList()throws Exception{
+        return  session.selectList(namespace+"productsList");
+    }
 }

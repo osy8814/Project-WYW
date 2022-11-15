@@ -24,4 +24,9 @@ public class AdminServiceImpl implements AdminService {
         return adminDao.regProduct(productsVo);
     }
 
+    @Override
+    public List<ProductsVo> productList() throws Exception{
+        return adminDao.productsList();
+    }
+
 }

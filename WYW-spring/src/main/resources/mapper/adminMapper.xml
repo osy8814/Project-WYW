@@ -21,4 +21,9 @@
         insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
         values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
     </insert>
+
+    <select id="productsList" resultType="CategoryVo">
+        SELECT * from products
+        ORDER BY created_at DESC
+    </select>
 </mapper>
