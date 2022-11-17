@@ -1,6 +1,7 @@
 package com.project.WYW.dao;
 
 import com.project.WYW.domain.CategoryVo;
+import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ public class AdminDaoImpl implements AdminDao {
     @Autowired
     private SqlSession session;
 
+    final int FAIL = 0;
+
     private static String namespace="com.project.WYW.domain.CategoryVo.";
 
     @Override
@@ -24,11 +27,57 @@ public class AdminDaoImpl implements AdminDao {
 
     @Override
     public int regProduct(ProductsVo productsVo) throws Exception{
-        return session.insert(namespace+"regProduct", productsVo);
+
+        int rowCnt;
+
+        try {
+            rowCnt = session.insert(namespace+"regProduct", productsVo);
+            return rowCnt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            rowCnt = FAIL;
+        }
+        return rowCnt;
     }
 
     @Override
     public List<ProductsVo> productsList()throws Exception{
         return  session.selectList(namespace+"productsList");
+    }
+
+    @Override
+    public ProductsViewVo readProduct(Integer id) throws Exception{
+        return session.selectOne(namespace+"productsView", id);
+    }
+
+    @Override
+    public int deleteProduct(Integer id) throws Exception{
+
+        int rowCnt;
+
+        try {
+            rowCnt = session.delete(namespace+"deleteProduct", id);
+            return rowCnt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            rowCnt = FAIL;
+        }
+        return rowCnt;
+    }
+
+    @Override
+    public int modifiyProduct(ProductsVo productsVo) throws Exception{
+
+        System.out.println("productsViewVo = " + productsVo);
+        int rowCnt;
+
+        try {
+            rowCnt = session.update(namespace+"modifiyProduct", productsVo);
+            return rowCnt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            rowCnt = FAIL;
+        }
+        return rowCnt;
     }
 }

@@ -26,4 +26,30 @@
         SELECT * from products
         ORDER BY created_at DESC
     </select>
+
+    <select id="readProduct" parameterType="int" resultType="ProductsVo">
+        SELECT * from products
+        WHERE id=#{id}
+    </select>
+
+    <update id="modifiyProduct" parameterType="ProductsVo">
+        update products
+        set  name=#{name}, description=#{description}, cate_code=#{cate_code}, price=#{price},stock=#{stock}
+        where id=16;
+    </update>
+
+    <delete id="deleteProduct" parameterType="int">
+        delete from products
+        where id=#{id};
+    </delete>
+
+    <select id="productsView" parameterType="int" resultType="ProductsViewVo">
+        select
+            p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
+        from products p
+                 inner join products_category c
+                            on p.cate_code = c.cate_code
+        where p.id = #{id};
+    </select>
+
 </mapper>

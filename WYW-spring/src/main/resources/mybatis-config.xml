@@ -7,5 +7,6 @@
         <typeAlias alias="UsersVo" type="com.project.WYW.domain.UsersVo"/>
         <typeAlias alias="CategoryVo" type="com.project.WYW.domain.CategoryVo"/>
         <typeAlias alias="ProductsVo" type="com.project.WYW.domain.ProductsVo"/>
+        <typeAlias alias="ProductsViewVo" type="com.project.WYW.domain.ProductsViewVo"/>
     </typeAliases>
 </configuration>

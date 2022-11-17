@@ -48,8 +48,7 @@
 
             </div>
             <div class="admin_content_wrap">
-              <div>상품 목록
-              </div>
+              <div>상품 목록</div>
               <table>
                 <thead>
                 <tr>
@@ -79,7 +78,7 @@
                       <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
                     </td>
                     <td>
-                      <button type="button">관리</button>
+                      <button type="button" onclick="location.href='<c:url value="/admin/productsManage?id=${product.id}"/>'">관리</button>
                     </td>
                   </tr>
                 </c:forEach>
@@ -99,5 +98,13 @@
       src="https://kit.fontawesome.com/6478f529f2.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const msg = "${msg}";
+      if(msg=="del_ok"){alert("상품이 삭제되었습니다.")};
+      if(msg=="del_err"){alert("상품이 삭제에 실패 하였습니다.")};
+
+
+    </script>
+
   </body>
 </html>
