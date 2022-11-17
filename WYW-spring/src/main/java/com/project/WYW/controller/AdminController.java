@@ -78,6 +78,7 @@ public class AdminController {
     @PostMapping("/modifyProduct")
     public String modifyProduct(ProductsVo productsVo,Model model,RedirectAttributes rattr)throws Exception{
         int rowCnt = adminService.modifiyProduct(productsVo);
+        System.out.println("rowCnt = " + rowCnt);
         if(rowCnt==1){
             rattr.addFlashAttribute("msg","modify_ok");
             return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();

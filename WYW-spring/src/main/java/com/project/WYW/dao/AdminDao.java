@@ -18,4 +18,6 @@ public interface AdminDao {
     int deleteProduct(Integer id) throws Exception;
 
     int modifiyProduct(ProductsVo productsVo) throws Exception;
+
+    int deleteAllProducts()throws Exception;
 }

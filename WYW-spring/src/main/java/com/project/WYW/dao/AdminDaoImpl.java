@@ -80,4 +80,9 @@ public class AdminDaoImpl implements AdminDao {
         }
         return rowCnt;
     }
+
+    @Override
+    public int deleteAllProducts()throws Exception{
+        return session.delete(namespace+"deleteAllProduct");
+    }
 }

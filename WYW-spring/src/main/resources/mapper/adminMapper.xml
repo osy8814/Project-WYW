@@ -35,13 +35,18 @@
     <update id="modifiyProduct" parameterType="ProductsVo">
         update products
         set  name=#{name}, description=#{description}, cate_code=#{cate_code}, price=#{price},stock=#{stock}
-        where id=16;
+        where id=#{id};
     </update>
 
     <delete id="deleteProduct" parameterType="int">
         delete from products
         where id=#{id};
     </delete>
+
+    <delete id="deleteAllProduct">
+        delete from products
+    </delete>
+
 
     <select id="productsView" parameterType="int" resultType="ProductsViewVo">
         select

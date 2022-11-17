@@ -99,6 +99,15 @@ public class ProductsVo {
 
     public ProductsVo(){}
 
+    public ProductsVo(String user_id, String name, String description, String cate_code, int price, int stock) {
+        this.user_id = user_id;
+        this.name = name;
+        this.description = description;
+        this.cate_code = cate_code;
+        this.price = price;
+        this.stock = stock;
+    }
+
     public ProductsVo(String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
         this.user_id = user_id;
         this.name = name;
@@ -108,6 +117,20 @@ public class ProductsVo {
         this.price = price;
         this.stock = stock;
         this.cumulative_sales = cumulative_sales;
+    }
+
+
+    public ProductsVo(Integer id, String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales, Date created_at) {
+        this.id = id;
+        this.user_id = user_id;
+        this.name = name;
+        this.description = description;
+        this.cate_code = cate_code;
+        this.thumbnail = thumbnail;
+        this.price = price;
+        this.stock = stock;
+        this.cumulative_sales = cumulative_sales;
+        this.created_at = created_at;
     }
 
     @Override
