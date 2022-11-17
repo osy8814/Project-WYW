@@ -23,10 +23,6 @@
         <div class="wrap">
 
           <!-- top_subject_area -->
-          <div class="admin_top_wrap">
-            <span>관리자 페이지</span>
-
-          </div>
           <!-- contents-area -->
           <div class="admin_wrap">
             <!-- 네비영역 -->

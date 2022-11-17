@@ -22,7 +22,7 @@
         values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
     </insert>
 
-    <select id="productsList" resultType="CategoryVo">
+    <select id="productsList" resultType="ProductsVo">
         SELECT * from products
         ORDER BY created_at DESC
     </select>

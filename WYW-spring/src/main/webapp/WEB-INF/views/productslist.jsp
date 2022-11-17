@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,10 +24,6 @@
         <div class="wrap">
 
           <!-- top_subject_area -->
-          <div class="admin_top_wrap">
-            <span>관리자 페이지</span>
-
-          </div>
           <!-- contents-area -->
           <div class="admin_wrap">
             <!-- 네비영역 -->
@@ -62,17 +59,28 @@
                   <th>가격</th>
                   <th>수량</th>
                   <th>등록날짜</th>
+                  <th>관리</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach items="${list}" var="list">
+                <c:forEach items="${list}" var="product">
                   <tr>
-                    <td>${list.user_id}</td>
-                    <td>${list.name}</td>
-                    <td>${list.cate_code}</td>
-                    <td>${list.price}</td>
-                    <td>${list.stock}</td>
-                    <td>${list.created_at}</td>
+                    <td>${product.user_id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.cate_code}</td>
+                    <td>
+                      <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
+                    </td>
+
+                    <td>
+                      <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>
+                    </td>
+                    <td>
+                      <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
+                    </td>
+                    <td>
+                      <button type="button">관리</button>
+                    </td>
                   </tr>
                 </c:forEach>
                 </tbody>
