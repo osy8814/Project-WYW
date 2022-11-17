@@ -79,12 +79,12 @@
 
                   <div class="inputArea">
                     <label for="gdsPrice">상품가격</label>
-                    <input type="text" id="gdsPrice" name="price" value="${productsViewVo.price}" />
+                    <input type="number" id="gdsPrice" name="price" value="${productsViewVo.price}" />
                   </div>
 
                   <div class="inputArea">
                     <label for="gdsStock">상품수량</label>
-                    <input type="text" id="gdsStock" name="stock" value="${productsViewVo.stock}" />
+                    <input type="number" id="gdsStock" name="stock" value="${productsViewVo.stock}" />
                   </div>
 
                   <div class="inputArea">
