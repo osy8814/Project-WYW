@@ -139,26 +139,6 @@
       });
     </script>
     <script>
-      let select_catecode = '${productsViewVo.cate_code}';
-      let select_catecoderef = '${productsViewVo.cate_code_ref}';
-      let select_catename = '${productsViewVo.cate_name}';
-
-      if(select_catecoderef != null && select_catecoderef != '') {
-        $(".category1").val(select_catecoderef);
-        $(".category2").val(select_catecode);
-        $(".category2").children().remove();
-        $(".category2").append("<option value='"
-                + select_catecode + "'>" + select_catename + "</option>");
-      } else {
-        $(".category1").val(select_catecode);
-        $(".category2").append("<option value='" + select_catecode + "' selected='selected'>전체</option>");
-      }
-
-
-    </script>
-
-
-    <script>
       // 컨트롤러에서 데이터 받기
       let jsonData = JSON.parse('${category}');
       console.log(jsonData);
@@ -222,6 +202,21 @@
         });
 
       });
+
+      let select_catecode = '${productsViewVo.cate_code}';
+      let select_catecoderef = '${productsViewVo.cate_code_ref}';
+      let select_catename = '${productsViewVo.cate_name}';
+
+      if(select_catecoderef != null && select_catecoderef != '') {
+          $(".category1").val(select_catecoderef);
+          $(".category2").val(select_catecode);
+          $(".category2").children().remove();
+          $(".category2").append("<option value='"
+              + select_catecode + "'>" + select_catename + "</option>");
+      } else {
+          $(".category1").val(select_catecode);
+          $(".category2").append("<option value='" + select_catecode + "' selected='selected'>전체</option>");
+      }
 
     </script>
   </body>
