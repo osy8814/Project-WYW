@@ -15,6 +15,8 @@ public interface AdminService {
 
     ProductsViewVo readProduct(Integer id) throws Exception;
 
+    List<ProductsViewVo> productsViewList() throws Exception;
+
     int deleteProduct(Integer id) throws  Exception;
 
     int modifiyProduct(ProductsVo productsVo)throws Exception;

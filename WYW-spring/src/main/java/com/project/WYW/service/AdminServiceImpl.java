@@ -36,6 +36,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<ProductsViewVo> productsViewList() throws Exception{
+        return adminDao.productsViewList();
+    }
+
+    @Override
     public int deleteProduct(Integer id) throws  Exception{
         return adminDao.deleteProduct(id);
     }

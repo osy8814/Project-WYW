@@ -13,6 +13,8 @@ public interface AdminDao {
 
     List<ProductsVo> productsList()throws Exception;
 
+    List<ProductsViewVo> productsViewList()throws Exception;
+
     ProductsViewVo readProduct(Integer id) throws Exception;
 
     int deleteProduct(Integer id) throws Exception;

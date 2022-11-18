@@ -45,6 +45,7 @@ public class AdminController {
     @PostMapping("/productsReg")
     public String postProductsReg(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
 
+
         int rowCnt = adminService.regProduct(productsVo);
         if(rowCnt==1){
             rattr.addFlashAttribute("msg", "reg_ok");
@@ -59,7 +60,10 @@ public class AdminController {
     @GetMapping("/productslist")
     public String getProductslist(Model model) throws Exception {
 
-        List<ProductsVo> list = adminService.productList();
+        List<CategoryVo> category = adminService.category();
+        model.addAttribute("category", JSONArray.fromObject(category));
+
+        List<ProductsViewVo> list = adminService.productsViewList();
         model.addAttribute("list", list);
 
         return "productslist";

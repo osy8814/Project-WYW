@@ -46,6 +46,11 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
+    public List<ProductsViewVo> productsViewList()throws Exception{
+        return  session.selectList(namespace+"productsViewList");
+    }
+
+    @Override
     public ProductsViewVo readProduct(Integer id) throws Exception{
         return session.selectOne(namespace+"productsView", id);
     }

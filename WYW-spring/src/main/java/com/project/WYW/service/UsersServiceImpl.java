@@ -57,4 +57,5 @@ public class UsersServiceImpl implements UsersSecvice {
 	public UsersVo mobileChk(String mobile) throws Exception{
 		return usersDao.mobileChk(mobile);
 	}
+
 }
