@@ -1,6 +1,7 @@
 package com.project.WYW.controller;
 
 import com.project.WYW.domain.CategoryVo;
+import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
 import com.project.WYW.service.AdminService;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,7 +32,7 @@ public class AdminController {
 
     /* 상품 등록 페이지 접속 */
     @GetMapping("/productsReg")
-    public String getProductsManage(HttpSession session, Model model) throws Exception {
+    public String getProductsReg(HttpSession session, Model model) throws Exception {
         List<CategoryVo> category = adminService.category();
         UsersVo loginUser = (UsersVo)session.getAttribute("loggedInUser");
 
@@ -41,22 +43,61 @@ public class AdminController {
     }
 
     @PostMapping("/productsReg")
-    public String postProductsManage(ProductsVo productsVo, Model model) throws Exception {
+    public String postProductsReg(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
 
         int rowCnt = adminService.regProduct(productsVo);
         if(rowCnt==1){
-            model.addAttribute("msg", true);
-            return "productsReg";
+            rattr.addFlashAttribute("msg", "reg_ok");
+            return "redirect:/admin/productsReg";
         }
-
-        return "productsReg";
+        rattr.addFlashAttribute(productsVo);
+        rattr.addFlashAttribute("msg", "reg_err");
+        return "redirect:/admin/productsReg";
     }
 
     /* 상품 목록 페이지 접속 */
     @GetMapping("/productslist")
-    public String getProductList() throws Exception {
+    public String getProductslist(Model model) throws Exception {
+
+        List<ProductsVo> list = adminService.productList();
+        model.addAttribute("list", list);
 
         return "productslist";
+    }
+
+    @GetMapping("/productsManage")
+    public String getProductsManage(Integer id, Model model) throws Exception {
+        List<CategoryVo> category = adminService.category();
+        ProductsViewVo productsViewVo = adminService.readProduct(id);
+        System.out.println("category = " + JSONArray.fromObject(category));
+        System.out.println("productsViewVo = " + productsViewVo);
+        model.addAttribute(productsViewVo);
+        model.addAttribute("category", JSONArray.fromObject(category));
+        return "productsManage";
+    }
+
+    @PostMapping("/modifyProduct")
+    public String modifyProduct(ProductsVo productsVo,Model model,RedirectAttributes rattr)throws Exception{
+        int rowCnt = adminService.modifiyProduct(productsVo);
+        System.out.println("rowCnt = " + rowCnt);
+        if(rowCnt==1){
+            rattr.addFlashAttribute("msg","modify_ok");
+            return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();
+        }
+
+        rattr.addFlashAttribute("msg","modify_err");
+        return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();
+    }
+    @PostMapping("/deleteProduct")
+    public String deleteProduct(Integer id,Model model,RedirectAttributes rattr)throws Exception{
+        int rowCnt = adminService.deleteProduct(id);
+        if(rowCnt==1){
+            rattr.addFlashAttribute("msg","del_ok");
+            return "redirect:/admin/productslist";
+        }
+
+        rattr.addFlashAttribute("msg","del_err");
+        return "redirect:/admin/productslist";
     }
 
     /* 카테고리 등록 페이지 접속 */

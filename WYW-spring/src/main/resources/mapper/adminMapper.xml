@@ -21,4 +21,40 @@
         insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
         values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
     </insert>
+
+    <select id="productsList" resultType="ProductsVo">
+        SELECT * from products
+        ORDER BY created_at DESC
+    </select>
+
+    <select id="readProduct" parameterType="int" resultType="ProductsVo">
+        SELECT * from products
+        WHERE id=#{id}
+    </select>
+
+    <update id="modifiyProduct" parameterType="ProductsVo">
+        update products
+        set  name=#{name}, description=#{description}, cate_code=#{cate_code}, price=#{price},stock=#{stock}
+        where id=#{id};
+    </update>
+
+    <delete id="deleteProduct" parameterType="int">
+        delete from products
+        where id=#{id};
+    </delete>
+
+    <delete id="deleteAllProduct">
+        delete from products
+    </delete>
+
+
+    <select id="productsView" parameterType="int" resultType="ProductsViewVo">
+        select
+            p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
+        from products p
+                 inner join products_category c
+                            on p.cate_code = c.cate_code
+        where p.id = #{id};
+    </select>
+
 </mapper>

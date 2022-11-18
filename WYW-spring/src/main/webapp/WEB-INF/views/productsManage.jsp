@@ -47,10 +47,10 @@
 
             </div>
             <div class="admin_content_wrap">
-              <div>상품 등록
+              <div>상품 관리
               </div>
               <div>
-                <form role="form" method="post" autocomplete="off">
+                <form role="form" method="post" autocomplete="off" >
 
                   <div class="inputArea">
                     <label>1차 분류</label>
@@ -65,32 +65,38 @@
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsName">등록인</label>
-                    <input type="text" id="gdsUser" name="user_id" value="${loggedInUser.user_id}" readonly/>
+<%--                    <label for="gdsName">상품번호</label>--%>
+                    <input type="hidden" id="gdsId" name="id" value="${productsViewVo.id}" />
                   </div>
-
+                  <div class="inputArea">
+                    <label for="gdsName">등록인</label>
+                    <input type="text" id="gdsUser" name="user_id" value="${productsViewVo.user_id}" readonly/>
+                  </div>
                   <div class="inputArea">
                     <label for="gdsName">상품명</label>
-                    <input type="text" id="gdsName" name="name" value="${productsVo.name}" required />
+                    <input type="text" id="gdsName" name="name" value="${productsViewVo.name}" />
                   </div>
 
                   <div class="inputArea">
                     <label for="gdsPrice">상품가격</label>
-                    <input type="number" id="gdsPrice" name="price" value="${productsVo.price}" required />
+                    <input type="number" id="gdsPrice" name="price" value="${productsViewVo.price}" />
                   </div>
 
                   <div class="inputArea">
                     <label for="gdsStock">상품수량</label>
-                    <input type="number" id="gdsStock" name="stock" value="${productsVo.stock}" required />
+                    <input type="number" id="gdsStock" name="stock" value="${productsViewVo.stock}" />
                   </div>
 
                   <div class="inputArea">
                     <label for="gdsDes">상품소개</label>
-                    <textarea rows="5" cols="50" id="gdsDes" name="description" required>${productsVo.description}</textarea>
+                    <textarea rows="5" cols="50" id="gdsDes" name="description" >${productsViewVo.description}</textarea>
                   </div>
 
                   <div class="inputArea">
-                    <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+                    <button type="button" id="modify_Btn">수정</button>
+                  </div>
+                  <div class="inputArea">
+                    <button type="button" id="delete_Btn">삭제</button>
                   </div>
 
                 </form>
@@ -103,17 +109,35 @@
 
     </div>
     <jsp:include page="index_bottom.jsp" flush="false"/>
-    <script>
-      const msg = "${msg}";
-      if(msg=="reg_ok"){alert("상품이 등록되었습니다.");}
-      if(msg=="reg_err"){alert("상품이 등록에 실패 하였습니다. 입력값을 확인해주세요.");}
 
-    </script>
 
     <script
       src="https://kit.fontawesome.com/6478f529f2.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const msg = "${msg}";
+
+      if(msg=="modify_ok"){alert("상품이 수정되었습니다.")};
+      if(msg=="modify_err"){alert("상품수정에 실패 하였습니다. 입력값을 확인해 주세요.")};
+    </script>
+    <script>
+      const modifyForm = $("form[role='form']");
+
+      $("#delete_Btn").click(function (){
+        if(confirm("상품을 삭제 하시겠습니까?")){
+          modifyForm.attr("action", "/WYW/admin/deleteProduct");
+          modifyForm.submit();
+        }
+      });
+
+      $("#modify_Btn").click(function (){
+        if(confirm("상품을 수정 하시겠습니까?")){
+          modifyForm.attr("action", "/WYW/admin/modifyProduct");
+          modifyForm.submit();
+        }
+      });
+    </script>
     <script>
       // 컨트롤러에서 데이터 받기
       let jsonData = JSON.parse('${category}');
@@ -178,6 +202,21 @@
         });
 
       });
+
+      let select_catecode = '${productsViewVo.cate_code}';
+      let select_catecoderef = '${productsViewVo.cate_code_ref}';
+      let select_catename = '${productsViewVo.cate_name}';
+
+      if(select_catecoderef != null && select_catecoderef != '') {
+          $(".category1").val(select_catecoderef);
+          $(".category2").val(select_catecode);
+          $(".category2").children().remove();
+          $(".category2").append("<option value='"
+              + select_catecode + "'>" + select_catename + "</option>");
+      } else {
+          $(".category1").val(select_catecode);
+          $(".category2").append("<option value='" + select_catecode + "' selected='selected'>전체</option>");
+      }
 
     </script>
   </body>

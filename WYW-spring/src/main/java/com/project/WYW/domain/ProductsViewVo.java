@@ -3,7 +3,7 @@ package com.project.WYW.domain;
 import java.util.Date;
 import java.util.Objects;
 
-public class ProductsVo {
+public class ProductsViewVo {
 
     private Integer id;
     private String user_id;
@@ -15,6 +15,25 @@ public class ProductsVo {
     private int stock;
     private int cumulative_sales;
     private Date created_at;
+
+    private String cate_name;
+    private String cate_code_ref;
+
+    public String getCate_name() {
+        return cate_name;
+    }
+
+    public void setCate_name(String cate_name) {
+        this.cate_name = cate_name;
+    }
+
+    public String getCate_code_ref() {
+        return cate_code_ref;
+    }
+
+    public void setCate_code_ref(String cate_code_ref) {
+        this.cate_code_ref = cate_code_ref;
+    }
 
     public Integer getId() {
         return id;
@@ -97,18 +116,8 @@ public class ProductsVo {
     }
 
 
-    public ProductsVo(){}
-
-    public ProductsVo(String user_id, String name, String description, String cate_code, int price, int stock) {
-        this.user_id = user_id;
-        this.name = name;
-        this.description = description;
-        this.cate_code = cate_code;
-        this.price = price;
-        this.stock = stock;
-    }
-
-    public ProductsVo(String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
+    public ProductsViewVo(){}
+    public ProductsViewVo(String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
         this.user_id = user_id;
         this.name = name;
         this.description = description;
@@ -117,27 +126,13 @@ public class ProductsVo {
         this.price = price;
         this.stock = stock;
         this.cumulative_sales = cumulative_sales;
-    }
-
-
-    public ProductsVo(Integer id, String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales, Date created_at) {
-        this.id = id;
-        this.user_id = user_id;
-        this.name = name;
-        this.description = description;
-        this.cate_code = cate_code;
-        this.thumbnail = thumbnail;
-        this.price = price;
-        this.stock = stock;
-        this.cumulative_sales = cumulative_sales;
-        this.created_at = created_at;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductsVo that = (ProductsVo) o;
+        ProductsViewVo that = (ProductsViewVo) o;
         return price == that.price && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(thumbnail, that.thumbnail);
     }
 
@@ -148,7 +143,7 @@ public class ProductsVo {
 
     @Override
     public String toString() {
-        return "ProductsVo{" +
+        return "ProductsViewVo{" +
                 "id=" + id +
                 ", user_id='" + user_id + '\'' +
                 ", name='" + name + '\'' +
@@ -159,6 +154,8 @@ public class ProductsVo {
                 ", stock=" + stock +
                 ", cumulative_sales=" + cumulative_sales +
                 ", created_at=" + created_at +
+                ", cate_name='" + cate_name + '\'' +
+                ", cate_code_ref='" + cate_code_ref + '\'' +
                 '}';
     }
 }

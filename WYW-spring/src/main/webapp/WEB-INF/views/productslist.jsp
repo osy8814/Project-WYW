@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,10 +24,6 @@
         <div class="wrap">
 
           <!-- top_subject_area -->
-          <div class="admin_top_wrap">
-            <span>관리자 페이지</span>
-
-          </div>
           <!-- contents-area -->
           <div class="admin_wrap">
             <!-- 네비영역 -->
@@ -51,8 +48,43 @@
 
             </div>
             <div class="admin_content_wrap">
-              <div>상품 목록
-              </div>
+              <div>상품 목록</div>
+              <table>
+                <thead>
+                <tr>
+                  <th>등록인</th>
+                  <th>이름</th>
+                  <th>카테고리</th>
+                  <th>가격</th>
+                  <th>수량</th>
+                  <th>등록날짜</th>
+                  <th>관리</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${list}" var="product">
+                  <tr>
+                    <td>${product.user_id}</td>
+                    <td>${product.name}</td>
+                    <td>${product.cate_code}</td>
+                    <td>
+                      <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
+                    </td>
+
+                    <td>
+                      <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>
+                    </td>
+                    <td>
+                      <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
+                    </td>
+                    <td>
+                      <button type="button" onclick="location.href='<c:url value="/admin/productsManage?id=${product.id}"/>'">관리</button>
+                    </td>
+                  </tr>
+                </c:forEach>
+                </tbody>
+              </table>
+
             </div>
             <div class="clearfix"></div>
           </div>
@@ -66,5 +98,13 @@
       src="https://kit.fontawesome.com/6478f529f2.js"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const msg = "${msg}";
+      if(msg=="del_ok"){alert("상품이 삭제되었습니다.")};
+      if(msg=="del_err"){alert("상품이 삭제에 실패 하였습니다.")};
+
+
+    </script>
+
   </body>
 </html>
