@@ -116,6 +116,13 @@
       crossorigin="anonymous"
     ></script>
     <script>
+        ClassicEditor
+            .create(document.querySelector('#gdsDes'))
+            .catch(error=>{
+                console.error(error);
+            });
+    </script>
+    <script>
       const msg = "${msg}";
 
       if(msg=="modify_ok"){alert("상품이 수정되었습니다.")};

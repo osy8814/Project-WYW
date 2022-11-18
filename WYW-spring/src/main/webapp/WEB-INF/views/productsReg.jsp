@@ -59,7 +59,7 @@
                     </select>
 
                     <label>2차 분류</label>
-                    <select class="category2" name="cate_code">
+                    <select class="category2" name="cate_code" id="cate_code">
                       <option value="">전체</option>
                     </select>
                   </div>
@@ -90,7 +90,7 @@
                   </div>
 
                   <div class="inputArea">
-                    <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+                    <button type="button" id="register_Btn" class="btn btn-primary">등록</button>
                   </div>
 
                 </form>
@@ -104,6 +104,37 @@
     </div>
     <jsp:include page="index_bottom.jsp" flush="false"/>
     <script>
+      let Editor;
+      ClassicEditor
+              .create(document.querySelector('#gdsDes'))
+              .then(editor=>{
+                Editor=editor;
+              })
+              .catch(error=>{
+                console.error(error);
+              });
+
+
+    </script>
+
+    <script>
+           const modifyForm = $("form[role='form']");
+
+      $("#register_Btn").click(function (){
+
+        let completeForm;
+        if($("#cate_code").val()!=="" && $("#gdsName").val()!==""&&$("#gdsPrice").val()!=="" && $("#gdsStock")!==""){
+          completeForm = true;
+        }
+
+        if(confirm("상품을 등록 하시겠습니까?") && completeForm){
+          modifyForm.attr("action", "/WYW/admin/productsReg");
+          modifyForm.submit();
+        }else{
+          alert("입력값이 잘못 되었습니다. 입력값을 확인해주세요.")
+        }
+      });
+
       const msg = "${msg}";
       if(msg=="reg_ok"){alert("상품이 등록되었습니다.");}
       if(msg=="reg_err"){alert("상품이 등록에 실패 하였습니다. 입력값을 확인해주세요.");}

@@ -57,4 +57,12 @@
         where p.id = #{id};
     </select>
 
+    <select id="productsViewList" resultType="ProductsViewVo">
+        select
+            p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
+        from products p
+                 inner join products_category c
+                            on p.cate_code = c.cate_code;
+    </select>
+
 </mapper>
