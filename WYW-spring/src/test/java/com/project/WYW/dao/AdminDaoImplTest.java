@@ -30,7 +30,7 @@ public class AdminDaoImplTest {
 
     @Test
     public void regProduct() throws Exception{
-        adminDao.deleteAllProducts();
+//        adminDao.deleteAllProducts();
         ProductsVo productsVo = new ProductsVo("admin","침실의자","침실의자입니다.","102",2000,20);
 
         System.out.println("Before productsVo :" + productsVo);

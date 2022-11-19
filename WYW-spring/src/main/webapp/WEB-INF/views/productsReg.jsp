@@ -123,6 +123,8 @@
     </div>
     <jsp:include page="index_bottom.jsp" flush="false"/>
     <script>
+        let Cnt =0;
+
       $("input[type='file']").on("change", function(e){
 
         let formData = new FormData();
@@ -201,8 +203,7 @@
         str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
         str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
         str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
-
-          str += "</div>";
+        str += "</div>";
 
 
         uploadResult.append(str);

@@ -12,7 +12,7 @@ import com.project.WYW.dao.UsersDao;
 import com.project.WYW.domain.UsersVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"file:../../../../../../../Servers/WEB-INF/spring/root-context.xml"})
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class UsersServiceTest {
 
 	@Autowired
