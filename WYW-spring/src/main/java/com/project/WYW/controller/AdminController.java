@@ -72,8 +72,6 @@ public class AdminController {
     public String getProductsManage(Integer id, Model model) throws Exception {
         List<CategoryVo> category = adminService.category();
         ProductsViewVo productsViewVo = adminService.readProduct(id);
-        System.out.println("category = " + JSONArray.fromObject(category));
-        System.out.println("productsViewVo = " + productsViewVo);
         model.addAttribute(productsViewVo);
         model.addAttribute("category", JSONArray.fromObject(category));
         return "productsManage";

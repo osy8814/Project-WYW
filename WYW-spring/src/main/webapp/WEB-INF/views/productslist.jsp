@@ -69,10 +69,6 @@
                     <td>${product.user_id}</td>
                     <td>${product.name}</td>
                     <td>
-
-                      <select class="category1" disabled>
-                        <option value="${product.cate_code_ref}" >전체</option>
-                      </select>
                       <select class="category2" name="cate_code" disabled>
                         <option value="${product.cate_code}">${product.cate_name}</option>
                       </select>
@@ -115,72 +111,5 @@
 
 
     </script>
-    <script>
-      // 컨트롤러에서 데이터 받기
-      let jsonData = JSON.parse('${category}');
-      console.log(jsonData);
-
-      let cate1Arr = new Array();
-      let cate1Obj = new Object();
-
-      // 1차 분류 셀렉트 박스에 삽입할 데이터 준비
-      for(let i = 0; i < jsonData.length; i++) {
-
-        if(jsonData[i].level == "1") {
-          cate1Obj = new Object();  //초기화
-          cate1Obj.cate_code = jsonData[i].cate_code;
-          cate1Obj.cate_name = jsonData[i].cate_name;
-          cate1Arr.push(cate1Obj);
-        }
-      }
-
-      // 1차 분류 셀렉트 박스에 데이터 삽입
-      let cate1Select = $("select.category1")
-
-      for(let i = 0; i < cate1Arr.length; i++) {
-        cate1Select.append("<option value='" + cate1Arr[i].cate_code + "'>"
-                + cate1Arr[i].cate_name + "</option>");
-      }
-
-      $(document).on("change", "select.category1", function(){
-
-        let cate2Arr = new Array();
-        let cate2Obj = new Object();
-
-        // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
-        for(let i = 0; i < jsonData.length; i++) {
-
-          if(jsonData[i].level == "2") {
-            cate2Obj = new Object();  //초기화
-            cate2Obj.cate_code = jsonData[i].cate_code;
-            cate2Obj.cate_name = jsonData[i].cate_name;
-            cate2Obj.cate_code_ref = jsonData[i].cate_code_ref;
-
-            cate2Arr.push(cate2Obj);
-          }
-        }
-
-        let cate2Select = $("select.category2");
-
-        cate2Select.children().remove();
-
-        $("option:selected", this).each(function(){
-
-          let selectVal = $(this).val();
-          cate2Select.append("<option value='"+selectVal+"'>전체</option>");
-
-          for(let i = 0; i < cate2Arr.length; i++) {
-            if(selectVal == cate2Arr[i].cate_code_ref) {
-              cate2Select.append("<option value='" + cate2Arr[i].cate_code + "'>"
-                      + cate2Arr[i].cate_name + "</option>");
-            }
-          }
-
-        });
-
-      });
-
-    </script>
-
-  </body>
+    </body>
 </html>
