@@ -3,6 +3,7 @@ package com.project.WYW.dao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.model.AttachImageVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -89,5 +90,19 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public int deleteAllProducts()throws Exception{
         return session.delete(namespace+"deleteAllProduct");
+    }
+
+    @Override
+    public int imgReg(AttachImageVO attachImageVO)throws Exception{
+        System.out.println("attachImageVO = " + attachImageVO);
+        int rowCnt;
+        try {
+            rowCnt = session.insert(namespace+"imageReg", attachImageVO);
+            return rowCnt;
+        } catch (Exception e) {
+            e.printStackTrace();
+            rowCnt = FAIL;
+        }
+        return rowCnt;
     }
 }

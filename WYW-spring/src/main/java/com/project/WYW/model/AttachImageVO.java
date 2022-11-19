@@ -2,13 +2,13 @@ package com.project.WYW.model;
 
 public class AttachImageVO {
 
+    private int product_id;
     private String upload_path;
 
     private String uuid;
 
     private String file_name;
 
-    private int product_id;
 
     public String getUpload_path() {
         return upload_path;
@@ -40,6 +40,15 @@ public class AttachImageVO {
 
     public void setProduct_id(int product_id) {
         this.product_id = product_id;
+    }
+
+    public AttachImageVO(){};
+
+    public AttachImageVO(int product_id, String upload_path, String uuid, String file_name) {
+        this.product_id = product_id;
+        this.upload_path = upload_path;
+        this.uuid = uuid;
+        this.file_name = file_name;
     }
 
     @Override

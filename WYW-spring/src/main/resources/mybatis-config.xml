@@ -8,5 +8,6 @@
         <typeAlias alias="CategoryVo" type="com.project.WYW.domain.CategoryVo"/>
         <typeAlias alias="ProductsVo" type="com.project.WYW.domain.ProductsVo"/>
         <typeAlias alias="ProductsViewVo" type="com.project.WYW.domain.ProductsViewVo"/>
+        <typeAlias alias="AttachImageVO" type="com.project.WYW.model.AttachImageVO"/>
     </typeAliases>
 </configuration>

@@ -59,6 +59,7 @@ public class AdminController {
     @PostMapping("/productsReg")
     public String postProductsReg(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
 
+        System.out.println("productsVo = " + productsVo);
 
         int rowCnt = adminService.regProduct(productsVo);
         if(rowCnt==1){
@@ -73,6 +74,7 @@ public class AdminController {
     /* 상품 목록 페이지 접속 */
     @GetMapping("/productslist")
     public String getProductslist(Model model) throws Exception {
+
 
         List<ProductsViewVo> list = adminService.productsViewList();
         model.addAttribute("list", list);

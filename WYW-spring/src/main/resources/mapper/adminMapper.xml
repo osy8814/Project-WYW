@@ -17,10 +17,16 @@
         SELECT cate_name, cate_code, cate_code_ref, level FROM p;
     </select>
 
-    <insert id="regProduct" parameterType="CategoryVo">
+    <insert id="regProduct" parameterType="ProductsVo">
         insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
         values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
-    </insert>
+
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+
+            SELECT LAST_INSERT_ID();
+
+        </selectKey>
+</insert>
 
     <select id="productsList" resultType="ProductsVo">
         SELECT * from products
@@ -64,5 +70,11 @@
                  inner join products_category c
                             on p.cate_code = c.cate_code;
     </select>
+
+    <insert id="imageReg" parameterType="AttachImageVO">
+        insert into products_image (product_id, file_name, upload_path, uuid)
+        values (#{product_id},#{file_name},#{upload_path},#{uuid});
+    </insert>
+
 
 </mapper>

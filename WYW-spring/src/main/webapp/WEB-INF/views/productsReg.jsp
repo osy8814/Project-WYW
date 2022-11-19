@@ -197,8 +197,13 @@
 
         str += "<div id='result_card'>";
         str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
-          str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
-        str += "</div>";
+        str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+        str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
+        str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
+        str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
+
+          str += "</div>";
+
 
         uploadResult.append(str);
 

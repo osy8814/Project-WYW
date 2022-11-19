@@ -1,6 +1,9 @@
 package com.project.WYW.domain;
 
+import com.project.WYW.model.AttachImageVO;
+
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductsVo {
@@ -15,6 +18,8 @@ public class ProductsVo {
     private int stock;
     private int cumulative_sales;
     private Date created_at;
+
+    private List<AttachImageVO> imageVOList;
 
     public Integer getId() {
         return id;
@@ -96,6 +101,13 @@ public class ProductsVo {
         this.created_at = created_at;
     }
 
+    public List<AttachImageVO> getImageVOList() {
+        return imageVOList;
+    }
+
+    public void setImageVOList(List<AttachImageVO> imageVOList) {
+        this.imageVOList = imageVOList;
+    }
 
     public ProductsVo(){}
 
@@ -159,6 +171,7 @@ public class ProductsVo {
                 ", stock=" + stock +
                 ", cumulative_sales=" + cumulative_sales +
                 ", created_at=" + created_at +
+                ", imageVOList=" + imageVOList +
                 '}';
     }
 }

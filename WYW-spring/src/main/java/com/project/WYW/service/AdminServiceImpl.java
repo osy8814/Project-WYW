@@ -4,6 +4,7 @@ import com.project.WYW.dao.AdminDao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.model.AttachImageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,11 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int modifiyProduct(ProductsVo productsVo)throws Exception{
         return adminDao.modifiyProduct(productsVo);
+    }
+
+    @Override
+    public int imgReg(AttachImageVO attachImageVO)throws Exception{
+        return adminDao.imgReg(attachImageVO);
     }
 
 }
