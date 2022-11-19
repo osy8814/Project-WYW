@@ -4,10 +4,14 @@ import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.service.AdminService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +23,10 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -120,9 +127,34 @@ public class AdminController {
     }
 
 
-    @PostMapping("/uploadajaxAction")
-    public void uploadajaxActionPost(MultipartFile[] uploadFile)throws Exception{
+    @PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile)throws Exception{
 
+        for(MultipartFile multipartFile : uploadFile){
+
+            File checkfile = new File(multipartFile.getOriginalFilename());
+            String type = null;
+
+            try {
+                type = Files.probeContentType(checkfile.toPath());
+                System.out.println("MIME TYPE : " + type);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            /*파일이 이미지가 아닐경우*/
+            if(!type.startsWith("image")) {
+
+                /*ResponseEntity 객체에 첨부해줄 값이 null인 List <AttachImageVO>리턴*/
+                List<AttachImageVO> list = null;
+                return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+
+            }
+        }
+
+
+//        기본폴더 경로
         String uploadFolder = "C:\\upload";
 
 //        연/월/일 형태로 폴더 생성
@@ -137,11 +169,13 @@ public class AdminController {
             uploadPath.mkdirs();
         }
 
+        /* 이미저 정보 담는 객체 */
+        List<AttachImageVO> list = new ArrayList();
+
         for(MultipartFile multipartFile : uploadFile){
 
-            System.out.println("파일이름 = " + multipartFile.getOriginalFilename());
-            System.out.println("파일타입 = " + multipartFile.getContentType());
-            System.out.println("파일크기 = " + multipartFile.getSize());
+            /*이미지 정보 객체*/
+            AttachImageVO vo = new AttachImageVO();
 
             /* 파일 이름 */
             String uploadFileName = multipartFile.getOriginalFilename();
@@ -151,32 +185,23 @@ public class AdminController {
 
             uploadFileName = uuid + "_" + uploadFileName;
 
+            vo.setFile_name(uploadFileName);
+            vo.setUpload_path(datePath);
+            vo.setUuid(uuid);
+
             /* 파일 위치, 파일 이름을 합친 File 객체 */
             File saveFile = new File(uploadPath, uploadFileName);
-            System.out.println("saveFile = " + saveFile);
+
             /*  섬네일 파일 "s_" + 파일 이름 */
             File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
 
 
             try {
+
                 /* 파일 저장 */
                 multipartFile.transferTo(saveFile);
 
-//                BufferedImage original_image = ImageIO.read(saveFile);
-//                /* 비율 */
-//                double ratio = 3;
-//                /*넓이 높이*/
-//                int width = (int) (original_image.getWidth() / ratio);
-//                int height = (int) (original_image.getHeight() / ratio);
-//
-//                BufferedImage thunbnail_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-//
-//                Graphics2D graphic = thunbnail_image.createGraphics();
-//
-//                graphic.drawImage(original_image, 0, 0,width,height, null);
-//                ImageIO.write(thunbnail_image, "jpg", thumbnailFile);
-
-                /* 방법 2 */
+                /* Thumbnailator라이브러리 사용 */
                 BufferedImage bo_image = ImageIO.read(saveFile);
 
                 //비율
@@ -193,8 +218,11 @@ public class AdminController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            list.add(vo);
         }
 
+        ResponseEntity<List<AttachImageVO>> result = new ResponseEntity(list, HttpStatus.OK);
 
+        return result;
     }
 }

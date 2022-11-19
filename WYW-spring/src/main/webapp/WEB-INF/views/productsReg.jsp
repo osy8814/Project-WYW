@@ -134,19 +134,21 @@
         if(!fileCheck(fileObj.name, fileObj.size)){
           return false;
         }
-        alert("통과");
+        alert("이미지 파일이 선택 되었습니다.");
 
         formData.append("uploadFile", fileObj);
-        console.log(formData);
         $.ajax({
-          url: '/WYW/admin/uploadajaxAction',
+          url: '/WYW/admin/uploadAjaxAction',
           processData : false,
           contentType : false,
           data : formData,
           type : 'post',
           dataType : 'json',
-          error : function (error){
-            console.log(error);
+          success : function(result){
+            console.log(result);
+          },
+          error : function(result){
+            alert("이미지 파일이 아닙니다.");
           }
         });
 
