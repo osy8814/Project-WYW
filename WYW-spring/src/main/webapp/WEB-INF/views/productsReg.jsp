@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="${pageContext.request.contextPath}/img/WYWlogo.png" />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+    <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
     <title>WYW</title>
     <style></style>
   </head>
@@ -90,6 +91,16 @@
                   </div>
 
                   <div class="inputArea">
+                    <div class="form_section_title">
+                      <label>상품 이미지</label>
+                    </div>
+                    <form class="form_section_content">
+                      <input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
+                    </form>
+                  </div>
+
+
+                  <div class="inputArea">
                     <button type="button" id="register_Btn" class="btn btn-primary">등록</button>
                   </div>
 
@@ -103,6 +114,65 @@
 
     </div>
     <jsp:include page="index_bottom.jsp" flush="false"/>
+    <script>
+      $("input[type='file']").on("change", function(e){
+
+        let formData = new FormData();
+        let fileInput = $('input[name="uploadFile"]');
+        let fileList = fileInput[0].files;
+        let fileObj = fileList[0];
+
+        let form = $(`.form_section_content`);
+
+        console.log("fileList : " + fileList);
+        console.log("fileObj : " + fileObj);
+        console.log("fileName : " + fileObj.name);
+        console.log("fileSize : " + fileObj.size);
+        console.log("fileType(MimeType) : " + fileObj.type);
+
+        if(!fileCheck(fileObj.name, fileObj.size)){
+          return false;
+        }
+        alert("통과");
+
+        formData.append("uploadFile", fileObj);
+        console.log(formData);
+        $.ajax({
+          url: '/WYW/admin/uploadajaxAction',
+          processData : false,
+          contentType : false,
+          data : formData,
+          type : 'post',
+          dataType : 'json',
+          
+        });
+
+      });
+
+      /* var, method related with attachFile */
+      let regex = new RegExp("(.*?)\.(jpg|png)$");
+      let maxSize = 1048576; //1MB
+
+      function fileCheck(fileName, fileSize){
+
+        if(fileSize >= maxSize){
+          alert("파일 사이즈 초과");
+          return false;
+        }
+
+        if(!regex.test(fileName)){
+          alert("해당 종류의 파일은 업로드할 수 없습니다.");
+          return false;
+        }
+
+        return true;
+
+      }
+
+
+
+    </script>
+
     <script>
       let Editor;
       ClassicEditor

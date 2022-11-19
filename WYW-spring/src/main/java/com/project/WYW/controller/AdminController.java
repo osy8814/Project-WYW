@@ -9,9 +9,8 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -116,5 +115,14 @@ public class AdminController {
     public String getCategoryManage() throws Exception {
 
         return "categoryManage";
+    }
+
+
+    @PostMapping("/uploadajaxAction")
+    public void uploadajaxActionPost(MultipartFile uploadFile)throws Exception{
+
+        System.out.println("파일이름 = " + uploadFile.getOriginalFilename());
+        System.out.println("파일타입 = " + uploadFile.getContentType());
+        System.out.println("파일크기 = " + uploadFile.getSize());
     }
 }

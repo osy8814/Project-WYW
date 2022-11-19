@@ -52,6 +52,7 @@
               <table>
                 <thead>
                 <tr>
+                  <th>상품번호</th>
                   <th>등록인</th>
                   <th>이름</th>
                   <th>카테고리</th>
@@ -64,6 +65,7 @@
                 <tbody>
                 <c:forEach items="${list}" var="product">
                   <tr>
+                    <td>${product.id}</td>
                     <td>${product.user_id}</td>
                     <td>${product.name}</td>
                     <td>
