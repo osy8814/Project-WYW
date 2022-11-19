@@ -59,9 +59,6 @@ public class AdminController {
     @GetMapping("/productslist")
     public String getProductslist(Model model) throws Exception {
 
-        List<CategoryVo> category = adminService.category();
-        model.addAttribute("category", JSONArray.fromObject(category));
-
         List<ProductsViewVo> list = adminService.productsViewList();
         model.addAttribute("list", list);
 

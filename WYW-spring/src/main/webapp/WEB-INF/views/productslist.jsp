@@ -21,36 +21,37 @@
     <div class="admin_main">
 
       <div class="wrapper">
-        <div class="wrap">
 
-          <!-- top_subject_area -->
-          <!-- contents-area -->
+
+        <div class="wrap">
+          <div class="wrap_title">관리자 페이지</div>
+
           <div class="admin_wrap">
             <!-- 네비영역 -->
             <div class="admin_navi_wrap">
               <ul>
                 <li >
-                  <a href="<c:url value="/admin/productsReg"/> " class="admin_list_01">상품 등록</a>
+                  <a href="<c:url value="/admin/productsReg"/>" class="admin_list_01"><i class="far fa-clipboard"></i>
+                    상품 등록</a>
                 </li>
                 <li>
-                  <a href="<c:url value="/admin/productslist"/> " class="admin_list_02">상품 목록</a>
+                  <a href="<c:url value="/admin/productslist"/>" class="admin_list_02"><i class="fas fa-list"></i>상품 목록</a>
                 </li>
                 <lI>
-                  <a href="<c:url value="/admin/category"/> " class="admin_list_03">카테고리 등록</a>
+                  <a href="<c:url value="/admin/category"/>" class="admin_list_03"><i class="fas fa-bezier-curve"></i>카테고리 등록</a>
                 </lI>
                 <lI>
-                  <a href="<c:url value="/admin/categoryManage"/> " class="admin_list_04">카테고리 관리</a>
+                  <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i class="fas fa-scroll"></i>카테고리 관리</a>
                 </lI>
                 <lI>
-                  <a class="admin_list_05">회원 관리</a>
+                  <a class="admin_list_05"><i class="fas fa-users-cog"></i>회원 관리</a>
                 </lI>
               </ul>
 
             </div>
             <div class="admin_content_wrap">
-              <div>상품 목록</div>
+              <div class="admin_content_wrap_title">상품 목록</div>
               <table>
-                <thead>
                 <tr>
                   <th>상품번호</th>
                   <th>등록인</th>
@@ -61,24 +62,19 @@
                   <th>등록날짜</th>
                   <th>관리</th>
                 </tr>
-                </thead>
-                <tbody>
+
                 <c:forEach items="${list}" var="product">
-                  <tr>
+                <tr>
                     <td>${product.id}</td>
                     <td>${product.user_id}</td>
                     <td>${product.name}</td>
+                    <td>${product.cate_name}</td>
                     <td>
-                      <select class="category2" name="cate_code" disabled>
-                        <option value="${product.cate_code}">${product.cate_name}</option>
-                      </select>
-                    </td>
-                    <td>
-                      <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
+                      <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>원
                     </td>
 
                     <td>
-                      <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>
+                      <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>EA
                     </td>
                     <td>
                       <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
@@ -86,9 +82,9 @@
                     <td>
                       <button type="button" onclick="location.href='<c:url value="/admin/productsManage?id=${product.id}"/>'">관리</button>
                     </td>
-                  </tr>
+                </tr>
                 </c:forEach>
-                </tbody>
+
               </table>
 
             </div>
