@@ -5,6 +5,7 @@ import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
 import com.project.WYW.service.AdminService;
+import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin")
@@ -114,10 +121,80 @@ public class AdminController {
 
 
     @PostMapping("/uploadajaxAction")
-    public void uploadajaxActionPost(MultipartFile uploadFile)throws Exception{
+    public void uploadajaxActionPost(MultipartFile[] uploadFile)throws Exception{
 
-        System.out.println("파일이름 = " + uploadFile.getOriginalFilename());
-        System.out.println("파일타입 = " + uploadFile.getContentType());
-        System.out.println("파일크기 = " + uploadFile.getSize());
+        String uploadFolder = "C:\\upload";
+
+//        연/월/일 형태로 폴더 생성
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        String str = sdf.format(date);
+        String datePath = str.replace("-", File.separator);
+
+        File uploadPath = new File(uploadFolder, datePath);
+        if(uploadPath.exists() == false) {
+//            폴더가 존재하지 않을때만 폴더생성
+            uploadPath.mkdirs();
+        }
+
+        for(MultipartFile multipartFile : uploadFile){
+
+            System.out.println("파일이름 = " + multipartFile.getOriginalFilename());
+            System.out.println("파일타입 = " + multipartFile.getContentType());
+            System.out.println("파일크기 = " + multipartFile.getSize());
+
+            /* 파일 이름 */
+            String uploadFileName = multipartFile.getOriginalFilename();
+
+            /* uuid 적용 파일 이름 */
+            String uuid = UUID.randomUUID().toString();
+
+            uploadFileName = uuid + "_" + uploadFileName;
+
+            /* 파일 위치, 파일 이름을 합친 File 객체 */
+            File saveFile = new File(uploadPath, uploadFileName);
+            System.out.println("saveFile = " + saveFile);
+            /*  섬네일 파일 "s_" + 파일 이름 */
+            File thumbnailFile = new File(uploadPath, "s_" + uploadFileName);
+
+
+            try {
+                /* 파일 저장 */
+                multipartFile.transferTo(saveFile);
+
+//                BufferedImage original_image = ImageIO.read(saveFile);
+//                /* 비율 */
+//                double ratio = 3;
+//                /*넓이 높이*/
+//                int width = (int) (original_image.getWidth() / ratio);
+//                int height = (int) (original_image.getHeight() / ratio);
+//
+//                BufferedImage thunbnail_image = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+//
+//                Graphics2D graphic = thunbnail_image.createGraphics();
+//
+//                graphic.drawImage(original_image, 0, 0,width,height, null);
+//                ImageIO.write(thunbnail_image, "jpg", thumbnailFile);
+
+                /* 방법 2 */
+                BufferedImage bo_image = ImageIO.read(saveFile);
+
+                //비율
+                double ratio = 3;
+                //넓이 높이
+                int width = (int) (bo_image.getWidth() / ratio);
+                int height = (int) (bo_image.getHeight() / ratio);
+
+
+                Thumbnails.of(saveFile)
+                        .size(width, height)
+                        .toFile(thumbnailFile);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 }

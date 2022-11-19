@@ -66,28 +66,29 @@
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsName">등록인</label>
-                    <input type="text" id="gdsUser" name="user_id" value="${loggedInUser.user_id}" readonly/>
+                    <label for="user_id">등록인</label>
+                    <input type="text" id="user_id" name="user_id" value="${loggedInUser.user_id}" readonly/>
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsName">상품명</label>
-                    <input type="text" id="gdsName" name="name" value="${productsVo.name}" required />
+                    <label for="name">상품명</label>
+                    <input type="text" id="name" name="name" value="${productsVo.name}" required />
+
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsPrice">상품가격</label>
-                    <input type="number" id="gdsPrice" name="price" value="${productsVo.price}" required />
+                    <label for="price">상품가격</label>
+                    <input type="number" id="price" name="price" value="${productsVo.price}" required />
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsStock">상품수량</label>
-                    <input type="number" id="gdsStock" name="stock" value="${productsVo.stock}" required />
+                    <label for="stock">상품수량</label>
+                    <input type="number" id="stock" name="stock" value="${productsVo.stock}" required />
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsDes">상품소개</label>
-                    <textarea rows="5" cols="50" id="gdsDes" name="description" required>${productsVo.description}</textarea>
+                    <label for="description">상품소개</label>
+                    <textarea rows="5" cols="50" id="description" name="description" required>${productsVo.description}</textarea>
                   </div>
 
                   <div class="inputArea">
@@ -144,7 +145,9 @@
           data : formData,
           type : 'post',
           dataType : 'json',
-
+          error : function (error){
+            console.log(error);
+          }
         });
 
       });
@@ -176,24 +179,35 @@
     <script>
       let Editor;
       ClassicEditor
-              .create(document.querySelector('#gdsDes'))
-              .then(editor=>{
-                Editor=editor;
+              .create(document.querySelector('#description'),{
+                language:'ko',
+                toolbar: {
+                  items : ['bold', 'italic', 'link', 'insertTable', 'undo'],
+                  shouldNotGroupWhenFull: true
+                }
               })
               .catch(error=>{
                 console.error(error);
-              });
-
-
+      });
     </script>
 
     <script>
-           const modifyForm = $("form[role='form']");
+      const modifyForm = $("form[role='form']");
+
+      let cate_code_val = false;
+      let name_val = false;
+      let price_val = false;
+      let stock_val = false;
 
       $("#register_Btn").click(function (){
 
+        cate_code_val = $("#cate_code").val();
+        name_val = $("#name").val();
+        price_val = $("#price").val();
+        stock_val = $("#stock").val();
+
         let completeForm;
-        if($("#cate_code").val()!=="" && $("#gdsName").val()!==""&&$("#gdsPrice").val()!=="" && $("#gdsStock")!==""){
+        if(cate_code_val!=="" && name_val!==""&& price_val!=="" && stock_val!==""){
           completeForm = true;
         }
 
