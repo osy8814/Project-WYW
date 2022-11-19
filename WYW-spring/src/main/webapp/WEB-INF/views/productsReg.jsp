@@ -94,9 +94,16 @@
                   <div class="inputArea">
                     <label>상품 이미지</label>
                     <div>
-                    <form class="form_section_content">
+                    <div class="form_section_content">
                       <input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
-                    </form>
+                        <div id="uploadResult">
+
+<%--                      <div id="result_card">--%>
+<%--                        <div class="imgDeleteBtn">x</div>--%>
+<%--                        <img src="${pageContext.request.contextPath}/display?fileName=test.png">--%>
+<%--                      </div>--%>
+                        </div>
+                    </div>
                     </div>
                   </div>
 
@@ -123,8 +130,6 @@
         let fileList = fileInput[0].files;
         let fileObj = fileList[0];
 
-        let form = $(`.form_section_content`);
-
         console.log("fileList : " + fileList);
         console.log("fileObj : " + fileObj);
         console.log("fileName : " + fileObj.name);
@@ -146,6 +151,7 @@
           dataType : 'json',
           success : function(result){
             console.log(result);
+            showUploadImage(result);
           },
           error : function(result){
             alert("이미지 파일이 아닙니다.");
@@ -172,6 +178,65 @@
 
         return true;
 
+      }
+
+
+      /* 이미지 출력 */
+      function showUploadImage(uploadResultArr){
+
+        /* 전달받은 데이터 검증 */
+        if(!uploadResultArr || uploadResultArr.length == 0){return}
+
+        let uploadResult = $("#uploadResult");
+
+        let obj = uploadResultArr[0];
+
+        let str = "";
+
+        let fileCallPath = obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name;
+
+        str += "<div id='result_card'>";
+        str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
+          str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+        str += "</div>";
+
+        uploadResult.append(str);
+
+      }
+      /* 이미지 삭제 버튼 동작 */
+      $("#uploadResult").on("click", ".imgDeleteBtn", function(e){
+          /* 이미지 존재시 삭제 */
+          if($(".imgDeleteBtn").length > 0){
+              deleteFile();
+          }
+      });
+
+
+      /* 파일 삭제 메서드 */
+      function deleteFile(){
+
+          let targetFile = $(".imgDeleteBtn").data("file");
+
+          let targetDiv = $("#result_card");
+
+          $.ajax({
+              url: '/WYW/admin/deleteFile',
+              data : {fileName : targetFile},
+              dataType : 'text',
+              type : 'POST',
+              success : function(result){
+                  console.log(result);
+
+                  targetDiv.remove();
+                  $("input[type='file']").val("");
+
+              },
+              error : function(result){
+                  console.log(result);
+
+                  alert("파일을 삭제하지 못하였습니다.")
+              }
+          });
       }
 
 
