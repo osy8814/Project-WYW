@@ -25,8 +25,8 @@ public class UsersServiceTest {
 	public void getListTest() throws Exception{
 		usersDao.deleteAll();
 		for (int i = 1; i <= 20; i++) {
-			UsersVo usersDto = new UsersVo("id"+i, "name1", "1234", "aaa"+i+"@aaa.com", "010","1234","123"+i);
-			usersSecvice.singUp(usersDto);
+			UsersVo usersVo = new UsersVo("id"+i, "name1", "1234", "aaa"+i+"@aaa.com", "010","1234","123"+i);
+			usersSecvice.singUp(usersVo);
 		}
 		assertTrue(usersSecvice.getList().size()==20);
 	}
@@ -36,33 +36,33 @@ public class UsersServiceTest {
 		usersDao.deleteAll();
 		assertTrue(usersSecvice.getList().size()==0);
 		
-		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
-		assertTrue(usersSecvice.singUp(usersDto)==1);
+		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		assertTrue(usersSecvice.singUp(usersVo)==1);
 		
-		String user_id = usersDao.selectAll().get(0).getUser_id();
+		String userId = usersDao.selectAll().get(0).getUserId();
 		String email = usersDao.selectAll().get(0).getEmail();
 	
-		usersDto.setUser_id(user_id);
-		usersDto.setEmail(email);
-		UsersVo usersDto2 = usersSecvice.read(user_id);
+		usersVo.setUserId(userId);
+		usersVo.setEmail(email);
+		UsersVo usersVo2 = usersSecvice.read(userId);
 		
-		assertTrue(usersDto.equals(usersDto2));
+		assertTrue(usersVo.equals(usersVo2));
 	}
 	
 	@Test
 	public void modifyTest() throws Exception{
 		usersDao.deleteAll();
-		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
-		assertTrue(usersSecvice.singUp(usersDto)==1);
+		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		assertTrue(usersSecvice.singUp(usersVo)==1);
 		
-		UsersVo usersDto2 = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","1234","4321");
-		assertTrue(usersSecvice.singUp(usersDto2)==1);
+		UsersVo usersVo2 = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","1234","4321");
+		assertTrue(usersSecvice.singUp(usersVo2)==1);
 
 		assertTrue(usersSecvice.getList().size()==2);
 		
-		usersDto.setPassword("4321");
-		assertTrue(usersSecvice.modify(usersDto)==1);
-		assertTrue(usersSecvice.read(usersDto.getUser_id()).equals(usersDto));
+		usersVo.setPassword("4321");
+		assertTrue(usersSecvice.modify(usersVo)==1);
+		assertTrue(usersSecvice.read(usersVo.getUserId()).equals(usersVo));
 
 	}
 
@@ -70,17 +70,17 @@ public class UsersServiceTest {
 	public void removeTest() throws Exception {
 		usersDao.deleteAll();
 		
-		UsersVo usersDto = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
-		assertTrue(usersSecvice.singUp(usersDto)==1);
+		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
+		assertTrue(usersSecvice.singUp(usersVo)==1);
 		assertTrue(usersDao.selectAll().size()==1);
 		
-		String user_id = usersDao.selectAll().get(0).getUser_id();
+		String user_id = usersDao.selectAll().get(0).getUserId();
 		String email = usersDao.selectAll().get(0).getEmail();
 		String name = usersDao.selectAll().get(0).getName();
 		
-		UsersVo usersDto2 = new UsersVo("id2", "name1", "1234", "bbb@aaa.com", "010","4321","4321");
+		UsersVo usersVo2 = new UsersVo("id2", "name1", "1234", "bbb@aaa.com", "010","4321","4321");
 				
-		assertTrue(usersSecvice.singUp(usersDto2)==1);
+		assertTrue(usersSecvice.singUp(usersVo2)==1);
 		assertTrue(usersSecvice.getCount()==2);
 		
 		assertTrue(usersSecvice.remove(user_id, email, name)==1);

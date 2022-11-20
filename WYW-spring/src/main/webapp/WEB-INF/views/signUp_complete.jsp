@@ -43,7 +43,7 @@
                 아이디
               </h2>
               <h2 class="signUp_complete_main_regist-info_infoSet-id-d">
-                ${usersVo.user_id}
+                ${usersVo.userId}
               </h2>
             </div>
             <div

@@ -17,7 +17,7 @@ public class UsersDaoImpl implements UsersDao {
 	final int FAIL = 0;
 	@Autowired
 	private SqlSession session;
-	private static String namespace="com.project.WYW.dao.usersMapper.";
+	private static String namespace="com.project.WYW.mapper.usersMapper.";
 	
 	@Override
 	public int count() throws Exception{
@@ -25,7 +25,7 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public List<UsersVo> selectAll() throws Exception{
+	public List<UsersVo> selectAll() {
 		return session.selectList(namespace + "selectAll");
 	}
 	
@@ -48,7 +48,7 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public int delete(String userId, String email, String name) throws Exception {
         Map map = new HashMap();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         map.put("email", email);
         map.put("name", name);
 		int rowCnt;

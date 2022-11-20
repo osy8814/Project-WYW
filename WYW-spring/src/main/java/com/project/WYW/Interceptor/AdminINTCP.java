@@ -18,7 +18,7 @@ public class AdminINTCP implements HandlerInterceptor {
 
         UsersVo adminVo = (UsersVo)session.getAttribute("loggedInUser");
 
-        if(adminVo==null || adminVo.getIs_admin()==false){
+        if(adminVo==null || adminVo.getIsAdmin()==false){
 
             response.sendRedirect("/WYW");
 

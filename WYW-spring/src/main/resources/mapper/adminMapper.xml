@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.WYW.domain.CategoryVo">
+<mapper namespace="com.project.WYW.mapper.adminMapper">
     <select id="category" resultType="CategoryVo">
         WITH recursive p AS (
             SELECT cate_name, cate_code, cate_code_ref, 1 AS level
@@ -17,10 +17,16 @@
         SELECT cate_name, cate_code, cate_code_ref, level FROM p;
     </select>
 
-    <insert id="regProduct" parameterType="CategoryVo">
+    <insert id="regProduct" parameterType="ProductsVo">
         insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
-        values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
-    </insert>
+        values (#{userId},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
+
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+
+            SELECT LAST_INSERT_ID();
+
+        </selectKey>
+</insert>
 
     <select id="productsList" resultType="ProductsVo">
         SELECT * from products
@@ -56,5 +62,19 @@
                             on p.cate_code = c.cate_code
         where p.id = #{id};
     </select>
+
+    <select id="productsViewList" resultType="ProductsViewVo">
+        select
+            p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
+        from products p
+                 inner join products_category c
+                            on p.cate_code = c.cate_code;
+    </select>
+
+    <insert id="imageReg" parameterType="AttachImageVO">
+        insert into products_image (product_id, file_name, upload_path, uuid)
+        values (#{product_id},#{file_name},#{upload_path},#{uuid});
+    </insert>
+
 
 </mapper>

@@ -10,13 +10,13 @@ public interface UsersSecvice {
 
 	List<UsersVo> getList() throws Exception;
 
-	UsersVo read(String user_id) throws Exception;
+	UsersVo read(String userId) throws Exception;
 
-	int remove(String user_id, String email, String name) throws Exception;
+	int remove(String userId, String email, String name) throws Exception;
 	
-	int singUp(UsersVo vo)throws Exception;
+	int singUp(UsersVo vo) throws Exception;
 
-	UsersVo login(String user_id) throws Exception;
+	UsersVo login(String userId) throws Exception;
 
     int modify(UsersVo vo) throws Exception;
 

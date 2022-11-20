@@ -29,7 +29,7 @@
                   <strong style="color: blue">*</strong>
                 </th>
                 <td>
-                  <input type="text" name="user_id" id="info_id" minlength="4" maxlength="16" required/>
+                  <input type="text" name="userId" id="info_id" minlength="4" maxlength="16" required/>
                   <span class="infoHint">(영어 대소문자/숫자, 4~16자)</span>
                   <span class="idErrorMsg"></span>
                 </td>
@@ -108,11 +108,11 @@
               <tr>
                 <th id="addrth">주소</th>
                 <td id="addrtd">
-                  <input type="text"  name="API_postcode" id="API_postcode" placeholder="우편번호">
+                  <input type="text"  name="APIPostcode" id="API_postcode" placeholder="우편번호">
                   <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                  <input type="text"  name="API_address" id="API_address" placeholder="주소"><br>
-                  <input type="text"  name="API_detailAddress" id="API_detailAddress" placeholder="상세주소">
-                  <input type="text"  name="API_extraAddress" id="API_extraAddress" placeholder="참고항목">
+                  <input type="text"  name="APIAddress" id="API_address" placeholder="주소"><br>
+                  <input type="text"  name="APIDetailAddress" id="API_detailAddress" placeholder="상세주소">
+                  <input type="text"  name="APIExtraAddress" id="API_extraAddress" placeholder="참고항목">
                 </td>
               </tr>
 

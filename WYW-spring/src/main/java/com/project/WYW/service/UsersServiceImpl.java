@@ -25,13 +25,13 @@ public class UsersServiceImpl implements UsersSecvice {
 	}
 	
 	@Override
-	public UsersVo read(String user_id) throws Exception{
-		return usersDao.select(user_id);
+	public UsersVo read(String userId) throws Exception{
+		return usersDao.select(userId);
 	}
 	
 	@Override
-	public int remove(String user_id, String email, String name) throws Exception{
-		return usersDao.delete(user_id, email, name);
+	public int remove(String userId, String email, String name) throws Exception{
+		return usersDao.delete(userId, email, name);
 	}
 	
 	@Override
@@ -40,8 +40,8 @@ public class UsersServiceImpl implements UsersSecvice {
 	}
 
 	@Override
-	public UsersVo login(String user_id) throws Exception{
-		return usersDao.login(user_id);
+	public UsersVo login(String userId) throws Exception{
+		return usersDao.login(userId);
 	}
 	
 	@Override
@@ -57,4 +57,5 @@ public class UsersServiceImpl implements UsersSecvice {
 	public UsersVo mobileChk(String mobile) throws Exception{
 		return usersDao.mobileChk(mobile);
 	}
+
 }

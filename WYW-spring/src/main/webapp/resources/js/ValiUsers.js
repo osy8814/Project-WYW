@@ -2,7 +2,7 @@ let completeId = false;
 
 $("#info_id").keyup(function (){
 
-    let query = {user_id : $("#info_id").val()};
+    let query = {userId : $("#info_id").val()};
     const removeSpace = $("#info_id").val().replace(/\s/gi,"");
     $("#info_id").val(removeSpace);
     const regexp = /^[a-zA-Z][a-zA-Z0-9]{4,16}/;
@@ -11,10 +11,11 @@ $("#info_id").keyup(function (){
     $.ajax({
         url : `/WYW/users/idChk`,
         type : "post",
+        dataType : 'json',
         data : query,
         success : function(data){
 
-            if(data==1 || !result){
+            if(data || !result){
                 $(".idErrorMsg").text("사용불가능한 ID입니다.");
                 $(".idErrorMsg").attr("style", "color:red");
                 $(".registerSubmit").attr("disabled", true);
@@ -37,10 +38,11 @@ $("#info_email").keyup(function (){
     $.ajax({
         url : `/WYW/users/emailChk`,
         type : "post",
+        dataType : 'json',
         data : query,
         success : function(data){
 
-            if(data==1){
+            if(data){
                 $(".emailErrorMsg").text("이미 등록된 Email입니다.");
                 $(".emailErrorMsg").attr("style", "color:red");
                 $(".registerSubmit").attr("disabled", true);
@@ -67,10 +69,11 @@ $(".mobileCss").keyup(function (){
     $.ajax({
         url : `/WYW/users/mobileChk`,
         type : "post",
+        dataType : 'json',
         data : query,
         success : function(data){
 
-            if(data==1){
+            if(data){
                 $(".mobileErrorMsg").text("이미 등록된 전화번호입니다.");
                 $(".mobileErrorMsg").attr("style", "color:red");
                 $(".registerSubmit").attr("disabled", true);

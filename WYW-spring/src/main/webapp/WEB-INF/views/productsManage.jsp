@@ -20,46 +20,47 @@
     <div class="admin_main">
 
       <div class="wrapper">
-        <div class="wrap">
 
-          <!-- top_subject_area -->
-          <!-- contents-area -->
+
+          <div class="wrap">
+              <div class="wrap_title">관리자 페이지</div>
+
           <div class="admin_wrap">
             <!-- 네비영역 -->
-            <div class="admin_navi_wrap">
-              <ul>
-                <li >
-                  <a href="<c:url value="/admin/productsReg"/> " class="admin_list_01">상품 등록</a>
-                </li>
-                <li>
-                  <a href="<c:url value="/admin/productslist"/> " class="admin_list_02">상품 목록</a>
-                </li>
-                <lI>
-                  <a href="<c:url value="/admin/category"/> " class="admin_list_03">카테고리 등록</a>
-                </lI>
-                <lI>
-                  <a href="<c:url value="/admin/categoryManage"/> " class="admin_list_04">카테고리 관리</a>
-                </lI>
-                <lI>
-                  <a class="admin_list_05">회원 관리</a>
-                </lI>
-              </ul>
+              <div class="admin_navi_wrap">
+                  <ul>
+                      <li >
+                          <a href="<c:url value="/admin/productsReg"/>" class="admin_list_01"><i class="far fa-clipboard"></i>
+                              상품 등록</a>
+                      </li>
+                      <li>
+                          <a href="<c:url value="/admin/productslist"/>" class="admin_list_02"><i class="fas fa-list"></i>상품 목록</a>
+                      </li>
+                      <lI>
+                          <a href="<c:url value="/admin/category"/>" class="admin_list_03"><i class="fas fa-bezier-curve"></i>카테고리 등록</a>
+                      </lI>
+                      <lI>
+                          <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i class="fas fa-scroll"></i>카테고리 관리</a>
+                      </lI>
+                      <lI>
+                          <a class="admin_list_05"><i class="fas fa-users-cog"></i>회원 관리</a>
+                      </lI>
+                  </ul>
 
-            </div>
-            <div class="admin_content_wrap">
-              <div>상품 관리
               </div>
+            <div class="admin_content_wrap">
+              <div class="admin_content_wrap_title">상품 관리</div>
               <div>
                 <form role="form" method="post" autocomplete="off" >
 
                   <div class="inputArea">
                     <label>1차 분류</label>
-                    <select class="category1">
+                    <select class="category1 category">
                       <option value="">전체</option>
                     </select>
 
                     <label>2차 분류</label>
-                    <select class="category2" name="cate_code">
+                    <select class="category2 category" name="cate_code">
                       <option value="">전체</option>
                     </select>
                   </div>
@@ -69,35 +70,47 @@
                     <input type="hidden" id="gdsId" name="id" value="${productsViewVo.id}" />
                   </div>
                   <div class="inputArea">
-                    <label for="gdsName">등록인</label>
-                    <input type="text" id="gdsUser" name="user_id" value="${productsViewVo.user_id}" readonly/>
+                    <label for="user_id">등록인</label>
+                    <input type="text" id="user_id" name="user_id" value="${productsViewVo.user_id}" readonly/>
                   </div>
                   <div class="inputArea">
-                    <label for="gdsName">상품명</label>
-                    <input type="text" id="gdsName" name="name" value="${productsViewVo.name}" />
+                    <label for="name">상품명</label>
+                    <input type="text" id="name" name="name" value="${productsViewVo.name}" />
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsPrice">상품가격</label>
-                    <input type="number" id="gdsPrice" name="price" value="${productsViewVo.price}" />
+                    <label for="price">상품가격</label>
+                    <input type="number" id="price" name="price" value="${productsViewVo.price}" />
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsStock">상품수량</label>
-                    <input type="number" id="gdsStock" name="stock" value="${productsViewVo.stock}" />
+                    <label for="stock">상품수량</label>
+                    <input type="number" id="stock" name="stock" value="${productsViewVo.stock}" />
                   </div>
 
                   <div class="inputArea">
-                    <label for="gdsDes">상품소개</label>
-                    <textarea rows="5" cols="50" id="gdsDes" name="description" >${productsViewVo.description}</textarea>
+                    <label for="description">상품소개</label>
+                    <textarea rows="5" cols="50" id="description" name="description" >${productsViewVo.description}</textarea>
+                  </div>
+                  <div class="form_section">
+                     <div class="form_section_title">
+                         <div class="inputArea">
+                            <label>상품 이미지</label>
+                         </div>
+                     </div>
+                      <div class="form_section_content">
+                          <input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
+                          <div id="uploadResult"></div>
+                      </div>
                   </div>
 
                   <div class="inputArea">
-                    <button type="button" id="modify_Btn">수정</button>
+                     <button type="button" id="cancel_Btn">취소</button>
+                     <button type="button" id="modify_Btn">수정</button>
+                     <button type="button" id="delete_Btn">삭제</button>
                   </div>
-                  <div class="inputArea">
-                    <button type="button" id="delete_Btn">삭제</button>
-                  </div>
+
+
 
                 </form>
               </div>
@@ -116,18 +129,92 @@
       crossorigin="anonymous"
     ></script>
     <script>
+        ClassicEditor
+            .create(document.querySelector('#description'),{
+                language:'ko',
+                toolbar: {
+                    items : ['bold', 'italic', 'link', 'insertTable', 'undo'],
+                    shouldNotGroupWhenFull: true
+                }
+            })
+            .catch(error=>{
+                console.error(error);
+        });
+    </script>
+    <script>
       const msg = "${msg}";
 
       if(msg=="modify_ok"){alert("상품이 수정되었습니다.")};
       if(msg=="modify_err"){alert("상품수정에 실패 하였습니다. 입력값을 확인해 주세요.")};
     </script>
     <script>
+      /* 이미지 정보 호출 */
+      let product_id = ${productsViewVo.id};
+      let uploadReslut = $("#uploadResult");
+
+      $.getJSON("/WYW/getAttachList", {product_id : product_id}, function(arr){
+          if(arr.length===0){
+              let str = "";
+              str += "<div id='result_card'>";
+              str += "<img src='/WYW/img/noimage.PNG'>";
+              str += "</div>";
+
+              uploadReslut.html(str);
+
+              return;
+          }
+          for (let i = 0; i < arr.length ; i++) {
+
+              let str ="";
+              let obj = arr[i];
+
+              let fileCallPath = encodeURIComponent(obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name);
+              str += "<div id='result_card'";
+              str += "data-path='" + obj.upload_path + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.file_name + "'";
+              str += ">";
+              str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
+              str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+              str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
+              str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
+              str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
+              str += "</div>";
+
+              uploadReslut.append(str);
+          }
+
+      });
+      /* 이미지 삭제 버튼 동작 */
+      $("#uploadResult").on("click", ".imgDeleteBtn", function(e){
+
+          /* 이미지 존재시 삭제 */
+          if($(".imgDeleteBtn").length > 0){
+
+              deleteFile(e.target);
+          }
+      });
+
+
+      /* 파일 삭제 메서드 */
+      function deleteFile(target){
+
+          target.parentElement.remove();
+      }
+
+
       const modifyForm = $("form[role='form']");
 
+      $("#cancel_Btn").click(function (){
+          if(confirm("상품을 수정을 취소하시겠습니까?")){
+              modifyForm.attr("action", "/WYW/admin/productslist");
+              modifyForm.attr("method", "GET");
+              modifyForm.submit();
+          }
+      });
+
       $("#delete_Btn").click(function (){
-        if(confirm("상품을 삭제 하시겠습니까?")){
-          modifyForm.attr("action", "/WYW/admin/deleteProduct");
-          modifyForm.submit();
+          if(confirm("상품을 삭제 하시겠습니까?")){
+            modifyForm.attr("action", "/WYW/admin/deleteProduct");
+            modifyForm.submit();
         }
       });
 
@@ -137,6 +224,94 @@
           modifyForm.submit();
         }
       });
+    </script>
+    <script>
+
+
+        $("input[type='file']").on("change", function(e){
+
+            let formData = new FormData();
+            let fileInput = $('input[name="uploadFile"]');
+            let fileList = fileInput[0].files;
+            let fileObj = fileList[0];
+
+            console.log("fileList : " + fileList);
+            console.log("fileObj : " + fileObj);
+            console.log("fileName : " + fileObj.name);
+            console.log("fileSize : " + fileObj.size);
+            console.log("fileType(MimeType) : " + fileObj.type);
+
+            if(!fileCheck(fileObj.name, fileObj.size)){
+                return false;
+            }
+            alert("이미지 파일이 선택 되었습니다.");
+
+            formData.append("uploadFile", fileObj);
+            $.ajax({
+                url: '/WYW/admin/uploadAjaxAction',
+                processData : false,
+                contentType : false,
+                data : formData,
+                type : 'post',
+                dataType : 'json',
+                success : function(result){
+                    console.log(result);
+                    showUploadImage(result);
+                },
+                error : function(result){
+                    alert("이미지 파일이 아닙니다.");
+                }
+            });
+
+        });
+
+        /* var, method related with attachFile */
+        let regex = new RegExp("(.*?)\.(jpg|png)$");
+        let maxSize = 1048576; //1MB
+
+        function fileCheck(fileName, fileSize){
+
+            if(fileSize >= maxSize){
+                alert("파일 사이즈 초과");
+                return false;
+            }
+
+            if(!regex.test(fileName)){
+                alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                return false;
+            }
+
+            return true;
+
+        }
+
+
+        /* 이미지 출력 */
+        function showUploadImage(uploadResultArr){
+
+            /* 전달받은 데이터 검증 */
+            if(!uploadResultArr || uploadResultArr.length == 0){return}
+
+            let uploadResult = $("#uploadResult");
+
+            let obj = uploadResultArr[0];
+
+            let str = "";
+
+            let fileCallPath = obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name;
+
+            str += "<div id='result_card'>";
+            str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
+            str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+            str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
+            str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
+            str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
+            str += "</div>";
+
+
+            uploadResult.append(str);
+
+        }
     </script>
     <script>
       // 컨트롤러에서 데이터 받기
@@ -217,6 +392,8 @@
           $(".category1").val(select_catecode);
           $(".category2").append("<option value='" + select_catecode + "' selected='selected'>전체</option>");
       }
+
+
 
     </script>
   </body>

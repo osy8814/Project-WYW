@@ -2,13 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.WYW.dao.usersMapper">
+<mapper namespace="com.project.WYW.mapper.usersMapper">
     <select id="count" resultType="int">
-    	select count(*) FROM users
+    	SELECT count(*) FROM users
     </select>
 
 	<sql id="selectFromUser">
-		select * FROM users
+		SELECT id , user_id AS userId, password, name, mobile, email, address, created_at AS createdAt, is_admin AS isAdmin FROM users
 	</sql>
         
     <select id="selectAll" resultType="UsersVo">
@@ -19,12 +19,12 @@
     
     <select id="select" parameterType="String" resultType="UsersVo">
         <include refid="selectFromUser"/>
-        WHERE user_id = #{user_id}
+        WHERE user_id = #{userId}
     </select>
 
     <select id="login" parameterType="String" resultType="UsersVo">
         <include refid="selectFromUser"/>
-        WHERE user_id = #{user_id}
+        WHERE user_id = #{userId}
     </select>
 
     <select id="emailChk" parameterType="String" resultType="UsersVo">
@@ -43,20 +43,20 @@
     </delete>
     
     <delete id="delete" parameterType="map">
-        DELETE FROM users WHERE user_id = #{user_id} and email = #{email} and name = #{name} 
+        DELETE FROM users WHERE user_id = #{userId} and email = #{email} and name = #{name}
     </delete>
     
     <insert id="insert" parameterType="UsersVo">
         INSERT INTO users
             (user_id, password, name, mobile, email, address)
         VALUES
-            (#{user_id}, #{password}, #{name}, #{mobile}, #{email}, #{address})
+            (#{userId}, #{password}, #{name}, #{mobile}, #{email}, #{address})
     </insert>
     
     <update id="update" parameterType="UsersVo">
     	UPDATE users
-    	set password=#{password},name=#{name}, mobile=#{mobile}, email=#{email}, address=#{address}
-    	Where user_id=#{user_id}
+    	SET password=#{password},name=#{name}, mobile=#{mobile}, email=#{email}, address=#{address}
+    	WHERE user_id=#{userId}
     </update>
     
 </mapper>
