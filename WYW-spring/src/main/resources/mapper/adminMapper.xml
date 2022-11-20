@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.project.WYW.domain.CategoryVo">
+<mapper namespace="com.project.WYW.mapper.adminMapper">
     <select id="category" resultType="CategoryVo">
         WITH recursive p AS (
             SELECT cate_name, cate_code, cate_code_ref, 1 AS level
