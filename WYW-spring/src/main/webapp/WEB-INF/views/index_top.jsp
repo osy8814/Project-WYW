@@ -30,7 +30,7 @@
           </li>
           <li><a id="nav_logout" href="#">LogOut</a></li>
           <li><a href="mypage.html">My Page</a></li>
-          <c:if test="${loggedInUser.is_admin}">
+          <c:if test="${loggedInUser.isAdmin}">
             <li><a href="<c:url value='/admin/productslist'/>">관리자페이지</a></li>
           </c:if>
         </c:if>

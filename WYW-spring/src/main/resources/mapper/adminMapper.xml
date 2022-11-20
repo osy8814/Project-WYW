@@ -19,7 +19,7 @@
 
     <insert id="regProduct" parameterType="ProductsVo">
         insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
-        values (#{user_id},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
+        values (#{userId},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
 
         <selectKey resultType="int" keyProperty="id" order="AFTER">
 

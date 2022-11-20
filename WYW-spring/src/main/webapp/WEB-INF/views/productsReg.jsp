@@ -67,7 +67,7 @@
 
                   <div class="inputArea">
                     <label for="user_id">등록인</label>
-                    <input type="text" id="user_id" name="user_id" value="${loggedInUser.user_id}" readonly/>
+                    <input type="text" id="user_id" name="userId" value="${loggedInUser.userId}" readonly/>
                   </div>
 
                   <div class="inputArea">

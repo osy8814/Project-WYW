@@ -25,7 +25,7 @@ public class UsersDaoImpl implements UsersDao {
 	}
 	
 	@Override
-	public List<UsersVo> selectAll() throws Exception{
+	public List<UsersVo> selectAll() {
 		return session.selectList(namespace + "selectAll");
 	}
 	
@@ -48,7 +48,7 @@ public class UsersDaoImpl implements UsersDao {
 	@Override
 	public int delete(String userId, String email, String name) throws Exception {
         Map map = new HashMap();
-        map.put("user_id", userId);
+        map.put("userId", userId);
         map.put("email", email);
         map.put("name", name);
 		int rowCnt;

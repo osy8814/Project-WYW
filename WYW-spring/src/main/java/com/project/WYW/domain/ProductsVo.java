@@ -9,7 +9,7 @@ import java.util.Objects;
 public class ProductsVo {
 
     private Integer id;
-    private String user_id;
+    private String userId;
     private String name;
     private String description;
     private String cate_code;
@@ -29,12 +29,12 @@ public class ProductsVo {
         this.id = id;
     }
 
-    public String getUser_id() {
-        return user_id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -111,8 +111,8 @@ public class ProductsVo {
 
     public ProductsVo(){}
 
-    public ProductsVo(String user_id, String name, String description, String cate_code, int price, int stock) {
-        this.user_id = user_id;
+    public ProductsVo(String userId, String name, String description, String cate_code, int price, int stock) {
+        this.userId = userId;
         this.name = name;
         this.description = description;
         this.cate_code = cate_code;
@@ -120,8 +120,8 @@ public class ProductsVo {
         this.stock = stock;
     }
 
-    public ProductsVo(String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
-        this.user_id = user_id;
+    public ProductsVo(String userId, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
+        this.userId = userId;
         this.name = name;
         this.description = description;
         this.cate_code = cate_code;
@@ -132,9 +132,9 @@ public class ProductsVo {
     }
 
 
-    public ProductsVo(Integer id, String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales, Date created_at) {
+    public ProductsVo(Integer id, String userId, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales, Date created_at) {
         this.id = id;
-        this.user_id = user_id;
+        this.userId = userId;
         this.name = name;
         this.description = description;
         this.cate_code = cate_code;
@@ -150,19 +150,19 @@ public class ProductsVo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductsVo that = (ProductsVo) o;
-        return price == that.price && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(thumbnail, that.thumbnail);
+        return price == that.price && Objects.equals(userId, that.userId) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(thumbnail, that.thumbnail);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, name, description, cate_code, thumbnail, price);
+        return Objects.hash(userId, name, description, cate_code, thumbnail, price);
     }
 
     @Override
     public String toString() {
         return "ProductsVo{" +
                 "id=" + id +
-                ", user_id='" + user_id + '\'' +
+                ", user_id='" + userId + '\'' +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cate_code='" + cate_code + '\'' +

@@ -31,7 +31,7 @@
                 ><input
                   type="text"
                   id="login_main_form-id"
-                  name="user_id"
+                  name="userId"
                   placeholder="아이디"
                   value="${inputId}"
                   autofocus
