@@ -17,7 +17,7 @@ public class UsersDaoImpl implements UsersDao {
 	final int FAIL = 0;
 	@Autowired
 	private SqlSession session;
-	private static String namespace="com.project.WYW.dao.usersMapper.";
+	private static String namespace="com.project.WYW.mapper.usersMapper.";
 	
 	@Override
 	public int count() throws Exception{
