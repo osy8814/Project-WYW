@@ -123,7 +123,7 @@
     </div>
     <jsp:include page="index_bottom.jsp" flush="false"/>
     <script>
-        let Cnt =0;
+
 
       $("input[type='file']").on("change", function(e){
 
@@ -182,48 +182,57 @@
 
       }
 
-
+      let Cnt=0;
       /* 이미지 출력 */
       function showUploadImage(uploadResultArr){
 
-        /* 전달받은 데이터 검증 */
-        if(!uploadResultArr || uploadResultArr.length == 0){return}
 
-        let uploadResult = $("#uploadResult");
+                /* 전달받은 데이터 검증 */
+                if(!uploadResultArr || uploadResultArr.length == 0){return}
 
-        let obj = uploadResultArr[0];
+                let uploadResult = $("#uploadResult");
 
-        let str = "";
+                let obj = uploadResultArr[0];
 
-        let fileCallPath = obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name;
+                let str = "";
 
-        str += "<div id='result_card'>";
-        str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
-        str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
-        str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
-        str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
-        str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
-        str += "</div>";
+                let fileCallPath = obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name;
+
+                str += "<div id='result_card'>";
+                str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
+                str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+                str += "<input type='hidden' name='imageVOList["+Cnt+"].file_name' value='"+ obj.file_name +"'>";
+                str += "<input type='hidden' name='imageVOList["+Cnt+"].uuid' value='"+ obj.uuid +"'>";
+                str += "<input type='hidden' name='imageVOList["+Cnt+"].upload_path' value='"+ obj.upload_path +"'>";
+                str += "</div>";
 
 
-        uploadResult.append(str);
+                uploadResult.append(str);
+
+                Cnt +=1;
+
 
       }
       /* 이미지 삭제 버튼 동작 */
       $("#uploadResult").on("click", ".imgDeleteBtn", function(e){
+
           /* 이미지 존재시 삭제 */
           if($(".imgDeleteBtn").length > 0){
-              deleteFile();
+              if(Cnt!=0){
+                Cnt -=1;
+              }
+
+              deleteFile(e.target);
           }
       });
 
 
       /* 파일 삭제 메서드 */
-      function deleteFile(){
+      function deleteFile(target){
 
-          let targetFile = $(".imgDeleteBtn").data("file");
+          let targetFile = target.dataset.file;
 
-          let targetDiv = $("#result_card");
+          let targetDiv = target.parentElement;
 
           $.ajax({
               url: '/WYW/admin/deleteFile',

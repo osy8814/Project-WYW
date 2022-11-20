@@ -20,7 +20,7 @@ public class AdminDaoImpl implements AdminDao {
 
     final int FAIL = 0;
 
-    private static String namespace="com.project.WYW.domain.CategoryVo.";
+    private static String namespace="com.project.WYW.mapper.adminMapper.";
 
     @Override
     public List<CategoryVo> category()throws Exception{
@@ -32,7 +32,6 @@ public class AdminDaoImpl implements AdminDao {
     @Override
     public int regProduct(ProductsVo productsVo) throws Exception{
 
-
         int rowCnt = session.insert(namespace+"regProduct", productsVo);
 
             System.out.println("productsVo = " + productsVo);
@@ -40,18 +39,11 @@ public class AdminDaoImpl implements AdminDao {
 
                 return FAIL;
             }
-            AttachImageVO imageVOList = productsVo.getImageVOList().get(0);
 
-            String[] imgPathlist = imageVOList.getUpload_path().split(",");
-            String[] imgUuidlist = imageVOList.getUuid().split(",");
-            String[] imgNamelist = imageVOList.getFile_name().split(",");
 
-            for(int i = 0; i < imgPathlist.length; i++) {
+        for(int i = 0; i < productsVo.getImageVOList().size(); i++) {
 
-                AttachImageVO attachImageVO = new AttachImageVO();
-                attachImageVO.setUpload_path(imgPathlist[i]);
-                attachImageVO.setUuid(imgUuidlist[i]);
-                attachImageVO.setFile_name(imgNamelist[i]);
+                AttachImageVO attachImageVO = productsVo.getImageVOList().get(i);
                 attachImageVO.setProduct_id(productsVo.getId());
 
                 System.out.println("attachImageVO = " + attachImageVO);
@@ -59,7 +51,7 @@ public class AdminDaoImpl implements AdminDao {
             }
 
 
-            return rowCnt;
+        return rowCnt;
 
 
     }
