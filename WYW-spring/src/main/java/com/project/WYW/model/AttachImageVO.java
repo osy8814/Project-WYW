@@ -54,10 +54,11 @@ public class AttachImageVO {
     @Override
     public String toString() {
         return "AttachImageVO{" +
-                "upload_path='" + upload_path + '\'' +
+                "product_id=" + product_id +
+                ", upload_path='" + upload_path + '\'' +
                 ", uuid='" + uuid + '\'' +
                 ", file_name='" + file_name + '\'' +
-                ", product_id=" + product_id +
+
                 '}';
     }
 }
