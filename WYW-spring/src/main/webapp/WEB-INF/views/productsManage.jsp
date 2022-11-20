@@ -92,11 +92,24 @@
                     <label for="description">상품소개</label>
                     <textarea rows="5" cols="50" id="description" name="description" >${productsViewVo.description}</textarea>
                   </div>
+                  <div class="form_section">
+                     <div class="form_section_title">
+                         <div class="inputArea">
+                            <label>상품 이미지</label>
+                         </div>
+                     </div>
+                      <div class="form_section_content">
+                          <input type="file" id ="fileItem" name='uploadFile' style="height: 30px;">
+                          <div id="uploadResult"></div>
+                      </div>
+                  </div>
 
                   <div class="inputArea">
-                    <button type="button" id="modify_Btn">수정</button>
-                    <button type="button" id="delete_Btn">삭제</button>
+                     <button type="button" id="cancel_Btn">취소</button>
+                     <button type="button" id="modify_Btn">수정</button>
+                     <button type="button" id="delete_Btn">삭제</button>
                   </div>
+
 
 
                 </form>
@@ -135,12 +148,73 @@
       if(msg=="modify_err"){alert("상품수정에 실패 하였습니다. 입력값을 확인해 주세요.")};
     </script>
     <script>
+      /* 이미지 정보 호출 */
+      let product_id = ${productsViewVo.id};
+      let uploadReslut = $("#uploadResult");
+
+      $.getJSON("/WYW/getAttachList", {product_id : product_id}, function(arr){
+          if(arr.length===0){
+              let str = "";
+              str += "<div id='result_card'>";
+              str += "<img src='/WYW/img/noimage.PNG'>";
+              str += "</div>";
+
+              uploadReslut.html(str);
+
+              return;
+          }
+          for (let i = 0; i < arr.length ; i++) {
+
+              let str ="";
+              let obj = arr[i];
+
+              let fileCallPath = encodeURIComponent(obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name);
+              str += "<div id='result_card'";
+              str += "data-path='" + obj.upload_path + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.file_name + "'";
+              str += ">";
+              str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
+              str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+              str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
+              str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
+              str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
+              str += "</div>";
+
+              uploadReslut.append(str);
+          }
+
+      });
+      /* 이미지 삭제 버튼 동작 */
+      $("#uploadResult").on("click", ".imgDeleteBtn", function(e){
+
+          /* 이미지 존재시 삭제 */
+          if($(".imgDeleteBtn").length > 0){
+
+              deleteFile(e.target);
+          }
+      });
+
+
+      /* 파일 삭제 메서드 */
+      function deleteFile(target){
+
+          target.parentElement.remove();
+      }
+
+
       const modifyForm = $("form[role='form']");
 
+      $("#cancel_Btn").click(function (){
+          if(confirm("상품을 수정을 취소하시겠습니까?")){
+              modifyForm.attr("action", "/WYW/admin/productslist");
+              modifyForm.attr("method", "GET");
+              modifyForm.submit();
+          }
+      });
+
       $("#delete_Btn").click(function (){
-        if(confirm("상품을 삭제 하시겠습니까?")){
-          modifyForm.attr("action", "/WYW/admin/deleteProduct");
-          modifyForm.submit();
+          if(confirm("상품을 삭제 하시겠습니까?")){
+            modifyForm.attr("action", "/WYW/admin/deleteProduct");
+            modifyForm.submit();
         }
       });
 
@@ -150,6 +224,94 @@
           modifyForm.submit();
         }
       });
+    </script>
+    <script>
+
+
+        $("input[type='file']").on("change", function(e){
+
+            let formData = new FormData();
+            let fileInput = $('input[name="uploadFile"]');
+            let fileList = fileInput[0].files;
+            let fileObj = fileList[0];
+
+            console.log("fileList : " + fileList);
+            console.log("fileObj : " + fileObj);
+            console.log("fileName : " + fileObj.name);
+            console.log("fileSize : " + fileObj.size);
+            console.log("fileType(MimeType) : " + fileObj.type);
+
+            if(!fileCheck(fileObj.name, fileObj.size)){
+                return false;
+            }
+            alert("이미지 파일이 선택 되었습니다.");
+
+            formData.append("uploadFile", fileObj);
+            $.ajax({
+                url: '/WYW/admin/uploadAjaxAction',
+                processData : false,
+                contentType : false,
+                data : formData,
+                type : 'post',
+                dataType : 'json',
+                success : function(result){
+                    console.log(result);
+                    showUploadImage(result);
+                },
+                error : function(result){
+                    alert("이미지 파일이 아닙니다.");
+                }
+            });
+
+        });
+
+        /* var, method related with attachFile */
+        let regex = new RegExp("(.*?)\.(jpg|png)$");
+        let maxSize = 1048576; //1MB
+
+        function fileCheck(fileName, fileSize){
+
+            if(fileSize >= maxSize){
+                alert("파일 사이즈 초과");
+                return false;
+            }
+
+            if(!regex.test(fileName)){
+                alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                return false;
+            }
+
+            return true;
+
+        }
+
+
+        /* 이미지 출력 */
+        function showUploadImage(uploadResultArr){
+
+            /* 전달받은 데이터 검증 */
+            if(!uploadResultArr || uploadResultArr.length == 0){return}
+
+            let uploadResult = $("#uploadResult");
+
+            let obj = uploadResultArr[0];
+
+            let str = "";
+
+            let fileCallPath = obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name;
+
+            str += "<div id='result_card'>";
+            str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
+            str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
+            str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
+            str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
+            str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
+            str += "</div>";
+
+
+            uploadResult.append(str);
+
+        }
     </script>
     <script>
       // 컨트롤러에서 데이터 받기
@@ -230,6 +392,8 @@
           $(".category1").val(select_catecode);
           $(".category2").append("<option value='" + select_catecode + "' selected='selected'>전체</option>");
       }
+
+
 
     </script>
   </body>
