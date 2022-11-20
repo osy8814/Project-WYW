@@ -122,11 +122,6 @@
   padding: 10px;
 }
 
-/* float 속성 해제 */
-.clearfix{
-  clear: both;
-}
-
 .inputArea>button{
   background-color: rgba(50, 52, 62);
   color: white;
