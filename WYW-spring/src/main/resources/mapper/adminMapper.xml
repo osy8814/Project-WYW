@@ -18,8 +18,8 @@
     </select>
 
     <insert id="regProduct" parameterType="ProductsVo">
-        insert into products (user_id, name, description, cate_code, thumbnail, price, stock)
-        values (#{userId},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
+        INSERT INTO products (user_id, name, description, cate_code, thumbnail, price, stock)
+        VALUES (#{userId},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
 
         <selectKey resultType="int" keyProperty="id" order="AFTER">
 
@@ -30,51 +30,64 @@
 
     <select id="productsList" resultType="ProductsVo">
         SELECT * from products
-        ORDER BY created_at DESC
+        ORDER BY created_at DESC;
     </select>
 
     <select id="readProduct" parameterType="int" resultType="ProductsVo">
         SELECT * from products
-        WHERE id=#{id}
+        WHERE id=#{id};
     </select>
 
     <update id="modifiyProduct" parameterType="ProductsVo">
-        update products
-        set  name=#{name}, description=#{description}, cate_code=#{cate_code}, price=#{price},stock=#{stock}
-        where id=#{id};
+        UPDATE products
+        SET  name=#{name}, description=#{description}, cate_code=#{cate_code}, price=#{price},stock=#{stock}
+        WHERE id=#{id};
     </update>
 
     <delete id="deleteProduct" parameterType="int">
-        delete from products
-        where id=#{id};
+        DELETE FROM products
+        WHERE id=#{id};
     </delete>
 
     <delete id="deleteAllProduct">
-        delete from products
+        DELETE FROM products;
     </delete>
 
 
     <select id="productsView" parameterType="int" resultType="ProductsViewVo">
-        select
+        SELECT
             p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
-        from products p
-                 inner join products_category c
-                            on p.cate_code = c.cate_code
-        where p.id = #{id};
+        FROM products p
+                 INNER JOIN products_category c
+                            ON p.cate_code = c.cate_code
+        WHERE p.id = #{id};
     </select>
 
     <select id="productsViewList" resultType="ProductsViewVo">
-        select
+        SELECT
             p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
-        from products p
-                 inner join products_category c
-                            on p.cate_code = c.cate_code;
+        FROM products p
+                 INNER JOIN products_category c
+                            ON p.cate_code = c.cate_code
+        ORDER BY created_at DESC ;
     </select>
 
     <insert id="imageReg" parameterType="AttachImageVO">
-        insert into products_image (product_id, file_name, upload_path, uuid)
-        values (#{product_id},#{file_name},#{upload_path},#{uuid});
+        INSERT INTO products_image (product_id, file_name, upload_path, uuid)
+        VALUES (#{product_id},#{file_name},#{upload_path},#{uuid});
     </insert>
+
+    <delete id="deleteImageAll" parameterType="int">
+
+        DELETE FROM products_image where product_id = #{product_id};
+
+    </delete>
+
+    <select id="getAttachInfo" parameterType="int" resultType="AttachImageVO">
+
+        select * from products_image where product_id = #{product_id};
+
+    </select>
 
 
 </mapper>

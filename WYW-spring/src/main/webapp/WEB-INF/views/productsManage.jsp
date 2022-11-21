@@ -156,14 +156,14 @@
           if(arr.length===0){
               let str = "";
               str += "<div id='result_card'>";
-              str += "<img src='/WYW/img/noimage.PNG'>";
+              str += "<img id='no_img' src='/WYW/img/noimage.PNG'>";
               str += "</div>";
 
               uploadReslut.html(str);
 
               return;
           }
-          for (let i = 0; i < arr.length ; i++) {
+          for (let i = 0; i <arr.length ; i++) {
 
               let str ="";
               let obj = arr[i];
@@ -181,6 +181,9 @@
 
               uploadReslut.append(str);
           }
+
+
+
 
       });
       /* 이미지 삭제 버튼 동작 */
@@ -227,8 +230,12 @@
     </script>
     <script>
 
-
         $("input[type='file']").on("change", function(e){
+
+
+            if($("#result_card").length > 0){
+                $("#no_img").remove();
+            }
 
             let formData = new FormData();
             let fileInput = $('input[name="uploadFile"]');
@@ -285,9 +292,10 @@
 
         }
 
-
+        let index=0;
         /* 이미지 출력 */
         function showUploadImage(uploadResultArr){
+
 
             /* 전달받은 데이터 검증 */
             if(!uploadResultArr || uploadResultArr.length == 0){return}
@@ -303,15 +311,33 @@
             str += "<div id='result_card'>";
             str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
             str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
-            str += "<input type='hidden' name='imageVOList[0].file_name' value='"+ obj.file_name +"'>";
-            str += "<input type='hidden' name='imageVOList[0].uuid' value='"+ obj.uuid +"'>";
-            str += "<input type='hidden' name='imageVOList[0].upload_path' value='"+ obj.upload_path +"'>";
+            str += "<input type='hidden' name='imageVOList["+index+"].file_name' value='"+ obj.file_name +"'>";
+            str += "<input type='hidden' name='imageVOList["+index+"].uuid' value='"+ obj.uuid +"'>";
+            str += "<input type='hidden' name='imageVOList["+index+"].upload_path' value='"+ obj.upload_path +"'>";
             str += "</div>";
 
 
             uploadResult.append(str);
 
+            index +=1;
+
+
         }
+        /* 이미지 삭제 버튼 동작 */
+        $("#uploadResult").on("click", ".imgDeleteBtn", function(e){
+
+            /* 이미지 존재시 삭제 */
+            if($(".imgDeleteBtn").length > 0){
+                if(index!=0){
+                    index -=1;
+                }
+
+                deleteFile(e.target);
+            }
+        });
+
+
+
     </script>
     <script>
       // 컨트롤러에서 데이터 받기
@@ -377,6 +403,33 @@
         });
 
       });
+
+      /* 파일 삭제 메서드 */
+      function deleteFile(target){
+
+          let targetFile = target.dataset.file;
+
+          let targetDiv = target.parentElement;
+
+          $.ajax({
+              url: '/WYW/admin/deleteFile',
+              data : {fileName : targetFile},
+              dataType : 'text',
+              type : 'POST',
+              success : function(result){
+                  console.log(result);
+
+                  targetDiv.remove();
+                  $("input[type='file']").val("");
+
+              },
+              error : function(result){
+                  console.log(result);
+
+                  alert("파일을 삭제하지 못하였습니다.")
+              }
+          });
+      }
 
       let select_catecode = '${productsViewVo.cate_code}';
       let select_catecoderef = '${productsViewVo.cate_code_ref}';
