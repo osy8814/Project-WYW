@@ -25,4 +25,8 @@ public interface AdminDao {
     int deleteAllProducts()throws Exception;
 
     int imgReg(AttachImageVO attachImageVO)throws Exception;
+
+    int deleteImageAll(Integer product_id)throws Exception;
+
+    List<AttachImageVO> getAttachInfo(Integer product_id);
 }

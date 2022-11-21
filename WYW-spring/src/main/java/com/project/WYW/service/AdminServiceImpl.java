@@ -7,6 +7,7 @@ import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.model.AttachImageVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,8 +42,12 @@ public class AdminServiceImpl implements AdminService {
         return adminDao.productsViewList();
     }
 
+    @Transactional
     @Override
     public int deleteProduct(Integer id) throws  Exception{
+
+        adminDao.deleteImageAll(id);
+
         return adminDao.deleteProduct(id);
     }
 
@@ -54,6 +59,16 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int imgReg(AttachImageVO attachImageVO)throws Exception{
         return adminDao.imgReg(attachImageVO);
+    }
+
+    @Override
+    public int delateImageAll(Integer product_id)throws Exception{
+        return adminDao.deleteImageAll(product_id);
+    }
+
+    @Override
+    public List<AttachImageVO> getAttachInfo(Integer product_id)throws Exception{
+        return adminDao.getAttachInfo(product_id);
     }
 
 }

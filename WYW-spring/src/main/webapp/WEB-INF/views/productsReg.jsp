@@ -182,7 +182,7 @@
 
       }
 
-      let Cnt=0;
+      let index=0;
       /* 이미지 출력 */
       function showUploadImage(uploadResultArr){
 
@@ -201,15 +201,15 @@
                 str += "<div id='result_card'>";
                 str += "<img src='/WYW/display?fileName=" + fileCallPath +"'>";
                 str += "<div class='imgDeleteBtn' data-file='" + fileCallPath + "'>x</div>";
-                str += "<input type='hidden' name='imageVOList["+Cnt+"].file_name' value='"+ obj.file_name +"'>";
-                str += "<input type='hidden' name='imageVOList["+Cnt+"].uuid' value='"+ obj.uuid +"'>";
-                str += "<input type='hidden' name='imageVOList["+Cnt+"].upload_path' value='"+ obj.upload_path +"'>";
+                str += "<input type='hidden' name='imageVOList["+index+"].file_name' value='"+ obj.file_name +"'>";
+                str += "<input type='hidden' name='imageVOList["+index+"].uuid' value='"+ obj.uuid +"'>";
+                str += "<input type='hidden' name='imageVOList["+index+"].upload_path' value='"+ obj.upload_path +"'>";
                 str += "</div>";
 
 
                 uploadResult.append(str);
 
-                Cnt +=1;
+          index +=1;
 
 
       }
@@ -218,8 +218,8 @@
 
           /* 이미지 존재시 삭제 */
           if($(".imgDeleteBtn").length > 0){
-              if(Cnt!=0){
-                Cnt -=1;
+              if(index!=0){
+                  index -=1;
               }
 
               deleteFile(e.target);

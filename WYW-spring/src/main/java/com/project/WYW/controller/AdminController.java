@@ -26,6 +26,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -92,7 +94,7 @@ public class AdminController {
     }
 
     @PostMapping("/modifyProduct")
-    public String modifyProduct(ProductsVo productsVo,Model model,RedirectAttributes rattr)throws Exception{
+    public String modifyProduct(ProductsVo productsVo,RedirectAttributes rattr)throws Exception{
         int rowCnt = adminService.modifiyProduct(productsVo);
         System.out.println("rowCnt = " + rowCnt);
         if(rowCnt==1){
@@ -105,7 +107,31 @@ public class AdminController {
     }
     @PostMapping("/deleteProduct")
     public String deleteProduct(Integer id,Model model,RedirectAttributes rattr)throws Exception{
+
+        List<AttachImageVO> imageList = adminService.getAttachInfo(id);
+
+        if(imageList!=null){
+
+            List<Path> pathList = new ArrayList();
+
+            imageList.forEach(attachImageVO ->{
+
+                // 원본 이미지
+                Path path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), attachImageVO.getUuid() + "_" + attachImageVO.getFile_name());
+                pathList.add(path);
+
+                // 섬네일 이미지
+                path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), "s_" + attachImageVO.getUuid()+"_" + attachImageVO.getFile_name());
+                pathList.add(path);
+
+            });
+
+            pathList.forEach(path ->{
+                path.toFile().delete();
+            });
+        }
         int rowCnt = adminService.deleteProduct(id);
+
         if(rowCnt==1){
             rattr.addFlashAttribute("msg","del_ok");
             return "redirect:/admin/productslist";

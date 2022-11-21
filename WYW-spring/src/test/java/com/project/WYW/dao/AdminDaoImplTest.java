@@ -75,7 +75,15 @@ public class AdminDaoImplTest {
     public void imgRegTest()throws Exception{
         AttachImageVO attachImageVO =  new AttachImageVO(16,"test","test","test");
         assertTrue(adminDao.imgReg(attachImageVO)==1);
+    }
 
+    @Test
+    public void deleteImageAll()throws Exception{
+        assertTrue(adminDao.deleteImageAll(58)>=1);
+    }
 
+    @Test
+    public void TestGatAttachInof()throws Exception{
+        assertTrue( adminDao.getAttachInfo(61).size()==2); ;
     }
 }

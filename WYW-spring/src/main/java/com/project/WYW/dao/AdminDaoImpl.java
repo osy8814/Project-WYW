@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -34,21 +33,13 @@ public class AdminDaoImpl implements AdminDao {
 
         int rowCnt = session.insert(namespace+"regProduct", productsVo);
 
-            System.out.println("productsVo = " + productsVo);
-            if(productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
+        if(productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
 
-                return FAIL;
-            }
+            return FAIL;
+        }
 
 
-        for(int i = 0; i < productsVo.getImageVOList().size(); i++) {
-
-                AttachImageVO attachImageVO = productsVo.getImageVOList().get(i);
-                attachImageVO.setProduct_id(productsVo.getId());
-
-                System.out.println("attachImageVO = " + attachImageVO);
-                session.insert(namespace+"imageReg", attachImageVO);
-            }
+        regProductImage(productsVo);
 
 
         return rowCnt;
@@ -86,18 +77,22 @@ public class AdminDaoImpl implements AdminDao {
         return rowCnt;
     }
 
+    @Transactional
     @Override
     public int modifiyProduct(ProductsVo productsVo) throws Exception{
 
-        System.out.println("productsViewVo = " + productsVo);
-        int rowCnt;
 
-        try {
-            rowCnt = session.update(namespace+"modifiyProduct", productsVo);
-            return rowCnt;
-        } catch (Exception e) {
-            e.printStackTrace();
-            rowCnt = FAIL;
+        int rowCnt = session.update(namespace+"modifiyProduct", productsVo);
+
+        if(productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
+
+            return FAIL;
+        }
+
+        if(rowCnt==1 && productsVo.getImageVOList()!=null && productsVo.getImageVOList().size()>0){
+            session.delete(namespace+"deleteImageAll", productsVo.getId());
+
+            regProductImage(productsVo);
         }
         return rowCnt;
     }
@@ -119,5 +114,26 @@ public class AdminDaoImpl implements AdminDao {
             rowCnt = FAIL;
         }
         return rowCnt;
+    }
+
+    @Override
+    public int deleteImageAll(Integer product_id)throws Exception{
+        return session.delete(namespace+"deleteImageAll",product_id);
+    }
+
+    @Override
+    public  List<AttachImageVO> getAttachInfo(Integer product_id){
+       return session.selectList(namespace+"getAttachInfo", product_id);
+    }
+
+    public void regProductImage(ProductsVo productsVo){
+        for(int i = 0; i < productsVo.getImageVOList().size(); i++) {
+
+            AttachImageVO attachImageVO = productsVo.getImageVOList().get(i);
+            attachImageVO.setProduct_id(productsVo.getId());
+
+            System.out.println("attachImageVO = " + attachImageVO);
+            session.insert(namespace+"imageReg", attachImageVO);
+        }
     }
 }
