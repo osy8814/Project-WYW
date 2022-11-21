@@ -5,6 +5,7 @@ import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.model.AttachImageVO;
+import com.project.WYW.model.Pagehandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,8 +39,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<ProductsViewVo> productsViewList() throws Exception{
-        return adminDao.productsViewList();
+    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception{
+        return adminDao.productsViewList(pagehandler);
+    }
+
+    @Override
+    public int productsGetTotal(Pagehandler pagehandler)throws Exception{
+        return adminDao.productsGetTotal(pagehandler);
     }
 
     @Transactional

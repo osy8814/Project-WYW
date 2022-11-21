@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="${pageContext.request.contextPath}/img/WYWlogo.png" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css?after" />
     <title>WYW</title>
     <style></style>
   </head>
@@ -51,6 +51,7 @@
             </div>
             <div class="admin_content_wrap">
               <div class="admin_content_wrap_title">상품 목록</div>
+              <c:if test="${listCheck != 'empty' }">
               <table>
                 <tr>
                   <th>상품번호</th>
@@ -86,9 +87,56 @@
                 </c:forEach>
 
               </table>
+              </c:if>
+              <c:if test="${listCheck == 'empty'}">
+                <div class="table_empty">
+                  등록된 상품이 없습니다.
+                </div>
+              </c:if>
+              <div class="search_wrap">
+                <form id="searchForm" action="/WYW/admin/productslist" method="get">
+                  <div class="search_input">
+                    <input type="text" name="keyword" value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
+                    <input type="hidden" name="pageNum" value='<c:out value="${pageMarker.pagehandler.pageNum }"></c:out>'>
+                    <input type="hidden" name="amount" value='${pageMarker.pagehandler.amount}'>
+                    <button class='btn search_btn'>검 색</button>
+                  </div>
+                </form>
+              </div>
 
+              <div class="pageMarker_wrap" >
+                <ul class="pageMarker">
+                  <!-- 이전 버튼 -->
+                  <c:if test="${pageMarker.prev}">
+                    <li class="pageMarker_btn prev">
+                      <a href="${pageMarker.pageStart - 1}">이전</a>
+                    </li>
+                  </c:if>
+
+
+                  <!-- 페이지 번호 -->
+                  <c:forEach begin="${pageMarker.pageStart}" end="${pageMarker.pageEnd}" var="num">
+                    <li class="pageMarker_btn ${pageMarker.pagehandler.pageNum == num ? "active":""}">
+                      <a href="${num}">${num}</a>
+                    </li>
+                  </c:forEach>
+
+                  <!-- 다음 버튼 -->
+                  <c:if test="${pageMarker.next}">
+                    <li class="pageMarker_btn next">
+                      <a href="${pageMarker.pageEnd + 1 }">다음</a>
+                    </li>
+                  </c:if>
+                </ul>
+              </div>
+
+              <form id="moveForm" action="/WYW/admin/productslist" method="get">
+                <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
+                <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
+                <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+              </form>
             </div>
-            <div class="clearfix"></div>
+
           </div>
         </div>
       </div>
@@ -106,6 +154,38 @@
       if(msg=="del_err"){alert("상품이 삭제에 실패 하였습니다.")};
 
 
+    </script>
+    <script>
+      let moveForm = $('#moveForm');
+
+      /* 페이지 이동 버튼 */
+      $(".pageMarker_btn a").on("click", function(e) {
+
+        e.preventDefault();
+
+        moveForm.find("input[name='pageNum']").val($(this).attr("href"));
+
+        moveForm.submit();
+      });
+
+      let searchForm = $('#searchForm');
+
+      /* 작가 검색 버튼 동작 */
+      $("#searchForm button").on("click", function(e){
+
+        e.preventDefault();
+
+        /* 검색 키워드 유효성 검사 */
+        if(!searchForm.find("input[name='keyword']").val()){
+          alert("키워드를 입력하십시오");
+          return false;
+        }
+
+        searchForm.find("input[name='pageNum']").val("1");
+
+        searchForm.submit();
+
+      });
     </script>
     </body>
 </html>
