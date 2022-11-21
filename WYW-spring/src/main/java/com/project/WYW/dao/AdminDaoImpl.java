@@ -4,6 +4,7 @@ import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.model.AttachImageVO;
+import com.project.WYW.model.Pagehandler;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -53,8 +54,13 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public List<ProductsViewVo> productsViewList()throws Exception{
-        return  session.selectList(namespace+"productsViewList");
+    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler)throws Exception{
+        return  session.selectList(namespace+"productsViewList", pagehandler);
+    }
+
+    @Override
+    public int productsGetTotal(Pagehandler pagehandler)throws Exception{
+        return session.selectOne(namespace+"productsGetTotal", pagehandler);
     }
 
     @Override

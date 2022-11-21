@@ -67,13 +67,11 @@
   margin: 0 10px;
   color: #595d69;
 }
-/*
-.admin_list_01{
-    background-color: #c8c8c8;
-} */
-
 /* 관리자페이지 컨텐츠 영역 */
 .admin_content_wrap{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 80%;
   padding-left: 20px;
   height: 100%;
@@ -120,42 +118,4 @@
 }
 .admin_content_wrap td{
   padding: 10px;
-}
-
-.inputArea>button{
-  background-color: rgba(50, 52, 62);
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 15px;
-  width: 150px;
-  height: 40px;
-}
-
-#result_card img{
-  max-width: 100%;
-  height: auto;
-  display: block;
-  padding: 5px;
-  margin-top: 10px;
-  margin: auto;
-}
-#result_card {
-  position: relative;
-}
-.imgDeleteBtn{
-  position: absolute;
-  top: 0;
-  right: 5%;
-  background-color: #32343e;
-  color: white;
-  font-weight: 900;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  line-height: 26px;
-  text-align: center;
-  border: none;
-  display: block;
-  cursor: pointer;
 }

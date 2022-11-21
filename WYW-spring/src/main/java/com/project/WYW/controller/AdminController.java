@@ -5,6 +5,8 @@ import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
 import com.project.WYW.model.AttachImageVO;
+import com.project.WYW.model.PageVo;
+import com.project.WYW.model.Pagehandler;
 import com.project.WYW.service.AdminService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
@@ -75,11 +77,24 @@ public class AdminController {
 
     /* 상품 목록 페이지 접속 */
     @GetMapping("/productslist")
-    public String getProductslist(Model model) throws Exception {
+    public String getProductslist(Pagehandler pagehandler, Model model) throws Exception {
 
 
-        List<ProductsViewVo> list = adminService.productsViewList();
+        List<ProductsViewVo> list = adminService.productsViewList(pagehandler);
         model.addAttribute("list", list);
+
+        if(!list.isEmpty()) {
+            model.addAttribute("list",list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+
+        int total = adminService.productsGetTotal(pagehandler);
+
+        PageVo pageMarker = new PageVo(pagehandler, total);
+
+        model.addAttribute("pageMarker", pageMarker);
+
 
         return "productslist";
     }

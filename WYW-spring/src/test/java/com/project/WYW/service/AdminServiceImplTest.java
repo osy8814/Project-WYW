@@ -32,32 +32,25 @@ public class AdminServiceImplTest {
     @Test
     public void regProduct()throws Exception {
 
-//        adminDao.deleteAllProducts();
-        ProductsVo productsVo = new ProductsVo("admin","침실의자","침실의자입니다.","102",2000,20);
+        for (int i = 0; i <250 ; i++) {
+
+        ProductsVo productsVo = new ProductsVo("admin","침실의자"+i,"침실의자입니다.","102",2000,20);
 
         List<AttachImageVO> imageVOList = new ArrayList<>();
 
         AttachImageVO attachImageVO1 = new AttachImageVO();
         AttachImageVO attachImageVO2 = new AttachImageVO();
 
-        attachImageVO1.setFile_name("test3");
-        attachImageVO1.setUpload_path("test3");
-        attachImageVO1.setUuid("test3");
+        attachImageVO1.setFile_name("test"+i);
+        attachImageVO1.setUpload_path("test"+i);
+        attachImageVO1.setUuid("test"+i);
 
         imageVOList.add(attachImageVO1);
 
-        attachImageVO2.setFile_name("test4");
-        attachImageVO2.setUpload_path("test4");
-        attachImageVO2.setUuid("test4");
-
-        imageVOList.add(attachImageVO2);
-
-
-        System.out.println("imageVOList = " + imageVOList);
-
         productsVo.setImageVOList(imageVOList);
 
-        assertTrue(adminService.regProduct(productsVo)==1);
+        adminService.regProduct(productsVo);
+        }
 
 
     }

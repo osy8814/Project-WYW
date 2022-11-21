@@ -69,7 +69,23 @@
         FROM products p
                  INNER JOIN products_category c
                             ON p.cate_code = c.cate_code
-        ORDER BY created_at DESC ;
+        <if test="keyword != null">
+            WHERE name like concat ('%', #{keyword}, '%')
+        </if>
+        ORDER BY created_at DESC, id DESC
+        limit #{skip}, #{amount};
+    </select>
+
+    <select id="productsGetTotal" resultType="int">
+
+        SELECT count(*) FROM products
+
+        <if test="keyword != null">
+
+            WHERE (name like concat ('%', #{keyword}, '%'))
+
+        </if>
+
     </select>
 
     <insert id="imageReg" parameterType="AttachImageVO">

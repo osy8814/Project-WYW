@@ -1,0 +1,31 @@
+.pageMarker_wrap{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+.pageMarker_wrap a{
+    font-weight: bold;
+    color : black;
+}
+.pageMarker{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+}
+.pageMarker_btn {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 20px;
+}
+
+.next, .prev,
+.next a, .prev a,
+.active,.active a{
+    color: white;
+    background-color: #32343e;
+    font-weight:400;
+}

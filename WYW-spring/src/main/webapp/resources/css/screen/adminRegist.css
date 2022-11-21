@@ -1,0 +1,38 @@
+
+.inputArea>button{
+    background-color: rgba(50, 52, 62);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    width: 150px;
+    height: 40px;
+}
+
+#result_card img{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    padding: 5px;
+    margin-top: 10px;
+    margin: auto;
+}
+#result_card {
+    position: relative;
+}
+.imgDeleteBtn{
+    position: absolute;
+    top: 0;
+    right: 5%;
+    background-color: #32343e;
+    color: white;
+    font-weight: 900;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    line-height: 26px;
+    text-align: center;
+    border: none;
+    display: block;
+    cursor: pointer;
+}
