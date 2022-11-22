@@ -1,0 +1,47 @@
+.products_main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+/* 외부박스 */
+.products_main-outter {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 50px;
+
+}
+
+/* 페이지타이틀  */
+.products_main_title {
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 25px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+.products_diplay{
+  display: grid;
+  margin-top: 50px;
+  grid-template-columns: repeat(4, 400px);
+  column-gap:20px;
+  row-gap: 40px;
+}
+.product{
+  width: 400px;
+  height: 500px;
+  background: #888888;
+  transition: all 2s ease-in-out;
+}
+.product:hover{
+  position: relative;
+  top: -10px;
+}

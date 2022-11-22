@@ -1,14 +1,21 @@
 package com.project.WYW.controller;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.model.AttachImageVO;
+import com.project.WYW.model.PageVo;
+import com.project.WYW.model.Pagehandler;
+import com.project.WYW.service.AdminService;
 import com.project.WYW.service.AttachService;
+import com.project.WYW.service.ProductService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,7 +28,11 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
+    private ProductService productService;
+
+    @Autowired
     private AttachService attachService;
+
 
 
 
@@ -56,8 +67,33 @@ public class ProductController {
 
     }
 
+    @GetMapping("/products")
+    public String products(Pagehandler pagehandler,Model model)throws Exception{
+
+        pagehandler.setAmount(12);
+
+        List<ProductsViewVo> list = productService.productsViewList(pagehandler);
+        model.addAttribute("list", list);
+
+        if(!list.isEmpty()) {
+            model.addAttribute("list",list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+
+        int total = productService.productsGetTotal(pagehandler);
+
+        PageVo pageMarker = new PageVo(pagehandler, total);
+
+        model.addAttribute("totalResult" ,total);
+        model.addAttribute("pageMarker", pageMarker);
+
+        return "productsAll";
+    }
+
     @GetMapping("/productDetail")
     public String productDtail(){
+
         return "productDetail";
     }
 

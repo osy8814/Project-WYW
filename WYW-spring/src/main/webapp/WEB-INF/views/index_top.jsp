@@ -72,7 +72,7 @@
         <li>
           <a href="#">SHOP</a>
           <ul id="shop_list">
-            <li><a href="#">NEW</a></li>
+            <li><a href="${pageContext.request.contextPath}/products">NEW</a></li>
             <li><a href="#">BEST</a></li>
             <li><a href="#">BEDROOM</a></li>
             <li><a href="#">KITCHEN</a></li>

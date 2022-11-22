@@ -16,7 +16,7 @@
     <div class="bottomNavBox">
       <div class="bottomNavBox__navBox">
         <ul class="bottomNavBox__navBox-nav">
-          <li><a href="index.html">HOME</a></li>
+          <li><a href="${pageContext.request.contextPath}/">HOME</a></li>
           <li>|</li>
           <li><a href="">AGREEMENT</a></li>
           <li>|</li>
