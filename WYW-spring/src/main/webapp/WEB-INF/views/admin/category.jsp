@@ -15,7 +15,7 @@
 
   <body>
 
-    <jsp:include page="index_top.jsp" flush="false"/>
+    <jsp:include page="../index_top.jsp" flush="false"/>
 
     <div class="admin_main">
 
@@ -48,7 +48,7 @@
 
             </div>
             <div class="admin_content_wrap">
-              <div class="admin_content_wrap_title">카테고리관리</div>
+              <div class="admin_content_wrap_title">카테고리 목록</div>
             </div>
             <div class="clearfix"></div>
           </div>
@@ -56,7 +56,7 @@
       </div>
 
     </div>
-    <jsp:include page="index_bottom.jsp" flush="false"/>
+    <jsp:include page="../index_bottom.jsp" flush="false"/>
 
     <script
       src="https://kit.fontawesome.com/6478f529f2.js"

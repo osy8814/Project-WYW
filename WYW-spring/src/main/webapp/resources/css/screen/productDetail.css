@@ -1,174 +1,191 @@
 .product_main {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 외부박스 */
 .product_main-outter {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  margin-bottom: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin-bottom: 50px;
 }
 
 /* 페이지타이틀  */
 .product_main_title {
-  box-sizing: border-box;
-  width: 100%;
-  font-size: 20px;
-  font-weight: bold;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
 }
 
 /* 내부박스 */
-.product_main_form{
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  border: 1px solid rgba(50, 52, 62, 0.2);
-  margin: 20px 0;
-  padding: 30px 0;
+.product_main_form {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid rgba(50, 52, 62, 0.2);
+    margin: 20px 0;
+    padding: 30px 0;
 }
 
-.product_img{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  padding: 5px;
-  width: 400px;
-  height: 600px;
-  background-color: #bcbcbc;
-}
-.product_img_main{
-  width: 100%;
-  height: 70%;
-  background-color: #1f1f1f;
-}
-.product_img_thumb-set{
-  height: 20%;
-  background-color: #595d69;
+.product_img {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 5px;
+    width: 400px;
+    height: 600px;
 }
 
-.product_info{
-  width: 600px;
-  height: 600px;
-  /*background-color: #bcbcbc;*/
+.product_img_main {
+    width: 100%;
+    height: 70%;
 }
 
-.product_info_name{
-  margin-top: 30px;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 2;
-  height: 50px;
+.product_img_main > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.product_info_dox{
-  padding: 20px 0;
-  border-top: 1px solid rgba(50, 52, 62, 0.2);
-  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+.product_img_thumb-set {
+    height: 20%;
+    background-color: lightgray;
 }
 
-.product_info_dox_inner{
-  height: 40px;
-  display: flex;
-  align-items: center;
+.product_info {
+    width: 600px;
+    height: 600px;
+    /*background-color: #bcbcbc;*/
 }
 
-.product_info_dox_price > div:nth-child(2){
-  font-size: 16px;
-  font-weight: bold;
+.product_info_name {
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 2;
+    height: 50px;
+}
+.product_info_cate-name{
+    margin-bottom: 30px;
+}
+.product_info_dox {
+    padding: 20px 0;
+    border-top: 1px solid rgba(50, 52, 62, 0.2);
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
 }
 
-.product_info_dox_inner_left{
-  width: 150px;
+.product_info_dox_inner {
+    height: 40px;
+    display: flex;
+    align-items: center;
 }
 
-.product_info_quantity{
-  margin: 20px 0;
-}
-.product_info_quantity span{
-  margin-right: 40px;
-}
-.product_info_quantity input[type="number"]{
-  width: 30px;
+.product_info_dox_price > div:nth-child(2) {
+    font-size: 16px;
+    font-weight: bold;
 }
 
-.product_info_total-price-set span{
-  margin-right: 20px;
-}
-.product_info_total-price{
-  font-size: 20px;
-  font-weight: bold;
+.product_info_dox_inner_left {
+    width: 150px;
 }
 
-.product_info_btn-set{
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 50px;
+.product_info_quantity {
+    margin: 20px 0;
+}
+.product_info_quantity button{
+    width: 25px;
+    height: 25px;
+}
+
+.product_info_quantity span {
+    margin-right: 40px;
+}
+
+.product_info_quantity input[type="text"] {
+    width: 40px;
+    height: 20px;
+}
+
+.product_info_total-price-set span {
+    margin-right: 20px;
+}
+
+.product_info_total-price {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.product_info_btn-set {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
 
 }
 
-.product_info_btn-set button{
-  border: 1px solid #1f1f1f;
-  background-color: transparent ;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+.product_info_btn-set button {
+    border: 1px solid #1f1f1f;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .product_info_btn-set button:hover {
 
-  background-color: #1f1f1f ;
-  color: white;
+    background-color: #1f1f1f;
+    color: white;
 }
 
-.product_info_btn-set > button{
-  height: 50px;
-  width: 95%;
+.product_info_btn-set > button {
+    height: 50px;
+    width: 95%;
 }
 
-.product_info_btn-set_inner{
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  width: 95%;
+.product_info_btn-set_inner {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    width: 95%;
 
 }
 
-.product_info_btn-set_inner > button:first-child{
-  height: 50px;
-  width: 49%;
+.product_info_btn-set_inner > button:first-child {
+    height: 50px;
+    width: 49%;
 }
 
-.product_info_btn-set_inner > button:nth-child(2){
-  height: 50px;
-  width: 49%;
+.product_info_btn-set_inner > button:nth-child(2) {
+    height: 50px;
+    width: 49%;
 }
 
 /*세부정보*/
-.product_main-detail{
-  width: 100%;
-  height: 400px;
+.product_main-detail {
+    width: 100%;
+    height: 400px;
 }
 
-.product_main-detail-title{
-  width: 100%;
-  box-sizing: border-box;
-  padding: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  border: 1px solid rgba(50, 52, 62, 0.2);
+.product_main-detail-title {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border: 1px solid rgba(50, 52, 62, 0.2);
 }
-.product_main-detail_content{
-  padding: 10px;
-  background-color: #6f6f6f;
+
+.product_main-detail_content {
+    padding: 10px;
+    min-height: 500px;
 }

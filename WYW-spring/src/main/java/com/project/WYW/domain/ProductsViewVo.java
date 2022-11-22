@@ -1,6 +1,9 @@
 package com.project.WYW.domain;
 
+import com.project.WYW.model.AttachImageVO;
+
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class ProductsViewVo {
@@ -15,6 +18,8 @@ public class ProductsViewVo {
     private int stock;
     private int cumulative_sales;
     private Date created_at;
+
+    private List<AttachImageVO> imageVOList;
 
     private String cate_name;
     private String cate_code_ref;
@@ -115,8 +120,17 @@ public class ProductsViewVo {
         this.created_at = created_at;
     }
 
+    public List<AttachImageVO> getImageVOList() {
+        return imageVOList;
+    }
 
-    public ProductsViewVo(){}
+    public void setImageVOList(List<AttachImageVO> imageVOList) {
+        this.imageVOList = imageVOList;
+    }
+
+    public ProductsViewVo() {
+    }
+
     public ProductsViewVo(String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
         this.user_id = user_id;
         this.name = name;
@@ -154,6 +168,7 @@ public class ProductsViewVo {
                 ", stock=" + stock +
                 ", cumulative_sales=" + cumulative_sales +
                 ", created_at=" + created_at +
+                ", imageVOList=" + imageVOList +
                 ", cate_name='" + cate_name + '\'' +
                 ", cate_code_ref='" + cate_code_ref + '\'' +
                 '}';

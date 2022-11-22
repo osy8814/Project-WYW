@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -42,9 +41,10 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+
     @GetMapping("/main")
     public String toMain() {
-        return "admin";
+        return "admin/admin";
     }
 
 
@@ -52,12 +52,12 @@ public class AdminController {
     @GetMapping("/productsReg")
     public String getProductsReg(HttpSession session, Model model) throws Exception {
         List<CategoryVo> category = adminService.category();
-        UsersVo loginUser = (UsersVo)session.getAttribute("loggedInUser");
+        UsersVo loginUser = (UsersVo) session.getAttribute("loggedInUser");
 
         model.addAttribute("category", JSONArray.fromObject(category));
         model.addAttribute("loggedInUser", loginUser);
 
-        return "productsReg";
+        return "admin/productsReg";
     }
 
     @PostMapping("/productsReg")
@@ -66,7 +66,7 @@ public class AdminController {
         System.out.println("productsVo = " + productsVo);
 
         int rowCnt = adminService.regProduct(productsVo);
-        if(rowCnt==1){
+        if (rowCnt == 1) {
             rattr.addFlashAttribute("msg", "reg_ok");
             return "redirect:/admin/productsReg";
         }
@@ -83,8 +83,8 @@ public class AdminController {
         List<ProductsViewVo> list = adminService.productsViewList(pagehandler);
         model.addAttribute("list", list);
 
-        if(!list.isEmpty()) {
-            model.addAttribute("list",list);
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
         } else {
             model.addAttribute("listCheck", "empty");
         }
@@ -96,7 +96,7 @@ public class AdminController {
         model.addAttribute("pageMarker", pageMarker);
 
 
-        return "productslist";
+        return "admin/productslist";
     }
 
     @GetMapping("/productsManage")
@@ -105,54 +105,55 @@ public class AdminController {
         ProductsViewVo productsViewVo = adminService.readProduct(id);
         model.addAttribute(productsViewVo);
         model.addAttribute("category", JSONArray.fromObject(category));
-        return "productsManage";
+        return "admin/productsManage";
     }
 
     @PostMapping("/modifyProduct")
-    public String modifyProduct(ProductsVo productsVo,RedirectAttributes rattr)throws Exception{
+    public String modifyProduct(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
         int rowCnt = adminService.modifiyProduct(productsVo);
         System.out.println("rowCnt = " + rowCnt);
-        if(rowCnt==1){
-            rattr.addFlashAttribute("msg","modify_ok");
-            return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();
+        if (rowCnt == 1) {
+            rattr.addFlashAttribute("msg", "modify_ok");
+            return "redirect:/admin/productsManage" + "?id=" + productsVo.getId();
         }
 
-        rattr.addFlashAttribute("msg","modify_err");
-        return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();
+        rattr.addFlashAttribute("msg", "modify_err");
+        return "redirect:/admin/productsManage" + "?id=" + productsVo.getId();
     }
+
     @PostMapping("/deleteProduct")
-    public String deleteProduct(Integer id,Model model,RedirectAttributes rattr)throws Exception{
+    public String deleteProduct(Integer id, Model model, RedirectAttributes rattr) throws Exception {
 
         List<AttachImageVO> imageList = adminService.getAttachInfo(id);
 
-        if(imageList!=null){
+        if (imageList != null) {
 
             List<Path> pathList = new ArrayList();
 
-            imageList.forEach(attachImageVO ->{
+            imageList.forEach(attachImageVO -> {
 
                 // 원본 이미지
                 Path path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), attachImageVO.getUuid() + "_" + attachImageVO.getFile_name());
                 pathList.add(path);
 
                 // 섬네일 이미지
-                path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), "s_" + attachImageVO.getUuid()+"_" + attachImageVO.getFile_name());
+                path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), "s_" + attachImageVO.getUuid() + "_" + attachImageVO.getFile_name());
                 pathList.add(path);
 
             });
 
-            pathList.forEach(path ->{
+            pathList.forEach(path -> {
                 path.toFile().delete();
             });
         }
         int rowCnt = adminService.deleteProduct(id);
 
-        if(rowCnt==1){
-            rattr.addFlashAttribute("msg","del_ok");
+        if (rowCnt == 1) {
+            rattr.addFlashAttribute("msg", "del_ok");
             return "redirect:/admin/productslist";
         }
 
-        rattr.addFlashAttribute("msg","del_err");
+        rattr.addFlashAttribute("msg", "del_err");
         return "redirect:/admin/productslist";
     }
 
@@ -160,20 +161,20 @@ public class AdminController {
     @GetMapping("/category")
     public String getCategory() throws Exception {
 
-        return "category";
+        return "admin/category";
     }
 
     /* 카테고리 관리 페이지 접속 */
     @GetMapping("/categoryManage")
     public String getCategoryManage() throws Exception {
 
-        return "categoryManage";
+        return "admin/categoryManage";
     }
 
-    @PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile)throws Exception{
+    @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile) throws Exception {
 
-        for(MultipartFile multipartFile : uploadFile){
+        for (MultipartFile multipartFile : uploadFile) {
 
             File checkfile = new File(multipartFile.getOriginalFilename());
             String type = null;
@@ -187,7 +188,7 @@ public class AdminController {
             }
 
             /*파일이 이미지가 아닐경우*/
-            if(!type.startsWith("image")) {
+            if (!type.startsWith("image")) {
 
                 /*ResponseEntity 객체에 첨부해줄 값이 null인 List <AttachImageVO>리턴*/
                 List<AttachImageVO> list = null;
@@ -199,15 +200,15 @@ public class AdminController {
 
 //        기본폴더 경로
         String uploadFolder = "C:\\upload";
-
 //        연/월/일 형태로 폴더 생성
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        String str = sdf.format(date);
+        String str = simpleDateFormat.format(date);
         String datePath = str.replace("-", File.separator);
+        String upload_path = str.replace("-", "/");
 
         File uploadPath = new File(uploadFolder, datePath);
-        if(uploadPath.exists() == false) {
+        if (uploadPath.exists() == false) {
 //            폴더가 존재하지 않을때만 폴더생성
             uploadPath.mkdirs();
         }
@@ -215,7 +216,7 @@ public class AdminController {
         /* 이미저 정보 담는 객체 */
         List<AttachImageVO> list = new ArrayList();
 
-        for(MultipartFile multipartFile : uploadFile){
+        for (MultipartFile multipartFile : uploadFile) {
 
             /*이미지 정보 객체*/
             AttachImageVO vo = new AttachImageVO();
@@ -228,7 +229,7 @@ public class AdminController {
             String uuid = UUID.randomUUID().toString();
 
             uploadFileName = uuid + "_" + uploadFileName;
-            vo.setUpload_path(datePath);
+            vo.setUpload_path(upload_path);
             vo.setUuid(uuid);
 
             /* 파일 위치, 파일 이름을 합친 File 객체 */
