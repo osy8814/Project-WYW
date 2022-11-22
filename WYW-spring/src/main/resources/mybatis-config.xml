@@ -9,5 +9,8 @@
         <typeAlias alias="ProductsVo" type="com.project.WYW.domain.ProductsVo"/>
         <typeAlias alias="ProductsViewVo" type="com.project.WYW.domain.ProductsViewVo"/>
         <typeAlias alias="AttachImageVO" type="com.project.WYW.model.AttachImageVO"/>
+        <typeAlias alias="BoardDto" type="com.project.WYW.dto.BoardDto" />
+        <typeAlias alias="CommentDto" type="com.project.WYW.dto.CommentDto" />
+        <typeAlias alias="SearchCondition" type="com.project.WYW.model.SearchCondition" />
     </typeAliases>
 </configuration>

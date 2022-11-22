@@ -84,7 +84,7 @@
           <a href="#">COMMUNITY</a>
           <ul id="community_List">
             <li><a href="#">NOTICE</a></li>
-            <li><a href="#">FREES</a></li>
+            <li><a href="<c:url value='/board/list'/>">FREES</a></li>
             <li><a href="#">F&A</a></li>
           </ul>
         </li>
