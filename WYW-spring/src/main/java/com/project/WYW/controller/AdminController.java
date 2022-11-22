@@ -43,7 +43,7 @@ public class AdminController {
     AdminService adminService;
     @GetMapping("/main")
     public String toMain() {
-        return "admin";
+        return "admin/admin";
     }
 
 
