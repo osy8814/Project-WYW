@@ -41,6 +41,7 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+
     @GetMapping("/main")
     public String toMain() {
         return "admin/admin";
@@ -51,7 +52,7 @@ public class AdminController {
     @GetMapping("/productsReg")
     public String getProductsReg(HttpSession session, Model model) throws Exception {
         List<CategoryVo> category = adminService.category();
-        UsersVo loginUser = (UsersVo)session.getAttribute("loggedInUser");
+        UsersVo loginUser = (UsersVo) session.getAttribute("loggedInUser");
 
         model.addAttribute("category", JSONArray.fromObject(category));
         model.addAttribute("loggedInUser", loginUser);
@@ -65,7 +66,7 @@ public class AdminController {
         System.out.println("productsVo = " + productsVo);
 
         int rowCnt = adminService.regProduct(productsVo);
-        if(rowCnt==1){
+        if (rowCnt == 1) {
             rattr.addFlashAttribute("msg", "reg_ok");
             return "redirect:/admin/productsReg";
         }
@@ -82,8 +83,8 @@ public class AdminController {
         List<ProductsViewVo> list = adminService.productsViewList(pagehandler);
         model.addAttribute("list", list);
 
-        if(!list.isEmpty()) {
-            model.addAttribute("list",list);
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
         } else {
             model.addAttribute("listCheck", "empty");
         }
@@ -108,50 +109,51 @@ public class AdminController {
     }
 
     @PostMapping("/modifyProduct")
-    public String modifyProduct(ProductsVo productsVo,RedirectAttributes rattr)throws Exception{
+    public String modifyProduct(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
         int rowCnt = adminService.modifiyProduct(productsVo);
         System.out.println("rowCnt = " + rowCnt);
-        if(rowCnt==1){
-            rattr.addFlashAttribute("msg","modify_ok");
-            return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();
+        if (rowCnt == 1) {
+            rattr.addFlashAttribute("msg", "modify_ok");
+            return "redirect:/admin/productsManage" + "?id=" + productsVo.getId();
         }
 
-        rattr.addFlashAttribute("msg","modify_err");
-        return "redirect:/admin/productsManage"+"?id=" + productsVo.getId();
+        rattr.addFlashAttribute("msg", "modify_err");
+        return "redirect:/admin/productsManage" + "?id=" + productsVo.getId();
     }
+
     @PostMapping("/deleteProduct")
-    public String deleteProduct(Integer id,Model model,RedirectAttributes rattr)throws Exception{
+    public String deleteProduct(Integer id, Model model, RedirectAttributes rattr) throws Exception {
 
         List<AttachImageVO> imageList = adminService.getAttachInfo(id);
 
-        if(imageList!=null){
+        if (imageList != null) {
 
             List<Path> pathList = new ArrayList();
 
-            imageList.forEach(attachImageVO ->{
+            imageList.forEach(attachImageVO -> {
 
                 // 원본 이미지
                 Path path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), attachImageVO.getUuid() + "_" + attachImageVO.getFile_name());
                 pathList.add(path);
 
                 // 섬네일 이미지
-                path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), "s_" + attachImageVO.getUuid()+"_" + attachImageVO.getFile_name());
+                path = Paths.get("C:\\upload", attachImageVO.getUpload_path(), "s_" + attachImageVO.getUuid() + "_" + attachImageVO.getFile_name());
                 pathList.add(path);
 
             });
 
-            pathList.forEach(path ->{
+            pathList.forEach(path -> {
                 path.toFile().delete();
             });
         }
         int rowCnt = adminService.deleteProduct(id);
 
-        if(rowCnt==1){
-            rattr.addFlashAttribute("msg","del_ok");
+        if (rowCnt == 1) {
+            rattr.addFlashAttribute("msg", "del_ok");
             return "redirect:/admin/productslist";
         }
 
-        rattr.addFlashAttribute("msg","del_err");
+        rattr.addFlashAttribute("msg", "del_err");
         return "redirect:/admin/productslist";
     }
 
@@ -169,10 +171,10 @@ public class AdminController {
         return "admin/categoryManage";
     }
 
-    @PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile)throws Exception{
+    @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile) throws Exception {
 
-        for(MultipartFile multipartFile : uploadFile){
+        for (MultipartFile multipartFile : uploadFile) {
 
             File checkfile = new File(multipartFile.getOriginalFilename());
             String type = null;
@@ -186,7 +188,7 @@ public class AdminController {
             }
 
             /*파일이 이미지가 아닐경우*/
-            if(!type.startsWith("image")) {
+            if (!type.startsWith("image")) {
 
                 /*ResponseEntity 객체에 첨부해줄 값이 null인 List <AttachImageVO>리턴*/
                 List<AttachImageVO> list = null;
@@ -206,7 +208,7 @@ public class AdminController {
         String datePath = str.replace("-", File.separator);
 
         File uploadPath = new File(uploadFolder, datePath);
-        if(uploadPath.exists() == false) {
+        if (uploadPath.exists() == false) {
 //            폴더가 존재하지 않을때만 폴더생성
             uploadPath.mkdirs();
         }
@@ -214,7 +216,7 @@ public class AdminController {
         /* 이미저 정보 담는 객체 */
         List<AttachImageVO> list = new ArrayList();
 
-        for(MultipartFile multipartFile : uploadFile){
+        for (MultipartFile multipartFile : uploadFile) {
 
             /*이미지 정보 객체*/
             AttachImageVO vo = new AttachImageVO();

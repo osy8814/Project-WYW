@@ -79,10 +79,8 @@
 
 .main__best__product,
 .main__new__product {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 400px);
 }
 
 .main__best__product__componet,
@@ -91,7 +89,6 @@
   justify-content: center;
   align-items: flex-end;
   background-color: #bcbcbc;
-  width: 20%;
   min-width: 220px;
   height: 40vmin;
   margin: 5px;
