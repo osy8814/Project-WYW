@@ -38,8 +38,8 @@
 .product{
   width: 400px;
   height: 500px;
-  background: #888888;
-  transition: all 2s ease-in-out;
+  background: #bcbcbc;
+  transition: 2s ease-in-out;
 }
 .product:hover{
   position: relative;

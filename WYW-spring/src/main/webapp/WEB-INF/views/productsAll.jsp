@@ -25,15 +25,27 @@
             <c:if test="${listCheck != 'empty' }">
 
                 <c:forEach items="${list}" var="product">
-                  <div class="product">
+                  
+                    <a href="<c:url value='/productDetail'/>">
+                      <div class="main__best__product">
+                        <div class="main__best__product__componet">
 
-                      ${product.id}
-                      <a href="<c:url value='/productDetail'/>">${product.name}</a>
-                      ${product.description}
-                      ${product.cate_name}
-                      <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>원
+                          <div class="main__best__product__componet-description">
+                            <h1 class="main__best__product__componet-description-title">
+                              ${product.name}
+                                ${product.cate_name}
+                            </h1>
+                            <p class="main__best__product__componet-description-descrip">
+                                ${product.description}
+                            </p>
+                            <span class="main__best__product__componet-description-price">
+                                <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>원
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
 
-                  </div>
                 </c:forEach>
             </c:if>
             <c:if test="${listCheck == 'empty'}">
