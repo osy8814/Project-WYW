@@ -36,17 +36,17 @@
         </div>
         <div class="bottomNavBox__main__box Banking">
             <h3 class="bottomNavBox__main__box-title">banking account</h3>
-            <h1 class="bottomNavBox__main__box-number">352-0000-0000-00</h1>
-            <p class="bottomNavBox__main__box-script">농협/000</p>
-            <h1 class="bottomNavBox__main__box-number">352-0000-0000-00</h1>
-            <p class="bottomNavBox__main__box-script">농협/000</p>
+            <h1 class="bottomNavBox__main__box-number">352-1234-1234-00</h1>
+            <p class="bottomNavBox__main__box-script">농협/S.Y.H</p>
+            <h1 class="bottomNavBox__main__box-number">352-1234-1234-00</h1>
+            <p class="bottomNavBox__main__box-script">농협/S.Y.H</p>
         </div>
         <div class="bottomNavBox__main__box Cominfo">
             <h3 class="bottomNavBox__main__box-title">Company info</h3>
             <p class="bottomNavBox__main__box-script">COMPANY : S.Y.H</p>
             <p class="bottomNavBox__main__box-script">CALL : 043-123-4567</p>
             <p class="bottomNavBox__main__box-script">EMAIL : SYH@gmail.com</p>
-            <p class="bottomNavBox__main__box-script">ADRESS :</p>
+            <p class="bottomNavBox__main__box-script">ADRESS : </p>
             <p class="bottomNavBox__main__box-script">
                 BUSINESS NUMBER : 301-20-00123
             </p>

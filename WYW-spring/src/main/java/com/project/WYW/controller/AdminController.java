@@ -200,11 +200,10 @@ public class AdminController {
 
 //        기본폴더 경로
         String uploadFolder = "C:\\upload";
-
 //        연/월/일 형태로 폴더 생성
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        String str = sdf.format(date);
+        String str = simpleDateFormat.format(date);
         String datePath = str.replace("-", File.separator);
 
         File uploadPath = new File(uploadFolder, datePath);

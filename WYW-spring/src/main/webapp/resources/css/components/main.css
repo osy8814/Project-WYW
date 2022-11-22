@@ -81,6 +81,7 @@
 .main__new__product {
   display: grid;
   grid-template-columns: repeat(4, 400px);
+  grid-template-rows: repeat(1, 500px);
 }
 
 .main__best__product__componet,
