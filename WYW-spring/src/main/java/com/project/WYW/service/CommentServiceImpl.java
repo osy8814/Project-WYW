@@ -32,11 +32,8 @@ public class CommentServiceImpl implements CommentService {
         if(rowCnt!=1){
             throw new Exception("Comment delete fail");
         }
-        System.out.println("updateCommentCnt - rowCnt = " + rowCnt);
-//           throw new Exception("test");
-        boardDao.updateCommentCnt(bno, -1);
 
-        System.out.println("rowCnt = " + rowCnt);
+        boardDao.updateCommentCnt(bno, -1);
 
         return rowCnt;
     }
@@ -45,13 +42,11 @@ public class CommentServiceImpl implements CommentService {
     @Transactional(rollbackFor = Exception.class)
     public int write(CommentDto commentDto) throws Exception {
         boardDao.updateCommentCnt(commentDto.getBno(), 1);
-//               throw new Exception("test");
-            return commentDao.insert(commentDto);
+        return commentDao.insert(commentDto);
     }
 
     @Override
     public List<CommentDto> getList(Integer bno, CommentSearchCondition csc) throws Exception {
-//        throw new Exception("test");
         return commentDao.selectAll(bno,csc);
     }
 

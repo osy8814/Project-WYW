@@ -285,7 +285,7 @@ img{
                 </c:if>
                 <c:if test="${totalCnt!=null && totalCnt!=0}">
                     <c:if test="${ph.showPrev}">
-                        <a id="btn_left" href="<c:url value="/comments${ph.sc.getQueryString(ph.beginPage-1)}"/>"></a>
+                        <a id="btn_left" href="<c:url value="/board/list${ph.sc.getQueryString(ph.beginPage-1)}"/>"></a>
                     </c:if>
                     <c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
                         <a id="btn_mid" ${i==ph.sc.page? "paging-active" : ""}" href="<c:url value="/board/list${ph.sc.getQueryString(i)}"/>">${i}</a>
