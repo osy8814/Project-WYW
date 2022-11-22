@@ -99,12 +99,6 @@
 </div>
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
-
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
-<script
-        src="https://kit.fontawesome.com/6478f529f2.js"
-        crossorigin="anonymous"
-></script>
-
 </body>
 </html>
