@@ -15,7 +15,7 @@
 
   <body>
 
-    <jsp:include page="index_top.jsp" flush="false"/>
+    <jsp:include page="../index_top.jsp" flush="false"/>
 
     <div class="admin_main">
 
@@ -121,7 +121,7 @@
       </div>
 
     </div>
-    <jsp:include page="index_bottom.jsp" flush="false"/>
+    <jsp:include page="../index_bottom.jsp" flush="false"/>
 
 
     <script

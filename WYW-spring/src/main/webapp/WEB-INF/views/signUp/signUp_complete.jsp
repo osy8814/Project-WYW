@@ -13,7 +13,7 @@
   </head>
 
   <body>
-    <jsp:include page="index_top.jsp" flush="false"/>
+    <jsp:include page="../index_top.jsp" flush="false"/>
 
     <div class="signUp_complete_main">
       <div class="signUp_complete_main_regist-outter">
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <jsp:include page="index_bottom.jsp" flush="false"/>
+    <jsp:include page="../index_bottom.jsp" flush="false"/>
 
     <script
       src="https://kit.fontawesome.com/6478f529f2.js"

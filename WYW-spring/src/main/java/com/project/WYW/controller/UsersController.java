@@ -65,7 +65,7 @@ public class UsersController {
 
     @GetMapping("/signup")
     public String getSignup() throws Exception{
-        return "signUp";
+        return "signUp/signUp";
     }
 
     @PostMapping("/signup")
@@ -74,10 +74,10 @@ public class UsersController {
 
         if(0 < isSuccessful){
             m.addAttribute(vo);
-            return "signUp_complete";
+            return "signUp/signUp_complete";
         }
 
-        return "signUp";
+        return "signUp/signUp";
     }
 
     @GetMapping("/find_id")

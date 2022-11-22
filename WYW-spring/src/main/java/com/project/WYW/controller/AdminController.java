@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -57,7 +56,7 @@ public class AdminController {
         model.addAttribute("category", JSONArray.fromObject(category));
         model.addAttribute("loggedInUser", loginUser);
 
-        return "productsReg";
+        return "admin/productsReg";
     }
 
     @PostMapping("/productsReg")
@@ -96,7 +95,7 @@ public class AdminController {
         model.addAttribute("pageMarker", pageMarker);
 
 
-        return "productslist";
+        return "admin/productslist";
     }
 
     @GetMapping("/productsManage")
@@ -105,7 +104,7 @@ public class AdminController {
         ProductsViewVo productsViewVo = adminService.readProduct(id);
         model.addAttribute(productsViewVo);
         model.addAttribute("category", JSONArray.fromObject(category));
-        return "productsManage";
+        return "admin/productsManage";
     }
 
     @PostMapping("/modifyProduct")
@@ -160,14 +159,14 @@ public class AdminController {
     @GetMapping("/category")
     public String getCategory() throws Exception {
 
-        return "category";
+        return "admin/category";
     }
 
     /* 카테고리 관리 페이지 접속 */
     @GetMapping("/categoryManage")
     public String getCategoryManage() throws Exception {
 
-        return "categoryManage";
+        return "admin/categoryManage";
     }
 
     @PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
