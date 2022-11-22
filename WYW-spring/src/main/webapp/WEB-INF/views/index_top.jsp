@@ -83,9 +83,9 @@
         <li>
           <a href="#">COMMUNITY</a>
           <ul id="community_List">
+            <li><a href="#">NOTICE</a></li>
             <li><a href="#">FREES</a></li>
-            <li><a href="#">REVIEWS</a></li>
-            <li><a href="#">Q&A</a></li>
+            <li><a href="#">F&A</a></li>
           </ul>
         </li>
       </ul>
