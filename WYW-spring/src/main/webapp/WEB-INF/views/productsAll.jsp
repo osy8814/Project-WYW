@@ -27,8 +27,10 @@
                 <c:forEach items="${list}" var="product">
 
                     <div class="product">
-                        <a href="<c:url value='/productDetail'/>">
-                            <div class="product_main-image"></div>
+                        <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
+                            <div class="product_main-image">
+                                <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                            </div>
                         </a>
                         <div class="product_infomation">
                             <h1 class="product_name">${product.name}</h1>

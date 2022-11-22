@@ -26,4 +26,9 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectOne(namespace+"productsGetTotal", pagehandler);
     }
 
+    @Override
+    public ProductsViewVo readProductDetail(Integer product_id){
+        return session.selectOne(namespace+"productsView",product_id);
+    }
+
 }

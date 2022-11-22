@@ -34,10 +34,8 @@ public class ProductController {
     private AttachService attachService;
 
 
-
-
     @GetMapping("/display")
-    public ResponseEntity<byte[]> getImage(String fileName){
+    public ResponseEntity<byte[]> getImage(String fileName) {
 
         File file = new File("c:\\upload\\" + fileName);
 
@@ -51,7 +49,7 @@ public class ProductController {
 
             result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -60,23 +58,22 @@ public class ProductController {
     }
 
     /* 이미지 정보 반환 */
-    @GetMapping(value="/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<List<AttachImageVO>> getAttachList(int product_id){
+    @GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<List<AttachImageVO>> getAttachList(int product_id) {
 
         return new ResponseEntity<List<AttachImageVO>>(attachService.getAttachList(product_id), HttpStatus.OK);
 
     }
 
     @GetMapping("/products")
-    public String products(Pagehandler pagehandler,Model model)throws Exception{
+    public String products(Pagehandler pagehandler, Model model) throws Exception {
 
         pagehandler.setAmount(12);
 
         List<ProductsViewVo> list = productService.productsViewList(pagehandler);
-        model.addAttribute("list", list);
 
-        if(!list.isEmpty()) {
-            model.addAttribute("list",list);
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
         } else {
             model.addAttribute("listCheck", "empty");
         }
@@ -85,14 +82,17 @@ public class ProductController {
 
         PageVo pageMarker = new PageVo(pagehandler, total);
 
-        model.addAttribute("totalResult" ,total);
+        model.addAttribute("totalResult", total);
         model.addAttribute("pageMarker", pageMarker);
 
         return "productsAll";
     }
 
     @GetMapping("/productDetail")
-    public String productDtail(){
+    public String productDtail(Integer product_id, Model model) {
+
+        ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
+        model.addAttribute(productsViewVo);
 
         return "productDetail";
     }

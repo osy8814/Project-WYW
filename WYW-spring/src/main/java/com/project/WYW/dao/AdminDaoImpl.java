@@ -20,21 +20,21 @@ public class AdminDaoImpl implements AdminDao {
 
     final int FAIL = 0;
 
-    private static String namespace="com.project.WYW.mapper.adminMapper.";
+    private static String namespace = "com.project.WYW.mapper.adminMapper.";
 
     @Override
-    public List<CategoryVo> category()throws Exception{
+    public List<CategoryVo> category() throws Exception {
 
-      return session.selectList(namespace+"category");
+        return session.selectList(namespace + "category");
     }
 
     @Transactional
     @Override
-    public int regProduct(ProductsVo productsVo) throws Exception{
+    public int regProduct(ProductsVo productsVo) throws Exception {
 
-        int rowCnt = session.insert(namespace+"regProduct", productsVo);
+        int rowCnt = session.insert(namespace + "regProduct", productsVo);
 
-        if(productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
+        if (productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
 
             return FAIL;
         }
@@ -49,32 +49,32 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public List<ProductsVo> productsList()throws Exception{
-        return  session.selectList(namespace+"productsList");
+    public List<ProductsVo> productsList() throws Exception {
+        return session.selectList(namespace + "productsList");
     }
 
     @Override
-    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler)throws Exception{
-        return  session.selectList(namespace+"productsViewList", pagehandler);
+    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception {
+        return session.selectList(namespace + "productsViewList", pagehandler);
     }
 
     @Override
-    public int productsGetTotal(Pagehandler pagehandler)throws Exception{
-        return session.selectOne(namespace+"productsGetTotal", pagehandler);
+    public int productsGetTotal(Pagehandler pagehandler) throws Exception {
+        return session.selectOne(namespace + "productsGetTotal", pagehandler);
     }
 
     @Override
-    public ProductsViewVo readProduct(Integer id) throws Exception{
-        return session.selectOne(namespace+"productsView", id);
+    public ProductsViewVo readProduct(Integer id) throws Exception {
+        return session.selectOne(namespace + "productsView", id);
     }
 
     @Override
-    public int deleteProduct(Integer id) throws Exception{
+    public int deleteProduct(Integer id) throws Exception {
 
         int rowCnt;
 
         try {
-            rowCnt = session.delete(namespace+"deleteProduct", id);
+            rowCnt = session.delete(namespace + "deleteProduct", id);
             return rowCnt;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,18 +85,18 @@ public class AdminDaoImpl implements AdminDao {
 
     @Transactional
     @Override
-    public int modifiyProduct(ProductsVo productsVo) throws Exception{
+    public int modifiyProduct(ProductsVo productsVo) throws Exception {
 
 
-        int rowCnt = session.update(namespace+"modifiyProduct", productsVo);
+        int rowCnt = session.update(namespace + "modifiyProduct", productsVo);
 
-        if(productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
+        if (productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
 
             return FAIL;
         }
 
-        if(rowCnt==1 && productsVo.getImageVOList()!=null && productsVo.getImageVOList().size()>0){
-            session.delete(namespace+"deleteImageAll", productsVo.getId());
+        if (rowCnt == 1 && productsVo.getImageVOList() != null && productsVo.getImageVOList().size() > 0) {
+            session.delete(namespace + "deleteImageAll", productsVo.getId());
 
             regProductImage(productsVo);
         }
@@ -104,16 +104,16 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public int deleteAllProducts()throws Exception{
-        return session.delete(namespace+"deleteAllProduct");
+    public int deleteAllProducts() throws Exception {
+        return session.delete(namespace + "deleteAllProduct");
     }
 
     @Override
-    public int imgReg(AttachImageVO attachImageVO)throws Exception{
+    public int imgReg(AttachImageVO attachImageVO) throws Exception {
         System.out.println("attachImageVO = " + attachImageVO);
         int rowCnt;
         try {
-            rowCnt = session.insert(namespace+"imageReg", attachImageVO);
+            rowCnt = session.insert(namespace + "imageReg", attachImageVO);
             return rowCnt;
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,23 +123,42 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public int deleteImageAll(Integer product_id)throws Exception{
-        return session.delete(namespace+"deleteImageAll",product_id);
+    public int deleteImageAll(Integer product_id) throws Exception {
+        return session.delete(namespace + "deleteImageAll", product_id);
     }
 
     @Override
-    public  List<AttachImageVO> getAttachInfo(Integer product_id){
-       return session.selectList(namespace+"getAttachInfo", product_id);
+    public List<AttachImageVO> getAttachInfo(Integer product_id) {
+        return session.selectList(namespace + "getAttachInfo", product_id);
     }
 
-    public void regProductImage(ProductsVo productsVo){
-        for(int i = 0; i < productsVo.getImageVOList().size(); i++) {
+    public void regProductImage(ProductsVo productsVo) {
+        for (int i = 0; i < productsVo.getImageVOList().size(); i++) {
 
             AttachImageVO attachImageVO = productsVo.getImageVOList().get(i);
             attachImageVO.setProduct_id(productsVo.getId());
 
-            System.out.println("attachImageVO = " + attachImageVO);
-            session.insert(namespace+"imageReg", attachImageVO);
+            if (attachImageVO.getFile_name().split(",").length > 1) {
+
+                String[] uploadPathList = attachImageVO.getUpload_path().split(",");
+                String[] uuidList = attachImageVO.getUuid().split(",");
+                String[] fileNameList = attachImageVO.getFile_name().split(",");
+
+                for (int j = 0; j < uploadPathList.length; j++) {
+                    attachImageVO.setUpload_path(uploadPathList[j]);
+                    attachImageVO.setUuid(uuidList[j]);
+                    attachImageVO.setFile_name(fileNameList[j]);
+
+                    System.out.println("attachImageVO 리스트로 저장 = " + attachImageVO);
+                    session.insert(namespace + "imageReg", attachImageVO);
+                }
+            }else {
+                System.out.println("attachImageVO = " + attachImageVO);
+                session.insert(namespace + "imageReg", attachImageVO);
+
+            }
+
         }
     }
+
 }

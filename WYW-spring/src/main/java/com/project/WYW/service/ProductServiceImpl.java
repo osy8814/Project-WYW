@@ -14,13 +14,29 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     ProductDao productDao;
 
+    @Autowired
+    AttachService attachService;
+
     @Override
     public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception{
-        return productDao.productsViewList(pagehandler);
-    }
+        List<ProductsViewVo> list = productDao.productsViewList(pagehandler);
+        for (ProductsViewVo productsViewVo:list) {
+            int productId = productsViewVo.getId();
+            productsViewVo.setImageVOList(attachService.getAttachList(productId));
+        }
 
+        return list;
+    }
     @Override
     public int productsGetTotal(Pagehandler pagehandler)throws Exception{
         return productDao.productsGetTotal(pagehandler);
+    }
+
+    @Override
+    public ProductsViewVo readProductDetail(Integer product_id){
+        ProductsViewVo productsViewVo = productDao.readProductDetail(product_id);
+        productsViewVo.setImageVOList(attachService.getAttachList(product_id));
+
+        return productsViewVo;
     }
 }

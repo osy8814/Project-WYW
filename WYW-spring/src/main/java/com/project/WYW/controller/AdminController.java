@@ -205,6 +205,7 @@ public class AdminController {
         Date date = new Date();
         String str = simpleDateFormat.format(date);
         String datePath = str.replace("-", File.separator);
+        String upload_path = str.replace("-", "/");
 
         File uploadPath = new File(uploadFolder, datePath);
         if (uploadPath.exists() == false) {
@@ -228,7 +229,7 @@ public class AdminController {
             String uuid = UUID.randomUUID().toString();
 
             uploadFileName = uuid + "_" + uploadFileName;
-            vo.setUpload_path(datePath);
+            vo.setUpload_path(upload_path);
             vo.setUuid(uuid);
 
             /* 파일 위치, 파일 이름을 합친 File 객체 */
