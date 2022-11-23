@@ -28,20 +28,18 @@ public class AdminDaoImpl implements AdminDao {
         return session.selectList(namespace + "category");
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int regProduct(ProductsVo productsVo) throws Exception {
 
         int rowCnt = session.insert(namespace + "regProduct", productsVo);
 
-        if (productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
-
-            return FAIL;
+        if (productsVo.getImageVOList() != null) {
+            rowCnt = regProductImage(productsVo);
+            if(rowCnt==FAIL){
+                throw new RuntimeException("이미지 저장에 실패하였습니다.");
+            }
         }
-
-
-        regProductImage(productsVo);
-
 
         return rowCnt;
 
@@ -83,22 +81,19 @@ public class AdminDaoImpl implements AdminDao {
         return rowCnt;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     @Override
     public int modifiyProduct(ProductsVo productsVo) throws Exception {
 
-
         int rowCnt = session.update(namespace + "modifiyProduct", productsVo);
-
-        if (productsVo.getImageVOList() == null || productsVo.getImageVOList().size() <= 0) {
-
-            return FAIL;
-        }
-
-        if (rowCnt == 1 && productsVo.getImageVOList() != null && productsVo.getImageVOList().size() > 0) {
+        System.out.println(productsVo.getImageVOList() != null);
+        if (productsVo.getImageVOList() != null) {
             session.delete(namespace + "deleteImageAll", productsVo.getId());
 
-            regProductImage(productsVo);
+            rowCnt = regProductImage(productsVo);
+            if (rowCnt == FAIL) {
+                throw new RuntimeException("이미지 저장에 실패하였습니다.");
+            }
         }
         return rowCnt;
     }
@@ -132,7 +127,8 @@ public class AdminDaoImpl implements AdminDao {
         return session.selectList(namespace + "getAttachInfo", product_id);
     }
 
-    public void regProductImage(ProductsVo productsVo) {
+    public int regProductImage(ProductsVo productsVo) {
+        int rowCnt=0;
         for (int i = 0; i < productsVo.getImageVOList().size(); i++) {
 
             AttachImageVO attachImageVO = productsVo.getImageVOList().get(i);
@@ -150,15 +146,17 @@ public class AdminDaoImpl implements AdminDao {
                     attachImageVO.setFile_name(fileNameList[j]);
 
                     System.out.println("attachImageVO 리스트로 저장 = " + attachImageVO);
-                    session.insert(namespace + "imageReg", attachImageVO);
+                    rowCnt = session.insert(namespace + "imageReg", attachImageVO);
                 }
-            }else {
+            } else {
                 System.out.println("attachImageVO = " + attachImageVO);
-                session.insert(namespace + "imageReg", attachImageVO);
+                rowCnt = session.insert(namespace + "imageReg", attachImageVO);
 
             }
 
         }
+        return rowCnt;
     }
+
 
 }

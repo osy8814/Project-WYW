@@ -63,10 +63,12 @@ public class AdminController {
     @PostMapping("/productsReg")
     public String postProductsReg(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
 
-        System.out.println("productsVo = " + productsVo);
-
         int rowCnt = adminService.regProduct(productsVo);
         if (rowCnt == 1) {
+            if(productsVo.getImageVOList()==null){
+                rattr.addFlashAttribute("imgRegtMsg", "empty");
+            }
+
             rattr.addFlashAttribute("msg", "reg_ok");
             return "redirect:/admin/productsReg";
         }
@@ -111,8 +113,11 @@ public class AdminController {
     @PostMapping("/modifyProduct")
     public String modifyProduct(ProductsVo productsVo, RedirectAttributes rattr) throws Exception {
         int rowCnt = adminService.modifiyProduct(productsVo);
-        System.out.println("rowCnt = " + rowCnt);
+
         if (rowCnt == 1) {
+            if(productsVo.getImageVOList()==null){
+                rattr.addFlashAttribute("imgModMsg", "empty");
+            }
             rattr.addFlashAttribute("msg", "modify_ok");
             return "redirect:/admin/productsManage" + "?id=" + productsVo.getId();
         }
