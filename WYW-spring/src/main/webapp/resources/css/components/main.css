@@ -86,40 +86,28 @@
 
 .main__best__product__componet,
 .main__new__product__componet {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-end;
   background-color: #bcbcbc;
-  min-width: 220px;
-  height: 40vmin;
+  min-width: 380px;
+  height: 450px;
   margin: 5px;
   background-position: center;
+}
+.main__new__product__componet img,
+.main__best__product__componet img{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
 }
 
 .main__best__product__componet:hover .main__best__product__componet-description,
 .main__new__product__componet:hover .main__new__product__componet-description {
   opacity: 1;
-}
-
-/* best product img */
-.main__best__product__componet:first-child {
-  background: url("../../img/furnishing/chairjpg.jpg");
-  background-size: cover;
-}
-
-.main__best__product__componet:nth-child(2) {
-  background: url("../../img/furnishing/couch.jpg");
-  background-size: cover;
-}
-
-.main__best__product__componet:nth-child(3) {
-  background: url("../../img/furnishing/couch2.jpg");
-  background-size: cover;
-}
-
-.main__best__product__componet:last-child {
-  background: url("../../img/furnishing/couch3.jpg");
-  background-size: cover;
 }
 
 /* new product img  */

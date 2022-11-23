@@ -109,18 +109,6 @@ public class ProductController {
         return "productsBest";
     }
 
-    @GetMapping("/productbest")
-    public String product(Pagehandler pagehandler,Model model) throws Exception {
-
-        recevieCategory(model);
-        pagehandler.setAmount(12);
-        pagehandler.setOrder("S");
-
-        toView(pagehandler,model);
-
-        return "productsBest";
-    }
-
     @GetMapping("/productDetail")
     public String productDtail(Integer product_id, Model model)throws Exception {
 
@@ -148,7 +136,7 @@ public class ProductController {
         model.addAttribute("pageMarker", pageMarker);
     }
 
-    private  void recevieCategory(Model model)throws Exception{
+    public void recevieCategory(Model model)throws Exception{
         List<CategoryVo>list = adminService.category();
         model.addAttribute("categorys", list);
     }

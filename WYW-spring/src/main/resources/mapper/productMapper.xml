@@ -64,7 +64,10 @@
     <sql id="searchCondition">
         <choose>
             <when test='keyword != null'>
-                WHERE name like concat ('%', #{keyword}, '%')
+                WHERE TRUE
+                AND name like concat ('%', #{keyword}, '%')
+                OR c.cate_name like concat ('%', #{keyword}, '%')
+                OR description like concat ('%', '테스트', '%')
             </when>
             <when test='order == "S"'>
                 WHERE cumulative_sales > 20
