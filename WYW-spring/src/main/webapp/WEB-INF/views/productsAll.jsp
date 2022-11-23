@@ -29,7 +29,15 @@
                     <div class="product">
                         <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
                             <div class="product_main-image">
-                                <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                <c:choose>
+                                    <c:when test="${product.imageVOList.size()==0}">
+                                        <img src="<c:url value='/img/noimage.PNG'/>">
+                                    </c:when>
+
+                                    <c:when test="${product.imageVOList!=null}">
+                                    <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                    </c:when>
+                                </c:choose>
                             </div>
                         </a>
                         <div class="product_infomation">
