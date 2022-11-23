@@ -156,7 +156,7 @@
             return;
         }
         for (let i = 0; i < arr.length; i++) {
-
+            console.log(arr);
             let str = "";
             let obj = arr[i];
 
