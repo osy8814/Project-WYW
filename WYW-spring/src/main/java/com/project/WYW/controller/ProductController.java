@@ -1,6 +1,7 @@
 package com.project.WYW.controller;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.PageVo;
@@ -29,10 +30,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
     @Autowired
     private AttachService attachService;
-
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
@@ -65,11 +66,21 @@ public class ProductController {
 
     }
 
-    @GetMapping("/product.all")
+    @GetMapping("/products")
     public String products(Pagehandler pagehandler, Model model) throws Exception {
 
+        recevieCategory(model);
         pagehandler.setAmount(12);
+        toView(pagehandler,model);
 
+        return "products";
+    }
+
+    @GetMapping("/product.all")
+    public String productAll(Pagehandler pagehandler, Model model) throws Exception {
+
+        recevieCategory(model);
+        pagehandler.setAmount(12);
         toView(pagehandler,model);
 
         return "productsAll";
@@ -78,6 +89,7 @@ public class ProductController {
     @GetMapping("/product.new")
     public String productNew(Pagehandler pagehandler,Model model) throws Exception {
 
+        recevieCategory(model);
         pagehandler.setAmount(12);
         pagehandler.setOrder("N");
 
@@ -88,6 +100,7 @@ public class ProductController {
     @GetMapping("/product.best")
     public String productBest(Pagehandler pagehandler,Model model) throws Exception {
 
+        recevieCategory(model);
         pagehandler.setAmount(12);
         pagehandler.setOrder("S");
 
@@ -99,6 +112,7 @@ public class ProductController {
     @GetMapping("/productbest")
     public String product(Pagehandler pagehandler,Model model) throws Exception {
 
+        recevieCategory(model);
         pagehandler.setAmount(12);
         pagehandler.setOrder("S");
 
@@ -108,8 +122,9 @@ public class ProductController {
     }
 
     @GetMapping("/productDetail")
-    public String productDtail(Integer product_id, Model model) {
+    public String productDtail(Integer product_id, Model model)throws Exception {
 
+        recevieCategory(model);
         ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
         model.addAttribute(productsViewVo);
 
@@ -131,5 +146,10 @@ public class ProductController {
 
         model.addAttribute("totalResult", total);
         model.addAttribute("pageMarker", pageMarker);
+    }
+
+    private  void recevieCategory(Model model)throws Exception{
+        List<CategoryVo>list = adminService.category();
+        model.addAttribute("categorys", list);
     }
 }

@@ -52,7 +52,11 @@
 
     <select id="productsGetTotal" resultType="int">
 
-        SELECT count(*) FROM products
+        SELECT
+        count(*)
+        FROM products p
+        INNER JOIN products_category c
+        ON p.cate_code = c.cate_code
         <include refid="searchCondition"/>
 
     </select>
@@ -68,8 +72,8 @@
             <when test='order == "N"'>
                 WHERE created_at BETWEEN DATE_ADD(NOW(), INTERVAL -14 DAY ) AND NOW()
             </when>
-            <when test="type != null">
-                WHERE cate_code_ref = #{type}
+            <when test="category != null">
+                WHERE cate_code_ref = #{category}
             </when>
         </choose>
     </sql>

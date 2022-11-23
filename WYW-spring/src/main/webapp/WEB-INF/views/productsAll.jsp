@@ -99,7 +99,7 @@
             </ul>
         </div>
 
-        <form id="moveForm" action="/WYW/products" method="get">
+        <form id="moveForm" action="/WYW/product.all" method="get">
             <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
             <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
             <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">

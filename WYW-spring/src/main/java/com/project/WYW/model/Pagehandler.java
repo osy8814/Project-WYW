@@ -9,6 +9,7 @@ public class Pagehandler {
     private String keyword;
     private String order;
 
+    private String category;
     public Pagehandler(int pageNum, int amount) {
         this.pageNum = pageNum;
         this.amount = amount;
@@ -72,6 +73,14 @@ public class Pagehandler {
         this.order = order;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "Pagehandler{" +
@@ -80,7 +89,8 @@ public class Pagehandler {
                 ", skip=" + skip +
                 ", type='" + type + '\'' +
                 ", keyword='" + keyword + '\'' +
-                ", orderby='" + order + '\'' +
+                ", order='" + order + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

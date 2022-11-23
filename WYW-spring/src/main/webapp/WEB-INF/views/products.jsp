@@ -20,7 +20,7 @@
 
 <div class="products_main">
     <div class="products_main-outter">
-        <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
+        <h1 class="main__new-title"><span>PRODUCTS</span></h1>
         <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
@@ -29,7 +29,15 @@
                     <div class="product">
                         <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
                             <div class="product_main-image">
-                                <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                <c:choose>
+                                    <c:when test="${product.imageVOList.size()==0}">
+                                        <img src="<c:url value='/img/noimage.PNG'/>">
+                                    </c:when>
+
+                                    <c:when test="${product.imageVOList!=null}">
+                                    <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                    </c:when>
+                                </c:choose>
                             </div>
                         </a>
                         <div class="product_infomation">
@@ -52,8 +60,9 @@
                 등록된 상품이 없습니다.
             </div>
         </c:if>
+
         <div class="search_wrap">
-            <form id="searchForm" action="/WYW/product.new" method="get">
+            <form id="searchForm" action="/WYW/products" method="get">
                 <div class="search_input">
                     <input type="text" name="keyword" value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
                     <input type="hidden" name="pageNum"
@@ -90,10 +99,11 @@
             </ul>
         </div>
 
-        <form id="moveForm" action="/WYW/product.new" method="get">
+        <form id="moveForm" action="/WYW/products" method="get">
             <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
             <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
             <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+            <input type="hidden" name="category" value="${pageMarker.pagehandler.category}">
         </form>
 
 
