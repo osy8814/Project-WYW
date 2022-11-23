@@ -32,6 +32,7 @@
         <h1 class="main__best-title"><span>BEST</span> PRODUCT</h1>
         <div class="main__best__product">
             <c:forEach items="${bestList}" var="bestproduct">
+                <a href="<c:url value='/productDetail'/>?product_id=${bestproduct.id}">
                 <div class="main__best__product__componet">
                     <c:choose>
                         <c:when test="${bestproduct.imageVOList.size()==0}">
@@ -54,6 +55,7 @@
               </span>
                     </div>
                 </div>
+                </a>
             </c:forEach>
         </div>
     </div>
@@ -62,6 +64,7 @@
         <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
         <div class="main__new__product">
             <c:forEach items="${newList}" var="newproduct">
+                <a href="<c:url value='/productDetail'/>?product_id=${newproduct.id}">
                 <div class="main__new__product__componet">
                     <c:choose>
                         <c:when test="${newproduct.imageVOList.size()==0}">
@@ -84,6 +87,7 @@
                         </span>
                     </div>
                 </div>
+                </a>
             </c:forEach>
         </div>
     </div>

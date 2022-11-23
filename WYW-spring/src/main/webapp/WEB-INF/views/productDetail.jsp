@@ -34,7 +34,13 @@
             </div>
             <div class="product_info">
                 <h1 class="product_info_name">${productsViewVo.name}</h1>
-                <h1 class="product_info_cate-name">${productsViewVo.cate_name}</h1>
+                <h1 class="product_info_cate-name">${productsViewVo.cate_name}
+                    <c:if test="${loggedInUser.isAdmin}">
+                        <button type="button" onclick="location.href='<c:url
+                                value="/admin/productsManage?id=${productsViewVo.id}"/>'">상품관리
+                        </button>
+                    </c:if>
+                </h1>
                 <div class="product_info_dox">
                     <div class="product_info_dox_price product_info_dox_inner">
                         <div class="product_info_dox_inner_left">판매가</div>
