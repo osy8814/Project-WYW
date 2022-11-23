@@ -72,8 +72,9 @@
         <li>
             <a href="#">SHOP</a>
             <ul id="shop_list">
-                <li><a href="${pageContext.request.contextPath}/products">NEW</a></li>
-                <li><a href="#">BEST</a></li>
+                <li><a href="${pageContext.request.contextPath}/product.all">ALL</a></li>
+                <li><a href="${pageContext.request.contextPath}/product.new">NEW</a></li>
+                <li><a href="${pageContext.request.contextPath}/product.best">BEST</a></li>
                 <li><a href="#">BEDROOM</a></li>
                 <li><a href="#">KITCHEN</a></li>
                 <li><a href="#">BATHROOM</a></li>

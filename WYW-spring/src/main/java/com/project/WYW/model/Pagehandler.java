@@ -7,6 +7,7 @@ public class Pagehandler {
     private int skip;
     private String type;
     private String keyword;
+    private String order;
 
     public Pagehandler(int pageNum, int amount) {
         this.pageNum = pageNum;
@@ -63,14 +64,23 @@ public class Pagehandler {
         this.keyword = keyword;
     }
 
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
     @Override
     public String toString() {
-        return "pagehandler{" +
+        return "Pagehandler{" +
                 "pageNum=" + pageNum +
                 ", amount=" + amount +
                 ", skip=" + skip +
                 ", type='" + type + '\'' +
                 ", keyword='" + keyword + '\'' +
+                ", orderby='" + order + '\'' +
                 '}';
     }
 }

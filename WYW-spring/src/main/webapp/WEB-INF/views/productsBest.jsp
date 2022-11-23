@@ -20,7 +20,7 @@
 
 <div class="products_main">
     <div class="products_main-outter">
-        <h1 class="main__new-title"><span>ALL</span> PRODUCT</h1>
+        <h1 class="main__best-title"><span>BEST</span> PRODUCT</h1>
         <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
@@ -54,7 +54,7 @@
         </c:if>
 
         <div class="search_wrap">
-            <form id="searchForm" action="/WYW/product.all" method="get">
+            <form id="searchForm" action="/WYW/product.best" method="get">
                 <div class="search_input">
                     <input type="text" name="keyword" value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
                     <input type="hidden" name="pageNum"

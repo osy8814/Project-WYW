@@ -65,11 +65,58 @@ public class ProductController {
 
     }
 
-    @GetMapping("/products")
+    @GetMapping("/product.all")
     public String products(Pagehandler pagehandler, Model model) throws Exception {
 
         pagehandler.setAmount(12);
 
+        toView(pagehandler,model);
+
+        return "productsAll";
+    }
+
+    @GetMapping("/product.new")
+    public String productNew(Pagehandler pagehandler,Model model) throws Exception {
+
+        pagehandler.setAmount(12);
+        pagehandler.setOrder("N");
+
+        toView(pagehandler,model);
+
+        return "productsNew";
+    }
+    @GetMapping("/product.best")
+    public String productBest(Pagehandler pagehandler,Model model) throws Exception {
+
+        pagehandler.setAmount(12);
+        pagehandler.setOrder("S");
+
+        toView(pagehandler,model);
+
+        return "productsBest";
+    }
+
+    @GetMapping("/productbest")
+    public String product(Pagehandler pagehandler,Model model) throws Exception {
+
+        pagehandler.setAmount(12);
+        pagehandler.setOrder("S");
+
+        toView(pagehandler,model);
+
+        return "productsBest";
+    }
+
+    @GetMapping("/productDetail")
+    public String productDtail(Integer product_id, Model model) {
+
+        ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
+        model.addAttribute(productsViewVo);
+
+        return "productDetail";
+    }
+
+    private void toView(Pagehandler pagehandler,Model model)throws Exception{
         List<ProductsViewVo> list = productService.productsViewList(pagehandler);
 
         if (!list.isEmpty()) {
@@ -84,17 +131,5 @@ public class ProductController {
 
         model.addAttribute("totalResult", total);
         model.addAttribute("pageMarker", pageMarker);
-
-        return "productsAll";
     }
-
-    @GetMapping("/productDetail")
-    public String productDtail(Integer product_id, Model model) {
-
-        ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
-        model.addAttribute(productsViewVo);
-
-        return "productDetail";
-    }
-
 }
