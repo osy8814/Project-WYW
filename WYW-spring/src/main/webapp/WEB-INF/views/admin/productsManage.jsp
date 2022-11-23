@@ -130,7 +130,11 @@
 
 <script src="<c:url value="/js/CKeditor.js"/> "></script>
 <script>
+    const imgRegMsg = "${imgModMsg}";
     const msg = "${msg}";
+    if (imgRegMsg == "empty") {
+        alert("상품의 이미지는 한개 이상 등록되어야합니다. 마지막 이미지를 보존합니다.");
+    }
 
     if (msg == "modify_ok") {
         alert("상품이 수정되었습니다.")
@@ -156,7 +160,7 @@
             return;
         }
         for (let i = 0; i < arr.length; i++) {
-
+            console.log(arr);
             let str = "";
             let obj = arr[i];
 
@@ -397,32 +401,6 @@
 
     });
 
-    /* 파일 삭제 메서드 */
-    function deleteFile(target) {
-
-        let targetFile = target.dataset.file;
-
-        let targetDiv = target.parentElement;
-
-        $.ajax({
-            url: '/WYW/admin/deleteFile',
-            data: {fileName: targetFile},
-            dataType: 'text',
-            type: 'POST',
-            success: function (result) {
-                console.log(result);
-
-                targetDiv.remove();
-                $("input[type='file']").val("");
-
-            },
-            error: function (result) {
-                console.log(result);
-
-                alert("파일을 삭제하지 못하였습니다.")
-            }
-        });
-    }
 
     let select_catecode = '${productsViewVo.cate_code}';
     let select_catecoderef = '${productsViewVo.cate_code_ref}';

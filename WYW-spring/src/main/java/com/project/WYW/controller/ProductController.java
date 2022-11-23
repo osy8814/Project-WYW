@@ -1,6 +1,7 @@
 package com.project.WYW.controller;
 
 import com.fasterxml.jackson.databind.annotation.JsonAppend;
+import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.PageVo;
@@ -29,10 +30,10 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-
     @Autowired
     private AttachService attachService;
-
+    @Autowired
+    private AdminService adminService;
 
     @GetMapping("/display")
     public ResponseEntity<byte[]> getImage(String fileName) {
@@ -68,8 +69,57 @@ public class ProductController {
     @GetMapping("/products")
     public String products(Pagehandler pagehandler, Model model) throws Exception {
 
+        recevieCategory(model);
         pagehandler.setAmount(12);
+        toView(pagehandler,model);
 
+        return "products";
+    }
+
+    @GetMapping("/product.all")
+    public String productAll(Pagehandler pagehandler, Model model) throws Exception {
+
+        recevieCategory(model);
+        pagehandler.setAmount(12);
+        toView(pagehandler,model);
+
+        return "productsAll";
+    }
+
+    @GetMapping("/product.new")
+    public String productNew(Pagehandler pagehandler,Model model) throws Exception {
+
+        recevieCategory(model);
+        pagehandler.setAmount(12);
+        pagehandler.setOrder("N");
+
+        toView(pagehandler,model);
+
+        return "productsNew";
+    }
+    @GetMapping("/product.best")
+    public String productBest(Pagehandler pagehandler,Model model) throws Exception {
+
+        recevieCategory(model);
+        pagehandler.setAmount(12);
+        pagehandler.setOrder("S");
+
+        toView(pagehandler,model);
+
+        return "productsBest";
+    }
+
+    @GetMapping("/productDetail")
+    public String productDtail(Integer product_id, Model model)throws Exception {
+
+        recevieCategory(model);
+        ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
+        model.addAttribute(productsViewVo);
+
+        return "productDetail";
+    }
+
+    private void toView(Pagehandler pagehandler,Model model)throws Exception{
         List<ProductsViewVo> list = productService.productsViewList(pagehandler);
 
         if (!list.isEmpty()) {
@@ -84,17 +134,10 @@ public class ProductController {
 
         model.addAttribute("totalResult", total);
         model.addAttribute("pageMarker", pageMarker);
-
-        return "productsAll";
     }
 
-    @GetMapping("/productDetail")
-    public String productDtail(Integer product_id, Model model) {
-
-        ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
-        model.addAttribute(productsViewVo);
-
-        return "productDetail";
+    public void recevieCategory(Model model)throws Exception{
+        List<CategoryVo>list = adminService.category();
+        model.addAttribute("categorys", list);
     }
-
 }

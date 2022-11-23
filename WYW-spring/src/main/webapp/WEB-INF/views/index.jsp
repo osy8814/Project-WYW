@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -29,116 +31,60 @@
     <div class="main__best">
         <h1 class="main__best-title"><span>BEST</span> PRODUCT</h1>
         <div class="main__best__product">
-            <div class="main__best__product__componet">
-                <div class="main__best__product__componet-description">
-                    <h1 class="main__best__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__best__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__best__product__componet-description-price">
-                20,000원
+            <c:forEach items="${bestList}" var="bestproduct">
+                <div class="main__best__product__componet">
+                    <c:choose>
+                        <c:when test="${bestproduct.imageVOList.size()==0}">
+                            <img src="<c:url value='/img/noimage.PNG'/>">
+                        </c:when>
+
+                        <c:when test="${bestproduct.imageVOList!=null}">
+                            <img src="/WYW/display?fileName=${bestproduct.imageVOList[0].upload_path}/${bestproduct.imageVOList[0].uuid}_${bestproduct.imageVOList[0].file_name}">
+                        </c:when>
+                    </c:choose>
+                    <div class="main__best__product__componet-description">
+                        <h1 class="main__best__product__componet-description-title">
+                                ${bestproduct.name}
+                        </h1>
+                        <p class="main__best__product__componet-description-descrip">
+                                ${bestproduct.description}
+                        </p>
+                        <span class="main__best__product__componet-description-price">
+                <fmt:formatNumber value="${bestproduct.price}" pattern="###,###,###"/> 원
               </span>
+                    </div>
                 </div>
-            </div>
-            <div class="main__best__product__componet">
-                <div class="main__best__product__componet-description">
-                    <h1 class="main__best__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__best__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__best__product__componet-description-price">
-                20,000원
-              </span>
-                </div>
-            </div>
-            <div class="main__best__product__componet">
-                <div class="main__best__product__componet-description">
-                    <h1 class="main__best__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__best__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__best__product__componet-description-price">
-                20,000원
-              </span>
-                </div>
-            </div>
-            <div class="main__best__product__componet">
-                <div class="main__best__product__componet-description">
-                    <h1 class="main__best__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__best__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__best__product__componet-description-price">
-                20,000원
-              </span>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </div>
 
     <div class="main__new">
         <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
         <div class="main__new__product">
-            <div class="main__new__product__componet">
-                <div class="main__new__product__componet-description">
-                    <h1 class="main__new__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__new__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__new__product__componet-description-price">
-                20,000원
-              </span>
+            <c:forEach items="${newList}" var="newproduct">
+                <div class="main__new__product__componet">
+                    <c:choose>
+                        <c:when test="${newproduct.imageVOList.size()==0}">
+                            <img src="<c:url value='/img/noimage.PNG'/>">
+                        </c:when>
+
+                        <c:when test="${newproduct.imageVOList!=null}">
+                            <img src="/WYW/display?fileName=${newproduct.imageVOList[0].upload_path}/${newproduct.imageVOList[0].uuid}_${newproduct.imageVOList[0].file_name}">
+                        </c:when>
+                    </c:choose>
+                    <div class="main__new__product__componet-description">
+                        <h1 class="main__new__product__componet-description-title">
+                                ${newproduct.name}
+                        </h1>
+                        <p class="main__new__product__componet-description-descrip">
+                                ${newproduct.description}
+                        </p>
+                        <span class="main__new__product__componet-description-price">
+                        <fmt:formatNumber value="${newproduct.price}" pattern="###,###,###"/> 원
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="main__new__product__componet">
-                <div class="main__new__product__componet-description">
-                    <h1 class="main__new__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__new__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__new__product__componet-description-price">
-                20,000원
-              </span>
-                </div>
-            </div>
-            <div class="main__new__product__componet">
-                <div class="main__new__product__componet-description">
-                    <h1 class="main__new__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__new__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__new__product__componet-description-price">
-                20,000원
-              </span>
-                </div>
-            </div>
-            <div class="main__new__product__componet">
-                <div class="main__new__product__componet-description">
-                    <h1 class="main__new__product__componet-description-title">
-                        상품명
-                    </h1>
-                    <p class="main__new__product__componet-description-descrip">
-                        상품설명
-                    </p>
-                    <span class="main__new__product__componet-description-price">
-                20,000원
-              </span>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </div>
 </div>

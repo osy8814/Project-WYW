@@ -7,7 +7,9 @@ public class Pagehandler {
     private int skip;
     private String type;
     private String keyword;
+    private String order;
 
+    private String category;
     public Pagehandler(int pageNum, int amount) {
         this.pageNum = pageNum;
         this.amount = amount;
@@ -63,14 +65,32 @@ public class Pagehandler {
         this.keyword = keyword;
     }
 
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
-        return "pagehandler{" +
+        return "Pagehandler{" +
                 "pageNum=" + pageNum +
                 ", amount=" + amount +
                 ", skip=" + skip +
                 ", type='" + type + '\'' +
                 ", keyword='" + keyword + '\'' +
+                ", order='" + order + '\'' +
+                ", category='" + category + '\'' +
                 '}';
     }
 }

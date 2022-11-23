@@ -26,9 +26,11 @@
         <form method="post" class="product_main_form">
             <div class="product_img">
                 <div class="product_img_main">
-                    <img src="/WYW/display?fileName=${productsViewVo.imageVOList[0].upload_path}/${productsViewVo.imageVOList[0].uuid}_${productsViewVo.imageVOList[0].file_name}">
+                    <img id="main-image" src="/WYW/display?fileName=${productsViewVo.imageVOList[0].upload_path}/${productsViewVo.imageVOList[0].uuid}_${productsViewVo.imageVOList[0].file_name}">
                 </div>
-                <div class="product_img_thumb-set"></div>
+                <div class="product_img_thumb-set">
+                    <%--<div id='product_img_thumb'></div>--%>
+                </div>
             </div>
             <div class="product_info">
                 <h1 class="product_info_name">${productsViewVo.name}</h1>
@@ -68,7 +70,7 @@
                     <span class="product_info_total-quantity"></span>
                 </div>
                 <div class="product_info_btn-set">
-                    <button type="button">바로구매</button>
+                    <button id="buynow" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
                         <button type="button">장바구니담기</button>
                         <button type="button">찜하기</button>
@@ -113,15 +115,54 @@
 
     });
 
-    function showResult(quantity){
-        let result = quantity*productPrice+deliveryFee;
+    function showResult(quantity) {
+        let result = quantity * productPrice + deliveryFee;
         const option = {
             maximumFractionDigits: 4
         };
         let transtion = result.toLocaleString('ko-KR', option);
-        $(".product_info_total-price").text(transtion+"원");
-        $(".product_info_total-quantity").text("("+quantity+"개)")
+        $(".product_info_total-price").text(transtion + "원");
+        $(".product_info_total-quantity").text("(" + quantity + "개)")
     }
+</script>
+<script>
+    let product_id = ${productsViewVo.id};
+    let uploadReslut = $(".product_img_thumb-set");
+
+    // 이미지 생성
+    $.getJSON("/WYW/getAttachList", {product_id: product_id}, function (arr) {
+        if (arr.length === 0) {
+            let str = "";
+            str += "<div id='result_card'>";
+            str += "<img id='no_img' src='/WYW/img/noimage.PNG'>";
+            str += "</div>";
+
+            uploadReslut.html(str);
+
+            return;
+        }
+        for (let i = 0; i < arr.length; i++) {
+
+            let str = "";
+            let obj = arr[i];
+
+            let fileCallPath = encodeURIComponent(obj.upload_path.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.file_name);
+            str += "<div class='product_img_thumb'>";
+            str += "<img class='thumbnail-image' src='/WYW/display?fileName=" + fileCallPath + "'>";
+            str += "</div>";
+
+            uploadReslut.append(str);
+        }
+
+        //썸네일 이미지 클릭시 메인 이미지 변경
+        const mainImage = $('#main-image');
+        const thumnail = $('.thumbnail-image');
+        let thumnailSrc;
+        thumnail.click(function (event){
+            thumnailSrc = event.target.getAttribute("src");
+            mainImage.attr("src",thumnailSrc);
+        });
+    });
 </script>
 <script>
 

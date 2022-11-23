@@ -119,6 +119,10 @@
   z-index: 10;
   top: 40px;
 }
+#shop_list{
+  width: 50px;
+}
+
 #community_List {
   width: 80px;
 }

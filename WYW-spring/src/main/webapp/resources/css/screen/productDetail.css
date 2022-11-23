@@ -59,10 +59,17 @@
 }
 
 .product_img_thumb-set {
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    gap: 10px;
     height: 20%;
-    background-color: lightgray;
 }
-
+.product_img_thumb > img{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    object-fit: contain;
+}
 .product_info {
     width: 600px;
     height: 600px;

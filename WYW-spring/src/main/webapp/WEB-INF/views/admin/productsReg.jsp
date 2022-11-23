@@ -285,7 +285,12 @@
         }
     });
 
+
+    const imgRegMsg = "${imgRegtMsg}";
     const msg = "${msg}";
+    if(imgRegMsg=="empty"){
+        alert("상품의 이미지가 등록되어 있지 않습니다.");
+    }
     if (msg == "reg_ok") {
         alert("상품이 등록되었습니다.");
     }

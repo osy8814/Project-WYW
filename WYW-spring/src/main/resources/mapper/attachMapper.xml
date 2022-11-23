@@ -6,7 +6,10 @@
 
     <select id="getAttachList" parameterType="int" resultType="AttachImageVO">
 
-    select * from products_image where product_id = #{product_id}
+        SELECT *
+        FROM products_image
+        WHERE product_id = #{product_id}
+        ORDER BY created_at ASC;
 
     </select>
 
