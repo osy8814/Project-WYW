@@ -1,5 +1,9 @@
 package com.project.WYW.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
 public class CartVo {
 
     private int id;
@@ -21,6 +25,7 @@ public class CartVo {
 
     private int totalPrice;
 
+    private List<AttachImageVO> imageVOList;
 
     public int getId() {
         return id;
@@ -90,6 +95,14 @@ public class CartVo {
         this.totalPrice = this.price*this.product_count;
     }
 
+    public List<AttachImageVO> getImageVOList() {
+        return imageVOList;
+    }
+
+    public void setImageVOList(List<AttachImageVO> imageVOList) {
+        this.imageVOList = imageVOList;
+    }
+
     public CartVo(){}
 
 
@@ -110,6 +123,7 @@ public class CartVo {
                 ", price=" + price +
                 ", salePrice=" + salePrice +
                 ", totalPrice=" + totalPrice +
+                ", imageVOList=" + imageVOList +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.project.WYW.controller;
 
 import com.project.WYW.domain.UsersVo;
 import com.project.WYW.model.CartVo;
+import com.project.WYW.service.AttachService;
 import com.project.WYW.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,32 +21,47 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-
     @PostMapping("/add")
     @ResponseBody
-    public String postAddCart(CartVo cartVo, HttpServletRequest request){
+    public String postAddCart(CartVo cartVo, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UsersVo usersVo = (UsersVo)session.getAttribute("loggedInUser");
-        if(usersVo == null) {
+        UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
+        if (usersVo == null) {
             return "5";
         }
 
         int result = cartService.addCart(cartVo);
 
-        return result+"";
+        return result + "";
     }
 
     @GetMapping("/cartlist")
     public String cartPageGET(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        UsersVo loggedInUser = (UsersVo)session.getAttribute("loggedInUser");
+        UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");
         String user_id = loggedInUser.getUserId();
 
         List<CartVo> list = cartService.getCartList(user_id);
-
         model.addAttribute("cartInfo", list);
 
         return "cart";
     }
+
+    @PostMapping("/modify")
+    public String postUpdateCart(CartVo cartVo) {
+        System.out.println("cartVo = " + cartVo);
+        cartService.modifyCount(cartVo);
+
+        return "redirect:/cart/cartlist";
+    }
+
+    @PostMapping("/delete")
+    public String postDeleteCart(CartVo cartVo) {
+        System.out.println("cartVo = " + cartVo);
+        cartService.deleteCart(cartVo.getId());
+
+        return "redirect:/cart/cartlist";
+    }
+
 }
