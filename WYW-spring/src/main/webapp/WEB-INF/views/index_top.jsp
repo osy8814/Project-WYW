@@ -38,7 +38,7 @@
     <div id="top-loginSet__iconSet">
         <a href="#"
         ><i class="fas fa-search"></i>
-            <form id="searchForm" action="/WYW/product.all" method="get">
+            <form id="topSearchForm" action="/WYW/product.all" method="get">
                 <div class="search_input">
                     <input
                             type="text"
