@@ -63,11 +63,11 @@
 
     <sql id="searchCondition">
         <choose>
-            <when test='keyword != null'>
+            <when test='category == null and keyword != null'>
                 WHERE TRUE
                 AND name like concat ('%', #{keyword}, '%')
                 OR c.cate_name like concat ('%', #{keyword}, '%')
-                OR description like concat ('%', '테스트', '%')
+
             </when>
             <when test='order == "S"'>
                 WHERE cumulative_sales > 20
@@ -75,8 +75,16 @@
             <when test='order == "N"'>
                 WHERE created_at BETWEEN DATE_ADD(NOW(), INTERVAL -14 DAY ) AND NOW()
             </when>
-            <when test="category != null">
-                WHERE cate_code_ref = #{category}
+            <when test="category != null and keyword == null">
+                WHERE TRUE
+                AND cate_code_ref = #{category}
+
+            </when>
+            <when test="category != null and keyword != null">
+                WHERE TRUE
+                AND cate_code_ref = #{category}
+                AND c.cate_name like concat ('%', #{keyword}, '%')
+
             </when>
         </choose>
     </sql>
