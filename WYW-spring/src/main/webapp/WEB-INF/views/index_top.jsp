@@ -29,6 +29,7 @@
                     ${loggedInUser.name}님 환영합니다.
             </li>
             <li><a id="nav_logout" href="#">LogOut</a></li>
+            <li><a href="<c:url value='/cart/cartlist'/>">장바구니</a></li>
             <li><a href="mypage.html">My Page</a></li>
             <c:if test="${loggedInUser.isAdmin}">
                 <li><a href="<c:url value='/admin/productslist'/>">관리자페이지</a></li>
