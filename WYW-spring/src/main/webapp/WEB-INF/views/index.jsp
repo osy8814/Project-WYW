@@ -29,64 +29,68 @@
     </div>
 
     <div class="main__best">
-        <h1 class="main__best-title"><span>BEST</span> PRODUCT</h1>
+        <h1 class="main__best-title">
+            <a href="<c:url value='/product.best'/>"><span>BEST</span> PRODUCT</a>
+        </h1>
         <div class="main__best__product">
             <c:forEach items="${bestList}" var="bestproduct">
                 <a href="<c:url value='/productDetail'/>?product_id=${bestproduct.id}">
-                <div class="main__best__product__componet">
-                    <c:choose>
-                        <c:when test="${bestproduct.imageVOList.size()==0}">
-                            <img src="<c:url value='/img/noimage.PNG'/>">
-                        </c:when>
+                    <div class="main__best__product__componet">
+                        <c:choose>
+                            <c:when test="${bestproduct.imageVOList.size()==0}">
+                                <img src="<c:url value='/img/noimage.PNG'/>">
+                            </c:when>
 
-                        <c:when test="${bestproduct.imageVOList!=null}">
-                            <img src="/WYW/display?fileName=${bestproduct.imageVOList[0].upload_path}/${bestproduct.imageVOList[0].uuid}_${bestproduct.imageVOList[0].file_name}">
-                        </c:when>
-                    </c:choose>
-                    <div class="main__best__product__componet-description">
-                        <h1 class="main__best__product__componet-description-title">
-                                ${bestproduct.name}
-                        </h1>
-                        <p class="main__best__product__componet-description-descrip">
-                                ${bestproduct.description}
-                        </p>
-                        <span class="main__best__product__componet-description-price">
+                            <c:when test="${bestproduct.imageVOList!=null}">
+                                <img src="/WYW/display?fileName=${bestproduct.imageVOList[0].upload_path}/${bestproduct.imageVOList[0].uuid}_${bestproduct.imageVOList[0].file_name}">
+                            </c:when>
+                        </c:choose>
+                        <div class="main__best__product__componet-description">
+                            <h1 class="main__best__product__componet-description-title">
+                                    ${bestproduct.name}
+                            </h1>
+                            <p class="main__best__product__componet-description-descrip">
+                                    ${bestproduct.description}
+                            </p>
+                            <span class="main__best__product__componet-description-price">
                 <fmt:formatNumber value="${bestproduct.price}" pattern="###,###,###"/> 원
               </span>
+                        </div>
                     </div>
-                </div>
                 </a>
             </c:forEach>
         </div>
     </div>
 
     <div class="main__new">
-        <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
+        <h1 class="main__new-title">
+            <a href="<c:url value='/product.new'/>"><span>NEW</span> PRODUCT</a>
+        </h1>
         <div class="main__new__product">
             <c:forEach items="${newList}" var="newproduct">
                 <a href="<c:url value='/productDetail'/>?product_id=${newproduct.id}">
-                <div class="main__new__product__componet">
-                    <c:choose>
-                        <c:when test="${newproduct.imageVOList.size()==0}">
-                            <img src="<c:url value='/img/noimage.PNG'/>">
-                        </c:when>
+                    <div class="main__new__product__componet">
+                        <c:choose>
+                            <c:when test="${newproduct.imageVOList.size()==0}">
+                                <img src="<c:url value='/img/noimage.PNG'/>">
+                            </c:when>
 
-                        <c:when test="${newproduct.imageVOList!=null}">
-                            <img src="/WYW/display?fileName=${newproduct.imageVOList[0].upload_path}/${newproduct.imageVOList[0].uuid}_${newproduct.imageVOList[0].file_name}">
-                        </c:when>
-                    </c:choose>
-                    <div class="main__new__product__componet-description">
-                        <h1 class="main__new__product__componet-description-title">
-                                ${newproduct.name}
-                        </h1>
-                        <p class="main__new__product__componet-description-descrip">
-                                ${newproduct.description}
-                        </p>
-                        <span class="main__new__product__componet-description-price">
+                            <c:when test="${newproduct.imageVOList!=null}">
+                                <img src="/WYW/display?fileName=${newproduct.imageVOList[0].upload_path}/${newproduct.imageVOList[0].uuid}_${newproduct.imageVOList[0].file_name}">
+                            </c:when>
+                        </c:choose>
+                        <div class="main__new__product__componet-description">
+                            <h1 class="main__new__product__componet-description-title">
+                                    ${newproduct.name}
+                            </h1>
+                            <p class="main__new__product__componet-description-descrip">
+                                    ${newproduct.description}
+                            </p>
+                            <span class="main__new__product__componet-description-price">
                         <fmt:formatNumber value="${newproduct.price}" pattern="###,###,###"/> 원
                         </span>
+                        </div>
                     </div>
-                </div>
                 </a>
             </c:forEach>
         </div>
