@@ -76,11 +76,12 @@
                     <span class="product_info_total-quantity"></span>
                 </div>
                 <div class="product_info_btn-set">
-                    <button id="buynow" type="button">바로구매</button>
+                    <button id="buy-now" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
                         <button type="button" id="btn_cart">장바구니담기</button>
                         <button type="button">찜하기</button>
                     </div>
+
                 </div>
             </div>
         </form>
@@ -92,6 +93,12 @@
         </div>
     </div>
 </div>
+<!--바로구매-->
+<form action="/WYW/order/list" method="get" class="order_form">
+    <input type="hidden" name="orders[0].productId" value="${productsViewVo.id}">
+    <input type="hidden" name="orders[0].productCount" value="">
+</form>
+
 <jsp:include page="index_bottom.jsp" flush="false"/>
 <script>
     let max = parseInt(${productsViewVo.stock});
@@ -168,6 +175,17 @@
     }
 </script>
 <script>
+    /* 바로구매 버튼 */
+    $("#buy-now").on("click", function(){
+        let ProductCount = $("#product_quantity").val();
+        console.log(ProductCount);
+        $(".order_form").find("input[name='orders[0].productCount']").val(ProductCount);
+        $(".order_form").submit();
+    });
+</script>
+
+<script>
+    // 이미지로더
     let product_id = ${productsViewVo.id};
     let uploadReslut = $(".product_img_thumb-set");
 

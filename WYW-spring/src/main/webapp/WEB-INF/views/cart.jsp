@@ -43,10 +43,11 @@
                 <c:forEach items="${cartInfo}" var="ci">
                     <tr>
                         <td class="td_width_1 cart_info_td">
-                            <input type="hidden" class="individual_bookPrice_input" value="${ci.price}">
-                            <input type="hidden" class="individual_bookCount_input" value="${ci.product_count}">
+                            <input type="hidden" class="individual_productPrice_input" value="${ci.price}">
+                            <input type="hidden" class="individual_productCount_input" value="${ci.product_count}">
                             <input type="hidden" class="individual_totalPrice_input"
                                    value="${ci.price * ci.product_count}">
+                            <input type="hidden" class="individual_productId_input" value="${ci.id}">
                                 <%--                            <input type="hidden" class="individual_point_input" value="${ci.point}">--%>
                                 <%--                            <input type="hidden" class="individual_totalPoint_input" value="${ci.totalPoint}">--%>
                         </td>
@@ -78,7 +79,7 @@
                             <fmt:formatNumber value="${ci.price * ci.product_count}" pattern="#,### 원"/>
                         </td>
                         <td class="td_width_4 table_text_align_center delete_btn">
-                            <button class="delete_proudct_btn" type="button" data-id="${ci.id}">삭제</button>
+                            <button class="delete_product_btn" type="button" data-id="${ci.id}">삭제</button>
                         </td>
                     </tr>
                 </c:forEach>
@@ -125,7 +126,7 @@
             </div>
         </div>
         <!-- 구매 버튼 영역 -->
-        <button type="button" class="content_btn_section">
+        <button type="button" class="order_btn">
             주문하기
         </button>
     </div>
@@ -137,12 +138,15 @@
     <input type="hidden" name="product_count" class="update_product_count">
     <input type="hidden" name="user_id" value="${loggedInUser.userId}">
 </form>
-
+<!--삭제-->
 <form action="/WYW/cart/delete" method="post" class="quantity_delete_form">
     <input type="hidden" name="id" class="delete_cartId">
     <input type="hidden" name="user_id" value="${loggedInUser.userId}">
 </form>
+<!-- 주문 form -->
+<form action="/WYW/order/list" method="get" class="order_form">
 
+</form>
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
 <script>
@@ -160,7 +164,7 @@
             // 총 가격
             totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
             // 총 갯수
-            totalCount += parseInt($(element).find(".individual_bookCount_input").val());
+            totalCount += parseInt($(element).find(".individual_productCount_input").val());
             // 총 종류
             totalKind += 1;
             // 총 마일리지
@@ -209,7 +213,7 @@
     });
 
     /* 장바구니 삭제 버튼 */
-    $(".delete_proudct_btn").on("click", function () {
+    $(".delete_product_btn").on("click", function () {
         let cartId = $(this).data("id");
         $(".delete_cartId").val(cartId);
         if (confirm("장바구니에서 삭제하시겠습니까?")) {
@@ -217,7 +221,34 @@
         }
     });
 
-
 </script>
+<script>
+    $(".order_btn").on("click", function () {
+
+        let form_contents = '';
+        let orderNumber = 0;
+
+        $(".cart_info_td").each(function (index, element) {
+
+            let productId = $(element).find(".individual_productId_input").val();
+            let productCount = $(element).find(".individual_productCount_input").val();
+
+            let productId_input = "<input name='orders[" + orderNumber + "].productId' type='hidden' value='" + productId + "'>";
+            form_contents += productId_input;
+
+            let productCount_input = "<input name='orders[" + orderNumber + "].productCount' type='hidden' value='" + productCount + "'>";
+            form_contents += productCount_input;
+
+            orderNumber += 1;
+
+
+        });
+
+        $(".order_form").html(form_contents);
+        $(".order_form").submit();
+
+    });
+</script>
+
 </body>
 </html>
