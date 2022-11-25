@@ -34,6 +34,10 @@
 			<mapping path="/admin/**"/>
 			<beans:bean id="adminINTCP" class="com.project.WYW.Interceptor.AdminINTCP"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/cart/**"/>
+			<beans:bean id="CartINTCP" class="com.project.WYW.Interceptor.CartINTCP"></beans:bean>
+		</interceptor>
 	</interceptors>
 	<view-controller path="/" view-name="index"/>
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>

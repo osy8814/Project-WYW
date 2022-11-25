@@ -78,7 +78,7 @@
                 <div class="product_info_btn-set">
                     <button id="buynow" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
-                        <button type="button">장바구니담기</button>
+                        <button type="button" id="btn_cart">장바구니담기</button>
                         <button type="button">찜하기</button>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
     let max = parseInt(${productsViewVo.stock});
     let min = 1;
     let productPrice = parseInt(${productsViewVo.price});
-    let deliveryFee = 20000;
+
 
     showResult(1);
 
@@ -122,13 +122,49 @@
     });
 
     function showResult(quantity) {
-        let result = quantity * productPrice + deliveryFee;
+        let result = quantity * productPrice;
         const option = {
             maximumFractionDigits: 4
         };
         let transtion = result.toLocaleString('ko-KR', option);
         $(".product_info_total-price").text(transtion + "원");
         $(".product_info_total-quantity").text("(" + quantity + "개)")
+    }
+</script>
+<script>
+    const form = {
+        user_id : '${loggedInUser.userId}',
+        product_id : '${productsViewVo.id}',
+        product_count : ''
+    }
+
+    // 장바구니 클릭
+    $("#btn_cart").on("click", function(e){
+        form.product_count = $("#product_quantity").val();
+        $.ajax({
+            url: '/WYW/cart/add',
+            type: 'POST',
+            data: form,
+            success: function(result){
+                cartAlert(result);
+            },
+            error : function (result){
+                alert(result);
+            }
+
+        })
+    });
+
+    function cartAlert(result){
+        if(result == '0'){
+            alert("장바구니에 추가를 하지 못하였습니다.");
+        } else if(result == '1'){
+            alert("장바구니에 추가되었습니다.");
+        } else if(result == '2'){
+            alert("장바구니에 이미 추가되어 있습니다.");
+        } else if(result == '5'){
+            alert("로그인이 필요합니다.");
+        }
     }
 </script>
 <script>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -21,7 +22,7 @@
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>PRODUCTS</span></h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}" var="categoryName"/>${fn:substring(categoryName,0,3)}용품 이 검색되었습니다.</h1>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
                 <c:forEach items="${list}" var="product">
@@ -68,6 +69,7 @@
                     <input type="hidden" name="pageNum"
                            value='<c:out value="${pageMarker.pagehandler.pageNum }"></c:out>'>
                     <input type="hidden" name="amount" value='${pageMarker.pagehandler.amount}'>
+                    <input type="hidden" name="category" value="${pageMarker.pagehandler.category}">
                     <button class='btn search_btn'>검 색</button>
                 </div>
             </form>

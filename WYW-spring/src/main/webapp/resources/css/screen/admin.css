@@ -21,7 +21,7 @@
 
 .wrap{
   padding-top: 50px;
-  width : 1080px;
+  width : 90%;
   margin: auto;
 }
 
@@ -39,7 +39,7 @@
 
 
 .admin_navi_wrap{
-  width: 20%;
+  width: 15%;
   background-color: #32343e;
 }
 .admin_navi_wrap li{

@@ -21,15 +21,16 @@
 <div class="top-loginSet">
     <ul id="top-loginSet-list">
         <c:if test="${loggedInUser == null}">
-            <li><a href="<c:url value='/users/login.do'/>">Login</a></li>
-            <li><a href="<c:url value='/users/signup'/>">SignUp</a></li>
+            <li><a href="<c:url value='/users/login.do'/>">로그인</a></li>
+            <li><a href="<c:url value='/users/signup'/>">회원가입</a></li>
         </c:if>
         <c:if test="${loggedInUser != null}">
             <li>
                     ${loggedInUser.name}님 환영합니다.
             </li>
-            <li><a id="nav_logout" href="#">LogOut</a></li>
-            <li><a href="mypage.html">My Page</a></li>
+            <li><a id="nav_logout" href="#">로그아웃</a></li>
+            <li><a href="<c:url value='/cart/cartlist'/>">장바구니</a></li>
+            <li><a href="mypage.html">마이페이지</a></li>
             <c:if test="${loggedInUser.isAdmin}">
                 <li><a href="<c:url value='/admin/productslist'/>">관리자페이지</a></li>
             </c:if>
@@ -38,14 +39,20 @@
     <div id="top-loginSet__iconSet">
         <a href="#"
         ><i class="fas fa-search"></i>
-            <form action="#">
-                <input
-                        type="text"
-                        class="hidden"
-                        id="search"
-                        name="search"
-                        placeholder="검색어를 입력하세요."
-                />
+            <form id="topSearchForm" action="/WYW/product.all" method="get">
+                <div class="search_input">
+                    <input
+                            type="text"
+                            class="hidden"
+                            id="search"
+                            name="keyword"
+                            placeholder="검색어를 입력하세요."
+                            value="<c:out value="${pageMarker.pagehandler.keyword}"></c:out>">
+
+                    <input type="hidden" name="pageNum"
+                           value="1">
+                    <input type="hidden" name="amount" value="12">
+                </div>
             </form>
         </a>
 

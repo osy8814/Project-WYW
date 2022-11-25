@@ -64,6 +64,7 @@
                                 <th>카테고리</th>
                                 <th>가격</th>
                                 <th>수량</th>
+                                <th>누적판매량</th>
                                 <th>등록날짜</th>
                                 <th>관리</th>
                             </tr>
@@ -80,6 +81,9 @@
 
                                     <td>
                                         <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>EA
+                                    </td>
+                                    <td>
+                                        <fmt:formatNumber value="${product.cumulative_sales}" pattern="###,###,###"/>EA
                                     </td>
                                     <td>
                                         <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>

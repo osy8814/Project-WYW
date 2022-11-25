@@ -57,12 +57,17 @@
 .main__new-title,
 .main__best-title {
   width: 30vmin;
+  padding: 10px;
+}
+.main__new-title,
+.main__best-title,
+.main__new-title a,
+.main__best-title a{
   color: #bcbcbc;
   margin-bottom: 20px;
   text-align: center;
   font-size: 3vmin;
   font-weight: bold;
-  padding: 10px;
 }
 
 .main__new-title span,

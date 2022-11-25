@@ -21,7 +21,11 @@
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>ALL</span> PRODUCT</h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개
+            <c:if test="${pageMarker.pagehandler.keyword!=null}">
+                "${pageMarker.pagehandler.keyword}"(이)가 검색되었습니다.
+            </c:if>
+        </h1>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
                 <c:forEach items="${list}" var="product">
@@ -35,7 +39,7 @@
                                     </c:when>
 
                                     <c:when test="${product.imageVOList!=null}">
-                                    <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                        <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
                                     </c:when>
                                 </c:choose>
                             </div>

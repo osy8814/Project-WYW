@@ -22,6 +22,8 @@ public class UsersVo {
     private Date createdAt;
     private boolean isAdmin;
 
+    private int point;
+
     public String getUserId() {
         return userId;
     }
@@ -127,6 +129,14 @@ public class UsersVo {
         isAdmin = admin;
     }
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
     public String getMobile() {
         if(mobile1==""||mobile2==""||mobile3=="") {
             mobile="";
@@ -141,7 +151,7 @@ public class UsersVo {
         if(APIPostcode==""||APIAddress==""|| APIDetailAddress=="") {
             address="";
         }else {
-            address=APIPostcode+" "+APIAddress+" "+APIExtraAddress+" "+APIDetailAddress;
+            address=APIPostcode+", "+APIAddress+", "+APIExtraAddress+", "+APIDetailAddress;
         }
         return address;
     }
@@ -188,6 +198,7 @@ public class UsersVo {
                 ", address='" + address + '\'' +
                 ", createdAt=" + createdAt +
                 ", isAdmin=" + isAdmin +
+                ", point=" + point +
                 '}';
     }
 
