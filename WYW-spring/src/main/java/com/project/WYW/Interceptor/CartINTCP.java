@@ -12,11 +12,11 @@ public class CartINTCP implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
+        System.out.println("장바구니 인터셉터 작동");
         HttpSession session = request.getSession();
+        UsersVo usersVo = (UsersVo)session.getAttribute("loggedInUser");
+        if(usersVo==null){
 
-        UsersVo adminVo = (UsersVo)session.getAttribute("loggedInUser");
-
-        if(adminVo==null || adminVo.getIsAdmin()==false){
             response.sendRedirect("/WYW");
 
             return false;
