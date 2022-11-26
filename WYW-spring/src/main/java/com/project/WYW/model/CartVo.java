@@ -20,6 +20,8 @@ public class CartVo {
 
     private int price;
 
+    private int stock;
+
     // 추가
     private int salePrice;
 
@@ -103,6 +105,14 @@ public class CartVo {
         this.imageVOList = imageVOList;
     }
 
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public CartVo(){}
 
 
@@ -121,6 +131,7 @@ public class CartVo {
                 ", product_count=" + product_count +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", stock=" + stock +
                 ", salePrice=" + salePrice +
                 ", totalPrice=" + totalPrice +
                 ", imageVOList=" + imageVOList +
