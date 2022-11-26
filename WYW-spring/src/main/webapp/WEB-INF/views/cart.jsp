@@ -39,7 +39,7 @@
             </table>
             <table class="cart_table">
                 <caption>표 내용 부분</caption>
-                <tbody>
+
                 <c:forEach items="${cartInfo}" var="ci">
                     <tr>
                         <td class="td_width_1 cart_info_td">
@@ -47,7 +47,7 @@
                             <input type="hidden" class="individual_productCount_input" value="${ci.product_count}">
                             <input type="hidden" class="individual_totalPrice_input"
                                    value="${ci.price * ci.product_count}">
-                            <input type="hidden" class="individual_productId_input" value="${ci.id}">
+                            <input type="hidden" class="individual_productId_input" value="${ci.product_id}">
                                 <%--                            <input type="hidden" class="individual_point_input" value="${ci.point}">--%>
                                 <%--                            <input type="hidden" class="individual_totalPoint_input" value="${ci.totalPoint}">--%>
                         </td>
@@ -62,7 +62,11 @@
                                 </c:when>
                             </c:choose>
                         </td>
-                        <td class="td_width_3">${ci.name}</td>
+                        <td class="td_width_3">
+                            <a href="<c:url value='/productDetail'/>?product_id=${ci.product_id}">
+                                    ${ci.name}
+                            </a>
+                        </td>
                         <td class="td_width_4 price_td">
                             <del>정가 : <fmt:formatNumber value="${ci.price}" pattern="#,### 원"/></del>
                             <br>
@@ -83,7 +87,7 @@
                         </td>
                     </tr>
                 </c:forEach>
-                </tbody>
+
             </table>
             <table class="list_table">
             </table>
@@ -123,6 +127,7 @@
                         <span>(총 금액의 0.5%)</span>
                     </div>
                 </div>
+
             </div>
         </div>
         <!-- 구매 버튼 영역 -->

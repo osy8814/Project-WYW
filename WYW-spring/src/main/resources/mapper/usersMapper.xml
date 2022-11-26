@@ -4,19 +4,31 @@
 
 <mapper namespace="com.project.WYW.mapper.usersMapper">
     <select id="count" resultType="int">
-    	SELECT count(*) FROM users
+        SELECT count(*)
+        FROM users
     </select>
 
-	<sql id="selectFromUser">
-		SELECT id , user_id AS userId, password, name, mobile, email, address, created_at AS createdAt, is_admin AS isAdmin FROM users
-	</sql>
-        
+    <sql id="selectFromUser">
+        SELECT id,
+               user_id    AS userId,
+               password,
+               name,
+               mobile,
+               mobile1, mobile2, mobile3,
+               email,
+               address,
+               APIPostcode, APIAddress, APIDetailAddress, APIExtraAddress,
+               created_at AS createdAt,
+               is_admin   AS isAdmin
+        FROM users
+    </sql>
+
     <select id="selectAll" resultType="UsersVo">
         <include refid="selectFromUser"/>
         ORDER BY created_at DESC, id DESC
     </select>
 
-    
+
     <select id="select" parameterType="String" resultType="UsersVo">
         <include refid="selectFromUser"/>
         WHERE user_id = #{userId}
@@ -37,26 +49,36 @@
         WHERE mobile = #{mobile}
     </select>
 
-    
+
     <delete id="deleteAll">
-        DELETE FROM users
+        DELETE
+        FROM users
     </delete>
-    
+
     <delete id="delete" parameterType="map">
-        DELETE FROM users WHERE user_id = #{userId} and email = #{email} and name = #{name}
+        DELETE
+        FROM users
+        WHERE user_id = #{userId}
+          and email = #{email}
+          and name = #{name}
     </delete>
-    
+
     <insert id="insert" parameterType="UsersVo">
         INSERT INTO users
-            (user_id, password, name, mobile, email, address)
-        VALUES
-            (#{userId}, #{password}, #{name}, #{mobile}, #{email}, #{address})
+        (user_id, password, name, mobile, mobile1, mobile2, mobile3, email, address,
+         APIPostcode, APIAddress, APIDetailAddress, APIExtraAddress)
+        VALUES (#{userId}, #{password}, #{name}, #{mobile}, #{mobile1}, #{mobile2}, #{mobile3}, #{email}, #{address},
+                #{APIPostcode}, #{APIAddress}, #{APIDetailAddress}, #{APIExtraAddress})
     </insert>
-    
+
     <update id="update" parameterType="UsersVo">
-    	UPDATE users
-    	SET password=#{password},name=#{name}, mobile=#{mobile}, email=#{email}, address=#{address}
-    	WHERE user_id=#{userId}
+        UPDATE users
+        SET password=#{password},
+            name=#{name},
+            mobile=#{mobile},
+            email=#{email},
+            address=#{address}
+        WHERE user_id = #{userId}
     </update>
-    
+
 </mapper>

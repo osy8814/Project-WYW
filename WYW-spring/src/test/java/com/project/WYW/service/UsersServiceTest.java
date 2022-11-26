@@ -91,7 +91,11 @@ public class UsersServiceTest {
 		assertTrue(usersSecvice.getCount()==0);
 	
 	}
-	
-	
+	@Test
+	public void selectTest() throws Exception{
+		System.out.println(usersSecvice.read("osy8814"));
+		UsersVo usersVo = usersSecvice.read("osy8814");
+		System.out.println("usersVo = " + usersVo.getMobile());
+	}
 
 }

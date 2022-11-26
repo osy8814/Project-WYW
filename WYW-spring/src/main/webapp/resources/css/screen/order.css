@@ -1,0 +1,188 @@
+.order_main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 외부박스 */
+.order_main-outter {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 50px;
+}
+
+/* 페이지타이틀  */
+.order_main_title {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+/* 사용자 주소 정보 */
+.addressInfo_div {
+    width: 80%;
+    margin-top: 30px;
+}
+
+.order_title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.addressInfo_input_div_wrap {
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.address_btn {
+    background-color: #555;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 50%;
+}
+
+.address_btn:hover {
+    background-color: #777;
+}
+
+.addressInfo_button_div::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.addressInfo_input_div {
+    padding: 12px;
+    text-align: left;
+    display: none;
+    line-height: 40px;
+}
+
+.addressInfo_input_div th {
+    width: 100px;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.addressInfo_input_div th {
+    font-weight: bold;
+    padding: 12px 5px 12px 20px;
+    vertical-align: top;
+}
+
+.addressInfo_input_div td {
+    padding: 8px 12px;
+}
+
+.addressInfo_input_div_2 input {
+    padding: 6px 5px;
+}
+
+.address_search_btn {
+    vertical-align: middle;
+    display: inline-block;
+    border: 1px solid #aaa;
+    width: 90px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    color: #555;
+    cursor: pointer;
+}
+
+.order_table_title {
+    margin: 20px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.order_table {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.order_items {
+    width: 45%;
+    height: 100%;
+
+}
+
+.order_item {
+    display: flex;
+    margin-bottom: 5px;
+    border-top: 1px solid rgba(50, 50, 50, 0.2);
+    border-bottom: 1px solid rgba(50, 50, 50, 0.2);
+}
+
+.item_img {
+    width: 30%;
+    height: 150px;
+    background-color: white;
+}
+
+.item_img > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.item_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: baseline;
+
+    width: 60%;
+    height: 150px;
+    padding-left: 30px;
+
+}
+
+.item_info_head {
+    display: flex;
+    font-weight: bold;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.item_info_head > a {
+    color: black;
+}
+
+.order_result {
+    width: 50%;
+    height: 300px;
+    border: 2px solid rgba(50, 50, 50, 0.2);
+}
+
+.order_result_btn_section {
+    display: flex;
+    justify-content: center;
+}
+
+.order_result_btn_section > button {
+    width: 200px;
+    height: 50px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #3c3838;
+    cursor: pointer;
+    border: none;
+}
