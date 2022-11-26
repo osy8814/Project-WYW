@@ -5,8 +5,52 @@
 <mapper namespace="com.project.WYW.mapper.orderMapper">
 
     <select id="getProductInfo" resultType="OrderPageItemDto">
-        select id AS productId, name, price
-        from products where id = #{id};
+        SELECT id AS productId, name, price
+        FROM products
+        WHERE id = #{id};
 
     </select>
+
+    <select id="getOrderInfo" resultType="OrderItemDto">
+
+        SELECT id AS productId, price
+        FROM products
+        WHERE id = #{id}
+
+    </select>
+
+    <insert id="regOrder">
+
+        INSERT INTO orders(order_id, receiver, user_id, address1, address2, address3, mobile, order_state, delivery_fee,
+                           use_point)
+        VALUES (#{orderId}, #{receiver}, #{userId}, #{address1}, #{address2}, #{address3}, #{mobile}, '배송준비',
+                #{deliveryCost}, #{usePoint})
+
+    </insert>
+
+    <insert id="regOrderItem">
+
+        INSERT INTO order_items(order_id, product_id, product_count, price, save_point)
+        VALUES (#{orderId}, #{productId}, #{productCount}, #{price}, #{savePoint})
+
+    </insert>
+
+    <!-- 주문 재고 차감 -->
+    <update id="reduceStock">
+
+        UPDATE products
+        SET stock = #{stock}
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="deleteOrderCart">
+
+        DELETE
+        FROM carts
+        WHERE user_id = #{user_id}
+          AND product_id = #{product_id}
+
+    </delete>
+
 </mapper>

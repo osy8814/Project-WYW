@@ -6,11 +6,17 @@
     <typeAliases>
         <typeAlias alias="UsersVo" type="com.project.WYW.domain.UsersVo"/>
         <typeAlias alias="CategoryVo" type="com.project.WYW.domain.CategoryVo"/>
+
         <typeAlias alias="ProductsVo" type="com.project.WYW.domain.ProductsVo"/>
         <typeAlias alias="ProductsViewVo" type="com.project.WYW.domain.ProductsViewVo"/>
+
         <typeAlias alias="AttachImageVO" type="com.project.WYW.model.AttachImageVO"/>
+
         <typeAlias alias="CartVo" type="com.project.WYW.model.CartVo"/>
+
         <typeAlias alias="OrderPageItemDto" type="com.project.WYW.dto.OrderPageItemDto"/>
+        <typeAlias alias="OrderItemDto" type="com.project.WYW.dto.OrderItemDto"/>
+
         <typeAlias alias="BoardDto" type="com.project.WYW.dto.BoardDto" />
         <typeAlias alias="CommentDto" type="com.project.WYW.dto.CommentDto" />
         <typeAlias alias="SearchCondition" type="com.project.WYW.model.SearchCondition" />

@@ -24,10 +24,10 @@
         <div class="addressInfo_div">
             <h1 class="order_title">배송지 지정</h1>
             <div class="addressInfo_button_div">
-                <button class="address_btn address_btn_1" onclick="showAdress('1')" style="background-color: #3c3838;">
+                <button class="address_btn address_btn_1" onclick="showAddress('1')" style="background-color: #3c3838;">
                     사용자 주소록
                 </button>
-                <button class="address_btn address_btn_2" onclick="showAdress('2')">직접 입력</button>
+                <button class="address_btn address_btn_2" onclick="showAddress('2')">직접 입력</button>
             </div>
             <div class="addressInfo_input_div_wrap">
                 <div class="addressInfo_input_div addressInfo_input_div_1" style="display: block">
@@ -44,12 +44,18 @@
                             <th>주소</th>
                             <td>
                                 ${memberInfo.address}
+                                <input class="selectAddress" value="T" type="hidden">
+                                <input class="receiver_input" type="hidden" value="${memberInfo.name}">
+                                <input class="address1_input" type="hidden" value="${memberInfo.APIPostcode}">
+                                <input class="address2_input" type="hidden" value="${memberInfo.APIAddress}">
+                                <input class="address3_input" type="hidden" value="${memberInfo.APIDetailAddress}">
                             </td>
                         </tr>
                         <tr>
                             <th>연락처</th>
                             <td>
                                 ${memberInfo.mobile}
+                                <input class="mobile_input" type="hidden" value="${memberInfo.mobile}">
                             </td>
                         </tr>
                         <tr>
@@ -69,24 +75,28 @@
 
                             </th>
                             <td>
-                                <input type="text" id="info_name" required/>
+                                <input class="receiver_input" type="text">
                             </td>
                         </tr>
                         <tr>
                             <th id="addrth">주소</th>
                             <td id="addrtd">
-                                <input type="text" name="APIPostcode" id="API_postcode" placeholder="우편번호">
+                                <input class="selectAddress" value="F" type="hidden">
+                                <input type="text" class="address1_input" name="APIPostcode" id="API_postcode"
+                                       placeholder="우편번호" readonly>
                                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                                <input type="text" name="APIAddress" id="API_address" placeholder="주소"><br>
-                                <input type="text" name="APIDetailAddress" id="API_detailAddress"
+                                <input type="text" class="address2_input" name="APIAddress" id="API_address"
+                                       placeholder="주소" readonly><br>
+                                <input type="text" class="address3_input" name="APIDetailAddress" id="API_detailAddress"
                                        placeholder="상세주소">
-                                <input type="text" name="APIExtraAddress" id="API_extraAddress" placeholder="참고항목">
+                                <input type="text" name="APIExtraAddress" id="API_extraAddress" placeholder="참고항목"
+                                       readonly>
                             </td>
                         </tr>
                         <tr>
                             <th>연락처</th>
                             <td>
-                                <input type="text" placeholder="전화번호">
+                                <input class="mobile_input" type="tel" placeholder="전화번호">
                             </td>
                         </tr>
                     </table>
@@ -167,26 +177,97 @@
                         </div>
                     </div>
                     <div class="order_result_btn_section">
-                        <button type="button">결제하기</button>
+                        <button type="button" class="order_btn">결제하기</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!-- 주문 요청 form -->
+<form class="order_form" action="/WYW/order/order" method="post">
+    <!-- 주문자 회원번호 -->
+    <input name="userId" value="${memberInfo.userId}" type="hidden">
+    <!-- 주소록 & 받는이-->
+    <input name="receiver" type="hidden">
+    <input name="address1" type="hidden">
+    <input name="address2" type="hidden">
+    <input name="address3" type="hidden">
+    <input name="mobile" type="hidden">
+    <!-- 사용 포인트 -->
+    <%--    <input name="usePoint" type="hidden">--%>
+    <!-- 상품 정보 -->
+</form>
+
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/js/addressAPI.js"></script>
 <script>
-    function showAdress(className) {
+    function showAddress(className) {
         $(".addressInfo_input_div").css('display', 'none');
         $(".addressInfo_input_div_" + className).css('display', 'block');
 
         $(".address_btn").css('backgroundColor', '#555');
-        $(".address_btn_" + className).css('backgroundColor', '#3c3838');
+        $(".address_btn_" + className).css('backgroundColor', '#3c3838')
+
+        $(".addressInfo_input_div").each(function (i, obj) {
+            $(obj).find(".selectAddress").val("F");
+        });
+        $(".addressInfo_input_div_" + className).find(".selectAddress").val("T");
     }
+</script>
+<script>
+    /* 주문 요청 */
+    $(".order_btn").on("click", function () {
+
+        /* 주소 정보 & 받는이*/
+        $(".addressInfo_input_div").each(function (i, obj) {
+            if ($(obj).find(".selectAddress").val() === 'T') {
+                $("input[name='receiver']").val($(obj).find(".receiver_input").val());
+                $("input[name='address1']").val($(obj).find(".address1_input").val());
+                $("input[name='address2']").val($(obj).find(".address2_input").val());
+                $("input[name='address3']").val($(obj).find(".address3_input").val());
+                $("input[name='mobile']").val($(obj).find(".mobile_input").val());
+            }
+        });
+
+        //유효성검사
+        const receiver = $(".order_form").find("input[name='receiver']").val();
+        const address1 = $(".order_form").find("input[name='address1']").val();
+        const address2 = $(".order_form").find("input[name='address2']").val();
+        const address3 = $(".order_form").find("input[name='address3']").val();
+        const mobile = $(".order_form").find("input[name='mobile']").val();
+
+        if(receiver===""){
+            return alert("수취인을 입력해주세요.");
+        }if(address1==="" || address2==="" || address3===""){
+            return alert("배송지를 입력해주세요.");
+        }if(mobile===""){
+            return alert("연락처를 입력해주세요.");}
+
+
+        /* 사용 포인트 */
+        // $("input[name='usePoint']").val($(".order_point_input").val());
+
+        /* 상품정보 */
+        let form_contents = '';
+        $(".cart_info_td").each(function (index, element) {
+            let productId = $(element).find(".individual_productId_input").val();
+            let productCount = $(element).find(".individual_productCount_input").val();
+
+            let productId_input = "<input name='orders[" + index + "].productId' type='hidden' value='" + productId + "'>";
+            form_contents += productId_input;
+
+            let productCount_input = "<input name='orders[" + index + "].productCount' type='hidden' value='" + productCount + "'>";
+            form_contents += productCount_input;
+        });
+        $(".order_form").append(form_contents);
+
+        /* 서버 전송 */
+        $(".order_form").submit();
+    });
 </script>
 <script>
     $(document).ready(function () {

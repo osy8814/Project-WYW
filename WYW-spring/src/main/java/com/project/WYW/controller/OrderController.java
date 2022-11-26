@@ -1,6 +1,7 @@
 package com.project.WYW.controller;
 
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderPageDto;
 import com.project.WYW.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +31,16 @@ public class OrderController {
         model.addAttribute("memberInfo",usersVo);
 
         return "order";
+    }
+
+    @PostMapping("/order")
+    public String orderPagePost(OrderDto orderDto, HttpServletRequest request)throws Exception {
+
+        System.out.println(orderDto);
+
+        orderService.order(orderDto);
+
+        return "redirect:/";
     }
 
 }

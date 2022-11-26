@@ -80,6 +80,11 @@ public class UsersController {
         return "signUp/signUp";
     }
 
+    @GetMapping("/mypage")
+    public String getMypage(){
+        return "mypage";
+    }
+
     @GetMapping("/find_id")
     public String find_id() {
         return "find_id";
