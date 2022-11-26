@@ -1,5 +1,6 @@
 package com.project.WYW.service;
 
+import com.project.WYW.dto.OrderCancelDto;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderPageItemDto;
 
@@ -10,4 +11,6 @@ public interface OrderService {
     List<OrderPageItemDto> getProductInfo(List<OrderPageItemDto> list);
 
     void  order(OrderDto orderDto)throws Exception;
+
+    void orderCancel(OrderCancelDto orderCancelDto)throws Exception;
 }

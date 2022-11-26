@@ -8,6 +8,8 @@ import com.project.WYW.dto.OrderPageItemDto;
 import com.project.WYW.model.CartVo;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface OrderDao {
     OrderPageItemDto getProductInfo(Integer id);
 
@@ -26,4 +28,14 @@ public interface OrderDao {
 
     /* 카트 제거(주문) */
     int deleteOrderCart(CartVo cartVo);
+
+
+    /* 주문 취소 */
+    int orderCancel(String orderId);
+
+    /* 주문 상품 정보(주문취소) */
+    List<OrderItemDto> getOrderItemInfo(String orderId);
+
+    /* 주문 정보(주문취소) */
+    OrderDto getOrder(String orderId);
 }

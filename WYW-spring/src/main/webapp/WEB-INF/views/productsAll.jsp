@@ -115,5 +115,48 @@
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
+<script>
+
+
+    // 장바구니 클릭
+    $("#btn_cart").on("click", function(e){
+        let form = {
+            user_id : '${loggedInUser.userId}',
+            product_id : '${productsViewVo.id}',
+            product_count : ''
+        }
+        let stock;
+        if("${productsViewVo.stock}"==="0"){
+            alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
+            return false;
+        }
+
+        form.product_count = $("#product_quantity").val();
+        $.ajax({
+            url: '/WYW/cart/add',
+            type: 'POST',
+            data: form,
+            success: function(result){
+                cartAlert(result);
+            },
+            error : function (result){
+                alert(result);
+            }
+
+        })
+    });
+
+    function cartAlert(result){
+        if(result == '0'){
+            alert("장바구니에 추가를 하지 못하였습니다.");
+        } else if(result == '1'){
+            alert("장바구니에 추가되었습니다.");
+        } else if(result == '2'){
+            alert("장바구니에 이미 추가되어 있습니다.");
+        } else if(result == '5'){
+            alert("로그인이 필요합니다.");
+        }
+    }
+</script>
 </body>
 </html>

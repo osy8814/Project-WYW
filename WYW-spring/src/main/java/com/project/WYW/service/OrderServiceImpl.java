@@ -2,27 +2,22 @@ package com.project.WYW.service;
 
 import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.ProductsViewVo;
-import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.dto.OrderCancelDto;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.dto.OrderPageItemDto;
 import com.project.WYW.model.CartVo;
-import lombok.SneakyThrows;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.EmptyStackException;
 import java.util.List;
 
 @Service
@@ -64,12 +59,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void order(OrderDto orderDto) {
-        /* 사용할 데이터가져오기 */
-        /* 회원 정보 */
 
         TransactionStatus status = null;
         try {
-
+            /* 사용할 데이터가져오기 */
+            /* 회원 정보 */
             UsersVo usersVo = usersSecvice.read(orderDto.getUserId());
             /* 주문 정보 */
             List<OrderItemDto> orderItemDtoList = new ArrayList<>();
@@ -136,5 +130,51 @@ public class OrderServiceImpl implements OrderService {
                 transactionManager.commit(status);
             }
         }
+    }
+
+    @Override
+    public void orderCancel(OrderCancelDto orderCancelDto){
+
+        TransactionStatus status = null;
+
+        try {
+            /* 주문, 주문상품 객체 */
+            /*회원*/
+            UsersVo usersVo = usersSecvice.read(orderCancelDto.getUserId());
+            /*주문상품*/
+            List<OrderItemDto> ords = orderDao.getOrderItemInfo(orderCancelDto.getOrderId());
+            for (OrderItemDto ord : ords) {
+                ord.initSaleTotal();
+            }
+            /* 주문 */
+            OrderDto orderDto = orderDao.getOrder(orderCancelDto.getOrderId());
+            orderDto.setOrders(ords);
+
+            orderDto.getOrderPriceInfo();
+
+            status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+            /* 주문상품 취소 DB */
+            orderDao.orderCancel(orderCancelDto.getOrderId());
+
+            /* 재고 */
+            for (OrderItemDto ord : orderDto.getOrders()) {
+                ProductsViewVo productsViewVo = productService.readProductDetail(ord.getProductId());
+                productsViewVo.setStock(productsViewVo.getStock() + ord.getProductCount());
+                productsViewVo.setCumulative_sales(productsViewVo.getCumulative_sales() - ord.getProductCount());
+
+                orderDao.reduceStock(productsViewVo);
+            }
+        } catch (Exception e) {
+            transactionManager.rollback(status);
+            throw new RuntimeException(e);
+        } finally {
+            if (status.isRollbackOnly()) {
+                transactionManager.rollback(status);
+            } else {
+                transactionManager.commit(status);
+            }
+        }
+
+
     }
 }

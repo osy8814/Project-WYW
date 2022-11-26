@@ -1,6 +1,7 @@
 package com.project.WYW.controller;
 
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.dto.OrderCancelDto;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderPageDto;
 import com.project.WYW.service.OrderService;
@@ -25,7 +26,7 @@ public class OrderController {
 
 
     @GetMapping("/list")
-    public String orderPageGET(OrderPageDto orderPageDto, Model model, HttpServletRequest request) {
+    public String orderPageGet(OrderPageDto orderPageDto, Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");

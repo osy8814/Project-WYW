@@ -117,11 +117,16 @@
   padding: 15px;
 }
 .admin_content_wrap td{
+  vertical-align: middle;
+  height: 40px;
   padding: 10px;
 }
 
 .align_center{
   text-align: center;
+}
+.align_center > button{
+  width: 80px;
 }
 
 .align_end{

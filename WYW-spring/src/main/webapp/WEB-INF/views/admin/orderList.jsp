@@ -48,7 +48,8 @@
                                     class="fas fa-scroll"></i>카테고리 관리</a>
                         </lI>
                         <lI>
-                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i class="fas fa-truck"></i>배송 관리</a>
+                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i
+                                    class="fas fa-truck"></i>배송 관리</a>
                         </lI>
                         <lI>
                             <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
@@ -78,9 +79,13 @@
                                     </td>
                                     <td class="align_center">${order.orderState}</td>
                                     <td class="align_center">
+                                        <c:if test="${order.orderState == '배송준비' }">
                                         <button type="button" onclick="location.href='<c:url
-                                                value="/admin/productsManage?id=${order.orderId}"/>'">관리
+                                                value="/order/ordermanage?order_id=${order.orderId}"/>'">배송완료
                                         </button>
+
+                                            <button class="delete_btn" data-userid="${order.userId}" data-orderid="${order.orderId}">취소</button>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -93,7 +98,7 @@
                         </div>
                     </c:if>
                     <div class="search_wrap">
-                        <form id="searchForm" action="/WYW/admin/productslist" method="get">
+                        <form id="searchForm" action="/WYW/admin/orderlist" method="get">
                             <div class="search_input">
                                 <input type="text" name="keyword"
                                        value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
@@ -136,6 +141,14 @@
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
                     </form>
+<%--                    주문취소--%>
+                    <form id="deleteForm" action="/WYW/admin/orderCancel" method="post">
+                        <input type="hidden" name="orderId">
+                        <input type="hidden" name="userId">
+                        <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
+                        <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
+                        <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+                    </form>
                 </div>
 
             </div>
@@ -153,6 +166,20 @@
     if (msg == "del_err") {
         alert("상품이 삭제에 실패 하였습니다.")
     }
+</script>
+<script>
+    $(".delete_btn").on("click", function(e){
+
+        e.preventDefault();
+
+        let orderid = $(this).data("orderid");
+        let userid = $(this).data("userid");
+
+        $("#deleteForm").find("input[name='orderId']").val(orderid);
+        $("#deleteForm").find("input[name='userId']").val(userid);
+
+        $("#deleteForm").submit();
+    });
 </script>
 </body>
 </html>

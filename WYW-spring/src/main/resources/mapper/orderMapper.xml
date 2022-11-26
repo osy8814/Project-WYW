@@ -35,11 +35,11 @@
 
     </insert>
 
-    <!-- 주문 재고 차감 -->
     <update id="reduceStock">
 
         UPDATE products
-        SET stock = #{stock}, cumulative_sales = #{cumulative_sales}
+        SET stock            = #{stock},
+            cumulative_sales = #{cumulative_sales}
         WHERE id = #{id}
 
     </update>
@@ -52,5 +52,43 @@
           AND product_id = #{product_id}
 
     </delete>
+
+    <!--주문취소-->
+    <update id="orderCancel">
+        UPDATE orders
+        SET order_state = '주문취소'
+        WHERE order_id = #{orderId}
+    </update>
+
+    <!-- 주문 상품 정보(주문취소) -->
+    <select id="getOrderItemInfo" resultType="OrderItemDto">
+
+        SELECT order_id AS orderId,
+               product_id AS productId,
+               product_count AS productCount,
+               price
+        FROM order_items
+        WHERE order_id = #{orderId}
+
+    </select>
+
+    <!-- 주문 정보(주문 취소) -->
+    <select id="getOrder" resultType="OrderDto">
+
+        SELECT order_id     AS orderId,
+               receiver,
+               user_id      AS userId,
+               address1,
+               address2,
+               address3,
+               mobile,
+               order_state  AS orderState,
+               delivery_fee AS deliveryCost,
+               use_point    AS usePoint,
+               order_date   AS orderDate
+        FROM orders
+        WHERE order_id = #{orderId}
+
+    </select>
 
 </mapper>
