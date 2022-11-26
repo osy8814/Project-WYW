@@ -6,6 +6,7 @@ import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.dto.OrderPageItemDto;
 import com.project.WYW.model.CartVo;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface OrderDao {
     OrderPageItemDto getProductInfo(Integer id);
@@ -20,6 +21,7 @@ public interface OrderDao {
     int regOrderItem(OrderItemDto orderItemDto);
 
     /* 주문 재고 차감 */
+
     int reduceStock(ProductsViewVo productsViewVo);
 
     /* 카트 제거(주문) */

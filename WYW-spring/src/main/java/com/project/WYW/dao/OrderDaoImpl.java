@@ -9,6 +9,7 @@ import com.project.WYW.model.CartVo;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -19,6 +20,7 @@ public class OrderDaoImpl implements OrderDao {
     private static String namespace = "com.project.WYW.mapper.orderMapper.";
 
     @Override
+
     public OrderPageItemDto getProductInfo(Integer id) {
         return session.selectOne(namespace + "getProductInfo", id);
     }
@@ -52,14 +54,16 @@ public class OrderDaoImpl implements OrderDao {
     /* 주문 재고 차감 */
     @Override
     public int reduceStock(ProductsViewVo productsViewVo) {
-        return session.update(namespace+"reduceStock",productsViewVo);
+        return session.update(namespace + "reduceStock", productsViewVo);
     }
 
     ;
 
     /* 카트 제거(주문) */
     @Override
-    public int deleteOrderCart(CartVo cartVo){
-        return session.delete(namespace+"deleteOrderCart",cartVo);
-    };
+    public int deleteOrderCart(CartVo cartVo) {
+        return session.delete(namespace + "deleteOrderCart", cartVo);
+    }
+
+    ;
 }

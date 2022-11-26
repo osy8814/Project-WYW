@@ -99,5 +99,11 @@
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/mainSlide.js"></script>
+<script>
+    const msg = "${msg}";
+    if (msg === "orderOk") {
+        alert("주문내역이 등록되었습니다. 이용해주셔서 감사합니다.")
+    }
+</script>
 </body>
 </html>

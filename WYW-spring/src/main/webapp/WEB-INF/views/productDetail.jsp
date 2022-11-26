@@ -68,6 +68,7 @@
                         <button type="button" class="value_down">-</button>
                         <input type="text" id="product_quantity" value="1">
                         <button type="button" class="value_up">+</button>
+                        <span>(재고 : ${productsViewVo.stock})</span>
                     </span>
                 </div>
                 <div class="product_info_total-price-set">
@@ -147,6 +148,11 @@
 
     // 장바구니 클릭
     $("#btn_cart").on("click", function(e){
+        if("${productsViewVo.stock}"==="0"){
+            alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
+            return false;
+        }
+
         form.product_count = $("#product_quantity").val();
         $.ajax({
             url: '/WYW/cart/add',
@@ -177,8 +183,13 @@
 <script>
     /* 바로구매 버튼 */
     $("#buy-now").on("click", function(){
+        if("${productsViewVo.stock}"==="0"){
+            alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
+            return false;
+        }
+
         let ProductCount = $("#product_quantity").val();
-        console.log(ProductCount);
+
         $(".order_form").find("input[name='orders[0].productCount']").val(ProductCount);
         $(".order_form").submit();
     });

@@ -222,6 +222,9 @@
     /* 주문 요청 */
     $(".order_btn").on("click", function () {
 
+        if(!confirm("결제를 진행하시겠습니까?")){
+            return false;
+        }
         /* 주소 정보 & 받는이*/
         $(".addressInfo_input_div").each(function (i, obj) {
             if ($(obj).find(".selectAddress").val() === 'T') {
