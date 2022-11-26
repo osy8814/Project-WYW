@@ -119,3 +119,11 @@
 .admin_content_wrap td{
   padding: 10px;
 }
+
+.align_center{
+  text-align: center;
+}
+
+.align_end{
+  text-align: end;
+}

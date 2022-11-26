@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,11 +35,15 @@ public class OrderController {
     }
 
     @PostMapping("/order")
-    public String orderPagePost(OrderDto orderDto, HttpServletRequest request)throws Exception {
+    public String orderPagePost(OrderDto orderDto, RedirectAttributes attributes)throws Exception {
 
-        System.out.println(orderDto);
+        try {
+            orderService.order(orderDto);
+        } catch (RuntimeException e) {
+            attributes.addFlashAttribute("msg", "noStock");
+            return "redirect:/cart/cartlist";
+        }
 
-        orderService.order(orderDto);
 
         return "redirect:/";
     }

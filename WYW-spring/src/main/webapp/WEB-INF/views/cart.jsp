@@ -75,9 +75,11 @@
                         </td>
                         <td class="td_width_4 table_text_align_center">
                             <div class="table_text_align_center quantity_div">
-                                <input type="number" min="1" max="" value="${ci.product_count}" class="quantity_input">
+                                <input type="number" min="1" max="${ci.stock}" value="${ci.product_count}" class="quantity_input">
                             </div>
                             <a class="quantity_modify_btn" data-id="${ci.id}">변경</a>
+                            <h1>(재고:${ci.stock})</h1>
+
                         </td>
                         <td class="td_width_4 table_text_align_center">
                             <fmt:formatNumber value="${ci.price * ci.product_count}" pattern="#,### 원"/>
@@ -254,6 +256,11 @@
 
     });
 </script>
-
+<script>
+    let msg = "${msg}";
+    if(msg==="noStock"){
+        alert("재고가 모자란 상품이 있습니다. 재고를 확인해주세요.")
+    }
+</script>
 </body>
 </html>

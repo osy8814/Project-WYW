@@ -39,7 +39,7 @@
     <update id="reduceStock">
 
         UPDATE products
-        SET stock = #{stock}
+        SET stock = #{stock}, cumulative_sales = #{cumulative_sales}
         WHERE id = #{id}
 
     </update>

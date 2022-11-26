@@ -4,6 +4,7 @@ import com.project.WYW.dao.AdminDao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.dto.OrderDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,16 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public int productsGetTotal(Pagehandler pagehandler)throws Exception{
         return adminDao.productsGetTotal(pagehandler);
+    }
+
+    @Override
+    public List<OrderDto> getOrderList(Pagehandler pagehandler){
+        return adminDao.getOrderList(pagehandler);
+    }
+
+    @Override
+    public int getOrderTotal(Pagehandler pagehandler){
+        return adminDao.getOrderTotal(pagehandler);
     }
 
     @Transactional

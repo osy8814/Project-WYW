@@ -4,6 +4,7 @@ import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.dto.OrderDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.PageVo;
 import com.project.WYW.model.Pagehandler;
@@ -301,4 +302,25 @@ public class AdminController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
+    @GetMapping("/orderlist")
+    public String getOrderList(Pagehandler pagehandler,Model model){
+
+        List<OrderDto> list = adminService.getOrderList(pagehandler);
+        model.addAttribute("list", list);
+
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+
+        int total = adminService.getOrderTotal(pagehandler);
+
+        PageVo pageMarker = new PageVo(pagehandler, total);
+
+        model.addAttribute("pageMarker", pageMarker);
+
+
+        return "admin/orderList";
+    }
 }

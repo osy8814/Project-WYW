@@ -48,7 +48,10 @@
                                     class="fas fa-scroll"></i>카테고리 관리</a>
                         </lI>
                         <lI>
-                            <a class="admin_list_05"><i class="fas fa-users-cog"></i>회원 관리</a>
+                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i class="fas fa-truck"></i>배송 관리</a>
+                        </lI>
+                        <lI>
+                            <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
                         </lI>
                     </ul>
 
@@ -72,23 +75,23 @@
                             <c:forEach items="${list}" var="product">
                                 <tr>
                                     <td>${product.id}</td>
-                                    <td>${product.user_id}</td>
+                                    <td class="align_center">${product.user_id}</td>
                                     <td>${product.name}</td>
-                                    <td>${product.cate_name}</td>
-                                    <td>
+                                    <td class="align_center">${product.cate_name}</td>
+                                    <td class="align_end">
                                         <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>원
                                     </td>
 
-                                    <td>
+                                    <td class="align_end">
                                         <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>EA
                                     </td>
-                                    <td>
+                                    <td class="align_end">
                                         <fmt:formatNumber value="${product.cumulative_sales}" pattern="###,###,###"/>EA
                                     </td>
-                                    <td>
+                                    <td class="align_end">
                                         <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
                                     </td>
-                                    <td>
+                                    <td class="align_center">
                                         <button type="button" onclick="location.href='<c:url
                                                 value="/admin/productsManage?id=${product.id}"/>'">관리
                                         </button>

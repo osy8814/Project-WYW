@@ -15,7 +15,9 @@
         <typeAlias alias="CartVo" type="com.project.WYW.model.CartVo"/>
 
         <typeAlias alias="OrderPageItemDto" type="com.project.WYW.dto.OrderPageItemDto"/>
+        <typeAlias alias="OrderDto" type="com.project.WYW.dto.OrderDto"/>
         <typeAlias alias="OrderItemDto" type="com.project.WYW.dto.OrderItemDto"/>
+
 
         <typeAlias alias="BoardDto" type="com.project.WYW.dto.BoardDto" />
         <typeAlias alias="CommentDto" type="com.project.WYW.dto.CommentDto" />

@@ -3,6 +3,7 @@ package com.project.WYW.dao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.dto.OrderDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 import org.apache.ibatis.session.SqlSession;
@@ -127,6 +128,17 @@ public class AdminDaoImpl implements AdminDao {
         return session.selectList(namespace + "getAttachInfo", product_id);
     }
 
+
+    @Override
+    public List<OrderDto> getOrderList(Pagehandler pagehandler){
+        return session.selectList(namespace+"getOrderList", pagehandler);
+    };
+
+    @Override
+    public int getOrderTotal(Pagehandler pagehandler){
+        return session.selectOne(namespace+"getOrderTotal", pagehandler);
+    };
+
     public int regProductImage(ProductsVo productsVo) {
         int rowCnt=0;
         for (int i = 0; i < productsVo.getImageVOList().size(); i++) {
@@ -157,6 +169,7 @@ public class AdminDaoImpl implements AdminDao {
         }
         return rowCnt;
     }
+
 
 
 }

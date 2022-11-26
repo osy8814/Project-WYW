@@ -4,17 +4,16 @@
 
 <mapper namespace="com.project.WYW.mapper.adminMapper">
     <select id="category" resultType="CategoryVo">
-        WITH recursive p AS (
-            SELECT cate_name, cate_code, cate_code_ref, 1 AS level
-            FROM products_category
-            WHERE products_category.cate_code_ref IS null
-            UNION all
-            SELECT pc.cate_name, pc.cate_code, pc.cate_code_ref, 1 + LEVEL AS level
-            FROM products_category pc
-                     INNER JOIN p
-                                ON pc.cate_code_ref = p.cate_code
-        )
-        SELECT cate_name, cate_code, cate_code_ref, level FROM p;
+        WITH recursive p AS (SELECT cate_name, cate_code, cate_code_ref, 1 AS level
+                             FROM products_category
+                             WHERE products_category.cate_code_ref IS null
+                             UNION all
+                             SELECT pc.cate_name, pc.cate_code, pc.cate_code_ref, 1 + LEVEL AS level
+                             FROM products_category pc
+                                      INNER JOIN p
+                                                 ON pc.cate_code_ref = p.cate_code)
+        SELECT cate_name, cate_code, cate_code_ref, level
+        FROM p;
     </select>
 
     <insert id="regProduct" parameterType="ProductsVo">
@@ -26,37 +25,54 @@
             SELECT LAST_INSERT_ID();
 
         </selectKey>
-</insert>
+    </insert>
 
     <select id="productsList" resultType="ProductsVo">
-        SELECT * from products
+        SELECT *
+        from products
         ORDER BY created_at DESC;
     </select>
 
     <select id="readProduct" parameterType="int" resultType="ProductsVo">
-        SELECT * from products
-        WHERE id=#{id};
+        SELECT *
+        from products
+        WHERE id = #{id};
     </select>
 
     <update id="modifiyProduct" parameterType="ProductsVo">
         UPDATE products
-        SET  name=#{name}, description=#{description}, cate_code=#{cate_code}, price=#{price},stock=#{stock}
-        WHERE id=#{id};
+        SET name=#{name},
+            description=#{description},
+            cate_code=#{cate_code},
+            price=#{price},
+            stock=#{stock}
+        WHERE id = #{id};
     </update>
 
     <delete id="deleteProduct" parameterType="int">
-        DELETE FROM products
-        WHERE id=#{id};
+        DELETE
+        FROM products
+        WHERE id = #{id};
     </delete>
 
     <delete id="deleteAllProduct">
-        DELETE FROM products;
+        DELETE
+        FROM products;
     </delete>
 
 
     <select id="productsView" parameterType="int" resultType="ProductsViewVo">
-        SELECT
-            p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
+        SELECT p.id,
+               user_id,
+               name,
+               p.cate_code,
+               c.cate_code_ref,
+               c.cate_name,
+               price,
+               stock,
+               description,
+               thumbnail,
+               created_at
         FROM products p
                  INNER JOIN products_category c
                             ON p.cate_code = c.cate_code
@@ -65,10 +81,11 @@
 
     <select id="productsViewList" resultType="ProductsViewVo">
         SELECT
-            p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail, created_at
+        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail,cumulative_sales,
+        created_at
         FROM products p
-                 INNER JOIN products_category c
-                            ON p.cate_code = c.cate_code
+        INNER JOIN products_category c
+        ON p.cate_code = c.cate_code
         <if test="keyword != null">
             WHERE name like concat ('%', #{keyword}, '%')
         </if>
@@ -90,19 +107,44 @@
 
     <insert id="imageReg" parameterType="AttachImageVO">
         INSERT INTO products_image (product_id, file_name, upload_path, uuid)
-        VALUES (#{product_id},#{file_name},#{upload_path},#{uuid});
+        VALUES (#{product_id}, #{file_name}, #{upload_path}, #{uuid});
     </insert>
 
     <delete id="deleteImageAll" parameterType="int">
 
-        DELETE FROM products_image where product_id = #{product_id};
+        DELETE
+        FROM products_image
+        where product_id = #{product_id};
 
     </delete>
 
     <select id="getAttachInfo" parameterType="int" resultType="AttachImageVO">
 
-        select * from products_image where product_id = #{product_id};
+        SELECT  *
+        FROM products_image
+        WHERE product_id = #{product_id};
 
+    </select>
+
+    <select id="getOrderList" resultType="OrderDto">
+
+        SELECT order_id AS orderId, user_id AS userId, order_state AS orderState, order_date AS orderDate
+        FROM orders
+        <if test="keyword != null">
+            WHERE user_id LIKE concat('%',#{keyword}, '%')
+        </if>
+        ORDER BY order_date DESC
+        limit #{skip}, #{amount}
+
+    </select>
+
+    <select id="getOrderTotal" resultType="int">
+
+        SELECT count(*) FROM orders
+
+        <if test="keyword != null">
+            WHERE user_id LIKE concat('%',#{keyword}, '%')
+        </if>
     </select>
 
 

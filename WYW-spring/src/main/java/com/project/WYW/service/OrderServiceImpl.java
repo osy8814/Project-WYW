@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EmptyStackException;
 import java.util.List;
 
 @Service
@@ -75,7 +76,7 @@ public class OrderServiceImpl implements OrderService {
 
         /* orderId만들기 및 OrderDTO객체 orderId에 저장 */
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddmm");
+        SimpleDateFormat format = new SimpleDateFormat("_yyyyMMddmmss");
         String orderId = usersVo.getUserId() + format.format(date);
         orderDto.setOrderId(orderId);
 
@@ -90,7 +91,11 @@ public class OrderServiceImpl implements OrderService {
         for(OrderItemDto oit : orderDto.getOrders()) {
             /* 변동 재고 값 구하기 */
             ProductsViewVo productsViewVo = productService.readProductDetail(oit.getProductId());
+            if(productsViewVo.getStock() - oit.getProductCount()<0){
+                throw new RuntimeException(productsViewVo.getName()+"의 재고가 부족합니다.");
+            }
             productsViewVo.setStock(productsViewVo.getStock() - oit.getProductCount());
+            productsViewVo.setCumulative_sales(productsViewVo.getCumulative_sales() + oit.getProductCount());
             /* 변동 값 DB 적용 */
             orderDao.reduceStock(productsViewVo);
         }
