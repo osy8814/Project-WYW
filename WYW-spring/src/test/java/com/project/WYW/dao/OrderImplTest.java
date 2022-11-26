@@ -91,10 +91,12 @@ public class OrderImplTest {
     public void reduceStockTest() {
         ProductsViewVo productsViewVo = new ProductsViewVo();
 
-        productsViewVo.setId(61);
-        productsViewVo.setStock(5);
+        productsViewVo.setId(312);
+        productsViewVo.setStock(1);
+        productsViewVo.setCumulative_sales(3);
 
         orderDao.reduceStock(productsViewVo);
+        System.out.println("productsViewVo = " + productsViewVo);
     }
 
     @Test
