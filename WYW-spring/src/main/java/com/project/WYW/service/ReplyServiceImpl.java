@@ -8,8 +8,6 @@ import com.project.WYW.model.Pagehandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class ReplyServiceImpl implements ReplyService {
 
@@ -36,5 +34,26 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public int getReplyTotal(Integer productId) {
         return replyDao.getReplyTotal(productId);
+    }
+
+    @Override
+    public int updateReply(ReplyVo replyVo) {
+
+        int rowCnt = replyDao.updateReply(replyVo);
+
+        return rowCnt;
+    }
+
+    @Override
+    public ReplyVo getUpdateReply(int replyId){
+        return replyDao.getUpdateReply(replyId);
+    };
+
+    @Override
+    public int deleteReply(ReplyVo replyVo){
+
+        int rowCnt = replyDao.deleteReply(replyVo.getReplyId());
+
+        return rowCnt;
     }
 }

@@ -30,4 +30,20 @@ public class ReplyDaoImpl implements ReplyDao {
     public int getReplyTotal(Integer productId){
         return session.selectOne(namespace+"getReplyTotal",productId);
     }
+
+    @Override
+    public int updateReply(ReplyVo replyVo){
+        return session.update(namespace+"updateReply", replyVo);
+    }
+
+    @Override
+    public ReplyVo getUpdateReply(Integer replyId){
+        return session.selectOne(namespace+"getUpdateReply", replyId);
+    }
+
+    /* 댓글 삭제 */
+    @Override
+    public int deleteReply(int replyId){
+        return session.delete(namespace+"deleteReply",replyId);
+    };
 }

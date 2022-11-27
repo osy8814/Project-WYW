@@ -13,4 +13,11 @@ public interface ReplyDao {
 
     /* 댓글 총 갯수(페이징) */
     int getReplyTotal(Integer productId);
+
+    int updateReply(ReplyVo replyVo);
+
+    ReplyVo getUpdateReply(Integer replyID);
+
+    /* 댓글 삭제 */
+    int deleteReply(int replyId);
 }

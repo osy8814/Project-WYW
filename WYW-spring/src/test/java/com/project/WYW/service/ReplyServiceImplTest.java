@@ -1,6 +1,7 @@
 package com.project.WYW.service;
 
 import com.project.WYW.dao.ReplyDao;
+import com.project.WYW.domain.ReplyVo;
 import com.project.WYW.dto.PageDto;
 import com.project.WYW.dto.ReplyPageDto;
 import com.project.WYW.model.Pagehandler;
@@ -36,5 +37,14 @@ public class ReplyServiceImplTest {
 
     @Test
     public void getReplyTotal() {
+    }
+
+    @Test
+    public void getUpdateReply(){
+        ReplyVo replyVo = new ReplyVo();
+        replyVo.setReplyId(24);
+
+        replyVo = replyService.getUpdateReply(replyVo.getReplyId());
+        System.out.println("replyVo = " + replyVo);
     }
 }

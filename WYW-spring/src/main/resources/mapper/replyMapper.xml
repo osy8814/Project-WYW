@@ -30,4 +30,30 @@
         WHERE product_id =
               #{productId}
     </select>
+
+    <select id="getUpdateReply" resultType="ReplyVo">
+        SELECT reply_id   AS replyId,
+               product_id AS productId,
+               user_id    AS userId,
+               created_at AS createdAt,
+               content,
+               rating
+        FROM product_reply
+        WHERE reply_id =
+              #{replyId}
+    </select>
+
+    <update id="updateReply">
+
+        UPDATE product_reply SET content = #{content}, rating = #{rating}
+        WHERE reply_id = #{replyId}
+
+    </update>
+
+    <delete id="deleteReply">
+
+        DELETE FROM product_reply
+        WHERE reply_id = #{replyId}
+
+    </delete>
 </mapper>

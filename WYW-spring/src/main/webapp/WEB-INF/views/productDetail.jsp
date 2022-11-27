@@ -136,7 +136,6 @@
     let min = 1;
     let productPrice = parseInt(${productsViewVo.price});
 
-
     showResult(1);
 
     $(".value_up").on("click", function () {
@@ -225,7 +224,6 @@
         $(".order_form").submit();
     });
 </script>
-
 <script>
     // 이미지로더
     let product_id = ${productsViewVo.id};
@@ -279,8 +277,45 @@
 
         window.open(popUrl, "리뷰 쓰기", popOption);
 
+    });
+    /* 리뷰 수정 버튼 */
+    $(document).on('click', '.update_reply_btn', function(e){
+        e.preventDefault();
+        let replyId = $(this).attr("href");
+        let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + '${productsViewVo.id}' + "&userId=" + '${loggedInUser.userId}';
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes"
+
+        window.open(popUrl,"리뷰 수정",popOption);
+    });
+
+    /* 리뷰 삭제 버튼 */
+    $(document).on('click', '.delete_reply_btn', function(e){
+
+        e.preventDefault();
+        let replyId = $(this).attr("href");
+
+        if(!confirm("댓글을 삭제하시겠습니까?")){
+            return false;
+        }
+
+        $.ajax({
+            data : {
+                replyId : replyId,
+                bookId : '${goodsInfo.bookId}'
+            },
+            url : '/WYW/reply/delete',
+            type : 'POST',
+            success : function(result){
+                replyListInit();
+                alert('삭제가 완료되엇습니다.');
+            }
+        });
 
     });
+
+</script>
+<script>
+
 </script>
 <script>
     let productId = ${productsViewVo.id};
@@ -290,8 +325,7 @@
         makeReplyContent(obj);
 
     });
-</script>
-<script>
+
     /* 댓글 페이지 정보 */
     const pagehandler = {
         productId : '${productsViewVo.id}',
@@ -359,10 +393,10 @@
                 reply_list += '</li>';
             });
 
+            // 댓글개수표시
             $(".reply_content_ul").html(reply_list);
 
             /* 페이지 버튼 */
-
             let reply_pageMarker = '';
 
             /* prev */

@@ -12,4 +12,10 @@ public interface ReplyService {
     ReplyPageDto replyList(Pagehandler pagehandler);
 
     int getReplyTotal(Integer productId);
+
+    int updateReply(ReplyVo replyVo);
+
+    ReplyVo getUpdateReply(int replyId);
+
+    int deleteReply(ReplyVo replyVo);
 }
