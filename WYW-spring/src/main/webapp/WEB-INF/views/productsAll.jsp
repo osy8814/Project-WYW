@@ -50,6 +50,7 @@
                             <span class="product_price">
                             ￦ <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
                             </span>
+                            <h1 class="product_rating">${product.ratingAvg} / 5.0 </h1>
                             <div class="product_bottom-button">
                                 <i class="fas fa-shopping-cart"></i><i class="fas fa-heart"></i>
                             </div>

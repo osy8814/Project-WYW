@@ -49,6 +49,12 @@
                             <fmt:formatNumber value="${productsViewVo.price}" pattern="###,###,###"/> 원
                         </div>
                     </div>
+                    <div class="product_info_rating product_info_dox_inner">
+                        <div class="product_info_dox_inner_left">평점</div>
+                        <div class="product_info_dox_inner_right">${productsViewVo.ratingAvg} / 5.0 (<span
+                                id="reply_count"></span>)
+                        </div>
+                    </div>
                     <div class="product_info_dox_shipment product_info_dox_inner">
                         <div class="product_info_dox_inner_left">국내▫해외배송</div>
                         <div class="product_info_dox_inner_right">국내배송</div>
@@ -77,6 +83,7 @@
                     <span class="product_info_total-price"></span>
                     <span class="product_info_total-quantity"></span>
                 </div>
+
                 <div class="product_info_btn-set">
                     <button id="buy-now" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
@@ -115,7 +122,7 @@
             </c:if>
         </div>
         <div class="product_main-QnA">
-            <h1 class="product_main-QnA_title">Q&A</h1>
+            <h1 class="product_main-QnA_title">문의</h1>
             <div class="product_main-QnA_content">
             </div>
             <div class="product_main-QnA-set">
@@ -279,33 +286,33 @@
 
     });
     /* 리뷰 수정 버튼 */
-    $(document).on('click', '.update_reply_btn', function(e){
+    $(document).on('click', '.update_reply_btn', function (e) {
         e.preventDefault();
         let replyId = $(this).attr("href");
         let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + '${productsViewVo.id}' + "&userId=" + '${loggedInUser.userId}';
         let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes"
 
-        window.open(popUrl,"리뷰 수정",popOption);
+        window.open(popUrl, "리뷰 수정", popOption);
     });
 
     /* 리뷰 삭제 버튼 */
-    $(document).on('click', '.delete_reply_btn', function(e){
+    $(document).on('click', '.delete_reply_btn', function (e) {
 
         e.preventDefault();
         let replyId = $(this).attr("href");
 
-        if(!confirm("댓글을 삭제하시겠습니까?")){
+        if (!confirm("댓글을 삭제하시겠습니까?")) {
             return false;
         }
 
         $.ajax({
-            data : {
-                replyId : replyId,
-                bookId : '${goodsInfo.bookId}'
+            data: {
+                replyId: replyId,
+                bookId: '${goodsInfo.bookId}'
             },
-            url : '/WYW/reply/delete',
-            type : 'POST',
-            success : function(result){
+            url: '/WYW/reply/delete',
+            type: 'POST',
+            success: function (result) {
                 replyListInit();
                 alert('삭제가 완료되엇습니다.');
             }
@@ -328,9 +335,9 @@
 
     /* 댓글 페이지 정보 */
     const pagehandler = {
-        productId : '${productsViewVo.id}',
-        pageNum : 1,
-        amount : 10
+        productId: '${productsViewVo.id}',
+        pageNum: 1,
+        amount: 10
     }
 
     /* 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드 */
@@ -343,7 +350,7 @@
     }
 
     /* 댓글 페이지 이동 버튼 동작 */
-    $(document).on('click', '.pageMarker_btn a', function(e){
+    $(document).on('click', '.pageMarker_btn a', function (e) {
         e.preventDefault();
 
         let page = $(this).attr("href");
@@ -368,6 +375,7 @@
             const userId = '${loggedInUser.userId}';
 
             $(".product_main-review_title").html('리뷰(' + total + ')');
+            $("#reply_count").html(total);
 
             /* list */
             let reply_list = '';

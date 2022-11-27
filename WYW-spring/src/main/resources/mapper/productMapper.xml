@@ -27,7 +27,7 @@
                stock,
                cumulative_sales,
                description,
-               thumbnail,
+               ratingAvg,
                created_at
         FROM products p
                  INNER JOIN products_category c
@@ -38,7 +38,7 @@
     <select id="productsViewList" resultType="ProductsViewVo">
 
         SELECT
-        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail,
+        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, ratingAvg,
         cumulative_sales, created_at
         FROM products p
         INNER JOIN products_category c
@@ -100,5 +100,21 @@
             </otherwise>
         </choose>
     </sql>
+
+    <select id="getRatingAverage" resultType="double">
+
+        SELECT avg(rating)
+        FROM product_reply
+        WHERE product_id = #{productId}
+
+    </select>
+
+    <update id="updateRating">
+
+        UPDATE products
+        SET ratingAvg = #{ratingAvg}
+        WHERE id = #{productId}
+
+    </update>
 
 </mapper>

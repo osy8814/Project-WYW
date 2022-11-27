@@ -11,4 +11,6 @@ public interface ProductService {
     int productsGetTotal(Pagehandler pagehandler)throws Exception;
 
     ProductsViewVo readProductDetail(Integer product_id);
+
+    void setRating(Integer productId);
 }

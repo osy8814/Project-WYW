@@ -14,10 +14,17 @@ public class ReplyServiceImpl implements ReplyService {
     @Autowired
     ReplyDao replyDao;
 
+    @Autowired
+    ProductService productService;
+
     @Override
     public int regReply(ReplyVo replyVo) {
 
         int rowCnt = replyDao.regReply(replyVo);
+
+        if(rowCnt==1){
+            productService.setRating(replyVo.getProductId());
+        }
 
         return rowCnt;
     }
@@ -41,6 +48,10 @@ public class ReplyServiceImpl implements ReplyService {
 
         int rowCnt = replyDao.updateReply(replyVo);
 
+        if(rowCnt==1){
+            productService.setRating(replyVo.getProductId());
+        }
+
         return rowCnt;
     }
 
@@ -53,6 +64,10 @@ public class ReplyServiceImpl implements ReplyService {
     public int deleteReply(ReplyVo replyVo){
 
         int rowCnt = replyDao.deleteReply(replyVo.getReplyId());
+
+        if(rowCnt==1){
+            productService.setRating(replyVo.getProductId());
+        }
 
         return rowCnt;
     }

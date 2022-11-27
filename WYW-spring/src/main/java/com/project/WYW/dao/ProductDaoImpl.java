@@ -1,6 +1,7 @@
 package com.project.WYW.dao;
 
 import com.project.WYW.domain.ProductsViewVo;
+import com.project.WYW.dto.UpdateRatingDto;
 import com.project.WYW.model.Pagehandler;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,13 @@ public class ProductDaoImpl implements ProductDao {
         return session.selectOne(namespace+"productsView",product_id);
     }
 
+    @Override
+    public Double getRatingAverage(Integer productId){
+        return session.selectOne(namespace+"getRatingAverage",productId);
+    }
+
+    @Override
+    public int updateRating(UpdateRatingDto updateRatingDto){
+        return session.update(namespace+"updateRating",updateRatingDto);
+    }
 }
