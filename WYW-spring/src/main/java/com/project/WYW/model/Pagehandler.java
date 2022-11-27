@@ -8,8 +8,9 @@ public class Pagehandler {
     private String type;
     private String keyword;
     private String order;
-
     private String category;
+
+    private int productId;
     public Pagehandler(int pageNum, int amount) {
         this.pageNum = pageNum;
         this.amount = amount;
@@ -81,6 +82,14 @@ public class Pagehandler {
         this.category = category;
     }
 
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
+
     @Override
     public String toString() {
         return "Pagehandler{" +
@@ -91,6 +100,7 @@ public class Pagehandler {
                 ", keyword='" + keyword + '\'' +
                 ", order='" + order + '\'' +
                 ", category='" + category + '\'' +
+                ", productId='" + productId + '\'' +
                 '}';
     }
 }
