@@ -66,7 +66,7 @@ caption {
     margin: 30px 0;
 }
 
-.content_btn_section{
+.order_btn{
     border: none;
     color: #fefeff;
     background-color: #36424a;
@@ -115,7 +115,12 @@ caption {
 
 .td_width_3 {
     vertical-align: middle;
+    font-weight: bold;
+    font-size: 16px;
     width: 25%;
+}
+.td_width_3 > a{
+    color: black;
 }
 
 .td_width_4 {
@@ -179,16 +184,6 @@ caption {
     vertical-align: middle;
 }
 
-.plus_btn {
-    top: 0;
-    right: 0
-}
-
-.minus_btn {
-    bottom: 0;
-    right: 0
-}
-
 .quantity_modify_btn {
     border: 1px solid #d0d0d0;
     height: 13px;
@@ -237,15 +232,15 @@ caption {
 
 
 .total_wrap_left{
-    width: 200px;
+    width: 300px;
 }
 .total_wrap_right{
     width: 400px;
 }
 
 .finalTotalPrice_span {
-    color: #854A72;
-    font-size: 17px;
+    color: brown;
+    font-size: 25px;
     font-weight: bold;
 }
 

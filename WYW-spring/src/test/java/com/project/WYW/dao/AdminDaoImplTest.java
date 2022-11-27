@@ -109,4 +109,10 @@ public class AdminDaoImplTest {
         System.out.println("result = " + result);
         
     }
+
+    @Test
+    public void getOrderListTest()throws Exception{
+        Pagehandler pagehandler = new Pagehandler();
+        System.out.println("pagehandler = " + adminDao.getOrderList(pagehandler));
+    }
 }

@@ -4,10 +4,13 @@ import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.dto.OrderCancelDto;
+import com.project.WYW.dto.OrderDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.PageVo;
 import com.project.WYW.model.Pagehandler;
 import com.project.WYW.service.AdminService;
+import com.project.WYW.service.OrderService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +45,8 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
+    @Autowired
+    OrderService orderService;
     @GetMapping("/main")
     public String toMain() {
         return "admin/admin";
@@ -301,4 +306,34 @@ public class AdminController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
+    @GetMapping("/orderlist")
+    public String getOrderList(Pagehandler pagehandler,Model model){
+
+        List<OrderDto> list = adminService.getOrderList(pagehandler);
+        model.addAttribute("list", list);
+
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+
+        int total = adminService.getOrderTotal(pagehandler);
+
+        PageVo pageMarker = new PageVo(pagehandler, total);
+
+        model.addAttribute("pageMarker", pageMarker);
+
+
+        return "admin/orderList";
+    }
+
+    @PostMapping("/orderCancel")
+    public String orderCancelPost(OrderCancelDto orderCancelDto)throws Exception {
+
+        System.out.println("orderCancelDto = " + orderCancelDto);
+        orderService.orderCancel(orderCancelDto);
+
+        return "redirect:/admin/orderlist?keyword=" + orderCancelDto.getKeyword() + "&amount=" + orderCancelDto.getAmount() + "&pageNum=" + orderCancelDto.getPageNum();
+    }
 }

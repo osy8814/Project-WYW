@@ -3,6 +3,7 @@ package com.project.WYW.dao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.dto.OrderDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 
@@ -32,4 +33,8 @@ public interface AdminDao {
     int deleteImageAll(Integer product_id)throws Exception;
 
     List<AttachImageVO> getAttachInfo(Integer product_id);
+
+    List<OrderDto> getOrderList(Pagehandler pagehandler);
+
+    int getOrderTotal(Pagehandler pagehandler);
 }

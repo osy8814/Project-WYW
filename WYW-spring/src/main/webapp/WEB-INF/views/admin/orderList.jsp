@@ -48,7 +48,8 @@
                                     class="fas fa-scroll"></i>카테고리 관리</a>
                         </lI>
                         <lI>
-                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i class="fas fa-truck"></i>배송 관리</a>
+                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i
+                                    class="fas fa-truck"></i>배송 관리</a>
                         </lI>
                         <lI>
                             <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
@@ -57,44 +58,34 @@
 
                 </div>
                 <div class="admin_content_wrap">
-                    <div class="admin_content_wrap_title">상품 목록</div>
+                    <div class="admin_content_wrap_title">주문 목록</div>
                     <c:if test="${listCheck != 'empty' }">
                         <table>
                             <tr>
-                                <th>상품번호</th>
-                                <th>등록인</th>
-                                <th>이름</th>
-                                <th>카테고리</th>
-                                <th>가격</th>
-                                <th>수량</th>
-                                <th>누적판매량</th>
-                                <th>등록날짜</th>
+                                <th>주문번호</th>
+                                <th>주문자</th>
+                                <th>주문 날짜</th>
+                                <th>주문상태</th>
                                 <th>관리</th>
                             </tr>
 
-                            <c:forEach items="${list}" var="product">
-                                <tr>
-                                    <td>${product.id}</td>
-                                    <td class="align_center">${product.user_id}</td>
-                                    <td>${product.name}</td>
-                                    <td class="align_center">${product.cate_name}</td>
-                                    <td class="align_end">
-                                        <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>원
-                                    </td>
+                            <c:forEach items="${list}" var="order">
 
+                                <tr>
+                                    <td class="align_center">${order.orderId}</td>
+                                    <td class="align_center">${order.userId}</td>
                                     <td class="align_end">
-                                        <fmt:formatNumber value="${product.stock}" pattern="###,###,###"/>EA
+                                        <fmt:formatDate value="${order.orderDate}" pattern="YYYY/MM/dd HH:mm"/>
                                     </td>
-                                    <td class="align_end">
-                                        <fmt:formatNumber value="${product.cumulative_sales}" pattern="###,###,###"/>EA
-                                    </td>
-                                    <td class="align_end">
-                                        <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
-                                    </td>
+                                    <td class="align_center">${order.orderState}</td>
                                     <td class="align_center">
+                                        <c:if test="${order.orderState == '배송준비' }">
                                         <button type="button" onclick="location.href='<c:url
-                                                value="/admin/productsManage?id=${product.id}"/>'">관리
+                                                value="/order/ordermanage?order_id=${order.orderId}"/>'">배송완료
                                         </button>
+
+                                            <button class="delete_btn" data-userid="${order.userId}" data-orderid="${order.orderId}">취소</button>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -103,11 +94,11 @@
                     </c:if>
                     <c:if test="${listCheck == 'empty'}">
                         <div class="table_empty">
-                            등록된 상품이 없습니다.
+                            등록된 주문내역이 없습니다.
                         </div>
                     </c:if>
                     <div class="search_wrap">
-                        <form id="searchForm" action="/WYW/admin/productslist" method="get">
+                        <form id="searchForm" action="/WYW/admin/orderlist" method="get">
                             <div class="search_input">
                                 <input type="text" name="keyword"
                                        value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
@@ -145,7 +136,15 @@
                         </ul>
                     </div>
 
-                    <form id="moveForm" action="/WYW/admin/productslist" method="get">
+                    <form id="moveForm" action="/WYW/admin/orderlist" method="get">
+                        <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
+                        <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
+                        <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+                    </form>
+<%--                    주문취소--%>
+                    <form id="deleteForm" action="/WYW/admin/orderCancel" method="post">
+                        <input type="hidden" name="orderId">
+                        <input type="hidden" name="userId">
                         <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
@@ -167,6 +166,20 @@
     if (msg == "del_err") {
         alert("상품이 삭제에 실패 하였습니다.")
     }
+</script>
+<script>
+    $(".delete_btn").on("click", function(e){
+
+        e.preventDefault();
+
+        let orderid = $(this).data("orderid");
+        let userid = $(this).data("userid");
+
+        $("#deleteForm").find("input[name='orderId']").val(orderid);
+        $("#deleteForm").find("input[name='userId']").val(userid);
+
+        $("#deleteForm").submit();
+    });
 </script>
 </body>
 </html>

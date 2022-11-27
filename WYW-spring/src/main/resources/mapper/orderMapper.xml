@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.WYW.mapper.orderMapper">
+
+    <select id="getProductInfo" resultType="OrderPageItemDto">
+        SELECT id AS productId, name, price
+        FROM products
+        WHERE id = #{id};
+
+    </select>
+
+    <select id="getOrderInfo" resultType="OrderItemDto">
+
+        SELECT id AS productId, price
+        FROM products
+        WHERE id = #{id}
+
+    </select>
+
+    <insert id="regOrder">
+
+        INSERT INTO orders(order_id, receiver, user_id, address1, address2, address3, mobile, order_state, delivery_fee,
+                           use_point)
+        VALUES (#{orderId}, #{receiver}, #{userId}, #{address1}, #{address2}, #{address3}, #{mobile}, '배송준비',
+                #{deliveryCost}, #{usePoint})
+
+    </insert>
+
+    <insert id="regOrderItem">
+
+        INSERT INTO order_items(order_id, product_id, product_count, price, save_point)
+        VALUES (#{orderId}, #{productId}, #{productCount}, #{price}, #{savePoint})
+
+    </insert>
+
+    <update id="reduceStock">
+
+        UPDATE products
+        SET stock            = #{stock},
+            cumulative_sales = #{cumulative_sales}
+        WHERE id = #{id}
+
+    </update>
+
+    <delete id="deleteOrderCart">
+
+        DELETE
+        FROM carts
+        WHERE user_id = #{user_id}
+          AND product_id = #{product_id}
+
+    </delete>
+
+    <!--주문취소-->
+    <update id="orderCancel">
+        UPDATE orders
+        SET order_state = '주문취소'
+        WHERE order_id = #{orderId}
+    </update>
+
+    <!-- 주문 상품 정보(주문취소) -->
+    <select id="getOrderItemInfo" resultType="OrderItemDto">
+
+        SELECT order_id AS orderId,
+               product_id AS productId,
+               product_count AS productCount,
+               price
+        FROM order_items
+        WHERE order_id = #{orderId}
+
+    </select>
+
+    <!-- 주문 정보(주문 취소) -->
+    <select id="getOrder" resultType="OrderDto">
+
+        SELECT order_id     AS orderId,
+               receiver,
+               user_id      AS userId,
+               address1,
+               address2,
+               address3,
+               mobile,
+               order_state  AS orderState,
+               delivery_fee AS deliveryCost,
+               use_point    AS usePoint,
+               order_date   AS orderDate
+        FROM orders
+        WHERE order_id = #{orderId}
+
+    </select>
+
+</mapper>

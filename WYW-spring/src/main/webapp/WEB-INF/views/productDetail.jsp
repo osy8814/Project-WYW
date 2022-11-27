@@ -68,6 +68,7 @@
                         <button type="button" class="value_down">-</button>
                         <input type="text" id="product_quantity" value="1">
                         <button type="button" class="value_up">+</button>
+                        <span>(재고 : ${productsViewVo.stock})</span>
                     </span>
                 </div>
                 <div class="product_info_total-price-set">
@@ -76,11 +77,12 @@
                     <span class="product_info_total-quantity"></span>
                 </div>
                 <div class="product_info_btn-set">
-                    <button id="buynow" type="button">바로구매</button>
+                    <button id="buy-now" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
                         <button type="button" id="btn_cart">장바구니담기</button>
                         <button type="button">찜하기</button>
                     </div>
+
                 </div>
             </div>
         </form>
@@ -92,6 +94,12 @@
         </div>
     </div>
 </div>
+<!--바로구매-->
+<form action="/WYW/order/list" method="get" class="order_form">
+    <input type="hidden" name="orders[0].productId" value="${productsViewVo.id}">
+    <input type="hidden" name="orders[0].productCount" value="">
+</form>
+
 <jsp:include page="index_bottom.jsp" flush="false"/>
 <script>
     let max = parseInt(${productsViewVo.stock});
@@ -103,7 +111,7 @@
 
     $(".value_up").on("click", function () {
         let quantity = parseInt($('#product_quantity').val());
-        if (quantity != max) {
+        if (quantity < max) {
             $('#product_quantity').val(quantity + 1);
         }
         quantity = parseInt($('#product_quantity').val());
@@ -113,7 +121,7 @@
 
     $(".value_down").on("click", function () {
         let quantity = parseInt($('#product_quantity').val());
-        if (quantity != min) {
+        if (quantity > min) {
             $('#product_quantity').val(quantity - 1);
         }
         quantity = parseInt($('#product_quantity').val());
@@ -140,6 +148,11 @@
 
     // 장바구니 클릭
     $("#btn_cart").on("click", function(e){
+        if("${productsViewVo.stock}"==="0"){
+            alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
+            return false;
+        }
+
         form.product_count = $("#product_quantity").val();
         $.ajax({
             url: '/WYW/cart/add',
@@ -168,6 +181,22 @@
     }
 </script>
 <script>
+    /* 바로구매 버튼 */
+    $("#buy-now").on("click", function(){
+        if("${productsViewVo.stock}"==="0"){
+            alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
+            return false;
+        }
+
+        let ProductCount = $("#product_quantity").val();
+
+        $(".order_form").find("input[name='orders[0].productCount']").val(ProductCount);
+        $(".order_form").submit();
+    });
+</script>
+
+<script>
+    // 이미지로더
     let product_id = ${productsViewVo.id};
     let uploadReslut = $(".product_img_thumb-set");
 

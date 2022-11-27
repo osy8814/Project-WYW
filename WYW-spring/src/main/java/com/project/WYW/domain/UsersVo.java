@@ -137,6 +137,8 @@ public class UsersVo {
         this.point = point;
     }
 
+
+
     public String getMobile() {
         if(mobile1==""||mobile2==""||mobile3=="") {
             mobile="";
@@ -196,8 +198,6 @@ public class UsersVo {
                 ", email='" + email + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", address='" + address + '\'' +
-                ", createdAt=" + createdAt +
-                ", isAdmin=" + isAdmin +
                 ", point=" + point +
                 '}';
     }

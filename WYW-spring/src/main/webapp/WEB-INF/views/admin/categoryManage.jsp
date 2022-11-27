@@ -42,7 +42,10 @@
                   <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i class="fas fa-scroll"></i>카테고리 관리</a>
                 </lI>
                 <lI>
-                  <a class="admin_list_05"><i class="fas fa-users-cog"></i>회원 관리</a>
+                  <a class="admin_list_05"><i class="fas fa-truck"></i>배송 관리</a>
+                </lI>
+                <lI>
+                  <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
                 </lI>
               </ul>
 

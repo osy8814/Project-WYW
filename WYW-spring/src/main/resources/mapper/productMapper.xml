@@ -25,6 +25,7 @@
                c.cate_name,
                price,
                stock,
+               cumulative_sales,
                description,
                thumbnail,
                created_at
