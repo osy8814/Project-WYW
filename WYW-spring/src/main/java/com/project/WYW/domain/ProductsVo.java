@@ -13,7 +13,7 @@ public class ProductsVo {
     private String name;
     private String description;
     private String cate_code;
-    private String thumbnail;
+    private double ratingAvg;
     private int price;
     private int stock;
     private int cumulative_sales;
@@ -61,12 +61,12 @@ public class ProductsVo {
         this.cate_code = cate_code;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public double getRatingAvg() {
+        return ratingAvg;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setRatingAvg(double ratingAvg) {
+        this.ratingAvg = ratingAvg;
     }
 
     public int getPrice() {
@@ -120,25 +120,25 @@ public class ProductsVo {
         this.stock = stock;
     }
 
-    public ProductsVo(String userId, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
+    public ProductsVo(String userId, String name, String description, String cate_code, double ratingAvg, int price, int stock, int cumulative_sales) {
         this.userId = userId;
         this.name = name;
         this.description = description;
         this.cate_code = cate_code;
-        this.thumbnail = thumbnail;
+        this.ratingAvg = ratingAvg;
         this.price = price;
         this.stock = stock;
         this.cumulative_sales = cumulative_sales;
     }
 
 
-    public ProductsVo(Integer id, String userId, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales, Date created_at) {
+    public ProductsVo(Integer id, String userId, String name, String description, String cate_code, double ratingAvg, int price, int stock, int cumulative_sales, Date created_at) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.description = description;
         this.cate_code = cate_code;
-        this.thumbnail = thumbnail;
+        this.ratingAvg = ratingAvg;
         this.price = price;
         this.stock = stock;
         this.cumulative_sales = cumulative_sales;
@@ -150,12 +150,12 @@ public class ProductsVo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductsVo that = (ProductsVo) o;
-        return price == that.price && Objects.equals(userId, that.userId) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(thumbnail, that.thumbnail);
+        return price == that.price && Objects.equals(userId, that.userId) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(ratingAvg, that.ratingAvg);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, name, description, cate_code, thumbnail, price);
+        return Objects.hash(userId, name, description, cate_code, ratingAvg, price);
     }
 
     @Override
@@ -166,7 +166,7 @@ public class ProductsVo {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cate_code='" + cate_code + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
+                ", ratingAvg='" + ratingAvg + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
                 ", cumulative_sales=" + cumulative_sales +

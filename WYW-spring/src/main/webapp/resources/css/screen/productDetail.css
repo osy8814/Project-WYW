@@ -60,16 +60,18 @@
 
 .product_img_thumb-set {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 10px;
     height: 20%;
 }
-.product_img_thumb > img{
+
+.product_img_thumb > img {
     width: 100%;
     height: 100%;
     cursor: pointer;
     object-fit: contain;
 }
+
 .product_info {
     width: 600px;
     height: 600px;
@@ -83,9 +85,11 @@
     line-height: 2;
     height: 50px;
 }
-.product_info_cate-name{
+
+.product_info_cate-name {
     margin-bottom: 30px;
 }
+
 .product_info_dox {
     padding: 20px 0;
     border-top: 1px solid rgba(50, 52, 62, 0.2);
@@ -110,7 +114,8 @@
 .product_info_quantity {
     margin: 20px 0;
 }
-.product_info_quantity button{
+
+.product_info_quantity button {
     width: 25px;
     height: 25px;
 }
@@ -178,21 +183,73 @@
 }
 
 /*세부정보*/
-.product_main-detail {
+.product_main-detail,
+.product_main-review,
+.product_main-QnA {
     width: 100%;
-    height: 400px;
+    min-height: 200px;
 }
 
-.product_main-detail-title {
+.product_main-detail_title,
+.product_main-review_title,
+.product_main-QnA_title {
     width: 100%;
     box-sizing: border-box;
     padding: 20px;
     font-size: 20px;
     font-weight: bold;
+    margin-top: 20px;
     border: 1px solid rgba(50, 52, 62, 0.2);
 }
 
-.product_main-detail_content {
+.product_main-detail_content,
+.product_main-review_content,
+.product_main-QnA_content {
     padding: 10px;
-    min-height: 500px;
+    min-height: 100px;
+}
+
+.comment_wrap {
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+.reply_top {
+    margin-bottom: 10px;
+}
+
+.reply_top > span {
+    margin-right: 15px;
+}
+
+.id_span {
+    font-weight: bold;
+}
+
+.reply_pageInfo_div {
+    width: 100%;
+}
+
+.reply_top > button {
+    height: 25px;
+    cursor: pointer;
+    background-color: #32343e;
+    border: none;
+    color: white;
+    margin-left: 5px;
+}
+
+.reply_bottom {
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+.pageMarker_btn {
+    text-align: center;
+}
+
+.pageMarker_btn > a {
+    font-weight: bold;
+    color: black;
 }

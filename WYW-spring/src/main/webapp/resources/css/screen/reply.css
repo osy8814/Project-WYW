@@ -1,0 +1,66 @@
+.reply_main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 외부박스 */
+.reply-main-outter {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+/* 페이지타이틀  */
+.reply_main_title {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+.reply_product_name,
+.reply_product_userId,
+.reply_rating,
+.reply_content,
+.reply_btn-set{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.reply_product_name {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.reply_rating {
+    display: flex;
+}
+.reply_rating>h4{
+    margin-right: 20px;
+}
+.reply_rating>h2{
+    margin-left: 20px;
+}
+
+.reply_content > textarea {
+    width: 99%;
+    height: 200px;
+    resize: none;
+}
+
+.reply_btn-set > button{
+    height: 30px;
+    cursor: pointer;
+    background-color: #32343e;
+    border: none;
+    color: white;
+    margin-left: 10px;
+}

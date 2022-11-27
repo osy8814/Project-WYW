@@ -13,7 +13,7 @@ public class ProductsViewVo {
     private String name;
     private String description;
     private String cate_code;
-    private String thumbnail;
+    private double ratingAvg;
     private int price;
     private int stock;
     private int cumulative_sales;
@@ -80,12 +80,12 @@ public class ProductsViewVo {
         this.cate_code = cate_code;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public double getRatingAvg() {
+        return ratingAvg;
     }
 
-    public void setThumbnail(String thumbnail) {
-        this.thumbnail = thumbnail;
+    public void setRatingAvg(double ratingAvg) {
+        this.ratingAvg = ratingAvg;
     }
 
     public int getPrice() {
@@ -131,12 +131,12 @@ public class ProductsViewVo {
     public ProductsViewVo() {
     }
 
-    public ProductsViewVo(String user_id, String name, String description, String cate_code, String thumbnail, int price, int stock, int cumulative_sales) {
+    public ProductsViewVo(String user_id, String name, String description, String cate_code, double ratingAvg, int price, int stock, int cumulative_sales) {
         this.user_id = user_id;
         this.name = name;
         this.description = description;
         this.cate_code = cate_code;
-        this.thumbnail = thumbnail;
+        this.ratingAvg = ratingAvg;
         this.price = price;
         this.stock = stock;
         this.cumulative_sales = cumulative_sales;
@@ -147,12 +147,12 @@ public class ProductsViewVo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductsViewVo that = (ProductsViewVo) o;
-        return price == that.price && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(thumbnail, that.thumbnail);
+        return price == that.price && Objects.equals(user_id, that.user_id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(cate_code, that.cate_code) && Objects.equals(ratingAvg, that.ratingAvg);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user_id, name, description, cate_code, thumbnail, price);
+        return Objects.hash(user_id, name, description, cate_code, ratingAvg, price);
     }
 
     @Override
@@ -163,7 +163,7 @@ public class ProductsViewVo {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cate_code='" + cate_code + '\'' +
-                ", thumbnail='" + thumbnail + '\'' +
+                ", ratingAvg='" + ratingAvg + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
                 ", cumulative_sales=" + cumulative_sales +

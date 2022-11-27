@@ -17,7 +17,7 @@
     </select>
 
     <insert id="regProduct" parameterType="ProductsVo">
-        INSERT INTO products (user_id, name, description, cate_code, thumbnail, price, stock)
+        INSERT INTO products (user_id, name, description, cate_code, ratingAvg, price, stock)
         VALUES (#{userId},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
 
         <selectKey resultType="int" keyProperty="id" order="AFTER">
@@ -71,7 +71,7 @@
                price,
                stock,
                description,
-               thumbnail,
+               ratingAvg,
                created_at
         FROM products p
                  INNER JOIN products_category c
@@ -81,7 +81,7 @@
 
     <select id="productsViewList" resultType="ProductsViewVo">
         SELECT
-        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, thumbnail,cumulative_sales,
+        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, ratingAvg,cumulative_sales,
         created_at
         FROM products p
         INNER JOIN products_category c

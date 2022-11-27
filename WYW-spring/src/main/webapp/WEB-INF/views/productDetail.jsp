@@ -26,7 +26,8 @@
         <form method="post" class="product_main_form">
             <div class="product_img">
                 <div class="product_img_main">
-                    <img id="main-image" src="/WYW/display?fileName=${productsViewVo.imageVOList[0].upload_path}/${productsViewVo.imageVOList[0].uuid}_${productsViewVo.imageVOList[0].file_name}">
+                    <img id="main-image"
+                         src="/WYW/display?fileName=${productsViewVo.imageVOList[0].upload_path}/${productsViewVo.imageVOList[0].uuid}_${productsViewVo.imageVOList[0].file_name}">
                 </div>
                 <div class="product_img_thumb-set">
                     <%--<div id='product_img_thumb'></div>--%>
@@ -46,6 +47,12 @@
                         <div class="product_info_dox_inner_left">판매가</div>
                         <div class="product_info_dox_inner_right">
                             <fmt:formatNumber value="${productsViewVo.price}" pattern="###,###,###"/> 원
+                        </div>
+                    </div>
+                    <div class="product_info_rating product_info_dox_inner">
+                        <div class="product_info_dox_inner_left">평점</div>
+                        <div class="product_info_dox_inner_right">${productsViewVo.ratingAvg} / 5.0 (<span
+                                id="reply_count"></span>)
                         </div>
                     </div>
                     <div class="product_info_dox_shipment product_info_dox_inner">
@@ -76,6 +83,7 @@
                     <span class="product_info_total-price"></span>
                     <span class="product_info_total-quantity"></span>
                 </div>
+
                 <div class="product_info_btn-set">
                     <button id="buy-now" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
@@ -87,9 +95,38 @@
             </div>
         </form>
         <div class="product_main-detail">
-            <h1 class="product_main-detail-title">상세정보</h1>
+            <h1 class="product_main-detail_title">상세정보</h1>
             <div class="product_main-detail_content">
                 ${productsViewVo.description}
+            </div>
+        </div>
+        <div class="product_main-review">
+            <h1 class="product_main-review_title">리뷰</h1>
+            <div class="product_main-review_content">
+                <div class="reply_not_div">
+
+                </div>
+                <ul class="reply_content_ul">
+
+                </ul>
+                <div class="reply_pageInfo_div">
+                    <ul class="pageMarker">
+
+                    </ul>
+                </div>
+            </div>
+            <c:if test="${loggedInUser!=null}">
+                <div class="product_main-review_btn-set">
+                    <button class="reply_button">글쓰기</button>
+                </div>
+            </c:if>
+        </div>
+        <div class="product_main-QnA">
+            <h1 class="product_main-QnA_title">문의</h1>
+            <div class="product_main-QnA_content">
+            </div>
+            <div class="product_main-QnA-set">
+                <button>글쓰기</button>
             </div>
         </div>
     </div>
@@ -105,7 +142,6 @@
     let max = parseInt(${productsViewVo.stock});
     let min = 1;
     let productPrice = parseInt(${productsViewVo.price});
-
 
     showResult(1);
 
@@ -141,14 +177,14 @@
 </script>
 <script>
     const form = {
-        user_id : '${loggedInUser.userId}',
-        product_id : '${productsViewVo.id}',
-        product_count : ''
+        user_id: '${loggedInUser.userId}',
+        product_id: '${productsViewVo.id}',
+        product_count: ''
     }
 
     // 장바구니 클릭
-    $("#btn_cart").on("click", function(e){
-        if("${productsViewVo.stock}"==="0"){
+    $("#btn_cart").on("click", function (e) {
+        if ("${productsViewVo.stock}" === "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }
@@ -158,32 +194,33 @@
             url: '/WYW/cart/add',
             type: 'POST',
             data: form,
-            success: function(result){
+            dataType: 'json',
+            success: function (result) {
                 cartAlert(result);
             },
-            error : function (result){
+            error: function (result) {
                 alert(result);
             }
 
         })
     });
 
-    function cartAlert(result){
-        if(result == '0'){
+    function cartAlert(result) {
+        if (result == '0') {
             alert("장바구니에 추가를 하지 못하였습니다.");
-        } else if(result == '1'){
+        } else if (result == '1') {
             alert("장바구니에 추가되었습니다.");
-        } else if(result == '2'){
+        } else if (result == '2') {
             alert("장바구니에 이미 추가되어 있습니다.");
-        } else if(result == '5'){
+        } else if (result == '5') {
             alert("로그인이 필요합니다.");
         }
     }
 </script>
 <script>
     /* 바로구매 버튼 */
-    $("#buy-now").on("click", function(){
-        if("${productsViewVo.stock}"==="0"){
+    $("#buy-now").on("click", function () {
+        if ("${productsViewVo.stock}" === "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }
@@ -194,11 +231,10 @@
         $(".order_form").submit();
     });
 </script>
-
 <script>
     // 이미지로더
     let product_id = ${productsViewVo.id};
-    let uploadReslut = $(".product_img_thumb-set");
+    let uploadResult = $(".product_img_thumb-set");
 
     // 이미지 생성
     $.getJSON("/WYW/getAttachList", {product_id: product_id}, function (arr) {
@@ -208,7 +244,7 @@
             str += "<img id='no_img' src='/WYW/img/noimage.PNG'>";
             str += "</div>";
 
-            uploadReslut.html(str);
+            uploadResult.html(str);
 
             return;
         }
@@ -222,18 +258,184 @@
             str += "<img class='thumbnail-image' src='/WYW/display?fileName=" + fileCallPath + "'>";
             str += "</div>";
 
-            uploadReslut.append(str);
+            uploadResult.append(str);
         }
 
         //썸네일 이미지 클릭시 메인 이미지 변경
         const mainImage = $('#main-image');
         const thumnail = $('.thumbnail-image');
         let thumnailSrc;
-        thumnail.click(function (event){
+        thumnail.click(function (event) {
             thumnailSrc = event.target.getAttribute("src");
-            mainImage.attr("src",thumnailSrc);
+            mainImage.attr("src", thumnailSrc);
         });
     });
+</script>
+<script>
+    /* 리뷰쓰기 */
+    $(".reply_button").on("click", function (e) {
+
+        e.preventDefault();
+        let userId = "${loggedInUser.userId}";
+        let productId = "${productsViewVo.id}";
+
+        let popUrl = "/WYW/reply/replyReg/" + userId + "?productId=" + productId;
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes";
+
+        window.open(popUrl, "리뷰 쓰기", popOption);
+
+    });
+    /* 리뷰 수정 버튼 */
+    $(document).on('click', '.update_reply_btn', function (e) {
+        e.preventDefault();
+        let replyId = $(this).attr("href");
+        let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + '${productsViewVo.id}' + "&userId=" + '${loggedInUser.userId}';
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes"
+
+        window.open(popUrl, "리뷰 수정", popOption);
+    });
+
+    /* 리뷰 삭제 버튼 */
+    $(document).on('click', '.delete_reply_btn', function (e) {
+
+        e.preventDefault();
+        let replyId = $(this).attr("href");
+
+        if (!confirm("댓글을 삭제하시겠습니까?")) {
+            return false;
+        }
+
+        $.ajax({
+            data: {
+                replyId: replyId,
+                bookId: '${goodsInfo.bookId}'
+            },
+            url: '/WYW/reply/delete',
+            type: 'POST',
+            success: function (result) {
+                replyListInit();
+                alert('삭제가 완료되엇습니다.');
+            }
+        });
+
+    });
+
+</script>
+<script>
+
+</script>
+<script>
+    let productId = ${productsViewVo.id};
+
+    $.getJSON("/WYW/reply/list", {productId: productId}, function (obj) {
+
+        makeReplyContent(obj);
+
+    });
+
+    /* 댓글 페이지 정보 */
+    const pagehandler = {
+        productId: '${productsViewVo.id}',
+        pageNum: 1,
+        amount: 10
+    }
+
+    /* 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드 */
+    let replyListInit = function () {
+        $.getJSON("/WYW/reply/list", pagehandler, function (obj) {
+
+            makeReplyContent(obj);
+
+        });
+    }
+
+    /* 댓글 페이지 이동 버튼 동작 */
+    $(document).on('click', '.pageMarker_btn a', function (e) {
+        e.preventDefault();
+
+        let page = $(this).attr("href");
+        pagehandler.pageNum = page;
+
+        replyListInit();
+
+    });
+
+    /* 댓글(리뷰) 동적 생성 메서드 */
+    function makeReplyContent(obj) {
+        if (obj.list.length === 0) {
+            $(".reply_not_div").html('<span>리뷰가 없습니다.</span>');
+            $(".reply_content_ul").html('');
+            $(".pageMarker").html('');
+        } else {
+
+            $(".reply_not_div").html('');
+            const total = obj.pageInfo.total;
+            const list = obj.list;
+            const pf = obj.pageInfo;
+            const userId = '${loggedInUser.userId}';
+
+            $(".product_main-review_title").html('리뷰(' + total + ')');
+            $("#reply_count").html(total);
+
+            /* list */
+            let reply_list = '';
+
+            $(list).each(function (i, obj) {
+                reply_list += '<li>';
+                reply_list += '<div class="comment_wrap">';
+                reply_list += '<div class="reply_top">';
+                /* 아이디 */
+                reply_list += '<span class="id_span">' + obj.userId + '</span>';
+                /* 날짜 */
+                reply_list += '<span class="date_span">' + obj.createdAt + '</span>';
+                /* 평점 */
+                reply_list += '<span class="rating_span">평점 : <span class="rating_value_span">' + obj.rating + '</span>점</span>';
+                if (obj.userId === userId) {
+                    reply_list += '<button class="update_reply_btn" href="' + obj.replyId + '">수정</button><button class="delete_reply_btn" href="' + obj.replyId + '">삭제</button>';
+                }
+                reply_list += '</div>'; //<div class="reply_top">
+                reply_list += '<div class="reply_bottom">';
+                reply_list += '<div class="reply_bottom_txt">' + obj.content + '</div>';
+                reply_list += '</div>';//<div class="reply_bottom">
+                reply_list += '</div>';//<div class="comment_wrap">
+                reply_list += '</li>';
+            });
+
+            // 댓글개수표시
+            $(".reply_content_ul").html(reply_list);
+
+            /* 페이지 버튼 */
+            let reply_pageMarker = '';
+
+            /* prev */
+            if (pf.prev) {
+                let prev_num = pf.pageStart - 1;
+                reply_pageMarker += '<li class="pageMarker_btn prev">';
+                reply_pageMarker += '<a href="' + prev_num + '">이전</a>';
+                reply_pageMarker += '</li>';
+            }
+            /* numbre btn */
+            for (let i = pf.pageStart; i < pf.pageEnd + 1; i++) {
+                reply_pageMarker += '<li class="pageMarker_btn ';
+                if (pf.pagehandler.pageNum === i) {
+                    reply_pageMarker += 'active';
+                }
+                reply_pageMarker += '">';
+                reply_pageMarker += '<a href="' + i + '">' + i + '</a>';
+                reply_pageMarker += '</li>';
+            }
+            /* next */
+            if (pf.next) {
+                let next_num = pf.pageEnd + 1;
+                reply_pageMarker += '<li class="pageMarker_btn next">';
+                reply_pageMarker += '<a href="' + next_num + '">다음</a>';
+                reply_pageMarker += '</li>';
+            }
+
+            $(".pageMarker").html(reply_pageMarker);
+
+        }
+    }
 </script>
 <script>
 
