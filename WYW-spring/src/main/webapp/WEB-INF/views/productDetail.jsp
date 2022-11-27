@@ -111,7 +111,7 @@
 
     $(".value_up").on("click", function () {
         let quantity = parseInt($('#product_quantity').val());
-        if (quantity != max) {
+        if (quantity < max) {
             $('#product_quantity').val(quantity + 1);
         }
         quantity = parseInt($('#product_quantity').val());
@@ -121,7 +121,7 @@
 
     $(".value_down").on("click", function () {
         let quantity = parseInt($('#product_quantity').val());
-        if (quantity != min) {
+        if (quantity > min) {
             $('#product_quantity').val(quantity - 1);
         }
         quantity = parseInt($('#product_quantity').val());
