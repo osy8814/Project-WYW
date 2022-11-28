@@ -7,18 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class AdminINTCP implements HandlerInterceptor {
+public class MyPageINTCP implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
         HttpSession session = request.getSession();
+        UsersVo usersVo = (UsersVo)session.getAttribute("loggedInUser");
 
-        UsersVo adminVo = (UsersVo)session.getAttribute("loggedInUser");
+        if(usersVo==null){
 
-        if(adminVo==null || adminVo.getIsAdmin()==false){
-
-            response.sendRedirect("/WYW");
+            response.sendRedirect("/WYW/users/login");
 
             return false;
         }

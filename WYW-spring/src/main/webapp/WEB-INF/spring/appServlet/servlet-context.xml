@@ -38,6 +38,10 @@
 			<mapping path="/cart/**"/>
 			<beans:bean id="CartINTCP" class="com.project.WYW.Interceptor.CartINTCP"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/mypage/**"/>
+			<beans:bean id="MyPageINTCP" class="com.project.WYW.Interceptor.MyPageINTCP"></beans:bean>
+		</interceptor>
 	</interceptors>
 	<view-controller path="/" view-name="index"/>
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>

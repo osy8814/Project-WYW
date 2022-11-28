@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.WYW.mapper.mypageMapper">
+
+    <sql id="selectFromUser">
+        SELECT id,
+               user_id    AS userId,
+               password,
+               name,
+               mobile,
+               mobile1, mobile2, mobile3,
+               email,
+               address,
+               APIPostcode, APIAddress, APIDetailAddress, APIExtraAddress,
+               created_at AS createdAt,
+               is_admin   AS isAdmin
+        FROM users
+    </sql>
+
+    <select id="select" parameterType="String" resultType="UsersVo">
+        <include refid="selectFromUser"/>
+        WHERE user_id = #{userId}
+    </select>
+
+    <select id="emailChk" parameterType="String" resultType="UsersVo">
+        <include refid="selectFromUser"/>
+        WHERE email = #{email}
+    </select>
+
+    <select id="mobileChk" parameterType="String" resultType="UsersVo">
+        <include refid="selectFromUser"/>
+        WHERE mobile = #{mobile}
+    </select>
+
+    <delete id="delete" parameterType="map">
+        DELETE
+        FROM users
+        WHERE user_id = #{userId}
+          and email = #{email}
+          and name = #{name}
+    </delete>
+
+    <update id="update" parameterType="UsersVo">
+        UPDATE users
+        SET password=#{password},
+            mobile1=#{mobile1},
+            mobile2=#{mobile2},
+            mobile3=#{mobile3},
+            email=#{email},
+            APIPostcode=#{APIPostcode},
+            APIAddress=#{APIAddress},
+            APIDetailAddress=#{APIDetailAddress},
+            APIExtraAddress=#{APIExtraAddress}
+        WHERE user_id = #{userId}
+    </update>
+
+</mapper>

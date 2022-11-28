@@ -21,7 +21,7 @@
         <div class="mypage_main_box">
             <ul class="mypage_list">
                 <li>
-                    <a href="#">
+                    <a href="/WYW/mypage/info">
                         <div>
                             <i class="fas fa-id-card"></i>
                             <h1>Profile</h1>
@@ -75,5 +75,12 @@
     </div>
 </div>
 <jsp:include page="index_bottom.jsp" flush="false"/>
+<script>
+    let msg="${msg}"
+    if(msg=="edit_ok"){
+        alert("회원정보 수정에 성공하였습니다.");
+    }
+</script>
+
 </body>
 </html>
