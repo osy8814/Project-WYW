@@ -131,20 +131,20 @@
             product_id: $(this).data("productid"),
             product_count: 1,
         }
-        alert("장바구니");
+
         let stock = $(this).data("stock");
         if (stock === "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }
-        alert("??");
+
         $.ajax({
             url: '/WYW/cart/add',
             type: 'POST',
             data: form,
             dataType: 'json',
             success: function (result) {
-                alert(result);
+
                 cartAlert(result);
             },
         })
