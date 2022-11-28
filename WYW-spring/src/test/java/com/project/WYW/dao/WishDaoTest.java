@@ -61,4 +61,10 @@ public class WishDaoTest extends TestCase {
         System.out.println("wishVo1 = " + wishVo1);
     }
 
+    @Test
+    public void testDeleteWish(){
+
+        int wishId = 1;
+        wishDao.deleteWish(wishId);
+    }
 }

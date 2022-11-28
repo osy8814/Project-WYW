@@ -29,4 +29,9 @@ public class WishDaoImpl implements WishDao {
     public WishVo checkWish(WishVo wishVo){
         return session.selectOne(namespace+"checkWish",wishVo);
     }
+    @Override
+    public int deleteWish(Integer wishId){
+        return session.delete(namespace+"deleteWish",wishId);
+    }
+
 }

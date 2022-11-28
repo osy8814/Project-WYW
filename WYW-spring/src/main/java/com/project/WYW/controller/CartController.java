@@ -27,6 +27,7 @@ public class CartController {
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
         if (usersVo == null) {
+            System.out.println("유저없음");
             return "5";
         }
 
@@ -43,6 +44,11 @@ public class CartController {
         String user_id = loggedInUser.getUserId();
 
         List<CartVo> list = cartService.getCartList(user_id);
+        if(list.isEmpty()){
+            model.addAttribute("cartInfo", "empty");
+            return "cart";
+        }
+
         model.addAttribute("cartInfo", list);
 
         return "cart";
@@ -50,7 +56,6 @@ public class CartController {
 
     @PostMapping("/modify")
     public String postUpdateCart(CartVo cartVo) {
-        System.out.println("cartVo = " + cartVo);
         cartService.modifyCount(cartVo);
 
         return "redirect:/cart/cartlist";
@@ -58,7 +63,6 @@ public class CartController {
 
     @PostMapping("/delete")
     public String postDeleteCart(CartVo cartVo) {
-        System.out.println("cartVo = " + cartVo);
         cartService.deleteCart(cartVo.getId());
 
         return "redirect:/cart/cartlist";

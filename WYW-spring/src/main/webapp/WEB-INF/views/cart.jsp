@@ -22,10 +22,7 @@
     <div class="cart_main-outter">
         <h1 class="cart_main_title">장바구니</h1>
         <div class="content_totalCount_section">
-
             <table class="subject_table">
-
-
                 <tr>
                     <th class="td_width_1"></th>
                     <th class="td_width_2">이미지</th>
@@ -35,61 +32,65 @@
                     <th class="td_width_4">합계</th>
                     <th class="td_width_4">삭제</th>
                 </tr>
-
             </table>
             <table class="cart_table">
-                <caption>표 내용 부분</caption>
+                <c:if test="${cartInfo == 'empty'}">
+                    <div class="table_empty">
+                        등록된 장바구니 상품이 없습니다.
+                    </div>
+                </c:if>
+                <c:if test="${cartInfo != 'empty' }">
+                    <c:forEach items="${cartInfo}" var="ci">
+                        <tr>
+                            <td class="td_width_1 cart_info_td">
+                                <input type="hidden" class="individual_productPrice_input" value="${ci.price}">
+                                <input type="hidden" class="individual_productCount_input" value="${ci.product_count}">
+                                <input type="hidden" class="individual_totalPrice_input"
+                                       value="${ci.price * ci.product_count}">
+                                <input type="hidden" class="individual_productId_input" value="${ci.product_id}">
+                                    <%--                            <input type="hidden" class="individual_point_input" value="${ci.point}">--%>
+                                    <%--                            <input type="hidden" class="individual_totalPoint_input" value="${ci.totalPoint}">--%>
+                            </td>
+                            <td class="td_width_2">
+                                <c:choose>
+                                    <c:when test="${ci.imageVOList.size()==0}">
+                                        <img src="<c:url value='/img/noimage.PNG'/>">
+                                    </c:when>
 
-                <c:forEach items="${cartInfo}" var="ci">
-                    <tr>
-                        <td class="td_width_1 cart_info_td">
-                            <input type="hidden" class="individual_productPrice_input" value="${ci.price}">
-                            <input type="hidden" class="individual_productCount_input" value="${ci.product_count}">
-                            <input type="hidden" class="individual_totalPrice_input"
-                                   value="${ci.price * ci.product_count}">
-                            <input type="hidden" class="individual_productId_input" value="${ci.product_id}">
-                                <%--                            <input type="hidden" class="individual_point_input" value="${ci.point}">--%>
-                                <%--                            <input type="hidden" class="individual_totalPoint_input" value="${ci.totalPoint}">--%>
-                        </td>
-                        <td class="td_width_2">
-                            <c:choose>
-                                <c:when test="${ci.imageVOList.size()==0}">
-                                    <img src="<c:url value='/img/noimage.PNG'/>">
-                                </c:when>
+                                    <c:when test="${ci.imageVOList!=null}">
+                                        <img src="/WYW/display?fileName=${ci.imageVOList[0].upload_path}/${ci.imageVOList[0].uuid}_${ci.imageVOList[0].file_name}">
+                                    </c:when>
+                                </c:choose>
+                            </td>
+                            <td class="td_width_3">
+                                <a href="<c:url value='/productDetail'/>?product_id=${ci.product_id}">
+                                        ${ci.name}
+                                </a>
+                            </td>
+                            <td class="td_width_4 price_td">
+                                <del>정가 : <fmt:formatNumber value="${ci.price}" pattern="#,### 원"/></del>
+                                <br>
+                                    <%--                            마일리지 : <span class="green_color"><fmt:formatNumber value="${ci.point}"--%>
+                                    <%--                                                                               pattern="#,###"/></span>--%>
+                            </td>
+                            <td class="td_width_4 table_text_align_center">
+                                <div class="table_text_align_center quantity_div">
+                                    <input type="number" min="1" max="${ci.stock}" value="${ci.product_count}"
+                                           class="quantity_input">
+                                </div>
+                                <a class="quantity_modify_btn" data-id="${ci.id}">변경</a>
+                                <h1>(재고:${ci.stock})</h1>
 
-                                <c:when test="${ci.imageVOList!=null}">
-                                    <img src="/WYW/display?fileName=${ci.imageVOList[0].upload_path}/${ci.imageVOList[0].uuid}_${ci.imageVOList[0].file_name}">
-                                </c:when>
-                            </c:choose>
-                        </td>
-                        <td class="td_width_3">
-                            <a href="<c:url value='/productDetail'/>?product_id=${ci.product_id}">
-                                    ${ci.name}
-                            </a>
-                        </td>
-                        <td class="td_width_4 price_td">
-                            <del>정가 : <fmt:formatNumber value="${ci.price}" pattern="#,### 원"/></del>
-                            <br>
-                                <%--                            마일리지 : <span class="green_color"><fmt:formatNumber value="${ci.point}"--%>
-                                <%--                                                                               pattern="#,###"/></span>--%>
-                        </td>
-                        <td class="td_width_4 table_text_align_center">
-                            <div class="table_text_align_center quantity_div">
-                                <input type="number" min="1" max="${ci.stock}" value="${ci.product_count}" class="quantity_input">
-                            </div>
-                            <a class="quantity_modify_btn" data-id="${ci.id}">변경</a>
-                            <h1>(재고:${ci.stock})</h1>
-
-                        </td>
-                        <td class="td_width_4 table_text_align_center">
-                            <fmt:formatNumber value="${ci.price * ci.product_count}" pattern="#,### 원"/>
-                        </td>
-                        <td class="td_width_4 table_text_align_center delete_btn">
-                            <button class="delete_product_btn" type="button" data-id="${ci.id}">삭제</button>
-                        </td>
-                    </tr>
-                </c:forEach>
-
+                            </td>
+                            <td class="td_width_4 table_text_align_center">
+                                <fmt:formatNumber value="${ci.price * ci.product_count}" pattern="#,### 원"/>
+                            </td>
+                            <td class="td_width_4 table_text_align_center delete_btn">
+                                <button class="delete_product_btn" type="button" data-id="${ci.id}">삭제</button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
             </table>
             <table class="list_table">
             </table>
@@ -159,12 +160,12 @@
 <script>
     $(document).ready(function () {
 
-        let totalPrice = 0;				// 총 가격
-        let totalCount = 0;				// 총 갯수
-        let totalKind = 0;				// 총 종류
-        let totalPoint = 0;				// 총 마일리지
-        let deliveryPrice = 0;			// 배송비
-        let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
+        let totalPrice = 0; // 총 가격
+        let totalCount = 0; // 총 갯수
+        let totalKind = 0; // 총 종류
+        let totalPoint = 0; // 총 마일리지
+        let deliveryPrice = 0; // 배송비
+        let finalTotalPrice = 0; // 최종 가격(총 가격 + 배송비)
 
         $(".cart_info_td").each(function (index, element) {
 
@@ -258,7 +259,7 @@
 </script>
 <script>
     let msg = "${msg}";
-    if(msg==="noStock"){
+    if (msg === "noStock") {
         alert("재고가 모자란 상품이 있습니다. 재고를 확인해주세요.")
     }
 </script>

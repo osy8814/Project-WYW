@@ -48,4 +48,9 @@ public class WishServiceImpl implements WishService {
         }
         return wish;
     }
+
+    @Override
+    public int deleteWish(Integer wishId){
+        return wishDao.deleteWish(wishId);
+    }
 }

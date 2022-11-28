@@ -1,6 +1,5 @@
 package com.project.WYW.service;
 
-import com.project.WYW.model.CartVo;
 import com.project.WYW.model.WishVo;
 import junit.framework.TestCase;
 import org.junit.Test;
@@ -34,6 +33,13 @@ public class WishServiceImplTest extends TestCase {
         rowCnt = wishService.addWish(wishVo);
 
         System.out.println("** result : " + rowCnt);
+
+    }
+
+    @Test
+    public void testDeleteWish(){
+        int wishId = 5;
+        wishService.deleteWish(wishId);
 
     }
 }

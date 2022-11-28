@@ -22,10 +22,7 @@
     <div class="wish_main-outter">
         <h1 class="wish_main_title">위시 리스트</h1>
         <div class="content_totalCount_section">
-
             <table class="subject_table">
-
-
                 <tr>
                     <th class="td_width_1"></th>
                     <th class="td_width_2">이미지</th>
@@ -34,47 +31,49 @@
                     <th class="td_width_4">재고</th>
                     <th class="td_width_4">삭제</th>
                 </tr>
-
             </table>
             <table class="wish_table">
+                <c:if test="${wishInfo == 'empty'}">
+                    <div class="table_empty">
+                        등록된 관심 상품이 없습니다.
+                    </div>
+                </c:if>
+                <c:if test="${wishInfo != 'empty'}">
+                    <c:forEach items="${wishInfo}" var="wishItem">
+                        <tr>
+                            <td class="td_width_1 wish_info_td">
+                                <input type="hidden" class="individual_productPrice_input" value="${wishItem.price}">
+                                <input type="hidden" class="individual_productId_input" value="${wishItem.product_id}">
+                            </td>
+                            <td class="td_width_2">
+                                <c:choose>
+                                    <c:when test="${wishItem.imageVOList.size()==0}">
+                                        <img src="<c:url value='/img/noimage.PNG'/>">
+                                    </c:when>
 
-                <c:forEach items="${wishInfo}" var="ci">
-                    <tr>
-                        <td class="td_width_1 wish_info_td">
-                            <input type="hidden" class="individual_productPrice_input" value="${ci.price}">
-                            <input type="hidden" class="individual_productId_input" value="${ci.product_id}">
-                        </td>
-                        <td class="td_width_2">
-                            <c:choose>
-                                <c:when test="${ci.imageVOList.size()==0}">
-                                    <img src="<c:url value='/img/noimage.PNG'/>">
-                                </c:when>
-
-                                <c:when test="${ci.imageVOList!=null}">
-                                    <img src="/WYW/display?fileName=${ci.imageVOList[0].upload_path}/${ci.imageVOList[0].uuid}_${ci.imageVOList[0].file_name}">
-                                </c:when>
-                            </c:choose>
-                        </td>
-                        <td class="td_width_3">
-                            <a href="<c:url value='/productDetail'/>?product_id=${ci.product_id}">
-                                    ${ci.name}
-                            </a>
-                        </td>
-                        <td class="td_width_4 price_td">
-                            <del>정가 : <fmt:formatNumber value="${ci.price}" pattern="#,### 원"/></del>
-                            <br>
-                                <%--                            마일리지 : <span class="green_color"><fmt:formatNumber value="${ci.point}"--%>
-                                <%--                                                                               pattern="#,###"/></span>--%>
-                        </td>
-                        <td class="td_width_4 table_text_align_center">
-                            <h1>${ci.stock} EA</h1>
-                        </td>
-                        <td class="td_width_4 table_text_align_center delete_btn">
-                            <button class="delete_product_btn" type="button" data-id="${ci.id}">삭제</button>
-                        </td>
-                    </tr>
-                </c:forEach>
-
+                                    <c:when test="${wishItem.imageVOList!=null}">
+                                        <img src="/WYW/display?fileName=${wishItem.imageVOList[0].upload_path}/${wishItem.imageVOList[0].uuid}_${wishItem.imageVOList[0].file_name}">
+                                    </c:when>
+                                </c:choose>
+                            </td>
+                            <td class="td_width_3">
+                                <a href="<c:url value='/productDetail'/>?product_id=${wishItem.product_id}">
+                                        ${wishItem.name}
+                                </a>
+                            </td>
+                            <td class="td_width_4 price_td">
+                                <del>정가 : <fmt:formatNumber value="${wishItem.price}" pattern="#,### 원"/></del>
+                                <br>
+                            </td>
+                            <td class="td_width_4 table_text_align_center">
+                                <h1>${wishItem.stock} EA</h1>
+                            </td>
+                            <td class="td_width_4 table_text_align_center delete_btn">
+                                <button class="delete_product_btn" type="button" data-id="${wishItem.id}">삭제</button>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
             </table>
             <table class="list_table">
             </table>
@@ -95,7 +94,7 @@
     $(".delete_product_btn").on("click", function () {
         let wishId = $(this).data("id");
         $(".delete_wishId").val(wishId);
-        if (confirm("장바구니에서 삭제하시겠습니까?")) {
+        if (confirm("위시리스트에서 삭제하시겠습니까?")) {
             $(".quantity_delete_form").submit();
         }
     });

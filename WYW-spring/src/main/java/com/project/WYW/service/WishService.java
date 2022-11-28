@@ -11,4 +11,6 @@ public interface WishService {
     int addWish(WishVo wishVo);
 
     List<WishVo> getWishList(String userId);
+
+    int deleteWish(Integer wishId);
 }

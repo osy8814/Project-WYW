@@ -26,7 +26,7 @@ public class WishController {
 
     @PostMapping("/add")
     @ResponseBody
-    public String postAddCart(WishVo wishVo,HttpServletRequest request) {
+    public String postAddWish(WishVo wishVo,HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
@@ -40,32 +40,29 @@ public class WishController {
     }
 
     @GetMapping("/wishlist")
-    public String GetWishPage(Model model, HttpServletRequest request) {
+    public String getWishPage(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");
         String user_id = loggedInUser.getUserId();
 
         List<WishVo> list = wishService.getWishList(user_id);
+        if(list.isEmpty()){
+            model.addAttribute("wishInfo", "empty");
+
+            return "wish";
+        }
         model.addAttribute("wishInfo", list);
 
         return "wish";
     }
-//
-//    @PostMapping("/modify")
-//    public String postUpdateCart(CartVo cartVo) {
-//        System.out.println("cartVo = " + cartVo);
-//        cartService.modifyCount(cartVo);
-//
-//        return "redirect:/cart/cartlist";
-//    }
-//
-//    @PostMapping("/delete")
-//    public String postDeleteCart(CartVo cartVo) {
-//        System.out.println("cartVo = " + cartVo);
-//        cartService.deleteCart(cartVo.getId());
-//
-//        return "redirect:/cart/cartlist";
-//    }
+
+    @PostMapping("/delete")
+    public String postDeleteWish(WishVo wishVo) {
+        System.out.println("wishVo = " + wishVo);
+        wishService.deleteWish(wishVo.getId());
+
+        return "redirect:/wish/wishlist";
+    }
 
 }

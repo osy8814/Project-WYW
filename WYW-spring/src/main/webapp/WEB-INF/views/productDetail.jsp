@@ -184,6 +184,10 @@
 
     // 장바구니 클릭
     $("#btn_cart").on("click", function (e) {
+        if ("${loggedInUser}" === "") {
+            alert("로그인 후에 이용해 주십시오.");
+        }
+
         if ("${productsViewVo.stock}" === "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
@@ -198,10 +202,6 @@
             success: function (result) {
                 cartAlert(result);
             },
-            error: function (result) {
-                alert(result);
-            }
-
         })
     });
 
@@ -221,11 +221,13 @@
     const wishform = {
         user_id: '${loggedInUser.userId}',
         product_id: '${productsViewVo.id}',
-     }
+    }
 
     // 찜하기 클릭
     $("#btn_wish").on("click", function (e) {
-
+        if ("${loggedInUser}" === "") {
+            alert("로그인 후에 이용해 주십시오.");
+        }
         $.ajax({
             url: '/WYW/wish/add',
             type: 'POST',
@@ -234,10 +236,6 @@
             success: function (result) {
                 wishAlert(result);
             },
-            error: function (result) {
-                alert(result);
-            }
-
         })
     });
 

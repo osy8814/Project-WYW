@@ -10,4 +10,6 @@ public interface WishDao {
     List<WishVo> getWish(String userId);
 
     WishVo checkWish(WishVo wishVo);
+
+    int deleteWish(Integer wishId);
 }
