@@ -48,7 +48,8 @@
                                     class="fas fa-scroll"></i>카테고리 관리</a>
                         </lI>
                         <lI>
-                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i class="fas fa-truck"></i>배송 관리</a>
+                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i
+                                    class="fas fa-truck"></i>배송 관리</a>
                         </lI>
                         <lI>
                             <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
@@ -58,13 +59,19 @@
                 </div>
                 <div class="admin_content_wrap">
                     <div class="admin_content_wrap_title">상품 목록</div>
+                    <div class="admin_content_sort_btn">
+                        <button type="button" class="sort_basic">기본정렬(등록순)</button>
+                        <button type="button" class="sort_sale">누적판매량순으로 정렬</button>
+                        <button type="button" class="sort_price">가격순으로 정렬</button>
+                        <button type="button" class="sort_stock">재고순으로 정렬</button>
+                    </div>
                     <c:if test="${listCheck != 'empty' }">
                         <table>
                             <tr>
-                                <th>상품번호</th>
-                                <th>등록인</th>
-                                <th>이미지</th>
-                                <th>이름</th>
+                                <th class="th1">상품번호</th>
+                                <th class="th2">등록인</th>
+                                <th class="th3">이미지</th>
+                                <th class="th4">이름</th>
                                 <th>카테고리</th>
                                 <th>가격</th>
                                 <th>수량</th>
@@ -75,7 +82,7 @@
 
                             <c:forEach items="${list}" var="product">
                                 <tr>
-                                    <td>${product.id}</td>
+                                    <td class="align_center">${product.id}</td>
                                     <td class="align_center">${product.user_id}</td>
                                     <td class="admin_product_img">
                                         <c:choose>
@@ -104,7 +111,7 @@
                                         <fmt:formatDate value="${product.created_at}" pattern="YYYY/MM/dd"/>
                                     </td>
                                     <td class="align_center">
-                                        <button type="button" onclick="location.href='<c:url
+                                        <button type="button" class="manage_btn" onclick="location.href='<c:url
                                                 value="/admin/productsManage?id=${product.id}"/>'">관리
                                         </button>
                                     </td>
@@ -161,6 +168,7 @@
                         <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+                        <input type="hidden" name="order" value="${cookie.order.value}">
                     </form>
                 </div>
 
@@ -179,6 +187,28 @@
     if (msg == "del_err") {
         alert("상품이 삭제에 실패 하였습니다.")
     }
+</script>
+<script>
+    $(".sort_basic").on("click", function () {
+        document.cookie = "order="
+        $("input[name='order']").val("");
+        $("#moveForm").submit();
+    });
+    $(".sort_sale").on("click", function () {
+        document.cookie = "order=CS";
+        $("input[name='order']").val("CS");
+        $("#moveForm").submit();
+    });
+    $(".sort_price").on("click", function () {
+        document.cookie = "order=P";
+        $("input[name='order']").val("P");
+        $("#moveForm").submit();
+    });
+    $(".sort_stock").on("click", function () {
+        document.cookie = "order=ST";
+        $("input[name='order']").val("ST");
+        $("#moveForm").submit();
+    });
 </script>
 </body>
 </html>

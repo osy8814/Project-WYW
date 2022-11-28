@@ -109,24 +109,25 @@
                 <ul class="reply_content_ul">
 
                 </ul>
+                <c:if test="${loggedInUser!=null}">
+                    <div class="product_main-review_btn-set">
+                        <button class="reply_button write_button">글쓰기</button>
+                    </div>
+                </c:if>
                 <div class="reply_pageInfo_div">
                     <ul class="pageMarker">
 
                     </ul>
                 </div>
             </div>
-            <c:if test="${loggedInUser!=null}">
-                <div class="product_main-review_btn-set">
-                    <button class="reply_button">글쓰기</button>
-                </div>
-            </c:if>
+
         </div>
         <div class="product_main-QnA">
             <h1 class="product_main-QnA_title">문의</h1>
             <div class="product_main-QnA_content">
             </div>
             <div class="product_main-QnA-set">
-                <button>글쓰기</button>
+                <button class="QnA_button write_button">글쓰기</button>
             </div>
         </div>
     </div>

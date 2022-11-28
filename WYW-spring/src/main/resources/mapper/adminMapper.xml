@@ -17,8 +17,8 @@
     </select>
 
     <insert id="regProduct" parameterType="ProductsVo">
-        INSERT INTO products (user_id, name, description, cate_code, ratingAvg, price, stock)
-        VALUES (#{userId},#{name},#{description},#{cate_code},#{thumbnail},#{price},#{stock});
+        INSERT INTO products (user_id, name, description, cate_code, price, stock)
+        VALUES (#{userId},#{name},#{description},#{cate_code},#{price},#{stock});
 
         <selectKey resultType="int" keyProperty="id" order="AFTER">
 
@@ -81,7 +81,8 @@
 
     <select id="productsViewList" resultType="ProductsViewVo">
         SELECT
-        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description, ratingAvg,cumulative_sales,
+        p.id , user_id ,name, p.cate_code, c.cate_code_ref, c.cate_name, price, stock, description,
+        ratingAvg,cumulative_sales,
         created_at
         FROM products p
         INNER JOIN products_category c
@@ -89,7 +90,20 @@
         <if test="keyword != null">
             WHERE name like concat ('%', #{keyword}, '%')
         </if>
-        ORDER BY created_at DESC, id DESC
+        <choose>
+            <when test='order == "CS"'>
+                ORDER BY cumulative_sales DESC, id DESC
+            </when>
+            <when test='order=="P"'>
+                ORDER BY price DESC, id DESC
+            </when>
+            <when test='order=="ST"'>
+                ORDER BY stock DESC, id DESC
+            </when>
+            <otherwise>
+                ORDER BY created_at DESC, id DESC
+            </otherwise>
+        </choose>
         limit #{skip}, #{amount};
     </select>
 
@@ -118,13 +132,15 @@
 
     </delete>
 
+
     <select id="getAttachInfo" parameterType="int" resultType="AttachImageVO">
 
-        SELECT  *
+        SELECT *
         FROM products_image
         WHERE product_id = #{product_id};
 
     </select>
+
 
     <select id="getOrderList" resultType="OrderDto">
 

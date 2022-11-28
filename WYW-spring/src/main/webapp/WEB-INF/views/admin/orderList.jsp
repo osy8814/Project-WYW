@@ -80,11 +80,11 @@
                                     <td class="align_center">${order.orderState}</td>
                                     <td class="align_center">
                                         <c:if test="${order.orderState == '배송준비' }">
-                                        <button type="button" onclick="location.href='<c:url
+                                        <button type="button" class="manage_btn" onclick="location.href='<c:url
                                                 value="/order/ordermanage?order_id=${order.orderId}"/>'">배송완료
                                         </button>
 
-                                            <button class="delete_btn" data-userid="${order.userId}" data-orderid="${order.orderId}">취소</button>
+                                            <button class="delete_btn manage_btn" data-userid="${order.userId}" data-orderid="${order.orderId}">취소</button>
                                         </c:if>
                                     </td>
                                 </tr>

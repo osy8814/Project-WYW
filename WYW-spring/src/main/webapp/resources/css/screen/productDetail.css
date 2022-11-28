@@ -241,8 +241,14 @@
 }
 
 .reply_bottom {
+
     padding: 5px;
     margin-bottom: 20px;
+}
+.write_button{
+    height: 30px;
+    background-color: #32343e;
+    color: white;
 }
 
 .pageMarker_btn {
