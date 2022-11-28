@@ -63,6 +63,7 @@
                             <tr>
                                 <th>상품번호</th>
                                 <th>등록인</th>
+                                <th>이미지</th>
                                 <th>이름</th>
                                 <th>카테고리</th>
                                 <th>가격</th>
@@ -76,6 +77,17 @@
                                 <tr>
                                     <td>${product.id}</td>
                                     <td class="align_center">${product.user_id}</td>
+                                    <td class="admin_product_img">
+                                        <c:choose>
+                                            <c:when test="${product.imageVOList.size()==0}">
+                                                <img src="<c:url value='/img/noimage.PNG'/>">
+                                            </c:when>
+
+                                            <c:when test="${product.imageVOList!=null}">
+                                                <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                            </c:when>
+                                        </c:choose>
+                                    </td>
                                     <td>${product.name}</td>
                                     <td class="align_center">${product.cate_name}</td>
                                     <td class="align_end">

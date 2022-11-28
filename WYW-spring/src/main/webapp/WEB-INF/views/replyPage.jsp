@@ -70,7 +70,7 @@
         }
 
         let userId = "${loggedInUser.userId}";
-        let productId = ${productInfo.id};
+        let productId = "${productInfo.id}";
         let rating = $("select").val();
         let content = $("textarea").val();
 

@@ -35,7 +35,7 @@
         <div class="main__best__product">
             <c:forEach items="${bestList}" var="bestproduct">
                 <a href="<c:url value='/productDetail'/>?product_id=${bestproduct.id}">
-                    <div class="main__best__product__componet">
+                    <div class="main__best__product__component">
                         <c:choose>
                             <c:when test="${bestproduct.imageVOList.size()==0}">
                                 <img src="<c:url value='/img/noimage.PNG'/>">
@@ -45,15 +45,18 @@
                                 <img src="/WYW/display?fileName=${bestproduct.imageVOList[0].upload_path}/${bestproduct.imageVOList[0].uuid}_${bestproduct.imageVOList[0].file_name}">
                             </c:when>
                         </c:choose>
-                        <div class="main__best__product__componet-description">
-                            <h1 class="main__best__product__componet-description-title">
+                        <div class="main__best__product__component-description">
+                            <h1 class="main__best__product__component-description-title">
                                     ${bestproduct.name}
                             </h1>
-                            <p class="main__best__product__componet-description-descrip">
-                                    ${bestproduct.description}
+                            <p class="main__best__product__component-description-category">
+                                분류 : ${bestproduct.cate_name}
                             </p>
-                            <span class="main__best__product__componet-description-price">
-                <fmt:formatNumber value="${bestproduct.price}" pattern="###,###,###"/> 원
+                            <p class="main__best__product__component-description-ratingAvg">
+                                평점 : ${bestproduct.ratingAvg}/5.0
+                            </p>
+                            <span class="main__best__product__component-description-price">
+              ￦  <fmt:formatNumber value="${bestproduct.price}" pattern="###,###,###"/>
               </span>
                         </div>
                     </div>
@@ -69,7 +72,7 @@
         <div class="main__new__product">
             <c:forEach items="${newList}" var="newproduct">
                 <a href="<c:url value='/productDetail'/>?product_id=${newproduct.id}">
-                    <div class="main__new__product__componet">
+                    <div class="main__new__product__component">
                         <c:choose>
                             <c:when test="${newproduct.imageVOList.size()==0}">
                                 <img src="<c:url value='/img/noimage.PNG'/>">
@@ -79,15 +82,18 @@
                                 <img src="/WYW/display?fileName=${newproduct.imageVOList[0].upload_path}/${newproduct.imageVOList[0].uuid}_${newproduct.imageVOList[0].file_name}">
                             </c:when>
                         </c:choose>
-                        <div class="main__new__product__componet-description">
-                            <h1 class="main__new__product__componet-description-title">
+                        <div class="main__new__product__component-description">
+                            <h1 class="main__new__product__component-description-title">
                                     ${newproduct.name}
                             </h1>
-                            <p class="main__new__product__componet-description-descrip">
-                                    ${newproduct.description}
+                            <p class="main__new__product__component-description-category">
+                                분류 : ${newproduct.cate_name}
                             </p>
-                            <span class="main__new__product__componet-description-price">
-                        <fmt:formatNumber value="${newproduct.price}" pattern="###,###,###"/> 원
+                            <p class="main__new__product__component-description-ratingAvg">
+                                평점 : ${newproduct.ratingAvg}/5.0
+                            </p>
+                            <span class="main__new__product__component-description-price">
+                     ￦ <fmt:formatNumber value="${newproduct.price}" pattern="###,###,###"/> 원
                         </span>
                         </div>
                     </div>

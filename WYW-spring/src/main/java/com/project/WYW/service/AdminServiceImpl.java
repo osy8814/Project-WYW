@@ -18,50 +18,61 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao adminDao;
+    @Autowired
+    private AttachService attachService;
 
     @Override
-    public List<CategoryVo> category()throws Exception{
+    public List<CategoryVo> category() throws Exception {
         return adminDao.category();
     }
 
     @Override
-    public int regProduct(ProductsVo productsVo)throws Exception{
+    public int regProduct(ProductsVo productsVo) throws Exception {
         return adminDao.regProduct(productsVo);
     }
 
     @Override
-    public List<ProductsVo> productList() throws Exception{
+    public List<ProductsVo> productList() throws Exception {
         return adminDao.productsList();
     }
 
     @Override
-    public ProductsViewVo readProduct(Integer id) throws Exception{
+    public ProductsViewVo readProduct(Integer id) throws Exception {
         return adminDao.readProduct(id);
     }
 
     @Override
-    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception{
-        return adminDao.productsViewList(pagehandler);
+    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception {
+
+        List<ProductsViewVo> list = adminDao.productsViewList(pagehandler);
+
+        for (ProductsViewVo productsViewVo : list) {
+            int productId = productsViewVo.getId();
+            productsViewVo.setImageVOList(attachService.getAttachList(productId));
+        }
+
+        return list;
+
     }
 
     @Override
-    public int productsGetTotal(Pagehandler pagehandler)throws Exception{
+    public int productsGetTotal(Pagehandler pagehandler) throws Exception {
         return adminDao.productsGetTotal(pagehandler);
     }
 
     @Override
-    public List<OrderDto> getOrderList(Pagehandler pagehandler){
+    public List<OrderDto> getOrderList(Pagehandler pagehandler) {
         return adminDao.getOrderList(pagehandler);
     }
 
     @Override
-    public int getOrderTotal(Pagehandler pagehandler){
+    public int getOrderTotal(Pagehandler pagehandler) {
         return adminDao.getOrderTotal(pagehandler);
     }
 
     @Transactional
     @Override
-    public int deleteProduct(Integer id) throws  Exception{
+    public int deleteProduct(Integer id) throws Exception {
 
         adminDao.deleteImageAll(id);
 
@@ -69,22 +80,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public int modifiyProduct(ProductsVo productsVo)throws Exception{
+    public int modifiyProduct(ProductsVo productsVo) throws Exception {
         return adminDao.modifiyProduct(productsVo);
     }
 
     @Override
-    public int imgReg(AttachImageVO attachImageVO)throws Exception{
+    public int imgReg(AttachImageVO attachImageVO) throws Exception {
         return adminDao.imgReg(attachImageVO);
     }
 
     @Override
-    public int delateImageAll(Integer product_id)throws Exception{
+    public int delateImageAll(Integer product_id) throws Exception {
         return adminDao.deleteImageAll(product_id);
     }
 
     @Override
-    public List<AttachImageVO> getAttachInfo(Integer product_id)throws Exception{
+    public List<AttachImageVO> getAttachInfo(Integer product_id) throws Exception {
         return adminDao.getAttachInfo(product_id);
     }
 

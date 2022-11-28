@@ -27,7 +27,6 @@ public class ReplyController {
     public void regReplyPost(ReplyVo replyVo) {
 
         replyService.regReply(replyVo);
-
     }
 
     /* 리뷰 쓰기 */
@@ -72,7 +71,7 @@ public class ReplyController {
 
     @ResponseBody
     @PostMapping("/delete")
-    public void replyDeletePost(ReplyVo replyVo){
+    public void replyDeletePost(ReplyVo replyVo) {
 
         replyService.deleteReply(replyVo);
     }

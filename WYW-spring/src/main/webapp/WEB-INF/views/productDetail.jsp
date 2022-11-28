@@ -51,8 +51,8 @@
                     </div>
                     <div class="product_info_rating product_info_dox_inner">
                         <div class="product_info_dox_inner_left">평점</div>
-                        <div class="product_info_dox_inner_right">${productsViewVo.ratingAvg} / 5.0 (<span
-                                id="reply_count"></span>)
+                        <div class="product_info_dox_inner_right"><span id="product_ratingAvg"></span> / 5.0 (<span
+                                id="reply_count">0</span>)
                         </div>
                     </div>
                     <div class="product_info_dox_shipment product_info_dox_inner">
@@ -263,11 +263,11 @@
 
         //썸네일 이미지 클릭시 메인 이미지 변경
         const mainImage = $('#main-image');
-        const thumnail = $('.thumbnail-image');
-        let thumnailSrc;
-        thumnail.click(function (event) {
-            thumnailSrc = event.target.getAttribute("src");
-            mainImage.attr("src", thumnailSrc);
+        const thumbnail = $('.thumbnail-image');
+        let thumbnailSrc;
+        thumbnail.click(function (event) {
+            thumbnailSrc = event.target.getAttribute("src");
+            mainImage.attr("src", thumbnailSrc);
         });
     });
 </script>
@@ -289,7 +289,9 @@
     $(document).on('click', '.update_reply_btn', function (e) {
         e.preventDefault();
         let replyId = $(this).attr("href");
-        let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + '${productsViewVo.id}' + "&userId=" + '${loggedInUser.userId}';
+        let productId = "${productsViewVo.id}";
+
+        let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + productId + "&userId=" + '${loggedInUser.userId}';
         let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes"
 
         window.open(popUrl, "리뷰 수정", popOption);
@@ -300,6 +302,7 @@
 
         e.preventDefault();
         let replyId = $(this).attr("href");
+        let productId = "${productsViewVo.id}";
 
         if (!confirm("댓글을 삭제하시겠습니까?")) {
             return false;
@@ -308,10 +311,11 @@
         $.ajax({
             data: {
                 replyId: replyId,
-                bookId: '${goodsInfo.bookId}'
+                productId: productId
             },
             url: '/WYW/reply/delete',
             type: 'POST',
+            dataType: "json",
             success: function (result) {
                 replyListInit();
                 alert('삭제가 완료되엇습니다.');
@@ -319,9 +323,6 @@
         });
 
     });
-
-</script>
-<script>
 
 </script>
 <script>
@@ -362,20 +363,28 @@
 
     /* 댓글(리뷰) 동적 생성 메서드 */
     function makeReplyContent(obj) {
+
         if (obj.list.length === 0) {
+            $(".product_main-review_title").html('리뷰');
+            $("#reply_count").html("0");
+            $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
             $(".reply_not_div").html('<span>리뷰가 없습니다.</span>');
             $(".reply_content_ul").html('');
             $(".pageMarker").html('');
         } else {
 
             $(".reply_not_div").html('');
-            const total = obj.pageInfo.total;
-            const list = obj.list;
-            const pf = obj.pageInfo;
-            const userId = '${loggedInUser.userId}';
+            let total = obj.pageInfo.total;
+            let list = obj.list;
+            let pf = obj.pageInfo;
+            let userId = '${loggedInUser.userId}';
 
+            // 댓글개수표시
             $(".product_main-review_title").html('리뷰(' + total + ')');
             $("#reply_count").html(total);
+
+            //평점표시
+            $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
 
             /* list */
             let reply_list = '';
@@ -401,7 +410,6 @@
                 reply_list += '</li>';
             });
 
-            // 댓글개수표시
             $(".reply_content_ul").html(reply_list);
 
             /* 페이지 버튼 */

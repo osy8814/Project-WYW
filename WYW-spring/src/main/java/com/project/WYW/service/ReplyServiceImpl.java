@@ -63,7 +63,7 @@ public class ReplyServiceImpl implements ReplyService {
     @Override
     public int deleteReply(ReplyVo replyVo){
 
-        int rowCnt = replyDao.deleteReply(replyVo.getReplyId());
+        int rowCnt = replyDao.deleteReply(replyVo);
 
         if(rowCnt==1){
             productService.setRating(replyVo.getProductId());

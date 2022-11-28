@@ -89,8 +89,8 @@
   grid-template-rows: repeat(1, 500px);
 }
 
-.main__best__product__componet,
-.main__new__product__componet {
+.main__best__product__component,
+.main__new__product__component {
   position: relative;
   display: flex;
   justify-content: center;
@@ -101,8 +101,8 @@
   margin: 5px;
   background-position: center;
 }
-.main__new__product__componet img,
-.main__best__product__componet img{
+.main__new__product__component img,
+.main__best__product__component img{
   position: absolute;
   width: 100%;
   height: 100%;
@@ -110,73 +110,55 @@
   object-fit: cover;
 }
 
-.main__best__product__componet:hover .main__best__product__componet-description,
-.main__new__product__componet:hover .main__new__product__componet-description {
+.main__best__product__component:hover .main__best__product__component-description,
+.main__new__product__component:hover .main__new__product__component-description {
   opacity: 1;
 }
 
-/* new product img  */
-.main__new__product__componet:first-child {
-  background: url("../../img/furnishing/chairjpg.jpg");
-  background-size: cover;
-}
-
-.main__new__product__componet:nth-child(2) {
-  background: url("../../img/furnishing/couch.jpg");
-  background-size: cover;
-}
-
-.main__new__product__componet:nth-child(3) {
-  background: url("../../img/furnishing/couch2.jpg");
-  background-size: cover;
-}
-
-.main__new__product__componet:last-child {
-  background: url("../../img/furnishing/couch3.jpg");
-  background-size: cover;
-}
-
-.main__best__product__componet-description,
-.main__new__product__componet-description {
+.main__best__product__component-description,
+.main__new__product__component-description {
   width: 80%;
-  height: 50%;
+  height: 100px;
   background-color: rgba(255, 255, 255, 0.7);
   margin-bottom: 10px;
   border-radius: 10px;
   position: relative;
   opacity: 0;
   transition: 0.5s ease-in-out;
+  color: #1f1f1f;
+  padding: 10px;
 }
 
-.main__best__product__componet-description-title,
-.main__new__product__componet-description-title {
-  text-align: center;
-  color: #595d69;
+.main__best__product__component-description-title,
+.main__new__product__component-description-title {
   border-bottom: 1px solid #bcbcbc;
-  font-size: 1.5vmin;
+  font-size: 18px;
   font-weight: bold;
   padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.main__best__product__componet-description-descrip,
-.main__new__product__componet-description-descrip {
+.main__best__product__component-description-category,
+.main__new__product__component-description-category,
+.main__best__product__component-description-ratingAvg,
+.main__new__product__component-description-ratingAvg{
   padding: 5px;
-  font-size: 1vmin;
+  font-size: 15px;
 }
 
-.main__best__product__componet-description-price,
-.main__new__product__componet-description-price {
-  font-size: 1.5vmin;
-  position: absolute;
+.main__best__product__component-description-price,
+.main__new__product__component-description-price {
+  font-size: 20px;
   bottom: 5px;
-  left: 10px;
-  color: black;
+  padding: 5px;
   font-weight: bold;
 }
 
 @media screen and (max-width: 1600px) {
-  .main__best__product__componet,
-  .main__new__product__componet {
+  .main__best__product__component,
+  .main__new__product__component {
     width: 40%;
     min-width: 220px;
     height: 45vmin;
@@ -184,8 +166,8 @@
 }
 
 @media screen and (max-width: 900px) {
-  .main__best__product__componet,
-  .main__new__product__componet {
+  .main__best__product__component,
+  .main__new__product__component {
     width: 40%;
     min-width: 220px;
     height: 40vmin;

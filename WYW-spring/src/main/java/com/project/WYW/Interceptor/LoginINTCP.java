@@ -11,8 +11,6 @@ public class LoginINTCP implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        System.out.println("로그인 인터셉터 작동");
-
         HttpSession session = request.getSession();
 
         session.invalidate();
