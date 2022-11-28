@@ -43,7 +43,7 @@ public class ReplyDaoImpl implements ReplyDao {
 
     /* 댓글 삭제 */
     @Override
-    public int deleteReply(int replyId){
-        return session.delete(namespace+"deleteReply",replyId);
+    public int deleteReply(ReplyVo ReplyVo){
+        return session.delete(namespace+"deleteReply",ReplyVo);
     };
 }

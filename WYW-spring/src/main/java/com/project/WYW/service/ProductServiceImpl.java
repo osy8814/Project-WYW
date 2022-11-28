@@ -19,22 +19,23 @@ public class ProductServiceImpl implements ProductService {
     AttachService attachService;
 
     @Override
-    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception{
+    public List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception {
         List<ProductsViewVo> list = productDao.productsViewList(pagehandler);
-        for (ProductsViewVo productsViewVo:list) {
+        for (ProductsViewVo productsViewVo : list) {
             int productId = productsViewVo.getId();
             productsViewVo.setImageVOList(attachService.getAttachList(productId));
         }
 
         return list;
     }
+
     @Override
-    public int productsGetTotal(Pagehandler pagehandler)throws Exception{
+    public int productsGetTotal(Pagehandler pagehandler) throws Exception {
         return productDao.productsGetTotal(pagehandler);
     }
 
     @Override
-    public ProductsViewVo readProductDetail(Integer product_id){
+    public ProductsViewVo readProductDetail(Integer product_id) {
         ProductsViewVo productsViewVo = productDao.readProductDetail(product_id);
         productsViewVo.setImageVOList(attachService.getAttachList(product_id));
 
@@ -42,21 +43,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void setRating(Integer productId){
+    public void setRating(Integer productId) {
 
         Double ratingAvg = productDao.getRatingAverage(productId);
 
-        if(ratingAvg==null){
-            ratingAvg=0.0;
+        if (ratingAvg == null) {
+            ratingAvg = 0.0;
+        } else {
+            ratingAvg = (double) (Math.round(ratingAvg * 10)) / 10;
         }
-
-        ratingAvg = (double)(Math.round(ratingAvg*10))/10;
-
         UpdateRatingDto updateRatingDto = new UpdateRatingDto();
+
         updateRatingDto.setProductId(productId);
         updateRatingDto.setRatingAvg(ratingAvg);
-
-
 
         productDao.updateRating(updateRatingDto);
 

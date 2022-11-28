@@ -71,7 +71,7 @@
 
             </when>
             <when test='order == "S"'>
-                WHERE cumulative_sales > 20
+                WHERE cumulative_sales > 10
             </when>
             <when test='order == "N"'>
                 WHERE created_at BETWEEN DATE_ADD(NOW(), INTERVAL -14 DAY ) AND NOW()

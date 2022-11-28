@@ -1,5 +1,6 @@
 package com.project.WYW.service;
 
+import com.project.WYW.dao.ProductDao;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.model.Pagehandler;
 import org.junit.Test;
@@ -16,6 +17,9 @@ public class ProductServiceImplTest {
 
     @Autowired
     ProductService productService;
+
+    @Autowired
+    ProductDao productDao;
 
     @Test
     public void productsViewList() {
@@ -39,5 +43,15 @@ public class ProductServiceImplTest {
 
         System.out.println("list = " + list);
         System.out.println("listSize = " + list.size());
+    }
+
+    @Test
+    public void ratingTest()throws Exception{
+        Double ratingAvg = productDao.getRatingAverage(116);
+        System.out.println("ratingAvg = " + ratingAvg);
+        
+        productService.setRating(116);
+        ProductsViewVo productsViewVo = productService.readProductDetail(116);
+        System.out.println("productsViewVo = " + productsViewVo);
     }
 }

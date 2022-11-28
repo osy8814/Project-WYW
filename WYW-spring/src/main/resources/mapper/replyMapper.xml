@@ -43,14 +43,14 @@
               #{replyId}
     </select>
 
-    <update id="updateReply">
+    <update id="updateReply" parameterType="ReplyVo">
 
         UPDATE product_reply SET content = #{content}, rating = #{rating}
         WHERE reply_id = #{replyId}
 
     </update>
 
-    <delete id="deleteReply">
+    <delete id="deleteReply" parameterType="ReplyVo">
 
         DELETE FROM product_reply
         WHERE reply_id = #{replyId}

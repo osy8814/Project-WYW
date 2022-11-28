@@ -19,5 +19,5 @@ public interface ReplyDao {
     ReplyVo getUpdateReply(Integer replyID);
 
     /* 댓글 삭제 */
-    int deleteReply(int replyId);
+    int deleteReply(ReplyVo ReplyVo);
 }
