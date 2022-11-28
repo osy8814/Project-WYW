@@ -21,6 +21,8 @@
         <typeAlias alias="ReplyVo" type="com.project.WYW.domain.ReplyVo"/>
         <typeAlias alias="ReplyPageDto" type="com.project.WYW.dto.ReplyPageDto"/>
 
+        <typeAlias alias="WishVo" type="com.project.WYW.model.WishVo"/>
+
 
         <typeAlias alias="BoardDto" type="com.project.WYW.dto.BoardDto" />
         <typeAlias alias="CommentDto" type="com.project.WYW.dto.CommentDto" />

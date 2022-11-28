@@ -1,0 +1,142 @@
+.wish_main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 외부박스 */
+.wish_main-outter {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 50px;
+}
+
+/* 페이지타이틀  */
+.wish_main_title {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table_text_align_center {
+    text-align: center;
+}
+
+.content_subject {
+    height: 110px;
+    line-height: 110px;
+    background-color: lightgray;
+    margin-bottom: 60px;
+
+}
+
+.content_subject span {
+    padding-left: 30px;
+    display: inline-block;
+    color: white;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+.content_totalCount_section {
+    width: 80%;
+    margin: 30px 0;
+}
+
+.subject_table {
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.subject_table th {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 1px solid #888888;
+    background: #333333;
+    padding: 20px 0;
+}
+
+.wish_table td {
+    padding: 20px;
+}
+
+.td_width_1 {
+
+    width: 5%;
+}
+
+.td_width_2 {
+    width: 10%;
+}
+.td_width_2>img{
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+}
+
+.td_width_3 {
+    vertical-align: middle;
+    font-weight: bold;
+    font-size: 16px;
+    width: 25%;
+}
+.td_width_3 > a{
+    color: black;
+}
+
+.td_width_4 {
+    vertical-align: middle;
+    width: 15%;
+}
+
+.wish_table {
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.price_td {
+    padding-left: 5px;
+}
+
+.red_color {
+    color: red;
+}
+
+.green_color {
+    color: green;
+}
+
+.wish_table td {
+
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.quantity_div {
+    position: relative;
+    width: 42px;
+    height: 25px;
+    text-align: left;
+    margin: 5px auto;
+}
+
+.table_text_align_center {
+    text-align: center;
+}
+

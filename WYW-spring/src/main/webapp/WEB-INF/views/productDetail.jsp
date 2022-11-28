@@ -88,7 +88,7 @@
                     <button id="buy-now" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
                         <button type="button" id="btn_cart">장바구니담기</button>
-                        <button type="button">찜하기</button>
+                        <button type="button" id="btn_wish">찜하기</button>
                     </div>
 
                 </div>
@@ -212,6 +212,42 @@
             alert("장바구니에 추가되었습니다.");
         } else if (result == '2') {
             alert("장바구니에 이미 추가되어 있습니다.");
+        } else if (result == '5') {
+            alert("로그인이 필요합니다.");
+        }
+    }
+</script>
+<script>
+    const wishform = {
+        user_id: '${loggedInUser.userId}',
+        product_id: '${productsViewVo.id}',
+     }
+
+    // 찜하기 클릭
+    $("#btn_wish").on("click", function (e) {
+
+        $.ajax({
+            url: '/WYW/wish/add',
+            type: 'POST',
+            data: wishform,
+            dataType: 'json',
+            success: function (result) {
+                wishAlert(result);
+            },
+            error: function (result) {
+                alert(result);
+            }
+
+        })
+    });
+
+    function wishAlert(result) {
+        if (result == '0') {
+            alert("위시리스트에 추가를 하지 못하였습니다.");
+        } else if (result == '1') {
+            alert("위시리스트에 추가되었습니다.");
+        } else if (result == '2') {
+            alert("위시리스트에 이미 추가되어 있습니다.");
         } else if (result == '5') {
             alert("로그인이 필요합니다.");
         }

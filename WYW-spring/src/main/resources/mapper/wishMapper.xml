@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.WYW.mapper.wishMapper">
+    <!-- 위시 추가 -->
+    <insert id="addWish">
+
+        INSERT INTO wish_list(user_id, product_id)
+        VALUES (#{user_id}, #{product_id})
+
+    </insert>
+
+
+    <!-- 위시 삭제 -->
+    <delete id="deleteWish">
+
+        DELETE
+        FROM wish_list
+        WHERE id = #{id}
+
+    </delete>
+
+    <!-- 위시 목록 -->
+    <select id="getWish" resultType="WishVo">
+
+        SELECT w.id, w.user_id, w.product_id, p.name, p.price, p.stock
+        FROM wish_list w
+                 LEFT OUTER JOIN products p ON w.product_id = p.id
+        WHERE w.user_id = #{userId}
+
+    </select>
+
+    <!-- 카트 확인 -->
+    <select id="checkWish" resultType="WishVo">
+
+        SELECT *
+        FROM wish_list
+        WHERE user_id = #{user_id}
+          AND product_id = #{product_id}
+
+    </select>
+</mapper>
