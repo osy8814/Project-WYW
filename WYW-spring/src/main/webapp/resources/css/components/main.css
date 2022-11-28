@@ -135,6 +135,9 @@
   font-size: 18px;
   font-weight: bold;
   padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .main__best__product__component-description-category,
