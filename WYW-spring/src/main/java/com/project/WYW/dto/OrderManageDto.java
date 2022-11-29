@@ -1,6 +1,6 @@
 package com.project.WYW.dto;
 
-public class OrderCancelDto {
+public class OrderManageDto {
 
     private String userId;
 
