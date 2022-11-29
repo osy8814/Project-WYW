@@ -114,6 +114,8 @@
     text-shadow: 0 0 2px #1f1f1f;
     transition: all 1s ease-in-out ;
 }
+
+.activeWish,
 .fa-heart:hover{
     color: tomato;
     text-shadow: none;
