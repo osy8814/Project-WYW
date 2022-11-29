@@ -1,6 +1,7 @@
 package com.project.WYW.domain;
 
 import com.project.WYW.model.AttachImageVO;
+import com.project.WYW.model.WishVo;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,8 @@ public class ProductsViewVo {
     private Date created_at;
 
     private List<AttachImageVO> imageVOList;
+
+    private List<WishVo> wishList;
 
     private String cate_name;
     private String cate_code_ref;
@@ -128,6 +131,14 @@ public class ProductsViewVo {
         this.imageVOList = imageVOList;
     }
 
+    public List<WishVo> getWishList() {
+        return wishList;
+    }
+
+    public void setWishList(List<WishVo> wishList) {
+        this.wishList = wishList;
+    }
+
     public ProductsViewVo() {
     }
 
@@ -163,12 +174,13 @@ public class ProductsViewVo {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", cate_code='" + cate_code + '\'' +
-                ", ratingAvg='" + ratingAvg + '\'' +
+                ", ratingAvg=" + ratingAvg +
                 ", price=" + price +
                 ", stock=" + stock +
                 ", cumulative_sales=" + cumulative_sales +
                 ", created_at=" + created_at +
                 ", imageVOList=" + imageVOList +
+                ", wishList=" + wishList +
                 ", cate_name='" + cate_name + '\'' +
                 ", cate_code_ref='" + cate_code_ref + '\'' +
                 '}';
