@@ -29,7 +29,6 @@
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
                 <c:forEach items="${list}" var="product">
-
                     <div class="product">
                         <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
                             <div class="product_main-image">
@@ -52,7 +51,33 @@
                             </span>
                             <h1 class="product_rating">${product.ratingAvg} / 5.0 </h1>
                             <div class="product_bottom-button">
-                                <i class="fas fa-shopping-cart"></i><i class="fas fa-heart"></i>
+                                <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
+                                   data-productId="${product.id}"></i>
+                                <c:if test="${product.wishList==null}">
+                                    <i class="fas fa-heart wish_btn"
+                                       data-productId="${product.id}"></i>
+                                </c:if>
+                                <c:if test="${product.wishList==[]}">
+                                    <i class="fas fa-heart wish_btn"
+                                       data-productId="${product.id}"></i>
+                                </c:if>
+                                <c:if test="${product.wishList!=[]}">
+                                    <c:set var="isWish" value='false'/>
+                                    <c:forEach items="${product.wishList}" var="wish" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${wish.product_id==product.id}">
+                                                <c:set var="isWish" value='true'/>
+                                                <i class="fas fa-heart wish_btn activeWish"
+                                                   data-productId="${product.id}"></i>
+                                            </c:when>
+                                            <c:when test="${status.last && isWish=='false' && wish.product_id!=product.id}">
+                                                <c:set var="isWish" value='false'/>
+                                                <i class="fas fa-heart wish_btn"
+                                                   data-productId="${product.id}"></i>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -117,44 +142,86 @@
 <jsp:include page="index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
 <script>
-
-
     // 장바구니 클릭
-    $("#btn_cart").on("click", function(e){
-        let form = {
-            user_id : '${loggedInUser.userId}',
-            product_id : '${productsViewVo.id}',
-            product_count : ''
+    $(".cart_btn").on("click", function (e) {
+        if ("${loggedInUser}" === "") {
+            alert("로그인 후에 이용해 주십시오.");
+            return false
         }
-        let stock;
-        if("${productsViewVo.stock}"==="0"){
+
+        let form = {
+            user_id: '${loggedInUser.userId}',
+            product_id: $(this).data("productid"),
+            product_count: 1,
+        }
+
+        let stock = $(this).data("stock");
+        if (stock === "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }
 
-        form.product_count = $("#product_quantity").val();
         $.ajax({
             url: '/WYW/cart/add',
             type: 'POST',
             data: form,
-            success: function(result){
+            dataType: 'json',
+            success: function (result) {
                 cartAlert(result);
             },
-            error : function (result){
-                alert(result);
-            }
+        })
+    });
+
+    function cartAlert(result) {
+        if (result == '0') {
+            alert("장바구니에 추가를 하지 못하였습니다.");
+        } else if (result == '1') {
+            alert("장바구니에 추가되었습니다.");
+        } else if (result == '2') {
+            alert("장바구니에 이미 추가되어 있습니다.");
+        } else if (result == '5') {
+            alert("로그인이 필요합니다.");
+        }
+    }
+
+
+    // 찜하기 클릭
+    $(".wish_btn").on("click", function (e) {
+        if ("${loggedInUser}" === "") {
+            alert("로그인 후에 이용해 주십시오.");
+            return false
+        }
+
+        let productId = $(this).data("productid")
+
+        const wishForm = {
+            user_id: '${loggedInUser.userId}',
+            product_id: productId,
+        }
+
+        $(this).addClass("activeWish");
+        $.ajax({
+            url: '/WYW/wish/add',
+            type: 'POST',
+            data: wishForm,
+            dataType: 'json',
+            success: function (result) {
+                wishAlert(productId, result);
+            },
 
         })
     });
 
-    function cartAlert(result){
-        if(result == '0'){
-            alert("장바구니에 추가를 하지 못하였습니다.");
-        } else if(result == '1'){
-            alert("장바구니에 추가되었습니다.");
-        } else if(result == '2'){
-            alert("장바구니에 이미 추가되어 있습니다.");
-        } else if(result == '5'){
+    function wishAlert(productId, result) {
+
+        if (result == '0') {
+            alert("위시리스트에 추가를 하지 못하였습니다.");
+        } else if (result == '1') {
+            $("i[date='productId']").addClass("activeWish");
+            alert("위시리스트에 추가되었습니다.");
+        } else if (result == '2') {
+            alert("위시리스트에 이미 추가되어 있습니다.");
+        } else if (result == '5') {
             alert("로그인이 필요합니다.");
         }
     }

@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/WYW/wish/wishlist">
                         <div>
                             <i class="fas fa-gift"></i>
                             <h1>Wishlist</h1>

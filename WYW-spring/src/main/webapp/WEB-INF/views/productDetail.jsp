@@ -88,7 +88,7 @@
                     <button id="buy-now" type="button">바로구매</button>
                     <div class="product_info_btn-set_inner">
                         <button type="button" id="btn_cart">장바구니담기</button>
-                        <button type="button">찜하기</button>
+                        <button type="button" id="btn_wish">찜하기</button>
                     </div>
 
                 </div>
@@ -109,24 +109,25 @@
                 <ul class="reply_content_ul">
 
                 </ul>
+                <c:if test="${loggedInUser!=null}">
+                    <div class="product_main-review_btn-set">
+                        <button class="reply_button write_button">글쓰기</button>
+                    </div>
+                </c:if>
                 <div class="reply_pageInfo_div">
                     <ul class="pageMarker">
 
                     </ul>
                 </div>
             </div>
-            <c:if test="${loggedInUser!=null}">
-                <div class="product_main-review_btn-set">
-                    <button class="reply_button">글쓰기</button>
-                </div>
-            </c:if>
+
         </div>
         <div class="product_main-QnA">
             <h1 class="product_main-QnA_title">문의</h1>
             <div class="product_main-QnA_content">
             </div>
             <div class="product_main-QnA-set">
-                <button>글쓰기</button>
+                <button class="QnA_button write_button">글쓰기</button>
             </div>
         </div>
     </div>
@@ -184,6 +185,10 @@
 
     // 장바구니 클릭
     $("#btn_cart").on("click", function (e) {
+        if ("${loggedInUser}" === "") {
+            alert("로그인 후에 이용해 주십시오.");
+        }
+
         if ("${productsViewVo.stock}" === "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
@@ -198,10 +203,6 @@
             success: function (result) {
                 cartAlert(result);
             },
-            error: function (result) {
-                alert(result);
-            }
-
         })
     });
 
@@ -212,6 +213,40 @@
             alert("장바구니에 추가되었습니다.");
         } else if (result == '2') {
             alert("장바구니에 이미 추가되어 있습니다.");
+        } else if (result == '5') {
+            alert("로그인이 필요합니다.");
+        }
+    }
+</script>
+<script>
+    const wishform = {
+        user_id: '${loggedInUser.userId}',
+        product_id: '${productsViewVo.id}',
+    }
+
+    // 찜하기 클릭
+    $("#btn_wish").on("click", function (e) {
+        if ("${loggedInUser}" === "") {
+            alert("로그인 후에 이용해 주십시오.");
+        }
+        $.ajax({
+            url: '/WYW/wish/add',
+            type: 'POST',
+            data: wishform,
+            dataType: 'json',
+            success: function (result) {
+                wishAlert(result);
+            },
+        })
+    });
+
+    function wishAlert(result) {
+        if (result == '0') {
+            alert("위시리스트에 추가를 하지 못하였습니다.");
+        } else if (result == '1') {
+            alert("위시리스트에 추가되었습니다.");
+        } else if (result == '2') {
+            alert("위시리스트에 이미 추가되어 있습니다.");
         } else if (result == '5') {
             alert("로그인이 필요합니다.");
         }
@@ -315,7 +350,6 @@
             },
             url: '/WYW/reply/delete',
             type: 'POST',
-            dataType: "json",
             success: function (result) {
                 replyListInit();
                 alert('삭제가 완료되엇습니다.');

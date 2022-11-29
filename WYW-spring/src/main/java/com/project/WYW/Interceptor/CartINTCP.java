@@ -17,7 +17,7 @@ public class CartINTCP implements HandlerInterceptor {
 
         if (usersVo == null) {
 
-            response.sendRedirect("/WYW/users/login");
+            response.sendRedirect("/WYW/users/login.do");
 
             return false;
         }

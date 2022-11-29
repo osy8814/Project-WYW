@@ -42,6 +42,10 @@
 			<mapping path="/mypage/**"/>
 			<beans:bean id="MyPageINTCP" class="com.project.WYW.Interceptor.MyPageINTCP"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/wish/**"/>
+			<beans:bean id="WishINTCP" class="com.project.WYW.Interceptor.WishINTCP"></beans:bean>
+		</interceptor>
 	</interceptors>
 	<view-controller path="/" view-name="index"/>
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>

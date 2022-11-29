@@ -87,7 +87,6 @@ public class AdminController {
     @GetMapping("/productslist")
     public String getProductslist(Pagehandler pagehandler, Model model) throws Exception {
 
-
         List<ProductsViewVo> list = adminService.productsViewList(pagehandler);
         model.addAttribute("list", list);
 
