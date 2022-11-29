@@ -3,7 +3,7 @@ package com.project.WYW.service;
 import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.UsersVo;
-import com.project.WYW.dto.OrderCancelDto;
+import com.project.WYW.dto.OrderManageDto;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.dto.OrderPageItemDto;
@@ -18,8 +18,6 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
@@ -68,13 +66,13 @@ public class OrderServiceImplTest {
     @Test
     public void orderCancel(){
 
-        OrderCancelDto orderCancelDto = new OrderCancelDto();
-        orderCancelDto.setUserId("admin");
-        orderCancelDto.setOrderId("admin_202211270130");
-        orderCancelDto.setPageNum(1);
-        orderCancelDto.setAmount(10);
+        OrderManageDto orderManageDto = new OrderManageDto();
+        orderManageDto.setUserId("admin");
+        orderManageDto.setOrderId("admin_202211270130");
+        orderManageDto.setPageNum(1);
+        orderManageDto.setAmount(10);
 
-        System.out.println("orderCancelDto = " + orderCancelDto);
+        System.out.println("orderCancelDto = " + orderManageDto);
 
         TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
@@ -82,16 +80,16 @@ public class OrderServiceImplTest {
 
             /* 주문, 주문상품 객체 */
             /*회원*/
-            UsersVo usersVo = usersSecvice.read(orderCancelDto.getUserId());
+            UsersVo usersVo = usersSecvice.read(orderManageDto.getUserId());
             System.out.println("usersVo = " + usersVo);
             /*주문상품*/
-            List<OrderItemDto> ords = orderDao.getOrderItemInfo(orderCancelDto.getOrderId());
+            List<OrderItemDto> ords = orderDao.getOrderItemInfo(orderManageDto.getOrderId());
             System.out.println("ords = " + ords);
             for (OrderItemDto ord : ords) {
                 ord.initSaleTotal();
             }
             /* 주문 */
-            OrderDto orderDto = orderDao.getOrder(orderCancelDto.getOrderId());
+            OrderDto orderDto = orderDao.getOrder(orderManageDto.getOrderId());
             System.out.println("orderDto = " + orderDto);
             
             orderDto.setOrders(ords);
@@ -100,7 +98,7 @@ public class OrderServiceImplTest {
 
 
             /* 주문상품 취소 DB */
-            orderDao.orderCancel(orderCancelDto.getOrderId());
+            orderDao.orderCancel(orderManageDto.getOrderId());
 
             /* 재고 */
             for (OrderItemDto ord : orderDto.getOrders()) {
