@@ -350,7 +350,6 @@
             },
             url: '/WYW/reply/delete',
             type: 'POST',
-            dataType: "json",
             success: function (result) {
                 replyListInit();
                 alert('삭제가 완료되엇습니다.');
