@@ -22,7 +22,9 @@
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>PRODUCTS</span></h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}" var="categoryName"/>${fn:substring(categoryName,0,3)}용품 이 검색되었습니다.</h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}"
+                                                                          var="categoryName"/>${fn:substring(categoryName,0,3)}
+            용품 이 검색되었습니다.</h1>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
                 <c:forEach items="${list}" var="product">
@@ -36,7 +38,7 @@
                                     </c:when>
 
                                     <c:when test="${product.imageVOList!=null}">
-                                    <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
+                                        <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
                                     </c:when>
                                 </c:choose>
                             </div>
@@ -49,8 +51,32 @@
                             </span>
                             <div class="product_bottom-button">
                                 <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
-                                   data-productId="${product.id}"></i><i class="fas fa-heart wish_btn"
-                                                                         data-productId="${product.id}"></i>
+                                   data-productId="${product.id}"></i>
+                                <c:if test="${product.wishList==null}">
+                                    <i class="fas fa-heart wish_btn"
+                                       data-productId="${product.id}"></i>
+                                </c:if>
+                                <c:if test="${product.wishList==[]}">
+                                    <i class="fas fa-heart wish_btn"
+                                       data-productId="${product.id}"></i>
+                                </c:if>
+                                <c:if test="${product.wishList!=[]}">
+                                    <c:set var="isWish" value='false'/>
+                                    <c:forEach items="${product.wishList}" var="wish" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${wish.product_id==product.id}">
+                                                <c:set var="isWish" value='true'/>
+                                                <i class="fas fa-heart wish_btn activeWish"
+                                                   data-productId="${product.id}"></i>
+                                            </c:when>
+                                            <c:when test="${status.last && isWish=='false' && wish.product_id!=product.id}">
+                                                <c:set var="isWish" value='false'/>
+                                                <i class="fas fa-heart wish_btn"
+                                                   data-productId="${product.id}"></i>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+                                </c:if>
                             </div>
                         </div>
                     </div>
@@ -142,7 +168,6 @@
             data: form,
             dataType: 'json',
             success: function (result) {
-
                 cartAlert(result);
             },
         })
@@ -168,27 +193,32 @@
             return false
         }
 
+        let productId = $(this).data("productid")
+
         const wishForm = {
             user_id: '${loggedInUser.userId}',
-            product_id: $(this).data("productid"),
+            product_id: productId,
         }
 
+        $(this).addClass("activeWish");
         $.ajax({
             url: '/WYW/wish/add',
             type: 'POST',
             data: wishForm,
             dataType: 'json',
             success: function (result) {
-                wishAlert(result);
+                wishAlert(productId, result);
             },
 
         })
     });
 
-    function wishAlert(result) {
+    function wishAlert(productId, result) {
+
         if (result == '0') {
             alert("위시리스트에 추가를 하지 못하였습니다.");
         } else if (result == '1') {
+            $("i[date='productId']").addClass("activeWish");
             alert("위시리스트에 추가되었습니다.");
         } else if (result == '2') {
             alert("위시리스트에 이미 추가되어 있습니다.");
