@@ -59,7 +59,7 @@ public class WishController {
 
     @PostMapping("/delete")
     public String postDeleteWish(WishVo wishVo) {
-        System.out.println("wishVo = " + wishVo);
+
         wishService.deleteWish(wishVo.getId());
 
         return "redirect:/wish/wishlist";
