@@ -1,8 +1,14 @@
 package com.project.WYW.service;
 
 import com.project.WYW.dao.AdminDao;
+import com.project.WYW.dao.OrderDao;
+import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.dto.OrderDto;
+import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
+import com.project.WYW.model.Pagehandler;
+import org.aspectj.weaver.ast.Or;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,36 +29,79 @@ public class AdminServiceImplTest {
     private AdminService adminService;
 
     @Autowired
+    private OrderService orderService;
+    @Autowired
+    private OrderDao orderDao;
+
+    @Autowired
     private AdminDao adminDao;
+
+    @Autowired
+    private ProductService productService;
 
     @Test
     public void category() {
     }
 
     @Test
-    public void regProduct()throws Exception {
+    public void regProduct() throws Exception {
 
-        for (int i = 0; i <250 ; i++) {
+        for (int i = 0; i < 250; i++) {
 
-        ProductsVo productsVo = new ProductsVo("admin","침실의자"+i,"침실의자입니다.","102",2000,20);
+            ProductsVo productsVo = new ProductsVo("admin", "침실의자" + i, "침실의자입니다.", "102", 2000, 20);
 
-        List<AttachImageVO> imageVOList = new ArrayList<>();
+            List<AttachImageVO> imageVOList = new ArrayList<>();
 
-        AttachImageVO attachImageVO1 = new AttachImageVO();
-        AttachImageVO attachImageVO2 = new AttachImageVO();
+            AttachImageVO attachImageVO1 = new AttachImageVO();
+            AttachImageVO attachImageVO2 = new AttachImageVO();
 
-        attachImageVO1.setFile_name("test"+i);
-        attachImageVO1.setUpload_path("test"+i);
-        attachImageVO1.setUuid("test"+i);
+            attachImageVO1.setFile_name("test" + i);
+            attachImageVO1.setUpload_path("test" + i);
+            attachImageVO1.setUuid("test" + i);
 
-        imageVOList.add(attachImageVO1);
+            imageVOList.add(attachImageVO1);
 
-        productsVo.setImageVOList(imageVOList);
+            productsVo.setImageVOList(imageVOList);
 
-        adminService.regProduct(productsVo);
+            adminService.regProduct(productsVo);
         }
 
 
+    }
+
+    @Test
+    public void getOderListTest() {
+        Pagehandler pagehandler = new Pagehandler();
+        pagehandler.setAmount(1);
+        List<OrderDto> list = adminService.getOrderList(pagehandler);
+        for (OrderDto orderDto : list) {
+            String orderId = orderDto.getOrderId();
+            List<OrderItemDto> orderItemDtoList = orderDao.getOrderItemInfo(orderId);
+            for (OrderItemDto oid : orderItemDtoList) {
+                int productId = oid.getProductId();
+                ProductsViewVo productsViewVo = productService.readProductDetail(productId);
+                oid.setImageVOList(productsViewVo.getImageVOList());
+                oid.setProductName(productsViewVo.getName());
+                oid.initSaleTotal();
+            }
+            orderDto.setOrders(orderItemDtoList);
+        }
+        System.out.println("list = " + list);
+    }
+
+    @Test
+    public void getOderTest() {
+
+        List<OrderItemDto> list = orderDao.getOrderItemInfo("admin_202211291147");
+        for (OrderItemDto orderItemDto : list) {
+            int productId = orderItemDto.getProductId();
+            ProductsViewVo productsViewVo = productService.readProductDetail(productId);
+            orderItemDto.setImageVOList(productsViewVo.getImageVOList());
+            orderItemDto.setProductName(productsViewVo.getName());
+            orderItemDto.initSaleTotal();
+        }
+
+        System.out.println("list = " + list);
     }
 
     @Test

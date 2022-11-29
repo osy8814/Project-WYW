@@ -13,7 +13,7 @@
 
     <select id="getOrderInfo" resultType="OrderItemDto">
 
-        SELECT id AS productId, price
+        SELECT id AS productId,name AS productName, price
         FROM products
         WHERE id = #{id}
 
@@ -53,6 +53,13 @@
 
     </delete>
 
+    <!--배송진행-->
+    <update id="shipping">
+        UPDATE orders
+        SET order_state = '배송진행'
+        WHERE order_id = #{orderId}
+    </update>
+
     <!--주문취소-->
     <update id="orderCancel">
         UPDATE orders
@@ -60,7 +67,7 @@
         WHERE order_id = #{orderId}
     </update>
 
-    <!-- 주문 상품 정보(주문취소) -->
+    <!-- 주문 상품 정보(주문진행 또는 취소) -->
     <select id="getOrderItemInfo" resultType="OrderItemDto">
 
         SELECT order_id AS orderId,

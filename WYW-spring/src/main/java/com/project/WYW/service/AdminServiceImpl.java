@@ -1,10 +1,12 @@
 package com.project.WYW.service;
 
 import com.project.WYW.dao.AdminDao;
+import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.dto.OrderDto;
+import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,10 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private AdminDao adminDao;
+    @Autowired
+    OrderDao orderDao;
+    @Autowired
+    ProductService productService;
     @Autowired
     private AttachService attachService;
 
@@ -46,13 +52,13 @@ public class AdminServiceImpl implements AdminService {
 
         List<ProductsViewVo> list = adminDao.productsViewList(pagehandler);
 
-        for (ProductsViewVo productsViewVo : list) {
-            int productId = productsViewVo.getId();
-            productsViewVo.setImageVOList(attachService.getAttachList(productId));
+        if (!list.isEmpty()) {
+            for (ProductsViewVo productsViewVo : list) {
+                int productId = productsViewVo.getId();
+                productsViewVo.setImageVOList(attachService.getAttachList(productId));
+            }
         }
-
         return list;
-
     }
 
     @Override
@@ -61,8 +67,32 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<OrderItemDto> getOrder(OrderDto orderDto) {
+        List<OrderItemDto> list = orderDao.getOrderItemInfo(orderDto.getOrderId());
+        for (OrderItemDto orderItemDto : list) {
+            int productId = orderItemDto.getProductId();
+            ProductsViewVo productsViewVo = productService.readProductDetail(productId);
+            orderItemDto.setImageVOList(productsViewVo.getImageVOList());
+            orderItemDto.setProductName(productsViewVo.getName());
+            orderItemDto.initSaleTotal();
+        }
+        return list;
+    }
+
+    @Override
     public List<OrderDto> getOrderList(Pagehandler pagehandler) {
-        return adminDao.getOrderList(pagehandler);
+        List<OrderDto> list = adminDao.getOrderList(pagehandler);
+        for (OrderDto orderDto : list) {
+            String orderId = orderDto.getOrderId();
+            List<OrderItemDto> orderItemDtoList = orderDao.getOrderItemInfo(orderId);
+            for (OrderItemDto oid : orderItemDtoList) {
+                int productId = oid.getProductId();
+                ProductsViewVo productsViewVo = productService.readProductDetail(productId);
+                oid.setProductName(productsViewVo.getName());
+            }
+            orderDto.setOrders(orderItemDtoList);
+        }
+        return list;
     }
 
     @Override

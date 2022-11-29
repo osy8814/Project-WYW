@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -28,43 +29,17 @@
 
             <div class="admin_wrap">
                 <!-- 네비영역 -->
-                <div class="admin_navi_wrap">
-                    <ul>
-                        <li>
-                            <a href="<c:url value="/admin/productsReg"/>" class="admin_list_01"><i
-                                    class="far fa-clipboard"></i>
-                                상품 등록</a>
-                        </li>
-                        <li>
-                            <a href="<c:url value="/admin/productslist"/>" class="admin_list_02"><i
-                                    class="fas fa-list"></i>상품 목록</a>
-                        </li>
-                        <lI>
-                            <a href="<c:url value="/admin/category"/>" class="admin_list_03"><i
-                                    class="fas fa-bezier-curve"></i>카테고리 등록</a>
-                        </lI>
-                        <lI>
-                            <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i
-                                    class="fas fa-scroll"></i>카테고리 관리</a>
-                        </lI>
-                        <lI>
-                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i
-                                    class="fas fa-truck"></i>배송 관리</a>
-                        </lI>
-                        <lI>
-                            <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
-                        </lI>
-                    </ul>
+                <jsp:include page="../admin/asideMenu.jsp" flush="false"/>
 
-                </div>
                 <div class="admin_content_wrap">
-                    <div class="admin_content_wrap_title">주문 목록</div>
+                    <div class="admin_content_wrap_title">배송 관리</div>
                     <c:if test="${listCheck != 'empty' }">
                         <table>
                             <tr>
                                 <th>주문번호</th>
                                 <th>주문자</th>
-                                <th>주문 날짜</th>
+                                <th>주문상품</th>
+                                <th>주문날짜</th>
                                 <th>주문상태</th>
                                 <th>관리</th>
                             </tr>
@@ -74,17 +49,24 @@
                                 <tr>
                                     <td class="align_center">${order.orderId}</td>
                                     <td class="align_center">${order.userId}</td>
+                                    <td>
+                                        <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
+                                                ${order.orders[0].productName}
+                                            <c:if test="${fn:length(order.orders)-1!=0}">
+                                                외 ${fn:length(order.orders)-1}개 상품
+                                            </c:if>
+                                        </a>
+
+                                    </td>
                                     <td class="align_end">
                                         <fmt:formatDate value="${order.orderDate}" pattern="YYYY/MM/dd HH:mm"/>
                                     </td>
                                     <td class="align_center">${order.orderState}</td>
                                     <td class="align_center">
                                         <c:if test="${order.orderState == '배송준비' }">
-                                        <button type="button" class="manage_btn" onclick="location.href='<c:url
-                                                value="/order/ordermanage?order_id=${order.orderId}"/>'">배송완료
-                                        </button>
-
-                                            <button class="delete_btn manage_btn" data-userid="${order.userId}" data-orderid="${order.orderId}">취소</button>
+                                            <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
+                                                <button class="manage_btn" type="button">배송관리</button>
+                                            </a>
                                         </c:if>
                                     </td>
                                 </tr>
@@ -141,14 +123,14 @@
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
                     </form>
-<%--                    주문취소--%>
-                    <form id="deleteForm" action="/WYW/admin/orderCancel" method="post">
-                        <input type="hidden" name="orderId">
-                        <input type="hidden" name="userId">
-                        <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
-                        <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
-                        <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
-                    </form>
+                    <%--                    &lt;%&ndash;                    주문취소&ndash;%&gt;--%>
+                    <%--                    <form id="deleteForm" action="/WYW/admin/orderCancel" method="post">--%>
+                    <%--                        <input type="hidden" name="orderId">--%>
+                    <%--                        <input type="hidden" name="userId">--%>
+                    <%--                        <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">--%>
+                    <%--                        <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">--%>
+                    <%--                        <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">--%>
+                    <%--                    </form>--%>
                 </div>
 
             </div>
@@ -158,28 +140,5 @@
 </div>
 <jsp:include page="../index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
-<script>
-    const msg = "${msg}";
-    if (msg == "del_ok") {
-        alert("상품이 삭제되었습니다.")
-    }
-    if (msg == "del_err") {
-        alert("상품이 삭제에 실패 하였습니다.")
-    }
-</script>
-<script>
-    $(".delete_btn").on("click", function(e){
-
-        e.preventDefault();
-
-        let orderid = $(this).data("orderid");
-        let userid = $(this).data("userid");
-
-        $("#deleteForm").find("input[name='orderId']").val(orderid);
-        $("#deleteForm").find("input[name='userId']").val(userid);
-
-        $("#deleteForm").submit();
-    });
-</script>
 </body>
 </html>

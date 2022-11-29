@@ -54,19 +54,21 @@ public class OrderDaoImpl implements OrderDao {
         return session.delete(namespace + "deleteOrderCart", cartVo);
     }
 
-    /* 주문 취소 */
+    @Override
+    public int shipping(String orderId) {
+        return session.update(namespace + "shipping", orderId);
+    }
+
     @Override
     public int orderCancel(String orderId) {
         return session.update(namespace + "orderCancel", orderId);
     }
 
-    /* 주문 상품 정보(주문취소) */
     @Override
     public List<OrderItemDto> getOrderItemInfo(String orderId) {
         return session.selectList(namespace + "getOrderItemInfo", orderId);
     }
 
-    /* 주문 정보(주문취소) */
     @Override
     public OrderDto getOrder(String orderId) {
         return session.selectOne(namespace + "getOrder", orderId);

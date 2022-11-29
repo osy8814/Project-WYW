@@ -1,21 +1,27 @@
 package com.project.WYW.dto;
 
+import com.project.WYW.model.AttachImageVO;
+
+import java.util.List;
+
 public class OrderItemDto {
+    /* order_item 기본키 */
+    private int orderItemId;
     /* 주문 번호 */
     private String orderId;
 
     /* 상품 번호 */
     private int productId;
 
+    private String productName;
     /* 주문 수량 */
-    private int productCount;
 
-    /* vam_orderItem 기본키 */
-    private int orderItemId;
+    private int productCount;
 
     /* 상품 한 개 가격 */
     private int price;
 
+    private List<AttachImageVO> imageVOList;
     /* 상품 한개 구매 시 획득 포인트 */
     private int savePoint;
 
@@ -41,6 +47,14 @@ public class OrderItemDto {
 
     public void setProductId(int productId) {
         this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getProductCount() {
@@ -91,6 +105,14 @@ public class OrderItemDto {
         this.totalSavePoint = totalSavePoint;
     }
 
+    public List<AttachImageVO> getImageVOList() {
+        return imageVOList;
+    }
+
+    public void setImageVOList(List<AttachImageVO> imageVOList) {
+        this.imageVOList = imageVOList;
+    }
+
     public void initSaleTotal() {
         this.totalPrice = this.price*this.productCount;
         this.totalSavePoint =this.savePoint * this.productCount;
@@ -99,11 +121,13 @@ public class OrderItemDto {
     @Override
     public String toString() {
         return "OrderItemDto{" +
-                "orderId='" + orderId + '\'' +
+                "orderItemId=" + orderItemId +
+                ", orderId='" + orderId + '\'' +
                 ", productId=" + productId +
+                ", productName='" + productName + '\'' +
                 ", productCount=" + productCount +
-                ", orderItemId=" + orderItemId +
                 ", price=" + price +
+                ", imageVOList=" + imageVOList +
                 ", savePoint=" + savePoint +
                 ", totalPrice=" + totalPrice +
                 ", totalSavePoint=" + totalSavePoint +

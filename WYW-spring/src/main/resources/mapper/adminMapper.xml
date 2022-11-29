@@ -144,7 +144,16 @@
 
     <select id="getOrderList" resultType="OrderDto">
 
-        SELECT order_id AS orderId, user_id AS userId, order_state AS orderState, order_date AS orderDate
+        SELECT
+        order_id AS orderId,
+        receiver,
+        user_id AS userId,
+        address1,
+        address2,
+        address3,
+        mobile,
+        order_state AS orderState,
+        order_date AS orderDate
         FROM orders
         <if test="keyword != null">
             WHERE user_id LIKE concat('%',#{keyword}, '%')
