@@ -25,7 +25,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String home(Pagehandler pagehandler, Model model)throws Exception{
-        controller.recevieCategory(model);
+        controller.receiveCategory(model);
         pagehandler.setAmount(4);
         pagehandler.setOrder("S");
 
