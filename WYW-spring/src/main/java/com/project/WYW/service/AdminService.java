@@ -4,6 +4,7 @@ import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.dto.OrderDto;
+import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 
@@ -21,6 +22,8 @@ public interface AdminService {
     List<ProductsViewVo> productsViewList(Pagehandler pagehandler) throws Exception;
 
     int productsGetTotal(Pagehandler pagehandler)throws Exception;
+
+    List<OrderItemDto> getOrder(OrderDto orderDto);
 
     List<OrderDto> getOrderList(Pagehandler pagehandler);
 

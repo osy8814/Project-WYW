@@ -3,7 +3,7 @@ package com.project.WYW.service;
 import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.UsersVo;
-import com.project.WYW.dto.OrderCancelDto;
+import com.project.WYW.dto.OrderManageDto;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.dto.OrderPageItemDto;
@@ -133,28 +133,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void orderCancel(OrderCancelDto orderCancelDto){
+    public void orderCancel(OrderManageDto orderManageDto) {
 
         TransactionStatus status = null;
 
         try {
-            /* 주문, 주문상품 객체 */
-            /*회원*/
-            UsersVo usersVo = usersSecvice.read(orderCancelDto.getUserId());
             /*주문상품*/
-            List<OrderItemDto> ords = orderDao.getOrderItemInfo(orderCancelDto.getOrderId());
+            List<OrderItemDto> ords = orderDao.getOrderItemInfo(orderManageDto.getOrderId());
             for (OrderItemDto ord : ords) {
                 ord.initSaleTotal();
             }
             /* 주문 */
-            OrderDto orderDto = orderDao.getOrder(orderCancelDto.getOrderId());
+            OrderDto orderDto = orderDao.getOrder(orderManageDto.getOrderId());
             orderDto.setOrders(ords);
 
             orderDto.getOrderPriceInfo();
 
             status = transactionManager.getTransaction(new DefaultTransactionDefinition());
             /* 주문상품 취소 DB */
-            orderDao.orderCancel(orderCancelDto.getOrderId());
+            orderDao.orderCancel(orderManageDto.getOrderId());
 
             /* 재고 */
             for (OrderItemDto ord : orderDto.getOrders()) {
@@ -174,7 +171,12 @@ public class OrderServiceImpl implements OrderService {
                 transactionManager.commit(status);
             }
         }
+    }
 
+    @Override
+    public void shipping(OrderManageDto orderManageDto) {
 
+        /* 배송 DB update */
+        orderDao.shipping(orderManageDto.getOrderId());
     }
 }

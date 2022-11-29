@@ -169,13 +169,13 @@
                             <span class="finalTotalPrice_span"></span> 원
                         </div>
                     </div>
-                    <div class="total_wrap_totalPoint_span">
-                        <div class="total_wrap_left">총 적립 예상 마일리지</div>
-                        <div class="total_wrap_right">
-                            <span class="totalPoint_span"></span> 원
-                            <span>(총 금액의 0.5%)</span>
-                        </div>
-                    </div>
+<%--                    <div class="total_wrap_totalPoint_span">--%>
+<%--                        <div class="total_wrap_left">총 적립 예상 마일리지</div>--%>
+<%--                        <div class="total_wrap_right">--%>
+<%--                            <span class="totalPoint_span"></span> 원--%>
+<%--                            <span>(총 금액의 0.5%)</span>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
                     <div class="order_result_btn_section">
                         <button type="button" class="order_btn">결제하기</button>
                     </div>

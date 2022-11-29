@@ -1,11 +1,13 @@
 package com.project.WYW.controller;
 
+import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
 import com.project.WYW.domain.UsersVo;
-import com.project.WYW.dto.OrderCancelDto;
+import com.project.WYW.dto.OrderManageDto;
 import com.project.WYW.dto.OrderDto;
+import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.PageVo;
 import com.project.WYW.model.Pagehandler;
@@ -13,14 +15,15 @@ import com.project.WYW.service.AdminService;
 import com.project.WYW.service.OrderService;
 import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -45,9 +48,12 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
-
+    @Autowired
+    OrderDao orderDao;
     @Autowired
     OrderService orderService;
+
+
     @GetMapping("/main")
     public String toMain() {
         return "admin/admin";
@@ -57,6 +63,7 @@ public class AdminController {
     /* 상품 등록 페이지 접속 */
     @GetMapping("/productsReg")
     public String getProductsReg(HttpSession session, Model model) throws Exception {
+
         List<CategoryVo> category = adminService.category();
         UsersVo loginUser = (UsersVo) session.getAttribute("loggedInUser");
 
@@ -71,7 +78,7 @@ public class AdminController {
 
         int rowCnt = adminService.regProduct(productsVo);
         if (rowCnt == 1) {
-            if(productsVo.getImageVOList()==null){
+            if (productsVo.getImageVOList() == null) {
                 rattr.addFlashAttribute("imgRegtMsg", "empty");
             }
 
@@ -85,21 +92,17 @@ public class AdminController {
 
     /* 상품 목록 페이지 접속 */
     @GetMapping("/productslist")
-    public String getProductslist(Pagehandler pagehandler, Model model) throws Exception {
+    public String getProductsList(Pagehandler pagehandler, Model model) throws Exception {
 
         List<ProductsViewVo> list = adminService.productsViewList(pagehandler);
-        model.addAttribute("list", list);
 
         if (!list.isEmpty()) {
             model.addAttribute("list", list);
         } else {
             model.addAttribute("listCheck", "empty");
         }
-
         int total = adminService.productsGetTotal(pagehandler);
-
         PageVo pageMarker = new PageVo(pagehandler, total);
-
         model.addAttribute("pageMarker", pageMarker);
 
 
@@ -108,6 +111,7 @@ public class AdminController {
 
     @GetMapping("/productsManage")
     public String getProductsManage(Integer id, Model model) throws Exception {
+
         List<CategoryVo> category = adminService.category();
         ProductsViewVo productsViewVo = adminService.readProduct(id);
         model.addAttribute(productsViewVo);
@@ -120,7 +124,7 @@ public class AdminController {
         int rowCnt = adminService.modifiyProduct(productsVo);
 
         if (rowCnt == 1) {
-            if(productsVo.getImageVOList()==null){
+            if (productsVo.getImageVOList() == null) {
                 rattr.addFlashAttribute("imgModMsg", "empty");
             }
             rattr.addFlashAttribute("msg", "modify_ok");
@@ -180,6 +184,57 @@ public class AdminController {
 
         return "admin/categoryManage";
     }
+
+
+    @GetMapping("/orderlist")
+    public String getOrderList(Pagehandler pagehandler, Model model) {
+
+        List<OrderDto> list = adminService.getOrderList(pagehandler);
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+
+        int total = adminService.getOrderTotal(pagehandler);
+        PageVo pageMarker = new PageVo(pagehandler, total);
+
+        model.addAttribute("pageMarker", pageMarker);
+
+        return "admin/orderList";
+    }
+
+    @GetMapping("/orderdetail")
+    public String getOrderDetail(OrderDto orderDto, Model model) {
+
+        OrderDto orderInfo = orderDao.getOrder(orderDto.getOrderId());
+        List<OrderItemDto> list = adminService.getOrder(orderDto);
+        orderInfo.setOrders(list);
+        orderInfo.getOrderPriceInfo();
+
+        model.addAttribute("orderInfo", orderInfo);
+        model.addAttribute("orderItems", list);
+
+        return "admin/orderListDetail";
+    }
+
+    @PostMapping("/orderCancel")
+    public String orderCancelPost(OrderManageDto orderManageDto) throws Exception {
+
+        orderService.orderCancel(orderManageDto);
+
+//        return "redirect:/admin/orderlist?keyword=" + orderCancelDto.getKeyword() + "&amount=" + orderCancelDto.getAmount() + "&pageNum=" + orderCancelDto.getPageNum();
+        return "redirect:/admin/orderlist";
+    }
+    @PostMapping("/shipping")
+    public String shippingPost(OrderManageDto orderManageDto){
+
+        orderService.shipping(orderManageDto);
+
+//        return "redirect:/admin/orderlist?keyword=" + orderCancelDto.getKeyword() + "&amount=" + orderCancelDto.getAmount() + "&pageNum=" + orderCancelDto.getPageNum();
+        return "redirect:/admin/orderlist";
+    }
+
 
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile) throws Exception {
@@ -306,34 +361,4 @@ public class AdminController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
-    @GetMapping("/orderlist")
-    public String getOrderList(Pagehandler pagehandler,Model model){
-
-        List<OrderDto> list = adminService.getOrderList(pagehandler);
-        model.addAttribute("list", list);
-
-        if (!list.isEmpty()) {
-            model.addAttribute("list", list);
-        } else {
-            model.addAttribute("listCheck", "empty");
-        }
-
-        int total = adminService.getOrderTotal(pagehandler);
-
-        PageVo pageMarker = new PageVo(pagehandler, total);
-
-        model.addAttribute("pageMarker", pageMarker);
-
-
-        return "admin/orderList";
-    }
-
-    @PostMapping("/orderCancel")
-    public String orderCancelPost(OrderCancelDto orderCancelDto)throws Exception {
-
-        System.out.println("orderCancelDto = " + orderCancelDto);
-        orderService.orderCancel(orderCancelDto);
-
-        return "redirect:/admin/orderlist?keyword=" + orderCancelDto.getKeyword() + "&amount=" + orderCancelDto.getAmount() + "&pageNum=" + orderCancelDto.getPageNum();
-    }
 }

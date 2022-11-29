@@ -30,6 +30,8 @@ public interface OrderDao {
     int deleteOrderCart(CartVo cartVo);
 
 
+    int shipping(String orderId);
+
     /* 주문 취소 */
     int orderCancel(String orderId);
 

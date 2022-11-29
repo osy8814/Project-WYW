@@ -28,35 +28,8 @@
 
             <div class="admin_wrap">
                 <!-- 네비영역 -->
-                <div class="admin_navi_wrap">
-                    <ul>
-                        <li>
-                            <a href="<c:url value="/admin/productsReg"/>" class="admin_list_01"><i
-                                    class="far fa-clipboard"></i>
-                                상품 등록</a>
-                        </li>
-                        <li>
-                            <a href="<c:url value="/admin/productslist"/>" class="admin_list_02"><i
-                                    class="fas fa-list"></i>상품 목록</a>
-                        </li>
-                        <lI>
-                            <a href="<c:url value="/admin/category"/>" class="admin_list_03"><i
-                                    class="fas fa-bezier-curve"></i>카테고리 등록</a>
-                        </lI>
-                        <lI>
-                            <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i
-                                    class="fas fa-scroll"></i>카테고리 관리</a>
-                        </lI>
-                        <lI>
-                            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i
-                                    class="fas fa-truck"></i>배송 관리</a>
-                        </lI>
-                        <lI>
-                            <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
-                        </lI>
-                    </ul>
-
-                </div>
+                <jsp:include page="../admin/asideMenu.jsp" flush="false"/>
+`
                 <div class="admin_content_wrap">
                     <div class="admin_content_wrap_title">상품 목록</div>
                     <div class="admin_content_sort_btn">
@@ -85,11 +58,10 @@
                                     <td class="align_center">${product.id}</td>
                                     <td class="align_center">${product.user_id}</td>
                                     <td class="admin_product_img">
-                                        <c:choose>
+                                      <c:choose>
                                             <c:when test="${product.imageVOList.size()==0}">
                                                 <img src="<c:url value='/img/noimage.PNG'/>">
                                             </c:when>
-
                                             <c:when test="${product.imageVOList!=null}">
                                                 <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
                                             </c:when>

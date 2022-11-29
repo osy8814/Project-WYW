@@ -205,6 +205,6 @@ public class OrderDto {
                 ", orderSalePrice=" + orderSalePrice +
                 ", orderSavePoint=" + orderSavePoint +
                 ", orderFinalSalePrice=" + orderFinalSalePrice +
-                '}';
+                '}'+"\n";
     }
 }

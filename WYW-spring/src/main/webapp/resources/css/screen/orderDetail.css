@@ -1,0 +1,17 @@
+.orderDetailMain__register__userInfo th{
+    vertical-align: middle;
+}
+
+.manage_btn_set{
+    box-sizing: border-box;
+    margin: 20px 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+}
+.manage_btn_set>button{
+    height: 60px;
+    width: 100px;
+    font-size: 15px;
+}
