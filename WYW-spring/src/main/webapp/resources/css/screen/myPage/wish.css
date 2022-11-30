@@ -35,50 +35,21 @@
 .table_text_align_center {
     text-align: center;
 }
-
-.content_subject {
-    height: 110px;
-    line-height: 110px;
-    background-color: lightgray;
-    margin-bottom: 60px;
-
-}
-
-.content_subject span {
-    padding-left: 30px;
-    display: inline-block;
+.wish_table th{
+    background-color: #32343e;
+    height: 50px;
     color: white;
-    font-size: 50px;
-    font-weight: bolder;
-}
-
-.content_totalCount_section {
-    width: 80%;
-    margin: 30px 0;
-}
-
-.subject_table {
-    font-size: 14px;
-    line-height: 20px;
-    width: 100%;
-    text-align: center;
-}
-
-.subject_table th {
-    color: white;
-    font-size: 16px;
     font-weight: bold;
-    border-top: 1px solid #888888;
-    background: #333333;
-    padding: 20px 0;
+    vertical-align: middle;
+    border-left: 1px solid white;
 }
 
 .wish_table td {
+    border-bottom: 1px solid lightgray;
     padding: 20px;
 }
 
 .td_width_1 {
-
     width: 5%;
 }
 
@@ -92,9 +63,6 @@
 }
 
 .td_width_3 {
-    vertical-align: middle;
-    font-weight: bold;
-    font-size: 16px;
     width: 25%;
 }
 .td_width_3 > a{
@@ -109,6 +77,7 @@
 .wish_table {
     font-size: 14px;
     line-height: 20px;
+    border-bottom: 2px solid #36424a;
 }
 
 .price_td {
@@ -121,11 +90,6 @@
 
 .green_color {
     color: green;
-}
-
-.wish_table td {
-
-    border-bottom: 1px solid #e7e7e7;
 }
 
 .quantity_div {

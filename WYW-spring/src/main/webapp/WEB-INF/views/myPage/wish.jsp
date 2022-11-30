@@ -20,9 +20,9 @@
 
 <div class="wish_main">
     <div class="wish_main-outter">
-        <h1 class="wish_main_title">위시 리스트</h1>
+        <h1 class="wish_main_title">찜목록</h1>
         <div class="content_totalCount_section">
-            <table class="subject_table">
+            <table class="wish_table">
                 <tr>
                     <th class="td_width_1"></th>
                     <th class="td_width_2">이미지</th>
@@ -40,7 +40,7 @@
                 </c:if>
                 <c:if test="${wishInfo != 'empty'}">
                     <c:forEach items="${wishInfo}" var="wishItem">
-                        <tr>>
+                        <tr>
                             <td class="td_width_1 wish_info_td">
                                 <input type="hidden" class="individual_productPrice_input" value="${wishItem.price}">
                                 <input type="hidden" class="individual_productId_input" value="${wishItem.product_id}">

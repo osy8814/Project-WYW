@@ -32,14 +32,14 @@
                 <jsp:include page="../admin/asideMenu.jsp" flush="false"/>
 
                 <div class="user-list-wrap">
-                    <div class="user-list-wrap_title">회원 관리</div>
+                    <h1 class="user-list-wrap_title">회원 관리</h1>
                     <c:if test="${list != 'empty' }">
 
                         <table class="user-list-table">
                             <tr>
                                 <th style="width: 100px">아이디</th>
                                 <th style="width: 100px">이름</th>
-                                <th style="width: 200px">가입일자</th>
+                                <th style="width: 100px">가입일자</th>
                                 <th style="width: 100px">활성화상태</th>
                                 <th style="width: 100px">관리</th>
                             </tr>
@@ -50,7 +50,7 @@
                                     <td class="align_end">
                                         <fmt:formatDate value="${user.createdAt}" pattern="YYYY/MM/dd HH:mm"/>
                                     </td>
-                                    <td class="align_end">
+                                    <td class="align_center">
                                         <c:if test="${user.active==true}">
                                             활성
                                         </c:if>
@@ -59,10 +59,10 @@
                                         </c:if>
                                     </td>
                                     <td class="align_center">
-                                            <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
-                                                <button class="manage_btn" type="button">회원관리</button>
-                                            </a>
-                                     </td>
+                                        <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
+                                            <button class="manage_btn" type="button">회원관리</button>
+                                        </a>
+                                    </td>
                                 </tr>
                             </c:forEach>
 
@@ -117,7 +117,7 @@
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
                     </form>
-                    </div>
+                </div>
 
             </div>
         </div>

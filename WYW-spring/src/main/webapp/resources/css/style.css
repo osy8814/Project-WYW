@@ -1,3 +1,6 @@
+/*font*/
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Gowun+Dodum&display=swap');
+
 @import url("reset.css");
 
 @import url("Keyframe.css");
@@ -29,9 +32,13 @@
 @import url("screen/product/orderDetail.css");
 @import url("screen/myPage/userOrderList.css");
 @import url("screen/myPage/userOrderDetail.css");
-@import url("screen/admin/userList.css");
+@import url("screen/admin/memberList.css");
 
 
+:root{
+  /*font-family: 'Do Hyeon', sans-serif;*/
+  font-family: 'Gowun Dodum', sans-serif;
+}
 /* 메인페이지 */
 
 body {
