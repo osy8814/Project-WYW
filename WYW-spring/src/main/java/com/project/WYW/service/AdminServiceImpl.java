@@ -30,13 +30,14 @@ public class AdminServiceImpl implements AdminService {
     private AttachService attachService;
     @Autowired
     private UsersDao usersDao;
+
     @Override
     public List<CategoryVo> category() throws Exception {
         return adminDao.category();
     }
 
     @Override
-    public List<UsersVo> getUserList() throws Exception{
+    public List<UsersVo> getUserList() throws Exception {
         return usersDao.selectAll();
     }
 
@@ -143,4 +144,8 @@ public class AdminServiceImpl implements AdminService {
         return adminDao.getAttachInfo(product_id);
     }
 
+    @Override
+    public int modifyUserInfo(UsersVo usersVo) {
+        return usersDao.modifyUserInfo(usersVo);
+    }
 }

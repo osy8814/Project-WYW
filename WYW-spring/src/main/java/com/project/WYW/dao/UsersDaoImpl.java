@@ -88,6 +88,10 @@ public class UsersDaoImpl implements UsersDao {
 		}
         return rowCnt;
     }
+	@Override
+	public int modifyUserInfo(UsersVo usersVo){
+		return session.update(namespace+"modifyUserInfo",usersVo);
+	}
 
 	@Override
 	public UsersVo emailChk(String email) throws Exception{

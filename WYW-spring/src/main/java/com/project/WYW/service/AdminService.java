@@ -43,4 +43,6 @@ public interface AdminService {
     int delateImageAll(Integer product_id)throws Exception;
 
     List<AttachImageVO> getAttachInfo(Integer product_id)throws Exception;
+
+    int modifyUserInfo(UsersVo usersVo)throws Exception;
 }

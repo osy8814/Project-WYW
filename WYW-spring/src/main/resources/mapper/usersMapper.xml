@@ -87,4 +87,20 @@
         WHERE user_id = #{userId}
     </update>
 
+    <update id="modifyUserInfo" parameterType="UsersVo">
+        UPDATE users
+        SET password=#{password},
+            mobile1=#{mobile1},
+            mobile2=#{mobile2},
+            mobile3=#{mobile3},
+            email=#{email},
+            APIPostcode=#{APIPostcode},
+            APIAddress=#{APIAddress},
+            APIDetailAddress=#{APIDetailAddress},
+            APIExtraAddress=#{APIExtraAddress},
+            is_admin=#{isAdmin},
+            is_active=#{isActive}
+        WHERE user_id = #{userId}
+    </update>
+
 </mapper>

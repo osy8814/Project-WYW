@@ -24,6 +24,9 @@ public interface UsersDao {
 
 	int update(UsersVo dto) throws Exception;
 
+
+	int modifyUserInfo(UsersVo usersVo);
+
 	UsersVo emailChk(String email) throws Exception;
 
 	UsersVo mobileChk(String mobile) throws Exception;
