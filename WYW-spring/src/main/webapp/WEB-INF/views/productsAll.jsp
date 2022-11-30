@@ -144,7 +144,7 @@
 <script>
     // 장바구니 클릭
     $(".cart_btn").on("click", function (e) {
-        if ("${loggedInUser}" === "") {
+        if ("${loggedInUser.userId}" === "") {
             alert("로그인 후에 이용해 주십시오.");
             return false
         }
