@@ -28,19 +28,24 @@ public class UsersController {
     @PostMapping ("/login.do")
     public String postLogin(UsersVo vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
 
+
         UsersVo loginUser = null;
         String loginUserPwd = null;
         String inputPass = null;
         HttpSession session = req.getSession();
         try {
             loginUser = usersSecvice.login(vo.getUserId());
+            if(loginUser.isActive()==false){
+                rttr.addFlashAttribute("msg","inactive");
+                return "redirect:/users/login.do";
+            }
             loginUserPwd = loginUser.getPassword();
             inputPass = vo.getPassword();
         } catch (Exception e) {
             e.printStackTrace();
             session.setAttribute("loggedInUser", null);
             rttr.addFlashAttribute("inputId",vo.getUserId());
-            rttr.addFlashAttribute("msg", false);
+            rttr.addFlashAttribute("msg", "false");
             return "redirect:/users/login.do";
         }
 
@@ -49,10 +54,9 @@ public class UsersController {
         }else{
             session.setAttribute("loggedInUser", null);
             rttr.addFlashAttribute("inputId",vo.getUserId());
-            rttr.addFlashAttribute("msg", false);
+            rttr.addFlashAttribute("msg", "false");
             return "redirect:/users/login.do";
         }
-
 
         return "redirect:/";
     }
