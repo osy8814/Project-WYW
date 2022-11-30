@@ -29,7 +29,6 @@ public class CartController {
         if (usersVo == null) {
             return "5";
         }
-        System.out.println("cartVo = " + cartVo);
         int result = cartService.addCart(cartVo);
 
         return result + "";
