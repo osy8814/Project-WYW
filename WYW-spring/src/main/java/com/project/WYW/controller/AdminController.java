@@ -205,10 +205,10 @@ public class AdminController {
     }
 
     @GetMapping("/orderdetail")
-    public String getOrderDetail(OrderDto orderDto, Model model) {
+    public String orderDetailGet(OrderDto orderDto, Model model) {
 
         OrderDto orderInfo = orderDao.getOrder(orderDto.getOrderId());
-        List<OrderItemDto> list = adminService.getOrder(orderDto);
+        List<OrderItemDto> list = orderService.getOrder(orderDto);
         orderInfo.setOrders(list);
         orderInfo.getOrderPriceInfo();
 
