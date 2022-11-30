@@ -98,4 +98,12 @@ public class UsersServiceTest {
 		System.out.println("usersVo = " + usersVo.getMobile());
 	}
 
+	@Test
+	public void readTest()throws Exception{
+		String userId = "admin";
+		UsersVo usersVo = usersSecvice.read(userId);
+		System.out.println("usersVo = " + usersVo);
+				
+	}
+			
 }
