@@ -3,6 +3,7 @@ package com.project.WYW.dao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.domain.UsersVo;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
@@ -10,6 +11,7 @@ import com.project.WYW.model.Pagehandler;
 import java.util.List;
 
 public interface AdminDao {
+
     List<CategoryVo> category() throws Exception;
 
     int regProduct(ProductsVo productsVo) throws Exception;

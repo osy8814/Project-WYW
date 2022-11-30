@@ -3,6 +3,7 @@ package com.project.WYW.service;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.domain.UsersVo;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
@@ -12,6 +13,10 @@ import java.util.List;
 
 public interface AdminService {
     List<CategoryVo> category()throws Exception;
+
+    List<UsersVo> getUserList() throws Exception;
+
+    int getUserTotal() throws Exception;
 
     int regProduct(ProductsVo productsVo)throws Exception;
 

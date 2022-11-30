@@ -4,6 +4,7 @@ import com.project.WYW.dao.AdminDao;
 import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.domain.UsersVo;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
@@ -127,4 +128,17 @@ public class AdminServiceImplTest {
     @Test
     public void imgReg() {
     }
+    
+    @Test
+    public void getSelectAllTest()throws Exception{
+        List<UsersVo>list = adminService.getUserList();
+        System.out.println("list = " + list);
+    }
+    
+    @Test
+    public void getUserTotalTest()throws Exception{
+        int users = adminService.getUserTotal();
+        System.out.println("users = " + users);
+    }
+    
 }

@@ -10,22 +10,28 @@
 
     <sql id="selectFromUser">
         SELECT id,
-               user_id    AS userId,
+               user_id AS userId,
                password,
                name,
                mobile,
-               mobile1, mobile2, mobile3,
+               mobile1,
+               mobile2,
+               mobile3,
                email,
                address,
-               APIPostcode, APIAddress, APIDetailAddress, APIExtraAddress,
+               APIPostcode,
+               APIAddress,
+               APIDetailAddress,
+               APIExtraAddress,
                created_at AS createdAt,
-               is_admin   AS isAdmin
+               is_admin   AS isAdmin,
+               is_active AS isActive
         FROM users
     </sql>
 
     <select id="selectAll" resultType="UsersVo">
         <include refid="selectFromUser"/>
-        ORDER BY created_at DESC, id DESC
+        ORDER BY is_admin DESC, created_at DESC
     </select>
 
 
