@@ -9,26 +9,26 @@
 
 /* screen */
 @import url("screen/IntroduceScreen.css");
-@import url("screen/signUp.css");
-@import url("screen/signUp_complete.css");
-@import url("screen/login.css");
+@import url("screen/signUp/signUp.css");
+@import url("screen/signUp/signUp_complete.css");
+@import url("screen/login/login.css");
 @import url("screen/find_id.css");
 @import url("screen/find_pwd.css");
-@import url("screen/mypage.css");
-@import url("screen/admin.css");
-@import url("screen/productDetail.css");
-@import url("screen/adminRegist.css");
-@import url("screen/adminProductsList.css");
-@import url("screen/adminSearch.css");
-@import url("screen/productsAll.css");
-@import url("screen/cart.css");
-@import url("screen/order.css");
+@import url("screen/myPage/mypage.css");
+@import url("screen/admin/admin.css");
+@import url("screen/product/productDetail.css");
+@import url("screen/admin/adminRegist.css");
+@import url("screen/admin/adminProductsList.css");
+@import url("screen/admin/adminSearch.css");
+@import url("screen/product/productsAll.css");
+@import url("screen/cart/cart.css");
+@import url("screen/order/order.css");
 @import url("screen/reply.css");
-@import url("screen/userInfo.css");
-@import url("screen/wish.css");
-@import url("screen/orderDetail.css");
-@import url("screen/userOrderList.css");
-@import url("screen/userOrderDetail.css");
+@import url("screen/myPage/userInfo.css");
+@import url("screen/myPage/wish.css");
+@import url("screen/product/orderDetail.css");
+@import url("screen/myPage/userOrderList.css");
+@import url("screen/myPage/userOrderDetail.css");
 
 /* 메인페이지 */
 
