@@ -59,7 +59,7 @@
                                         </c:if>
                                     </td>
                                     <td class="align_center">
-                                        <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
+                                        <a href="/WYW/admin/memberdetail?userId=${user.userId}">
                                             <button class="manage_btn" type="button">회원관리</button>
                                         </a>
                                     </td>
@@ -70,7 +70,7 @@
                     </c:if>
                     <c:if test="${list == 'empty'}">
                         <div class="table_empty">
-                            등록된 주문내역이 없습니다.
+                            등록된 회원이 없습니다.
                         </div>
                     </c:if>
                     <div class="search_wrap">
@@ -126,5 +126,11 @@
 </div>
 <jsp:include page="../index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
+<script>
+    let msg = "${msg}"
+    if (msg == "edit_ok") {
+        alert("회원정보가 수정되었습니다.");
+    }
+</script>
 </body>
 </html>
