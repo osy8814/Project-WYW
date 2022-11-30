@@ -40,7 +40,7 @@
                 </c:if>
                 <c:if test="${wishInfo != 'empty'}">
                     <c:forEach items="${wishInfo}" var="wishItem">
-                        <tr>
+                        <tr>>
                             <td class="td_width_1 wish_info_td">
                                 <input type="hidden" class="individual_productPrice_input" value="${wishItem.price}">
                                 <input type="hidden" class="individual_productId_input" value="${wishItem.product_id}">
@@ -69,7 +69,8 @@
                                 <h1>${wishItem.stock} EA</h1>
                             </td>
                             <td class="td_width_4 table_text_align_center delete_btn">
-                                <button class="delete_product_btn" type="button" data-id="${wishItem.id}">삭제</button>
+                                <button class="cart_product_btn manage_btn" type="button" data-id="${wishItem.product_id}" data-stock="${wishItem.stock}">장바구니추가</button>
+                                <button class="delete_product_btn manage_btn" type="button" data-id="${wishItem.id}">삭제</button>
                             </td>
                         </tr>
                     </c:forEach>
@@ -90,7 +91,45 @@
 <jsp:include page="../index_bottom.jsp" flush="false"/>
 <script>
 
-    /* 장바구니 삭제 버튼 */
+    // 장바구니 클릭
+    $(".cart_product_btn").on("click", function (e) {
+
+        let form = {
+            user_id: '${loggedInUser.userId}',
+            product_id: $(this).data("id"),
+            product_count: 1,
+        }
+
+        if ($(this).data("stock") === "0") {
+            alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
+            return false;
+        }
+        console.log(form);
+        $.ajax({
+            url: '/WYW/cart/add',
+            type: 'POST',
+            data: form,
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                cartAlert(result);
+            },
+        })
+    });
+
+    function cartAlert(result) {
+        if (result == '0') {
+            alert("장바구니에 추가를 하지 못하였습니다.");
+        } else if (result == '1') {
+            alert("장바구니에 추가되었습니다.");
+        } else if (result == '2') {
+            alert("장바구니에 이미 추가되어 있습니다.");
+        } else if (result == '5') {
+            alert("로그인이 필요합니다.");
+        }
+    }
+
+    /* 위시 삭제 버튼 */
     $(".delete_product_btn").on("click", function () {
         let wishId = $(this).data("id");
         $(".delete_wishId").val(wishId);
