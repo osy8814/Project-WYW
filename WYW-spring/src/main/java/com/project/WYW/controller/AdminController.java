@@ -235,6 +235,22 @@ public class AdminController {
         return "redirect:/admin/orderlist";
     }
 
+    @GetMapping("/membermanagement")
+    public String memberManagementGet(Pagehandler pagehandler,Model model)throws Exception{
+
+        List<UsersVo>list = adminService.getUserList();
+
+        if (!list.isEmpty()) {
+            model.addAttribute("list", list);
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+        PageVo pageMarker =  new PageVo(pagehandler, adminService.getUserTotal());
+        model.addAttribute("pageMarker", pageMarker);
+
+        return "admin/memberList";
+    }
+
 
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile) throws Exception {
