@@ -41,6 +41,16 @@
                     </a>
                 </li>
                 <li>
+                    <a href="/WYW/mypage/orders">
+                        <div>
+                            <i class="fas fa-truck"></i>
+                            <h1>Orders</h1>
+                            <h2>배송현황</h2>
+                            <p>구매상품의 배송현황을 확인하실 수 있습니다.</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
                     <a href="#">
                         <div>
                             <i class="fas fa-ticket-alt"></i>
@@ -60,16 +70,7 @@
                         </div>
                     </a>
                 </li>
-                <li>
-                    <a href="#">
-                        <div>
-                            <i class="fas fa-truck"></i>
-                            <h1>Orders</h1>
-                            <h2>배송현황</h2>
-                            <p>구매상품의 배송현황을 확인하실 수 있습니다.</p>
-                        </div>
-                    </a>
-                </li>
+
             </ul>
         </div>
     </div>
