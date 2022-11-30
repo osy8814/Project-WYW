@@ -82,7 +82,7 @@
                                     </tr>
                                     <tr>
                                         <th>배송주소</th>
-                                        <td>${orderInfo.address1}${orderInfo.address2}${orderInfo.address2}</td>
+                                        <td>${orderInfo.address1},${orderInfo.address2},${orderInfo.address3}</td>
                                     </tr>
                                     <tr>
                                         <th>주문요청일</th>
