@@ -210,9 +210,17 @@ public class UsersVo {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", address='" + address + '\'' +
+                ", mobile1='" + mobile1 + '\'' +
+                ", mobile2='" + mobile2 + '\'' +
+                ", mobile3='" + mobile3 + '\'' +
+                ", APIPostcode='" + APIPostcode + '\'' +
+                ", APIAddress='" + APIAddress + '\'' +
+                ", APIExtraAddress='" + APIExtraAddress + '\'' +
+                ", APIDetailAddress='" + APIDetailAddress + '\'' +
+                ", createdAt=" + createdAt +
+                ", isAdmin=" + isAdmin +
                 ", point=" + point +
+                ", isActive=" + isActive +
                 '}';
     }
 
