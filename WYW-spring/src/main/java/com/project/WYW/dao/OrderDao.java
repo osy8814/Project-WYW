@@ -40,4 +40,6 @@ public interface OrderDao {
 
     /* 주문 정보(주문취소) */
     OrderDto getOrder(String orderId);
+
+    List<OrderDto> getUserOrderList(String userId);
 }

@@ -28,8 +28,6 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private AttachService attachService;
     @Autowired
-    private CartService cartService;
-    @Autowired
     private ProductService productService;
     @Autowired
     private UsersSecvice usersSecvice;
@@ -53,6 +51,26 @@ public class OrderServiceImpl implements OrderService {
             result.add(productInfo);
         }
         return result;
+    }
+
+    @Override
+    public List<OrderDto> getUserOrderList(String userId){
+        List<OrderDto>list = orderDao.getUserOrderList(userId);
+        for (OrderDto orderDto:list) {
+            String orderId = orderDto.getOrderId();
+            List<OrderItemDto> orderItemDtoList = orderDao.getOrderItemInfo(orderId);
+            for (OrderItemDto orderItemDto : orderItemDtoList){
+                int productId = orderItemDto.getProductId();
+                ProductsViewVo productsViewVo = productService.readProductDetail(productId);
+                orderItemDto.setProductName(productsViewVo.getName());
+                orderItemDto.setImageVOList(productsViewVo.getImageVOList());
+                orderItemDto.initSaleTotal();
+            }
+            orderDto.setOrders(orderItemDtoList);
+            orderDto.getOrderPriceInfo();
+
+        }
+        return list;
     }
 
 
@@ -179,4 +197,17 @@ public class OrderServiceImpl implements OrderService {
         /* 배송 DB update */
         orderDao.shipping(orderManageDto.getOrderId());
     }
+    @Override
+    public List<OrderItemDto> getOrder(OrderDto orderDto) {
+        List<OrderItemDto> list = orderDao.getOrderItemInfo(orderDto.getOrderId());
+        for (OrderItemDto orderItemDto : list) {
+            int productId = orderItemDto.getProductId();
+            ProductsViewVo productsViewVo = productService.readProductDetail(productId);
+            orderItemDto.setImageVOList(productsViewVo.getImageVOList());
+            orderItemDto.setProductName(productsViewVo.getName());
+            orderItemDto.initSaleTotal();
+        }
+        return list;
+    }
+
 }
