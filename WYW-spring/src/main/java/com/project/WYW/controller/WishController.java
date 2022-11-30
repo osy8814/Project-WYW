@@ -1,9 +1,7 @@
 package com.project.WYW.controller;
 
 import com.project.WYW.domain.UsersVo;
-import com.project.WYW.model.CartVo;
 import com.project.WYW.model.WishVo;
-import com.project.WYW.service.CartService;
 import com.project.WYW.service.WishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,11 +48,11 @@ public class WishController {
         if(list.isEmpty()){
             model.addAttribute("wishInfo", "empty");
 
-            return "wish";
+            return "myPage/wish";
         }
         model.addAttribute("wishInfo", list);
 
-        return "wish";
+        return "myPage/wish";
     }
 
     @PostMapping("/delete")

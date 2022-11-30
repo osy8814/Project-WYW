@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 @RequestMapping("/mypage")
 @Controller
@@ -28,7 +27,7 @@ public class MypageController {
 
     @GetMapping("/")
     public String myPage() {
-        return "mypage";
+        return "myPage/mypage";
     }
 
     @GetMapping("/info")
@@ -40,7 +39,7 @@ public class MypageController {
 
         model.addAttribute("userinfo", usersVo);
 
-        return "userInfo";
+        return "myPage/userInfo";
     }
 
     @PostMapping("/info")

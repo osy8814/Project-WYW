@@ -14,7 +14,7 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 <div class="mypage_main">
     <div class="mypage_main-outter">
         <h1 class="mypage_main_title">마이페이지</h1>
@@ -74,7 +74,7 @@
         </div>
     </div>
 </div>
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 <script>
     let msg="${msg}"
     if(msg=="edit_ok"){

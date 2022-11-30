@@ -16,7 +16,7 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 
 <div class="wish_main">
     <div class="wish_main-outter">
@@ -87,7 +87,7 @@
     <input type="hidden" name="user_id" value="${loggedInUser.userId}">
 </form>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 <script>
 
     /* 장바구니 삭제 버튼 */
