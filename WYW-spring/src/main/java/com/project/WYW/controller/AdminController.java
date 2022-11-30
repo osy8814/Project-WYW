@@ -13,6 +13,7 @@ import com.project.WYW.model.PageVo;
 import com.project.WYW.model.Pagehandler;
 import com.project.WYW.service.AdminService;
 import com.project.WYW.service.OrderService;
+import com.project.WYW.service.UsersSecvice;
 import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -48,6 +51,8 @@ public class AdminController {
 
     @Autowired
     AdminService adminService;
+    @Autowired
+    UsersSecvice usersSecvice;
     @Autowired
     OrderDao orderDao;
     @Autowired
@@ -226,8 +231,9 @@ public class AdminController {
 //        return "redirect:/admin/orderlist?keyword=" + orderCancelDto.getKeyword() + "&amount=" + orderCancelDto.getAmount() + "&pageNum=" + orderCancelDto.getPageNum();
         return "redirect:/admin/orderlist";
     }
+
     @PostMapping("/shipping")
-    public String shippingPost(OrderManageDto orderManageDto){
+    public String shippingPost(OrderManageDto orderManageDto) {
 
         orderService.shipping(orderManageDto);
 
@@ -236,21 +242,92 @@ public class AdminController {
     }
 
     @GetMapping("/membermanagement")
-    public String memberManagementGet(Pagehandler pagehandler,Model model)throws Exception{
+    public String memberManagementGet(Pagehandler pagehandler, Model model) throws Exception {
 
-        List<UsersVo>list = adminService.getUserList();
+        List<UsersVo> list = adminService.getUserList();
 
         if (!list.isEmpty()) {
             model.addAttribute("list", list);
         } else {
             model.addAttribute("listCheck", "empty");
         }
-        PageVo pageMarker =  new PageVo(pagehandler, adminService.getUserTotal());
+        PageVo pageMarker = new PageVo(pagehandler, adminService.getUserTotal());
         model.addAttribute("pageMarker", pageMarker);
 
         return "admin/memberList";
     }
 
+    @GetMapping("/memberdetail")
+    public String memberDetailGet(String userId,Model model) throws Exception {
+
+        UsersVo usersVo = usersSecvice.read(userId);
+        model.addAttribute("userInfo", usersVo);
+
+        return "admin/userInfoForAdmin";
+    }
+    @PostMapping("/modifyuserinfo")
+    public String modifyUserInfo(UsersVo usersVo,Model model,RedirectAttributes attributes)throws Exception{
+        int rowCnt = adminService.modifyUserInfo(usersVo);
+
+        if(rowCnt==1){
+            attributes.addFlashAttribute("msg", "edit_ok");
+            return "redirect:/admin/membermanagement";
+        }
+        attributes.addFlashAttribute("msg", "err");
+        return "redirect:/admin/memberdetail";
+    }
+
+    @PostMapping("/activeaccount")
+    public String activeAccountPost(String userId,RedirectAttributes attributes)throws Exception {
+        UsersVo usersVo = usersSecvice.read(userId);
+        usersVo.setActive(true);
+        int rowCnt = adminService.modifyUserInfo(usersVo);
+        if (rowCnt == 1) {
+            attributes.addFlashAttribute("msg", "active");
+            return "redirect:/admin/memberdetail?userId=" + userId;
+        }
+        attributes.addFlashAttribute("msg", "err");
+        return "redirect:/admin/memberdetail?userId=" + userId;
+    }
+
+    @PostMapping("/inactiveaccount")
+    public String inActiveAccountPost(String userId, RedirectAttributes attributes)throws Exception{
+        UsersVo usersVo = usersSecvice.read(userId);
+        usersVo.setActive(false);
+        int rowCnt = adminService.modifyUserInfo(usersVo);
+        if(rowCnt==1){
+            attributes.addFlashAttribute("msg","inactive");
+            return "redirect:/admin/memberdetail?userId="+userId;
+        }
+        attributes.addFlashAttribute("msg","err");
+        return "redirect:/admin/memberdetail?userId="+userId;
+    }
+
+    @PostMapping("/adminaccount")
+    public String adminAccountPost(String userId,RedirectAttributes attributes)throws Exception {
+        UsersVo usersVo = usersSecvice.read(userId);
+        usersVo.setAdmin(true);
+        int rowCnt = adminService.modifyUserInfo(usersVo);
+        if (rowCnt == 1) {
+            attributes.addFlashAttribute("msg", "admin");
+            return "redirect:/admin/memberdetail?userId=" + userId;
+        }
+        attributes.addFlashAttribute("msg", "err");
+        return "redirect:/admin/memberdetail?userId=" + userId;
+    }
+
+    @PostMapping("/nonadminaccount")
+    public String nonAdminAccountPost(String userId,RedirectAttributes attributes)throws Exception {
+        UsersVo usersVo = usersSecvice.read(userId);
+        usersVo.setAdmin(false);
+        int rowCnt = adminService.modifyUserInfo(usersVo);
+        if (rowCnt == 1) {
+            attributes.addFlashAttribute("msg", "nonadmin");
+            return "redirect:/admin/memberdetail?userId=" + userId;
+        }
+        attributes.addFlashAttribute("msg", "err");
+        return "redirect:/admin/memberdetail?userId=" + userId;
+    }
 
     @PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<AttachImageVO>> uploadajaxActionPost(MultipartFile[] uploadFile) throws Exception {
@@ -377,4 +454,41 @@ public class AdminController {
         return new ResponseEntity<String>("success", HttpStatus.OK);
     }
 
+    @ResponseBody
+    @PostMapping("/emailChk")
+    public boolean emailChk(HttpServletRequest request) throws Exception {
+        String email = request.getParameter("email");
+        UsersVo vo = usersSecvice.emailChk(email);
+
+        String userId = request.getParameter("userId");
+        UsersVo usersVo = usersSecvice.read(userId);
+        String userEmail = usersVo.getEmail();
+
+        boolean chkEmail = userEmail.equals(email);
+
+        if (vo != null && !chkEmail) {
+            return true;
+        }
+        return false;
+    }
+    @ResponseBody
+    @PostMapping("/mobileChk")
+    public boolean mobileChk(HttpServletRequest request) throws Exception {
+        String mobile1 = request.getParameter("mobile1");
+        String mobile2 = request.getParameter("mobile2");
+        String mobile3 = request.getParameter("mobile3");
+        String mobile = mobile1 + "-" + mobile2 + "-" + mobile3;
+        UsersVo vo = usersSecvice.mobileChk(mobile);
+
+        String userId = request.getParameter("userId");
+        UsersVo usersVo = usersSecvice.read(userId);
+        String userMobile = usersVo.getMobile();
+
+        boolean chkMobile = userMobile.equals(mobile);
+
+        if (vo != null && !chkMobile) {
+            return true;
+        }
+        return false;
+    }
 }
