@@ -120,4 +120,11 @@ public class OrderServiceImplTest {
 
 
     }
+
+    @Test
+    public void getUserOrderList(){
+        String userId = "admin";
+        List<OrderDto>list = orderService.getUserOrderList(userId);
+        System.out.println("list = " + list);
+    }
 }

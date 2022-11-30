@@ -82,7 +82,7 @@ public class UsersController {
 
     @GetMapping("/mypage")
     public String getMypage(){
-        return "mypage";
+        return "myPage/mypage";
     }
 
     @GetMapping("/find_id")

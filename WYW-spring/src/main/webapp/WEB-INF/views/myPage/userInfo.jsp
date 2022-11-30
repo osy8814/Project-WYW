@@ -15,7 +15,7 @@
     <style></style>
 </head>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 <div class="signUpMain">
     <form role="form" method="post" onsubmit="return confirm('회원정보를 수정 하시겠습니까?');" class="signUpMain__register">
         <div class="signUpMain__register__userInfo">
@@ -130,7 +130,7 @@
     </form>
 </div>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

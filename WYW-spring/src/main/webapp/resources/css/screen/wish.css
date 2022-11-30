@@ -27,7 +27,7 @@
     border-bottom: 1px solid rgba(50, 52, 62, 0.2);
 }
 
-table {
+.wish_main-outter table {
     border-collapse: collapse;
     width: 100%;
 }

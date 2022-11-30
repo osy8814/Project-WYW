@@ -1,0 +1,74 @@
+.user-order-list_main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 외부박스 */
+.user-order-list_main-outter {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 50px;
+}
+
+/* 페이지타이틀  */
+.user-order-list_main_title {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+}
+
+.before-manage_table-box,
+.after-manage_table-box{
+    width: 100%;
+}
+
+.before-manage_table-box_title,
+.after-manage_table-box_title {
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.before-manage_table-box table{
+    width: 1200px;
+}
+.after-manage_table-box table{
+    width: 1100px;
+}
+
+.user-order-list_main-outter th{
+    text-align: center;
+    height: 40px;
+    vertical-align: middle;
+    background-color: #32343e;
+    color: white;
+}
+.user-order-list_main-outter td{
+    height: 40px;
+    vertical-align: middle;
+    border-bottom: 1px solid lightgray;
+    border-left: 1px solid lightgray;
+    border-right: 1px solid lightgray;
+}
+
+.width300px{
+    width: 300px;
+
+}.width200px{
+    width: 200px;
+}
+.width100px{
+    width: 100px;
+}
+.order_empty{
+    height: 100px;
+}

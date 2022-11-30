@@ -1,7 +1,12 @@
 package com.project.WYW.controller;
 
+import com.project.WYW.dao.OrderDao;
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.dto.OrderDto;
+import com.project.WYW.dto.OrderItemDto;
+import com.project.WYW.dto.OrderManageDto;
 import com.project.WYW.service.MypageService;
+import com.project.WYW.service.OrderService;
 import com.project.WYW.service.UsersSecvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequestMapping("/mypage")
 @Controller
@@ -24,15 +30,19 @@ public class MypageController {
     MypageService mypageService;
     @Autowired
     UsersSecvice usersSecvice;
+    @Autowired
+    OrderDao orderDao;
+    @Autowired
+    OrderService orderService;
 
 
     @GetMapping("/")
     public String myPage() {
-        return "mypage";
+        return "myPage/mypage";
     }
 
     @GetMapping("/info")
-    public String info(Model model, HttpServletRequest request) throws Exception {
+    public String infoGet(Model model, HttpServletRequest request) throws Exception {
 
         HttpSession session = request.getSession();
         UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");
@@ -40,20 +50,78 @@ public class MypageController {
 
         model.addAttribute("userinfo", usersVo);
 
-        return "userInfo";
+        return "myPage/userInfo";
     }
 
     @PostMapping("/info")
-    public String postSignup(UsersVo usersVo, Model m, RedirectAttributes redirectAttributes) throws Exception {
+    public String infoPost(UsersVo usersVo, Model m, RedirectAttributes redirectAttributes) throws Exception {
         int isSuccessful = mypageService.updateUserInfo(usersVo);
 
         if (0 < isSuccessful) {
-            redirectAttributes.addFlashAttribute("msg","edit_ok");
+            redirectAttributes.addFlashAttribute("msg", "edit_ok");
             return "redirect:/mypage/";
         }
         redirectAttributes.addFlashAttribute("msg", "edit_err");
 
         return "redirect:/mypage/info";
+    }
+
+    @GetMapping("/orders")
+    public String orderGet(Model model, HttpServletRequest request) throws Exception {
+
+        HttpSession session = request.getSession();
+        UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");
+        String userId = loggedInUser.getUserId();
+
+        List<OrderDto> list =  orderService.getUserOrderList(userId);
+        List<OrderDto> readyList = new ArrayList<>();
+        List<OrderDto> completeList = new ArrayList<>();
+        for (OrderDto orderDto:list) {
+            if(orderDto.getOrderState().equals("배송준비")){
+                readyList.add(orderDto);
+            }
+        }
+        for (OrderDto orderDto:list) {
+            if(!orderDto.getOrderState().equals("배송준비")){
+                completeList.add(orderDto);
+            }
+        }
+
+        if(!readyList.isEmpty()){
+            model.addAttribute("readyList",readyList);
+        }else if(readyList.isEmpty()){
+            model.addAttribute("readyList","empty");
+        }
+
+        if(!completeList.isEmpty()){
+            model.addAttribute("completeList",completeList);
+        }else if(completeList.isEmpty()){
+            model.addAttribute("completeList","empty");
+        }
+        return "myPage/userOrderList";
+    }
+
+    @GetMapping("/orderdetail")
+    public String orderDetailGet(OrderDto orderDto,Model model) throws Exception {
+
+        OrderDto orderInfo = orderDao.getOrder(orderDto.getOrderId());
+        List<OrderItemDto> list = orderService.getOrder(orderDto);
+        orderInfo.setOrders(list);
+        orderInfo.getOrderPriceInfo();
+
+        model.addAttribute("orderInfo", orderInfo);
+        model.addAttribute("orderItems", list);
+
+
+        return "myPage/userOrderDetail";
+    }
+
+    @PostMapping("/orderCancel")
+    public String orderCancelPost(OrderManageDto orderManageDto) throws Exception {
+
+        orderService.orderCancel(orderManageDto);
+
+        return "redirect:/mypage/orders";
     }
 
     @ResponseBody

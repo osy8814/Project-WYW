@@ -51,7 +51,7 @@
                                     <td class="align_center">${order.userId}</td>
                                     <td>
                                         <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
-                                                ${order.orders[0].productName}
+                                                [${order.orders[0].productName}]
                                             <c:if test="${fn:length(order.orders)-1!=0}">
                                                 외 ${fn:length(order.orders)-1}개 상품
                                             </c:if>

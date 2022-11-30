@@ -27,10 +27,9 @@ public class CartController {
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
         if (usersVo == null) {
-            System.out.println("유저없음");
             return "5";
         }
-
+        System.out.println("cartVo = " + cartVo);
         int result = cartService.addCart(cartVo);
 
         return result + "";

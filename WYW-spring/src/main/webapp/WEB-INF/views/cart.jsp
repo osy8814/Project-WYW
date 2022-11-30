@@ -86,7 +86,7 @@
                                 <fmt:formatNumber value="${ci.price * ci.product_count}" pattern="#,### 원"/>
                             </td>
                             <td class="td_width_4 table_text_align_center delete_btn">
-                                <button class="delete_product_btn" type="button" data-id="${ci.id}">삭제</button>
+                                <button class="delete_product_btn manage_btn" type="button" data-id="${ci.id}">삭제</button>
                             </td>
                         </tr>
                     </c:forEach>

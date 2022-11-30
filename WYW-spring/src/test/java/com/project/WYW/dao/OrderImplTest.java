@@ -111,5 +111,13 @@ public class OrderImplTest {
         orderDao.deleteOrderCart(cartVo);
 
     }
+    
+    @Test
+    public void getUserOrderList(){
+        String userId = "admin";
+        
+        List<OrderDto>list = orderDao.getUserOrderList(userId);
+        System.out.println("list = " + list);
+    }
 
 }

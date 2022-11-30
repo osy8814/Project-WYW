@@ -98,4 +98,23 @@
 
     </select>
 
+
+    <select id="getUserOrderList" resultType="OrderDto">
+
+        SELECT order_id     AS orderId,
+               receiver,
+               user_id      AS userId,
+               address1,
+               address2,
+               address3,
+               mobile,
+               order_state  AS orderState,
+               delivery_fee AS deliveryCost,
+               use_point    AS usePoint,
+               order_date   AS orderDate
+        FROM orders
+        WHERE user_id = #{userId}
+
+    </select>
+
 </mapper>

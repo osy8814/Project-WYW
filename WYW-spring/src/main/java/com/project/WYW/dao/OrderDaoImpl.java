@@ -74,4 +74,9 @@ public class OrderDaoImpl implements OrderDao {
         return session.selectOne(namespace + "getOrder", orderId);
     }
 
+    @Override
+    public List<OrderDto> getUserOrderList(String userId){
+        return session.selectList(namespace+"getUserOrderList",userId);
+    }
+
 }
