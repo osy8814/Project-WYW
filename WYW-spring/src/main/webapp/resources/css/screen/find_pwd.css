@@ -65,6 +65,7 @@
   font-size: 14px;
   gap: 10px;
 }
+#certification_number,
 .find_pwd_form_name_email input {
   width: 250px;
   height: 30px;
@@ -73,8 +74,10 @@
 }
 
 /* 비밀번호찾기버튼 */
+#certification_btn,
 #confirm {
   background-color: rgba(50, 52, 62);
+  cursor: pointer;
   color: white;
   border: none;
   font-size: 15px;
@@ -97,6 +100,29 @@
   display: flex;
   justify-content: space-evenly;
 }
+.find_pwd_certification_number{
+  display: flex;
+}
+.hidden_div{
+  display: none;
+}
+.confirm{
+  background-color: rgba(50, 52, 62);
+  cursor: pointer;
+  color: white;
+  border: none;
+  font-size: 15px;
+  width: 150px;
+  height: 100%;
+  transition: 0.3s ease-in-out;
+}
+
+.disabled_btn {
+  background-color: rgba(50, 52, 62, 0.2);
+  color: rgba(50, 52, 62, 1);
+  font-weight: bold;
+}
+
 
 /* 미디어쿼리 */
 /* 미디어쿼리 */

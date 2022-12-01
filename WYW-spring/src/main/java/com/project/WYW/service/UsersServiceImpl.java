@@ -60,4 +60,24 @@ public class UsersServiceImpl implements UsersSecvice {
 		return usersDao.mobileChk(mobile);
 	}
 
+	@Override
+	public String findId(UsersVo usersVo){
+		UsersVo findUser = usersDao.findId(usersVo);
+		if(findUser==null){
+			return null;
+		}
+		String userId = findUser.getUserId();
+		return userId;
+	}
+
+	@Override
+	public String findPwd(UsersVo usersVo){
+		UsersVo findUser = usersDao.findPwd(usersVo);
+		if(findUser==null){
+			return null;
+		}
+		String userPassword = findUser.getPassword();
+		return userPassword;
+	}
+
 }

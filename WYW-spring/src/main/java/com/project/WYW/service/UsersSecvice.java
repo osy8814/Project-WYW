@@ -23,4 +23,8 @@ public interface UsersSecvice {
     UsersVo emailChk(String email) throws Exception;
 
 	UsersVo mobileChk(String mobile) throws Exception;
+
+    String findId(UsersVo usersVo);
+
+	String findPwd(UsersVo usersVo);
 }

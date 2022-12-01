@@ -110,6 +110,8 @@
   height: 100%;
   z-index: 0;
   object-fit: cover;
+  box-shadow: 2px 2px 5px lightgray;
+
 }
 
 .main__best__product__component:hover .main__best__product__component-description,
