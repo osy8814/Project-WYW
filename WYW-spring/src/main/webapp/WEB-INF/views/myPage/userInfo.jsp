@@ -28,7 +28,8 @@
                             <strong style="color: blue">*</strong>
                         </th>
                         <td>
-                            <input type="text" name="userId" id="info_id" minlength="4" maxlength="16" readonly value="${userinfo.userId}"/>
+                            <input type="text" name="userId" id="info_id" minlength="4" maxlength="16" readonly
+                                   value="${userinfo.userId}"/>
                             <span class="infoHint">(영어 대소문자/숫자, 4~16자)</span>
 
                         </td>
@@ -113,11 +114,15 @@
                             <strong style="color: blue">*</strong>
                         </th>
                         <td id="addrtd">
-                            <input type="text" name="APIPostcode" id="API_postcode" placeholder="우편번호" value="${userinfo.APIPostcode}">
+                            <input type="text" name="APIPostcode" id="API_postcode" placeholder="우편번호"
+                                   value="${userinfo.APIPostcode}">
                             <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                            <input type="text" name="APIAddress" id="API_address" placeholder="주소" value="${userinfo.APIAddress}"><br>
-                            <input type="text" name="APIDetailAddress" id="API_detailAddress" placeholder="상세주소" value="${userinfo.APIDetailAddress}" >
-                            <input type="text" name="APIExtraAddress" id="API_extraAddress" placeholder="참고항목" value="${userinfo.APIExtraAddress}">
+                            <input type="text" name="APIAddress" id="API_address" placeholder="주소"
+                                   value="${userinfo.APIAddress}"><br>
+                            <input type="text" name="APIDetailAddress" id="API_detailAddress" placeholder="상세주소"
+                                   value="${userinfo.APIDetailAddress}">
+                            <input type="text" name="APIExtraAddress" id="API_extraAddress" placeholder="참고항목"
+                                   value="${userinfo.APIExtraAddress}">
                         </td>
                     </tr>
 
@@ -125,8 +130,13 @@
             </div>
         </div>
 
-        <span style="font-weight: bold; font-size: 12px; margin-top: 20px">* 조건이 만족되면 버튼이 활성화 됩니다.</span>
-        <button type="submit" class="editSubmit" disabled>정보수정</button>
+        <span style="font-weight: bold; font-size: 12px; margin-top: 20px">* 조건이 만족되면 수정 버튼이 활성화 됩니다.</span>
+        <div class="manage_btn_set">
+            <button type="submit" class="editCancel" onclick="location.href='/WYW/mypage/'">
+                수정취소
+            </button>
+            <button type="submit" class="editSubmit" disabled>정보수정</button>
+        </div>
     </form>
 </div>
 
@@ -139,7 +149,7 @@
 <script src="${pageContext.request.contextPath}/js/mypageVali.js"></script>
 <script>
     let msg = "${msg}"
-    if(msg=="edit_err"){
+    if (msg == "edit_err") {
         alert("회원정보 수정에 실패하였습니다. 입력값을 다시 확인하여 주시기 바랍니다.");
     }
 </script>

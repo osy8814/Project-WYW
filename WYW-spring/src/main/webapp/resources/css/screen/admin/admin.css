@@ -124,10 +124,14 @@
   font-weight: bolder;
 
 }
-.admin_content_wrap table,
+
+.admin_content_wrap table{
+  border-bottom: 2px solid #32343e;
+}
 .admin_content_wrap td,
 .admin_content_wrap th{
-  border: 1px solid #32343e;
+  border-left: 1px solid white;
+  border-bottom: 1px solid lightgray;
 }
 
 .admin_content_wrap th{

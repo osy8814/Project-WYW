@@ -46,7 +46,7 @@
                 </div>
                 <button id="confirm">로그인</button>
             </div>
-            <c:if test="${msg==false}">
+            <c:if test="${msg=='false'}">
                 <span style="font-weight: bold">아이디 혹은 비밀번호가 일치하지 않습니다.</span>
             </c:if>
             <ul class="login_main_findAndRegInfo">
@@ -61,5 +61,12 @@
 </div>
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
+<script>
+    let msg = "${msg}"
+    if(msg=='inactive'){
+        alert("사용이 중지된 계정입니다. 관리자에게 문의 하십시오.");
+    }
+
+</script>
 </body>
 </html>

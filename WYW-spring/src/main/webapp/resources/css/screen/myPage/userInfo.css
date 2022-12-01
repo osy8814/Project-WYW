@@ -1,6 +1,7 @@
 
 /* 회원가입버튼 */
-.editSubmit {
+.editSubmit,
+.editCancel{
   background-color: rgba(50, 52, 62);
   color: white;
   border: none;

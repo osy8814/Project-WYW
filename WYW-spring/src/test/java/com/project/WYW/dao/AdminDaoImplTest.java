@@ -2,6 +2,7 @@ package com.project.WYW.dao;
 
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.domain.UsersVo;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 import org.junit.Assert;
@@ -24,16 +25,16 @@ public class AdminDaoImplTest {
     AdminDao adminDao;
 
     @Autowired
-
+    UsersDao usersDao;
 
     @Test
     public void category() {
     }
 
     @Test
-    public void regProduct() throws Exception{
+    public void regProduct() throws Exception {
 //        adminDao.deleteAllProducts();
-        ProductsVo productsVo = new ProductsVo("admin","침실의자","침실의자입니다.","102",2000,20);
+        ProductsVo productsVo = new ProductsVo("admin", "침실의자", "침실의자입니다.", "102", 2000, 20);
 
         System.out.println("Before productsVo :" + productsVo);
 
@@ -59,60 +60,62 @@ public class AdminDaoImplTest {
     public void modifiyProduct() {
         try {
             adminDao.deleteAllProducts();
-            ProductsVo productsVo = new ProductsVo("admin","침실의자","침실의자입니다.","102",2000,20);
-            assertTrue(adminDao.regProduct(productsVo)==1);
+            ProductsVo productsVo = new ProductsVo("admin", "침실의자", "침실의자입니다.", "102", 2000, 20);
+            assertTrue(adminDao.regProduct(productsVo) == 1);
             List<ProductsVo> list = adminDao.productsList();
             System.out.println("list = " + list);
             productsVo.setName("거실의자");
-            
+
             adminDao.modifiyProduct(productsVo);
         } catch (Exception e) {
             e.printStackTrace();
-            
+
         }
 
     }
 
     @Test
-    public void imgRegTest()throws Exception{
-        AttachImageVO attachImageVO =  new AttachImageVO(16,"test","test","test");
-        assertTrue(adminDao.imgReg(attachImageVO)==1);
+    public void imgRegTest() throws Exception {
+        AttachImageVO attachImageVO = new AttachImageVO(16, "test", "test", "test");
+        assertTrue(adminDao.imgReg(attachImageVO) == 1);
     }
 
     @Test
-    public void deleteImageAll()throws Exception{
-        assertTrue(adminDao.deleteImageAll(58)>=1);
+    public void deleteImageAll() throws Exception {
+        assertTrue(adminDao.deleteImageAll(58) >= 1);
     }
 
     @Test
-    public void TestGatAttachInof()throws Exception{
-        assertTrue( adminDao.getAttachInfo(61).size()==2); ;
+    public void TestGatAttachInof() throws Exception {
+        assertTrue(adminDao.getAttachInfo(61).size() == 2);
+        ;
     }
 
     @Test
-    public void TestProductsViewList()throws Exception{
-        Pagehandler pagehandler = new Pagehandler(1,10);    // 3페이지 & 10개 행 표시
+    public void TestProductsViewList() throws Exception {
+        Pagehandler pagehandler = new Pagehandler(1, 10);    // 3페이지 & 10개 행 표시
         pagehandler.setKeyword("200");
         System.out.println("pagehandler = " + pagehandler);
         List<ProductsViewVo> list = adminDao.productsViewList(pagehandler);
 
-        for(int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             System.out.println("list" + i + ".........." + list.get(i));
         }
     }
 
     @Test
-    public void TestProductsGetTotal()throws Exception{
+    public void TestProductsGetTotal() throws Exception {
         Pagehandler pagehandler = new Pagehandler();
         pagehandler.setKeyword("20");
         int result = adminDao.productsGetTotal(pagehandler);
         System.out.println("result = " + result);
-        
+
     }
 
     @Test
-    public void getOrderListTest()throws Exception{
+    public void getOrderListTest() throws Exception {
         Pagehandler pagehandler = new Pagehandler();
         System.out.println("pagehandler = " + adminDao.getOrderList(pagehandler));
     }
+
 }

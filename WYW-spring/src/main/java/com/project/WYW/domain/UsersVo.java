@@ -21,8 +21,20 @@ public class UsersVo {
     private String APIDetailAddress;
     private Date createdAt;
     private boolean isAdmin;
-
     private int point;
+    private boolean isActive;
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     public String getUserId() {
         return userId;
@@ -81,7 +93,7 @@ public class UsersVo {
         this.mobile3 = mobile3;
     }
 
-   public String getAPIPostcode() {
+    public String getAPIPostcode() {
         return APIPostcode;
     }
 
@@ -138,27 +150,27 @@ public class UsersVo {
     }
 
 
-
     public String getMobile() {
-        if(mobile1==""||mobile2==""||mobile3=="") {
-            mobile="";
-        }else {
-            mobile=mobile1+"-"+mobile2+"-"+mobile3;
+        if (mobile1 == "" || mobile2 == "" || mobile3 == "") {
+            mobile = "";
+        } else {
+            mobile = mobile1 + "-" + mobile2 + "-" + mobile3;
         }
         return mobile;
     }
 
     public String getAddress() {
 
-        if(APIPostcode==""||APIAddress==""|| APIDetailAddress=="") {
-            address="";
-        }else {
-            address=APIPostcode+", "+APIAddress+", "+APIExtraAddress+", "+APIDetailAddress;
+        if (APIPostcode == "" || APIAddress == "" || APIDetailAddress == "") {
+            address = "";
+        } else {
+            address = APIPostcode + ", " + APIAddress + ", " + APIExtraAddress + ", " + APIDetailAddress;
         }
         return address;
     }
 
-    public UsersVo() {}
+    public UsersVo() {
+    }
 
     public UsersVo(String userId, String name, String password, String email, String mobile1, String mobile2, String mobile3) {
         this.userId = userId;
@@ -171,7 +183,7 @@ public class UsersVo {
 
     }
 
-    public UsersVo(String userId, String name, String password, String email, String mobile, String mobile1, String mobile2, String mobile3, String address, String APIPostcode, String APIAddress, String APIExtraAddress, String APIDetailAddress, Date createdAt, boolean isAdmin) {
+    public UsersVo(String userId, String name, String password, String email, String mobile, String mobile1, String mobile2, String mobile3, String address, String APIPostcode, String APIAddress, String APIExtraAddress, String APIDetailAddress, Date createdAt, boolean isAdmin, int point, boolean isActive) {
         this.userId = userId;
         this.name = name;
         this.password = password;
@@ -187,6 +199,8 @@ public class UsersVo {
         this.APIDetailAddress = APIDetailAddress;
         this.createdAt = createdAt;
         this.isAdmin = isAdmin;
+        this.point = point;
+        this.isActive = isActive;
     }
 
     @Override
@@ -196,9 +210,17 @@ public class UsersVo {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", address='" + address + '\'' +
+                ", mobile1='" + mobile1 + '\'' +
+                ", mobile2='" + mobile2 + '\'' +
+                ", mobile3='" + mobile3 + '\'' +
+                ", APIPostcode='" + APIPostcode + '\'' +
+                ", APIAddress='" + APIAddress + '\'' +
+                ", APIExtraAddress='" + APIExtraAddress + '\'' +
+                ", APIDetailAddress='" + APIDetailAddress + '\'' +
+                ", createdAt=" + createdAt +
+                ", isAdmin=" + isAdmin +
                 ", point=" + point +
+                ", isActive=" + isActive +
                 '}';
     }
 

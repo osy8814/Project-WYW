@@ -21,9 +21,9 @@
 
 <div class="user-order-list_main">
     <div class="user-order-list_main-outter">
-        <h1 class="user-order-list_main_title">주문 리스트</h1>
+        <h1 class="user-order-list_main_title">주문내역</h1>
         <div class="before-manage_table-box">
-            <h1 class="before-manage_table-box_title">주문처리전 리스트</h1>
+            <h1 class="before-manage_table-box_title">배송준비</h1>
 
             <c:choose>
                 <c:when test="${readyList=='empty'}">
@@ -39,15 +39,15 @@
                             <th class="width300px">주문상품</th>
                             <th class="width300px">주문날짜</th>
                             <th class="width100px">주문상태</th>
-                            <th class="width100px">관리</th>
+                            <th class="width100px"></th>
                         </tr>
                         <c:forEach items="${readyList}" var="order">
                             <tr>
                                 <td class="align_center">${order.orderId}</td>
                                 <td class="align_center">${order.userId}</td>
-                                <td class="align_center">
+                                <td style="padding-left:10px">
                                     <a href="/WYW/mypage/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
-                                            [${order.orders[0].productName}]
+                                         [${order.orders[0].productName}]
                                         <c:if test="${fn:length(order.orders)-1!=0}">
                                             외 ${fn:length(order.orders)-1}개 상품
                                         </c:if>
@@ -56,13 +56,11 @@
                                 <td class="align_center">
                                     <fmt:formatDate value="${order.orderDate}" pattern="YYYY/MM/dd HH:mm"/>
                                 </td>
-                                <td class="align_center">${order.orderState}</td>
+                                <td class="align_center" style="font-weight: bold">${order.orderState}</td>
                                 <td class="align_center">
-                                    <c:if test="${order.orderState == '배송준비' }">
-                                        <a href="/WYW/mypage/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
-                                            <button class="manage_btn" type="button">배송관리</button>
-                                        </a>
-                                    </c:if>
+                                    <a href="/WYW/mypage/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
+                                        <button class="manage_btn" type="button">주문상세</button>
+                                    </a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -73,7 +71,7 @@
         </div>
 
         <div class="after-manage_table-box">
-            <h1 class="after-manage_table-box_title">주문처리완료 리스트</h1>
+            <h1 class="after-manage_table-box_title">처리완료</h1>
 
             <c:choose>
                 <c:when test="${completeList=='empty'}">
@@ -89,15 +87,16 @@
                             <th class="width300px">주문상품</th>
                             <th class="width300px">주문날짜</th>
                             <th class="width100px">주문상태</th>
+                            <th class="width100px"></th>
                         </tr>
                         <c:forEach items="${completeList}" var="order">
 
                             <tr>
                                 <td class="align_center">${order.orderId}</td>
                                 <td class="align_center">${order.userId}</td>
-                                <td class="align_center">
+                                <td style="padding-left:10px">
                                     <a href="/WYW/admin/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
-                                            [${order.orders[0].productName}]
+                                         [${order.orders[0].productName}]
                                         <c:if test="${fn:length(order.orders)-1!=0}">
                                             외 ${fn:length(order.orders)-1}개 상품
                                         </c:if>
@@ -106,7 +105,12 @@
                                 <td class="align_center">
                                     <fmt:formatDate value="${order.orderDate}" pattern="YYYY/MM/dd HH:mm"/>
                                 </td>
-                                <td class="align_center">${order.orderState}</td>
+                                <td class="align_center" style="font-weight: bold">${order.orderState}</td>
+                                <td class="align_center">
+                                    <a href="/WYW/mypage/orderdetail?userId=${order.userId}&orderId=${order.orderId}">
+                                        <button class="manage_btn" type="button">주문상세</button>
+                                    </a>
+                                </td>
                             </tr>
 
                         </c:forEach>

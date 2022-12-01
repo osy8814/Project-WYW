@@ -2,9 +2,11 @@ package com.project.WYW.service;
 
 import com.project.WYW.dao.AdminDao;
 import com.project.WYW.dao.OrderDao;
+import com.project.WYW.dao.UsersDao;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.domain.UsersVo;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
 import com.project.WYW.model.AttachImageVO;
@@ -26,11 +28,24 @@ public class AdminServiceImpl implements AdminService {
     ProductService productService;
     @Autowired
     private AttachService attachService;
+    @Autowired
+    private UsersDao usersDao;
 
     @Override
     public List<CategoryVo> category() throws Exception {
         return adminDao.category();
     }
+
+    @Override
+    public List<UsersVo> getUserList() throws Exception {
+        return usersDao.selectAll();
+    }
+
+    @Override
+    public int getUserTotal() throws Exception {
+        return usersDao.count();
+    }
+
 
     @Override
     public int regProduct(ProductsVo productsVo) throws Exception {
@@ -129,4 +144,8 @@ public class AdminServiceImpl implements AdminService {
         return adminDao.getAttachInfo(product_id);
     }
 
+    @Override
+    public int modifyUserInfo(UsersVo usersVo) {
+        return usersDao.modifyUserInfo(usersVo);
+    }
 }

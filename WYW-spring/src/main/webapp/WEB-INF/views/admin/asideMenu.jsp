@@ -28,7 +28,7 @@
                     class="fas fa-truck"></i>배송 관리</a>
         </lI>
         <lI>
-            <a class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
+            <a href="<c:url value="/admin/membermanagement"/>" class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
         </lI>
     </ul>
 

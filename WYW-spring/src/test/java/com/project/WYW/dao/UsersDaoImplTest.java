@@ -172,6 +172,5 @@ public class UsersDaoImplTest {
         System.out.println("usersVo2 : " + usersVo2);
         assertTrue(usersVo.equals(usersVo2));
     }
-	 
 
 }
