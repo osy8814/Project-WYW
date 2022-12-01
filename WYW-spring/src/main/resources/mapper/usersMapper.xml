@@ -9,14 +9,22 @@
     </select>
 
     <select id="findId" resultType="UsersVo">
-        SELECT user_id AS userId
+        SELECT user_id AS userId,password
         FROM users
-        WHERE name=#{name} AND email=#{email}
+        WHERE name = #{name}
+          AND email = #{email}
+    </select>
+
+    <select id="findPwd" resultType="UsersVo">
+        SELECT password
+        FROM users
+        WHERE name = #{name}
+          AND email = #{email}
     </select>
 
     <sql id="selectFromUser">
         SELECT id,
-               user_id AS userId,
+               user_id    AS userId,
                password,
                name,
                mobile,
@@ -31,7 +39,7 @@
                APIExtraAddress,
                created_at AS createdAt,
                is_admin   AS isAdmin,
-               is_active AS isActive
+               is_active  AS isActive
         FROM users
     </sql>
 
