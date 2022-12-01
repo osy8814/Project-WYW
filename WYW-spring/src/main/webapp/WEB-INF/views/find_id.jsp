@@ -82,7 +82,7 @@
                 if (result == "NOT_FOUND") {
                     alert("일치하는 정보가 없습니다.")
                 } else {
-                    alert(result);
+                    alert("등록된 아이디는 " +  result + " 입니다.");
                 }
             },
         })
