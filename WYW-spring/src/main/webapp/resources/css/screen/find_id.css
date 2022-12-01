@@ -1,114 +1,120 @@
 .find_id_main {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* 외부박스 */
 .find_id_main-outter {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  margin-bottom: 50px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin-bottom: 50px;
 }
 
 /* 페이지타이틀  */
 .find_id_title {
-  box-sizing: border-box;
-  width: 100%;
-  font-size: 3vmin;
-  font-weight: bold;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  border-bottom: 1px solid rgba(50, 52, 62, 0.2);
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 3vmin;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    border-bottom: 1px solid rgba(50, 52, 62, 0.2);
 }
 
 /* 내부박스 */
 .find_id_form {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  border: 1px solid rgba(50, 52, 62, 0.2);
-  margin: 20px 0;
-  padding: 30px 0;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid rgba(50, 52, 62, 0.2);
+    margin: 20px 0;
+    padding: 30px 0;
 }
 
 /* 아이디찾기 타이틀 */
 .find_id_form_title {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
 }
+
 .find_id_form_title > i {
-  font-size: 30px;
-  margin-right: 10px;
-  color: rgba(50, 52, 62);
+    font-size: 30px;
+    margin-right: 10px;
+    color: rgba(50, 52, 62);
 }
 
 /* 아이디찾기 정보  */
 .find_id_form_inputAndBtn {
-  display: flex;
-  gap: 10px;
+    display: flex;
+    gap: 10px;
 }
+
 .find_id_form_name_email {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  font-size: 14px;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 14px;
+    gap: 10px;
 }
+
 .find_id_form_name_email input {
-  width: 250px;
-  height: 30px;
-  padding-left: 20px;
-  border: 1px solid rgba(50, 52, 62, 0.2);
+    width: 250px;
+    height: 30px;
+    padding-left: 20px;
+    border: 1px solid rgba(50, 52, 62, 0.2);
 }
 
 /* 아이디찾기 버튼 */
 #confirm {
-  background-color: rgba(50, 52, 62);
-  cursor: pointer;
-  color: white;
-  border: none;
-  font-size: 15px;
-  width: 150px;
-  height: 100%;
-  transition: 0.3s ease-in-out;
+    background-color: rgba(50, 52, 62);
+    cursor: pointer;
+    color: white;
+    border: none;
+    font-size: 15px;
+    width: 150px;
+    height: 100%;
+    transition: 0.3s ease-in-out;
 }
 #confirm:hover {
-  background-color: rgba(50, 52, 62, 0.2);
-  color: rgba(50, 52, 62, 1);
-  font-weight: bold;
+    background-color: rgba(50, 52, 62, 0.2);
+    color: rgba(50, 52, 62, 1);
+    font-weight: bold;
 }
+
 /* 아이디 비밀번호 찾기 회원가입 */
 .find_id_findAndRegInfo,
 .find_id_findAndRegInfo a {
-  color: rgba(50, 52, 62);
+    color: rgba(50, 52, 62);
 }
+
 .find_id_findAndRegInfo {
-  width: 300px;
-  display: flex;
-  justify-content: space-evenly;
+    width: 300px;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 /* 미디어쿼리 */
 /* 미디어쿼리 */
 @media screen and (max-width: 900px) {
-  .find_id_main-outter {
-    width: 100%;
-    border-left: none;
-    border-right: none;
-    margin: 40px 0;
-  }
-  .find_id_title {
-    font-size: 20px;
-  }
+    .find_id_main-outter {
+        width: 100%;
+        border-left: none;
+        border-right: none;
+        margin: 40px 0;
+    }
+
+    .find_id_title {
+        font-size: 20px;
+    }
 }
