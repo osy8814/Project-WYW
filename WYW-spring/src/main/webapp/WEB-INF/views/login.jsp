@@ -54,7 +54,7 @@
                 <li>|</li>
                 <li><a href="/WYW/users/findpwd">비밀번호 찾기</a></li>
                 <li>|</li>
-                <li><a href=/WYW/users/findpwd">회원가입</a></li>
+                <li><a href="/WYW/users/signup">회원가입</a></li>
             </ul>
         </form>
     </div>
