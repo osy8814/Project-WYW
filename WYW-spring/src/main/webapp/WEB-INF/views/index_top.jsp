@@ -71,13 +71,13 @@
 <div class="nav">
     <ul class="nav__topNav" id="topNav">
         <li>
-            <a href="#">회사소개</a>
+            회사소개
             <ul id="company_list">
                 <li><a href="<c:url value='/introduce'/>">소개글</a></li>
             </ul>
         </li>
         <li>
-            <a href="#">쇼핑몰</a>
+            <a href="<c:url value='/product.all'/>">쇼핑몰</a>
             <ul id="shop_list">
                 <li><a href="<c:url value='/product.all'/>">모든상품</a></li>
                 <li><a href="<c:url value='/product.new'/>">신상품</a></li>
@@ -92,7 +92,7 @@
         </li>
         <li><a href="#">갤러리</a></li>
         <li>
-            <a href="#">게시판</a>
+            게시판
             <ul id="community_List">
                 <li><a href="#">공지사항</a></li>
                 <li><a href="<c:url value='/board/list'/>">자유게시판</a></li>
