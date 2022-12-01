@@ -25,4 +25,6 @@ public interface UsersSecvice {
 	UsersVo mobileChk(String mobile) throws Exception;
 
     String findId(UsersVo usersVo);
+
+	String findPwd(UsersVo usersVo);
 }

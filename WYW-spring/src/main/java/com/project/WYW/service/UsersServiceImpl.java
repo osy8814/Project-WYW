@@ -67,8 +67,17 @@ public class UsersServiceImpl implements UsersSecvice {
 			return null;
 		}
 		String userId = findUser.getUserId();
-		//아이디 일부 가림처리//
 		return userId;
+	}
+
+	@Override
+	public String findPwd(UsersVo usersVo){
+		UsersVo findUser = usersDao.findPwd(usersVo);
+		if(findUser==null){
+			return null;
+		}
+		String userPassword = findUser.getPassword();
+		return userPassword;
 	}
 
 }
