@@ -50,11 +50,11 @@
                 <span style="font-weight: bold">아이디 혹은 비밀번호가 일치하지 않습니다.</span>
             </c:if>
             <ul class="login_main_findAndRegInfo">
-                <li><a href="find_id.html">아이디 찾기</a></li>
+                <li><a href="/WYW/users/findid">아이디 찾기</a></li>
                 <li>|</li>
-                <li><a href="find_pwd.jsp">비밀번호 찾기</a></li>
+                <li><a href="/WYW/users/findpwd">비밀번호 찾기</a></li>
                 <li>|</li>
-                <li><a href="<c:url value='/users/signup'/>">회원가입</a></li>
+                <li><a href=/WYW/users/findpwd">회원가입</a></li>
             </ul>
         </form>
     </div>

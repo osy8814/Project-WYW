@@ -43,9 +43,11 @@
             <button id="confirm">비밀번호 찾기</button>
           </div>
           <ul class="find_pwd_findAndRegInfo">
-            <li><a href="find_id.html">아이디(이메일) 찾기</a></li>
+            <li><a href="/WYW/users/findid">아이디 찾기</a></li>
             <li>|</li>
-            <li><a href="signUp.html">회원가입</a></li>
+            <li><a href="/WYW/users/findpwd">비밀번호 찾기</a></li>
+            <li>|</li>
+            <li><a href=/WYW/users/findpwd">회원가입</a></li>
           </ul>
         </form>
       </div>
