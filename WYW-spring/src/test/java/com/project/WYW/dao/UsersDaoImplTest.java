@@ -173,4 +173,16 @@ public class UsersDaoImplTest {
         assertTrue(usersVo.equals(usersVo2));
     }
 
+	@Test
+	public void findIdTest(){
+		UsersVo usersVo = new UsersVo();
+		usersVo.setName("admin1");
+		usersVo.setEmail("admin@admin.com");
+
+		UsersVo findUser = usersDao.findId(usersVo);
+		System.out.println("findUser = " + findUser);
+
+
+	}
+
 }
