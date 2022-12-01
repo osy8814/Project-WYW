@@ -46,7 +46,7 @@
 
                 <li><a href="/WYW/users/findpwd">비밀번호 찾기</a></li>
                 <li>|</li>
-                <li><a href=/WYW/users/findpwd">회원가입</a></li>
+                <li><a href=/WYW/users/signup">회원가입</a></li>
             </ul>
         </form>
     </div>
@@ -82,7 +82,8 @@
                 if (result == "NOT_FOUND") {
                     alert("일치하는 정보가 없습니다.")
                 } else {
-                    alert("등록된 아이디는 " +  result + " 입니다.");
+                    alert("등록된 아이디는 " +  result + " 입니다. 로그인 페이지로 이동합니다.");
+                    window.location.replace("/WYW/users/login.do");
                 }
             },
         })
