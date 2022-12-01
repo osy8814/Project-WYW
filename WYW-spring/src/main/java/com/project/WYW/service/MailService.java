@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailService {
-    @Bean
-    public JavaMailSenderImpl mailSender() {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
-
-        javaMailSender.setProtocol("smtp");
-        javaMailSender.setHost("127.0.0.1");
-        javaMailSender.setPort(25);
-
-        return javaMailSender;
-    }
+//    @Bean
+//    public JavaMailSenderImpl mailSender() {
+//        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+//
+//        javaMailSender.setProtocol("smtp");
+//        javaMailSender.setHost("127.0.0.1");
+//        javaMailSender.setPort(25);
+//
+//        return javaMailSender;
+//    }
     @Autowired
     private JavaMailSender mailSender;
 
