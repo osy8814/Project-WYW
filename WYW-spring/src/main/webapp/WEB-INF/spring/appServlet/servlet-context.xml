@@ -39,6 +39,10 @@
 			<beans:bean id="CartINTCP" class="com.project.WYW.Interceptor.CartINTCP"></beans:bean>
 		</interceptor>
 		<interceptor>
+			<mapping path="/order/**"/>
+			<beans:bean id="OrderINTCP" class="com.project.WYW.Interceptor.OrderINTCP"></beans:bean>
+		</interceptor>
+		<interceptor>
 			<mapping path="/mypage/**"/>
 			<beans:bean id="MyPageINTCP" class="com.project.WYW.Interceptor.MyPageINTCP"></beans:bean>
 		</interceptor>
