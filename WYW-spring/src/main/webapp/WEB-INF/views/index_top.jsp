@@ -113,7 +113,7 @@
                 type: "POST",
                 url: `/WYW/users/logout`,
                 success: function (data) {
-                    document.location.reload();
+                    location.reload();
                 }
             });
         }
