@@ -27,7 +27,9 @@ public interface UsersDao {
 
 	int modifyUserInfo(UsersVo usersVo);
 
-	UsersVo emailChk(String email) throws Exception;
+    UsersVo findId(UsersVo usersVo);
+
+    UsersVo emailChk(String email) throws Exception;
 
 	UsersVo mobileChk(String mobile) throws Exception;
 }

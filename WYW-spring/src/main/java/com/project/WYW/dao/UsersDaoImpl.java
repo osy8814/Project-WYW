@@ -94,6 +94,11 @@ public class UsersDaoImpl implements UsersDao {
 	}
 
 	@Override
+	public UsersVo findId(UsersVo usersVo){
+		return session.selectOne(namespace+"findId", usersVo);
+	}
+
+	@Override
 	public UsersVo emailChk(String email) throws Exception{
 		return session.selectOne(namespace+"emailChk", email);
 	}

@@ -89,13 +89,28 @@ public class UsersController {
         return "myPage/mypage";
     }
 
-    @GetMapping("/find_id")
-    public String find_id() {
+    @GetMapping("/findid")
+    public String findIdGet() {
         return "find_id";
     }
 
-    @GetMapping("/find_pwd")
-    public String find_pwd() {
+    @ResponseBody
+    @PostMapping("/findid")
+    public String findIdPost(UsersVo usersVo) {
+        String userId = usersSecvice.findId(usersVo);
+        if(userId==null){
+            return "NOT_FOUND";
+        }
+        StringBuffer stringBuffer = new StringBuffer(userId);
+        for (int i = 2; i <userId.length()-2 ; i++) {
+            stringBuffer.replace(i,i+1,"*");
+        }
+
+        return stringBuffer.toString();
+    }
+
+    @GetMapping("/findpwd")
+    public String findPwdGet() {
         return "find_pwd";
     }
 

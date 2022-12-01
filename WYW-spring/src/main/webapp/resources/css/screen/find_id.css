@@ -75,6 +75,7 @@
 /* 아이디찾기 버튼 */
 #confirm {
   background-color: rgba(50, 52, 62);
+  cursor: pointer;
   color: white;
   border: none;
   font-size: 15px;

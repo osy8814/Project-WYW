@@ -8,6 +8,12 @@
         FROM users
     </select>
 
+    <select id="findId" resultType="UsersVo">
+        SELECT user_id AS userId
+        FROM users
+        WHERE name=#{name} AND email=#{email}
+    </select>
+
     <sql id="selectFromUser">
         SELECT id,
                user_id AS userId,
