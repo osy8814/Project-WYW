@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.WYW.mapper.replyQnaMapper">
+    <insert id="regReply" parameterType="ReplyVo">
+
+        INSERT INTO product_reply (product_id, user_id, content, rating)
+        VALUES (#{productId}, #{userId}, #{content}, #{rating});
+
+    </insert>
+
+    <select id="getReplyList" resultType="ReplyVo">
+        SELECT reply_id   AS replyId,
+               product_id AS productId,
+               user_id    AS userId,
+               created_at AS createdAt,
+               content,
+               rating
+        FROM product_reply
+        WHERE product_id =
+              #{productId}
+        ORDER BY created_at DESC
+            limit #{skip}, #{amount}
+    </select>
+
+    <select id="getReplyTotal" resultType="int">
+        SELECT count(*)
+        FROM product_reply
+        WHERE product_id =
+              #{productId}
+    </select>
+
+    <select id="getUpdateReply" resultType="ReplyVo">
+        SELECT reply_id   AS replyId,
+               product_id AS productId,
+               user_id    AS userId,
+               created_at AS createdAt,
+               content,
+               rating
+        FROM product_reply
+        WHERE reply_id =
+              #{replyId}
+    </select>
+
+    <update id="updateReply" parameterType="ReplyVo">
+
+        UPDATE product_reply SET content = #{content}, rating = #{rating}
+        WHERE reply_id = #{replyId}
+
+    </update>
+
+    <delete id="deleteReply" parameterType="ReplyVo">
+
+        DELETE FROM product_reply
+        WHERE reply_id = #{replyId}
+
+    </delete>
+</mapper>
