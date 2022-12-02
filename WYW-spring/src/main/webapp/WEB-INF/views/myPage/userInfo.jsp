@@ -73,7 +73,7 @@
                         <td>
                             <select name="mobile1" id="info_mobile1" class="mobileCss">
                                 <option value="010">010</option>
-                                <option value="010">011</option>
+                                <option value="011">011</option>
                             </select>
                             <input
                                     type="text"
@@ -152,6 +152,18 @@
     if (msg == "edit_err") {
         alert("회원정보 수정에 실패하였습니다. 입력값을 다시 확인하여 주시기 바랍니다.");
     }
+</script>
+<script>
+    $(document).ready(function(){
+
+        let mobile1 = '${userinfo.mobile1}';
+
+        $("#info_mobile1 option").each(function(i,option){
+            if(mobile1 === $(option).val()){
+                $(option).attr("selected", "selected");
+            }
+        });
+    });
 </script>
 </body>
 </html>
