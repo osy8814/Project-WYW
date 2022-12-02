@@ -36,9 +36,6 @@
             border: 1px solid #888;
             width: 50%;
         }
-
-
-
         /*시작*/
         /* 전체 레이아웃 */
         /*-----------------------------------------------*/
@@ -46,7 +43,6 @@
             width: 1300px;
             height: 1100px;
             margin: auto;
-            /*border: 3px solid green;*/
         }
         .main-page__top{
             width: 1300px;
@@ -72,32 +68,33 @@
             border-top: 1px solid rgb(155, 155, 155);
 
         }
+        /*테이블*/
         table{
             color: rgb(148, 144, 144);
             border-collapse: collapse;
         }
-
         th,td{
             padding-left: 20px;
-
             border-bottom: 1px solid rgb(214, 210, 210);
         }
         td{
             width: 1400px;
-
         }
-        th{
-            font-family: 'Xanh Mono', monospace;
-
+        .td_tag{
+            border-bottom: 1px solid rgb(214, 210, 210);
         }
-
         #nav_SUBJECT,#nav_WRITER,#nav_DATE,#nav_VIEWS {
             width: 130px;
             height: 40px;
             font-size: 18px;
             color: rgb(148, 144, 144);
-
+            border-bottom: 1px solid rgb(214, 210, 210);
+            line-height: 40px;
+            font-family: 'Xanh Mono', monospace;
         }
+        /*테이블 끝*/
+
+
         input {
             width: 99%;
             height: 40px;
@@ -115,53 +112,56 @@
         .comments{
             width:1290px;
             height: 600px;
-            border: 2px solid black;
-            /*display: flex;*/
-            /*flex-direction: column;*/
+            margin-top:20px;
+        }
+        .admin_btn{
+            display: none;
+        }
+
+        /*댓글 아이디 */
+        .commenter{
+            font-size:12px;
+            font-weight: bold;
+        }
+        /*댓글 내용*/
+        .comment{
+            font-weight: 100;
+        }
+
+        .id_font{
+            font-size:15px;
+            font-weight: bold;
         }
         #commentList{
             width: 1290px;
-            /*height: 500px;*/
-            border: 1px solid red;
+
         }
         #commentbox{
             width: 1290px;
             height: 90px;
-            /*border: 2px solid black;*/
             line-height: 27px;
             padding-left:40px ;
-            /*border-bottom: 1px solid rgb(214, 210, 210);*/
-            border : 1px solid blue;
-
-
         }
         .Write_box{
             width: 1250px;
             height: 200px;
-            border: 2px solid green;
             padding: 40px;
         }
         .comment_side_btn{
             font-size: 11px;
             color: rgb(148, 144, 144)
         }
-        .modBtn, .delBtn{
+        .modBtn1, .delBtn,.delBtnAdmin{
             font-size: 11px;
-            color: rgb(148, 144, 144)
+            color: rgb(148, 144, 144);
+            cursor:pointer;
         }
-        /*.commenter{*/
-        /*    font-size:12px;*/
-        /*}*/
-        /*.comment{*/
-        /*    font-size: 14px;*/
-        /*}*/
         .id_font{
             font-size:15px;
         }
         .Content_box{
             height: 90px;
-            width: 900px;
-            /*border: 1px solid black;*/
+            width: 400px;
             border : 1px solid rgb(155, 155, 155);
         }
         comment_page_handel{
@@ -170,7 +170,6 @@
             border: 3px solid saddlebrown;
 
         }
-
         /* mid */
         /*-----------------------------------------------*/
         .mid_btn_box{
@@ -190,14 +189,30 @@
             border: 1px solid  rgb(190, 190, 190);
             border-radius: 3px;
             font-size: 14px;
+            cursor:pointer;
         }
         button:hover{
             background-color: rgba(241, 234, 234, 0.959);
             background-blend-mode: multiply;
         }
+        .comment_dispaly{
+            display: none;
+        }
+        .modifyList_text{
+            height: 40px;
+            width: 300px;
+            background: white;
+            position: static;
+            border: 1px solid black;
 
-
-
+        }
+        .text_btn{
+            margin-top:0px;
+            height: 40px;
+            width: 350px;
+            display: flex;
+            justify-content: end;
+        }
     </style>
 </head>
 <body>
@@ -209,7 +224,6 @@
     if(msg=="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
     if(msg=="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 </script>
-<!-- <h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기"}</h2><br> -->
 <div class="main-page__all">
     <div class="main-page__top">
         <div class="main-title_box">
@@ -217,31 +231,41 @@
                 <tbody>
                 <tr>
                     <th id="nav_SUBJECT">SUBJECT</th>
-                    <form id="form" class="frm" action="" method="post">
-                        <td><input type="hidden" name="bno" value="${boardDto.bno}">
+                    <form id="form" class="frm" action="" method="post"  >
+                        <td class="td_tag"><input type="hidden" name="bno" value="${boardDto.bno}">
                             <input name="title" type="text" value="<c:out value='${boardDto.title}'/>" placeholder="  제목을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}></td>
                 </tr>
                 <tr>
                     <th id="nav_WRITER">WRITER</th>
-                    <td id="nav_WRITER_Value">${boardDto.writer}</td>
+                    <td class="td_tag">${mode=="new" ? loginId : boardDto.writer}</td>
                 </tr>
+
+                <c:if test="${mode ne 'new'}">
                 <tr>
                     <th id="nav_DATE">DATE</th>
                     <c:choose>
                         <c:when test="${boardDto.reg_date.time >= startOfToday}">
-                            <td class="regdate" id="nav_DATE_Value"><fmt:formatDate value="${boardDto.reg_date}" pattern="HH:mm" type="time"/></td>
+                            <td class="td_tag"><fmt:formatDate value="${boardDto.reg_date}" pattern="HH:mm" type="time"/></td>
                         </c:when>
                         <c:otherwise>
-                            <td class="regdate" id="nav_DATE_Value"><fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd" type="date"/></td>
+                            <td class="td_tag"><fmt:formatDate value="${boardDto.reg_date}" pattern="yyyy-MM-dd" type="date"/></td>
                         </c:otherwise>
                     </c:choose>
                 </tr>
+                </c:if>
+
+                <c:if test="${mode ne 'new'}">
                 <tr>
                     <th id="nav_VIEWS">VIEWS</th>
-                    <td id="nav_VIEWS_Value">${boardDto.view_cnt}</td>
+                    <td class="td_tag">${boardDto.view_cnt}</td>
                 </tr>
+                </c:if>
+
                 </tbody>
             </table>
+
+
+
             <textarea name="content" rows="20" placeholder=" 내용을 입력해 주세요." ${mode=="new" ? "" : "readonly='readonly'"}><c:out value="${boardDto.content}"/></textarea><br>
             <c:if test="${mode eq 'new'}">
                 <button type="button" id="writeBtn" class="btn btn-write">등록</button>
@@ -249,9 +273,15 @@
             <c:if test="${mode ne 'new'}">
                 <button type="button" id="writeNewBtn" class="btn btn-write">글쓰기</button>
             </c:if>
+
             <c:if test="${boardDto.writer eq loginId}">
                 <button type="button" id="modifyBtn" class="btn btn-modify">수정</button>
-                <button type="button" id="removeBtn" class="btn btn-remove">삭제</button>
+                <c:if test="${'admin' ne loginId}">
+                <button type="button" name="removeBtn" class="btnRemove">삭제</button>
+                </c:if>
+            </c:if>
+            <c:if test="${mode ne 'new'}">
+                <button type="button" name="removeBtn1" class="btnRemove1">삭제</button>
             </c:if>
             <button type="button" id="listBtn" class="btn btn-list">목록</button>
             </form>
@@ -259,37 +289,42 @@
         <%--댓글 설정--%>
         <div class="comments">
 
-            <div id="commentList"> </div>
-            <div id="replyForm" style="display:none">
-                <input type="text" name="replyComment">
-                <button id="wrtRepBtn" type="button">등록</button>
-            </div>
-
+            <div id="commentList"></div>
 
             <div class="Write_box">
                 <div call="comment_page_handel">
-
                     <div class="pageList"></div>
                 </div>
 
+                <div class="comment_dispaly">
+                    <strong class="id_font">${loginId}</strong><br>
+                    <textarea class="Content_box" placeholder =" 댓글을 남겨보세요" type="text" name="comment"></textarea><br>
+                    <button class="sendBtn" type="button">댓글등록</button>
+                </div>
 
-
-
-                <strong class="id_font">comment:</strong><br>
-                <textarea class="Content_box" placeholder =" 댓글을 남겨보세요" type="text" name="comment"></textarea><br>
-                <button id="sendBtn" type="button">SEND</button>
-                <button id="modBtn" type="button">수정</button>
             </div>
-
         </div>
+    </div>
 
 
-    </div><!--메인 탑 페이지 -->
+</div><!--메인 탑 페이지 끝 -->
 </div>
 
 <jsp:include page="../index_bottom.jsp"/>
+
+
 <script src="https://kit.fontawesome.com/6478f529f2.js" crossorigin="anonymous"></script>
 <script src="js/mainSlide.js"></script>
+<script>
+    //관리자 delete 버튼 보이기
+    let loginId = "${loginId}";
+    if(loginId=="admin"){
+        $(".btnRemove1").show();
+    } else{
+        $(".btnRemove1").hide();
+    }
+
+</script>
 
 <script>
     $(document).ready(function(){
@@ -317,6 +352,8 @@
             if(formCheck())
                 form.submit();
         });
+
+
         $("#modifyBtn").on("click", function(){
             let form = $("#form");
             let isReadonly = $("input[name=title]").attr('readonly');
@@ -334,13 +371,27 @@
             if(formCheck())
                 form.submit();
         });
-        $("#removeBtn").on("click", function(){
+
+
+        //삭제
+        $("button[name=removeBtn]").on("click", function(){
             if(!confirm("정말로 삭제하시겠습니까?")) return;
             let form = $("#form");
             form.attr("action", "<c:url value='/board/remove${searchCondition.queryString}'/>");
             form.attr("method", "post");
             form.submit();
         });
+
+        $("button[name=removeBtn1]").on("click", function(){
+            if(!confirm("정말로 삭제하시겠습니까?")) return;
+            let form = $("#form");
+            form.attr("action", "<c:url value='/board/removeAdmin${searchCondition.queryString}'/>");
+            form.attr("method", "post");
+            form.submit();
+        });
+
+
+
         $("#listBtn").on("click", function(){
             location.href="<c:url value='/board/list${searchCondition.queryString}'/>";
         });
@@ -368,29 +419,6 @@
     $(document).ready(function(){
         showList(bno); // 미리 보이도록 호출
 
-        $("#modBtn").click(function(){
-            let cno = $(this).attr("data-cno");
-            let comment = $("textarea[name=comment]").val();
-
-            if(comment.trim()=='') {
-                alert("댓글을 입력해주세요.");
-                $("textarea[name=comment]").focus()
-                return;
-            }
-            $.ajax({
-                type:'PATCH',       // 요청 메서드
-                url: '/WYW/comments/'+cno,  // 요청 URI // ch4/comments/70 PATCH
-                headers : { "content-type": "application/json"}, // 요청 헤더
-                data : JSON.stringify({cno:cno, comment:comment}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
-                success : function(result){
-                    alert(result);
-                    showList(bno);
-                },
-                error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
-            }); // $.ajax()
-        });
-
-
         $("#wrtRepBtn").click(function(){
             let comment = $("textarea[name=replyComment]").val();
             let pcno  = $("#replyForm").parent().attr("data-pcno");
@@ -406,10 +434,10 @@
                 headers : { "content-type": "application/json"}, // 요청 헤더
                 data : JSON.stringify({pcno:pcno,bno:bno, comment:comment}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success : function(result){
-                    alert(result);
+                    alert("완료되었습니다");
                     showList(bno);
                 },
-                error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
+                error   : function(){ alert("실패하였습니다") } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
 
             $("#replyForm").css("display","none")
@@ -419,7 +447,7 @@
 
 
 
-        $("#sendBtn").click(function(){
+        $(".sendBtn").click(function(){
             let comment = $("textarea[name=comment]").val();
 
             if(comment.trim()=='') {
@@ -433,47 +461,61 @@
                 headers : { "content-type": "application/json"}, // 요청 헤더
                 data : JSON.stringify({bno:bno, comment:comment}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
                 success : function(result){
-                    alert(result);
+                    // alert(result);
                     // $('#Content_box').removeClass('display-none');
                     $("textarea[name=comment]").val('');
+                    alert("완료되었습니다");
                     showList(bno);
                 },
-                error   : function(){ alert("error") } // 에러가 발생했을 때, 호출될 함수
+                error   : function(){ alert("실패하였습니다") } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
         });
 
-        $("#commentList").on("click",".modBtn",function() {
-            let cno = $(this).parent().attr("data-cno");
-            let comment = $("span.comment", $(this).parent()).text(); // 다가져와서 조건을 준다 $(this).parent()) this는 버튼
-
-            // 1.comment의 내용을 input에 뿌려주기
-            $("textarea[name=comment]").val(comment);
-            // 2.cno전달하기
-            $("#modBtn").attr("data-cno",cno);
-        });
-
+        //삭제
         $("#commentList").on("click",".delBtn",function(){
             let cno = $(this).parent().attr("data-cno");
             let bno = $(this).parent().attr("data-bno");
+            if(!confirm("댓글을 삭제하시겠습니까?")){
+                return false;
+            }
 
             $.ajax({
                 type:'DELETE',       // 요청 메서드
                 url: '/WYW/comments/'+cno+'?bno='+bno,  // 요청 URI
                 success : function(result){
-                    alert(result)
+                    alert("삭제되었습니다")
                     showList(bno);
                 },
                 error : function(result){
-                    alert("error") } // 에러가 발생했을 때, 호출될 함수
+                    alert("삭제에 실패했습니다") } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        });
+
+        // 관리자 삭제
+        $("#commentList").on("click",".delBtnAdmin",function(){
+            let cno = $(this).parent().attr("data-cno");
+            let bno = $(this).parent().attr("data-bno");
+            if(!confirm("댓글을 삭제하시겠습니까?")){
+                return false;
+            }
+
+            $.ajax({
+                type:'DELETE',       // 요청 메서드
+                url: '/WYW/commentsAdmin/'+cno+'?bno='+bno,  // 요청 URI
+                success : function(result){
+                    alert("삭제되었습니다")
+                    showList(bno);
+                },
+                error : function(result){
+                    alert("삭제에 실패했습니다") } // 에러가 발생했을 때, 호출될 함수
             }); // $.ajax()
         });
 
     });
 
-
     let toHtml =  function(comments) {
 
-        let tmp = "<div >";
+        let tmp = "<div>";
 
         comments.forEach(function(comment){
 
@@ -481,7 +523,6 @@
             let loginId = "${loginId}";
 
             tmp += '<div id="commentbox" data-cno='+ comment.cno;
-
             tmp += ' data-pcno=' + comment.pcno;
             tmp += ' data-bno=' + comment.bno + '>';
             // if(comment.cno!=comment.pcno)
@@ -491,25 +532,89 @@
             // tmp += '<div id=comment_time>'
             tmp += '<a class="comment_side_btn">' +dateToString(comment.up_date)+'</a>'+ '&nbsp;';
 
-            if(writer === loginId){
-            tmp += '<submit class="modBtn">수정</submit>';
-            tmp += ' <submit class="delBtn">삭제</submit>';
+            if(loginId != "admin" ) {
+                if (writer === loginId) {
+                    tmp += '<submit class="modBtn1">수정</submit>';
+                    tmp += ' <submit class="delBtn">삭제</submit>';
+                }
             }
+            if (loginId === "admin") {
+                if (writer === "admin") {
+                    tmp += '<submit class="modBtn1">수정</submit>';
+                }
+                tmp += ' <submit class="delBtnAdmin">삭제</submit>';
+            }
+
             tmp += '</div>'
-            // tmp += ' <button class="replyBtn">답글</button>'
-            // tmp += '</div>'
+
         })
 
         return tmp + "</div>";
     }
 
 
+      // 수정 textarea start
+
+           $("#commentList").on("click",".modBtn1",function() {
+               let cno = $(this).parent().attr("data-cno");
+               let comment = $("span.comment", $(this).parent()).text()
+
+            let html = ""
+            html+='<div class="modifyList">'
+            html+='<strong class="id_font">${loginId}</strong><br>'
+            html+='<textarea name="comment" class="modifyList_text" placeholder ="수정할 내용을 입력하세요" type="text" >'+comment+'</textarea><br>'
+             html+='<div class="text_btn">'
+            html+='<button class="modBtn" type="button">수정</button>'
+            html+='<button class="return" >취소</button>'
+            html+='</div>'
+            html+='</div>'
+            $(this).parent().html(html);
 
 
+               $(".modBtn").attr("data-cno",cno);
+
+           });
+
+        //취소 버튼
+        $("#commentList").on("click",".return",function(){
+            $(".modifyList").css("display","none");
+             showList(bno);
+        });
+        //수정 버튼
+        $("#commentList").on("click",".modBtn",function(){
+            let cno = $(this).attr("data-cno");
+            let comment = $("textarea[name=comment]").val();
+
+            if(comment.trim()=='') {
+                alert("댓글을 입력해주세요.");
+                $("textarea[name=comment]").focus()
+                return;
+            }
+           $.ajax({
+                type:'PATCH',       // 요청 메서드
+                url: '/WYW/comments/'+cno,  // 요청 URI // ch4/comments/70 PATCH
+                headers : { "content-type": "application/json"}, // 요청 헤더
+                data : JSON.stringify({cno:cno, comment:comment}),  // 서버로 전송할 데이터. stringify()로 직렬화 필요.
+                success : function(result){
+                    // alert(result);
+                    alert("수정되었습니다");
+                     $(".modifyList").css("display","none");
+                    showList(bno);
+                },
+                error   : function(){ alert("수정에 실패하였습니다") } // 에러가 발생했을 때, 호출될 함수
+            }); // $.ajax()
+        });
+        // 수정 textarea end
 
 
-</script>
-<script>
+    //글 작성시 댓글창을 안보이도록 한다
+    $(function (){
+        if($('textarea').val()!=null ) {
+            $('.comment_dispaly').css('display', 'block');
+        }
+    });
+
+    //시간 보여주는 함수
     let addZero = function(value=1){
         return value > 9 ? value : "0"+value;
     }

@@ -4,10 +4,11 @@ package com.project.WYW.service;
 import com.project.WYW.dao.BoardDao;
 import com.project.WYW.dto.BoardDto;
 import com.project.WYW.model.SearchCondition;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.stereotype.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -23,6 +24,12 @@ public class BoardServiceImpl implements BoardService {
     public int remove(Integer bno, String writer) throws Exception {
         return boardDao.delete(bno, writer);
     }
+
+    @Override
+    public int removeAdmin(Integer bno) throws Exception {
+        return boardDao.deleteAdmin(bno);
+    }
+
 
     @Override
     public int write(BoardDto boardDto) throws Exception {
@@ -61,4 +68,5 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception {
         return boardDao.searchSelectPage(sc);
     }
+
 }

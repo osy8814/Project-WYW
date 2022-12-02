@@ -3,7 +3,6 @@ package com.project.WYW.service;
 import com.project.WYW.dao.BoardDao;
 import com.project.WYW.dao.CommentDao;
 import com.project.WYW.dto.CommentDto;
-import com.project.WYW.model.CommentSearchCondition;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,21 +32,44 @@ public class CommentServiceImpl implements CommentService {
             throw new Exception("Comment delete fail");
         }
 
+//           throw new Exception("test");
         boardDao.updateCommentCnt(bno, -1);
+
+
 
         return rowCnt;
     }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int removeAdmin(Integer cno, Integer bno) throws Exception {
+        int rowCnt = commentDao.deleteAdmin(cno);
+        if(rowCnt!=1){
+            throw new Exception("Comment delete fail");
+        }
+        System.out.println("updateCommentCnt - rowCnt = " + rowCnt);
+//           throw new Exception("test");
+        boardDao.updateCommentCnt(bno, -1);
+
+        System.out.println("rowCnt = " + rowCnt);
+
+        return rowCnt;
+    }
+
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int write(CommentDto commentDto) throws Exception {
         boardDao.updateCommentCnt(commentDto.getBno(), 1);
-        return commentDao.insert(commentDto);
+//               throw new Exception("test");
+            return commentDao.insert(commentDto);
     }
 
-    @Override
-    public List<CommentDto> getList(Integer bno, CommentSearchCondition csc) throws Exception {
-        return commentDao.selectAll(bno,csc);
+   @Override
+    public List<CommentDto> getList(Integer bno) throws Exception {
+//        throw new Exception("test");
+        return commentDao.selectAll(bno);
     }
 
     @Override

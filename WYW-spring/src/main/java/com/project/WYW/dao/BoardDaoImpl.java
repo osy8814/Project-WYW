@@ -33,6 +33,12 @@ public class BoardDaoImpl implements BoardDao {
         return session.delete(namespace+"delete", map);
     } // int delete(String statement, Object parameter)
 
+    @Override
+    public int deleteAdmin(Integer bno) throws Exception {
+        return session.delete(namespace+"deleteAdmin", bno);
+    } // int delete(String statement, Object parameter)
+
+
     public int insert(BoardDto dto) throws Exception {
         return session.insert(namespace+"insert", dto);
     } // int insert(String statement, Object parameter)
@@ -63,6 +69,8 @@ public class BoardDaoImpl implements BoardDao {
 
     @Override
     public int searchResultCnt(SearchCondition sc) throws Exception {
+        System.out.println("sc in searchResultCnt() = " + sc);
+        System.out.println("session = " + session);
         return session.selectOne(namespace+"searchResultCnt", sc);
     } // T selectOne(String statement, Object parameter)
 
@@ -78,4 +86,6 @@ public class BoardDaoImpl implements BoardDao {
     public List<BoardDto> searchSelectPage(SearchCondition sc) throws Exception {
         return session.selectList(namespace+"searchSelectPage", sc);
     } // List<E> selectList(String statement, Object parameter)
+
+
 }

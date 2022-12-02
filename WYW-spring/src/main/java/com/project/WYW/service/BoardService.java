@@ -3,7 +3,8 @@ package com.project.WYW.service;
 import com.project.WYW.dto.BoardDto;
 import com.project.WYW.model.SearchCondition;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 public interface BoardService {
    // List<BoardDto> getSearchSelectPage(SearchCondition sc) throws Exception;
@@ -12,6 +13,8 @@ public interface BoardService {
 
     int getCount() throws Exception;
     int remove(Integer bno, String writer) throws Exception;
+
+    int removeAdmin(Integer bno) throws Exception;
     int write(BoardDto boardDto) throws Exception;
     List<BoardDto> getList() throws Exception;
     BoardDto read(Integer bno) throws Exception;
@@ -20,4 +23,7 @@ public interface BoardService {
 
     int getSearchResultCnt(SearchCondition sc) throws Exception;
     List<BoardDto> getSearchResultPage(SearchCondition sc) throws Exception;
+
+
+
 }

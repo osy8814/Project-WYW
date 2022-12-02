@@ -16,6 +16,10 @@ public interface BoardDao {
     int delete(Integer bno, String writer) throws Exception // int delete(String statement, Object parameter)
     ;
 
+    int deleteAdmin(Integer bno) throws Exception // int delete(String statement, Object parameter)
+    ;
+
+
     int insert(BoardDto dto) throws Exception // int insert(String statement, Object parameter)
     ;
 
@@ -40,4 +44,6 @@ public interface BoardDao {
 
 
     int updateCommentCnt(Integer bno, int cnt);
+
+
 }
