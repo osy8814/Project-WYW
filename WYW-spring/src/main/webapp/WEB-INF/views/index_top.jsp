@@ -30,7 +30,7 @@
             </li>
             <li><a id="nav_logout" href="#">로그아웃</a></li>
             <li><a href="<c:url value='/cart/cartlist'/>">장바구니</a></li>
-            <li><a href="<c:url value='/users/mypage'/>">마이페이지</a></li>
+            <li><a href="<c:url value='/mypage/main'/>">마이페이지</a></li>
             <c:if test="${loggedInUser.isAdmin}">
                 <li><a href="<c:url value='/admin/productslist'/>">관리자페이지</a></li>
             </c:if>

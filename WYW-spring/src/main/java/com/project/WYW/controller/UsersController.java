@@ -95,11 +95,6 @@ public class UsersController {
         return "signUp/signUp";
     }
 
-    @GetMapping("/mypage")
-    public String getMypage() {
-        return "myPage/mypage";
-    }
-
     @GetMapping("/findid")
     public String findIdGet() {
         return "find_id";

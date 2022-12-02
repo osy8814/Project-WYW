@@ -36,7 +36,7 @@ public class MypageController {
     OrderService orderService;
 
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String myPage() {
         return "myPage/mypage";
     }
