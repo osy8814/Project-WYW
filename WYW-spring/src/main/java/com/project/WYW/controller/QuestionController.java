@@ -93,18 +93,10 @@ public String read(Integer bno, SearchCondition sc, RedirectAttributes rattr, Mo
     public String remove(Integer bno, SearchCondition sc, RedirectAttributes rattr, HttpSession session) {
         UsersVo writer = (UsersVo) session.getAttribute("loggedInUser");
 
-//        String writer = "admin";
-
-//        String writer = String.valueOf(session.getAttribute("loggedInUser"));
-//        if(writer.equals("admin")){
-//            return "redirect:/board4/list4"+sc.getQueryString();
-//        }
         String msg = "DEL_OK";
 
         try {
             if(questionService.remove(bno, writer.getUserId())!=1)
-//                if(questionService.remove(bno, writer)!=1);
-            System.out.println("bno="+bno);
 
                     throw new Exception("Delete failed.");
         } catch (Exception e) {

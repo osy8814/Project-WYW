@@ -23,7 +23,6 @@ public class CommentController {
 
         dto.setCommenter(commenter.getUserId());
         dto.setCno(cno);
-        System.out.println("dto = " + dto);
 
         try {
             if(service.modify(dto)!=1)
@@ -47,7 +46,6 @@ public class CommentController {
 
         dto.setCommenter(commenter.getUserId());
         dto.setBno(bno);
-        System.out.println("dto = " + dto);
 
         try {
             if(service.write(dto)!=1)

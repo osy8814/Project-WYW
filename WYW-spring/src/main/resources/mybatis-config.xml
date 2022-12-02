@@ -23,7 +23,6 @@
 
         <typeAlias alias="WishVo" type="com.project.WYW.model.WishVo"/>
 
-
         <typeAlias alias="BoardDto" type="com.project.WYW.dto.BoardDto" />
         <typeAlias alias="CommentDto" type="com.project.WYW.dto.CommentDto" />
         <typeAlias alias="NoticeDto" type="com.project.WYW.dto.NoticeDto"/>

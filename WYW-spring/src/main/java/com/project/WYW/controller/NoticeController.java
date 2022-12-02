@@ -58,7 +58,6 @@ public class NoticeController {
         UsersVo writer = (UsersVo) session.getAttribute("loggedInUser");
         noticeDto.setWriter(writer.getUserId());
 
-
         try {
             if (noticeService.write(noticeDto) != 1)
                 throw new Exception("Write failed.");

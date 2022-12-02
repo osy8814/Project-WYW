@@ -64,8 +64,6 @@ public class NoticeDaoImpl implements NoticeDao {
 
     @Override
     public int searchResultCnt(SearchCondition sc) throws Exception {
-        System.out.println("sc in searchResultCnt() = " + sc);
-        System.out.println("session = " + session);
         return session.selectOne(namespace+"searchResultCntNotice", sc);
     } // T selectOne(String statement, Object parameter)
 

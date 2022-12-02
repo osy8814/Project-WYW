@@ -17,12 +17,12 @@ public class QuestionDaoImpl implements QuestionDao {
     private static String namespace = "com.project.WYW.mapper.questionMapper.";
 
     public int count() throws Exception {
-        return session.selectOne(namespace+"countQuestion");
+        return session.selectOne(namespace + "countQuestion");
     } // T selectOne(String statement)
 
     @Override
     public int deleteAll() {
-        return session.delete(namespace+"deleteAllQuestion");
+        return session.delete(namespace + "deleteAllQuestion");
     } // int delete(String statement)
 
     @Override
@@ -30,23 +30,23 @@ public class QuestionDaoImpl implements QuestionDao {
         Map map = new HashMap();
         map.put("bno", bno);
         map.put("writer", writer);
-        return session.delete(namespace+"deleteQuestion", map);
+        return session.delete(namespace + "deleteQuestion", map);
     } // int delete(String statement, Object parameter)
 
     @Override
     public int deleteAdmin(Integer bno) throws Exception {
-        return session.delete(namespace+"deleteQuestionAdmin",bno);
+        return session.delete(namespace + "deleteQuestionAdmin", bno);
     } // int delete(String statement, Object parameter)
 
 
     public int insert(QuestionDto dto) throws Exception {
-        return session.insert(namespace+"insertQuestion", dto);
+        return session.insert(namespace + "insertQuestion", dto);
     } // int insert(String statement, Object parameter)
 
 
     @Override
     public List<QuestionDto> selectAll() throws Exception {
-        return session.selectList(namespace+"selectAllQuestion");
+        return session.selectList(namespace + "selectAllQuestion");
     } // List<E> selectList(String statement)
 
 
@@ -57,39 +57,36 @@ public class QuestionDaoImpl implements QuestionDao {
 
     @Override
     public List<QuestionDto> selectPage(Map map) throws Exception {
-        return session.selectList(namespace+"selectPageQuestion", map);
+        return session.selectList(namespace + "selectPageQuestion", map);
     } // List<E> selectList(String statement, Object parameter)
 
     @Override
     public int update(QuestionDto dto) throws Exception {
-        return session.update(namespace+"updateQuestion", dto);
+        return session.update(namespace + "updateQuestion", dto);
     } // int update(String statement, Object parameter)
 
     @Override
     public int increaseViewCnt(Integer bno) throws Exception {
-        return session.update(namespace+"increaseViewCntQuestion", bno);
+        return session.update(namespace + "increaseViewCntQuestion", bno);
     } // int update(String statement, Object parameter)
 
     @Override
     public int searchResultCnt(SearchCondition sc) throws Exception {
-        System.out.println("sc in searchResultCnt() = " + sc);
-        System.out.println("session = " + session);
-        return session.selectOne(namespace+"searchResultCntQuestion", sc);
+        return session.selectOne(namespace + "searchResultCntQuestion", sc);
     } // T selectOne(String statement, Object parameter)
 
     @Override
     public int updateCommentCnt(Integer bno, int cnt) {
         Map map = new HashMap();
-        map.put("cnt",cnt);
-        map.put("bno",bno);
-        return  session.update(namespace+"updateCommentCntQuestion",map);
+        map.put("cnt", cnt);
+        map.put("bno", bno);
+        return session.update(namespace + "updateCommentCntQuestion", map);
     }
 
     @Override
     public List<QuestionDto> searchSelectPage(SearchCondition sc) throws Exception {
-        return session.selectList(namespace+"searchSelectPageQuestion", sc);
+        return session.selectList(namespace + "searchSelectPageQuestion", sc);
     } // List<E> selectList(String statement, Object parameter)
-
 
 
 }

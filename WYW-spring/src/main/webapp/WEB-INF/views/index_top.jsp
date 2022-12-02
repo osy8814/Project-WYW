@@ -94,9 +94,9 @@
         <li>
             게시판
             <ul id="community_List">
-                <li><a href="#">공지사항</a></li>
+                <li><a href="<c:url value='/board3/list3'/>">공지사항</a></li>
                 <li><a href="<c:url value='/board/list'/>">자유게시판</a></li>
-                <li><a href="#">자주하는 질문</a></li>
+                <li><a href="<c:url value='/board4/list4'/>">자주하는 질문</a></li>
             </ul>
         </li>
     </ul>

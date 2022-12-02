@@ -48,11 +48,8 @@ public class CommentServiceImpl implements CommentService {
         if(rowCnt!=1){
             throw new Exception("Comment delete fail");
         }
-        System.out.println("updateCommentCnt - rowCnt = " + rowCnt);
-//           throw new Exception("test");
+        //           throw new Exception("test");
         boardDao.updateCommentCnt(bno, -1);
-
-        System.out.println("rowCnt = " + rowCnt);
 
         return rowCnt;
     }

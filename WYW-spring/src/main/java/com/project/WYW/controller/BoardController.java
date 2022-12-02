@@ -32,11 +32,11 @@ public class BoardController {
         boardDto.setWriter(writer.getUserId());
 
         try {
-            if (boardService.modify(boardDto)!= 1)
+            if (boardService.modify(boardDto) != 1)
                 throw new Exception("Modify failed.");
 
             rattr.addFlashAttribute("msg", "MOD_OK");
-            return "redirect:/board/list"+sc.getQueryString();
+            return "redirect:/board/list" + sc.getQueryString();
         } catch (Exception e) {
             e.printStackTrace();
             m.addAttribute(boardDto);
@@ -81,7 +81,7 @@ public class BoardController {
         } catch (Exception e) {
             e.printStackTrace();
             rattr.addFlashAttribute("msg", "READ_ERR");
-            return "redirect:/board/list"+sc.getQueryString();
+            return "redirect:/board/list" + sc.getQueryString();
         }
 
         return "board/board";
@@ -93,7 +93,7 @@ public class BoardController {
         String msg = "DEL_OK";
 
         try {
-            if(boardService.remove(bno, writer.getUserId())!=1)
+            if (boardService.remove(bno, writer.getUserId()) != 1)
                 throw new Exception("Delete failed.");
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,7 +101,7 @@ public class BoardController {
         }
 
         rattr.addFlashAttribute("msg", msg);
-        return "redirect:/board/list"+sc.getQueryString();
+        return "redirect:/board/list" + sc.getQueryString();
     }
 
     @PostMapping("/removeAdmin")
@@ -109,20 +109,20 @@ public class BoardController {
         String msg = "DEL_OK";
         try {
 
-            if(boardService.removeAdmin(bno)!=1);
+            if (boardService.removeAdmin(bno) != 1) ;
 
             throw new Exception("Delete failed.");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "redirect:/board/list"+sc.getQueryString();
+        return "redirect:/board/list" + sc.getQueryString();
     }
 
 
     @GetMapping("/list")
     public String list(Model m, SearchCondition sc, HttpServletRequest request) {
-        if(!loginCheck(request))
+        if (!loginCheck(request))
             return "redirect:/users/login.do";  // 로그인을 안했으면 로그인 화면으로 이동
 
         try {
@@ -151,7 +151,7 @@ public class BoardController {
         // 1. 세션을 얻어서(false는 session이 없어도 새로 생성하지 않는다. 반환값 null)
         HttpSession session = req.getSession();
         // 2. 세션에 id가 있는지 확인, 있으면 true를 반환
-        return session!=null && session.getAttribute("loggedInUser")!=null;
+        return session != null && session.getAttribute("loggedInUser") != null;
     }
 
 
