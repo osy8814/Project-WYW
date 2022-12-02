@@ -1,7 +1,6 @@
 package com.project.WYW.dao;
 
 import com.project.WYW.dto.CommentDto;
-import com.project.WYW.model.CommentSearchCondition;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -34,19 +33,24 @@ public class CommentDaoImpl implements CommentDao {
         return session.delete(namespace+"delete", map);
     } // int delete(String statement, Object parameter)
 
+
+    @Override
+    public int deleteAdmin(Integer cno) throws Exception {
+        return session.delete(namespace+"deleteAdmin", cno);
+    } // int delete(String statement, Object parameter)
+
+
     @Override
     public int insert(CommentDto dto) throws Exception {
         return session.insert(namespace+"insert", dto);
     } // int insert(String statement, Object parameter)
 
-    @Override
-    public List<CommentDto> selectAll(Integer bno, CommentSearchCondition csc) throws Exception {
-        Map map =new HashMap();
-        map.put("bno",bno);
-        map.put("offset",csc.getOffset());
-        map.put("pageSize",csc.getCommentPageSize());
-        return session.selectList(namespace+"selectAll", map);
-    } // List<E> selectList(String statement)
+
+   @Override
+    public List<CommentDto> selectAll(Integer bno) throws Exception {
+        return session.selectList(namespace+"selectAll", bno);
+    } // List<E> selectList(String statement)  // 변경
+
 
     @Override
     public CommentDto select(Integer cno) throws Exception {

@@ -17,6 +17,10 @@
         DELETE FROM comment WHERE cno = #{cno} AND commenter = #{commenter}
     </delete>
 
+    <delete id="deleteAdmin" parameterType="int">
+        DELETE FROM comment WHERE cno = #{cno}
+    </delete>
+
     <insert id="insert" parameterType="CommentDto">
         INSERT INTO comment
             (bno, pcno, comment, commenter, reg_date, up_date)
@@ -24,27 +28,20 @@
             (#{bno}, #{pcno}, #{comment}, #{commenter}, now(), now())
     </insert>
 
-    <select id="selectAll" parameterType="int" resultType="CommentDto">
-        SELECT cno, bno, ifnull(pcno, cno) as pcno, comment, commenter, reg_date, up_date
+
+       <select id="selectAll" parameterType="int" resultType="CommentDto">
+        SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
         FROM comment
         WHERE bno = #{bno}
-        ORDER BY pcno asc, cno asc
-        LIMIT #{offset}, #{pageSize}
+        ORDER BY reg_date ASC, cno ASC
     </select>
+
 
     <select id="select" parameterType="int" resultType="CommentDto">
         SELECT cno, bno, pcno, comment, commenter, reg_date, up_date
         FROM comment
         WHERE cno = #{cno}
     </select>
-
-<!--    <select id="selectPage" parameterType="map" resultType="CommentDto">-->
-<!--        select *from comment-->
-<!--        ORDER BY reg_date DESC, bno DESC-->
-<!--        LIMIT #{offset}, #{pageSize}-->
-<!--    </select>-->
-
-
 
 
     <update id="update" parameterType="CommentDto">

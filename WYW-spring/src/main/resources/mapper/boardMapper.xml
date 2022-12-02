@@ -15,6 +15,11 @@
         DELETE FROM board WHERE bno = #{bno} and writer = #{writer}
     </delete>
 
+    <delete id="deleteAdmin" parameterType="int">
+        DELETE FROM board WHERE bno = #{bno}
+    </delete>
+
+
     <insert id="insert" parameterType="BoardDto">
         INSERT INTO board
             (title, content, writer)

@@ -102,8 +102,6 @@
 
     $("#certification_btn").on("click", function (){
         let inputNumber = $("#certification_number").val();
-        console.log(inputNumber);
-        console.log(dto.certification);
         if(inputNumber==dto.certification){
             alert("인증번호가 일치합니다. 메일이 발송됩니다.")
             $.ajax({
