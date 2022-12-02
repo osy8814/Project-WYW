@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.WYW.mapper.noticeMapper">
+    <select id="countNotice" resultType="int">
+        SELECT count(*) FROM notice
+    </select>
+
+    <delete id="deleteAllNotice">
+        DELETE FROM notice
+    </delete>
+
+    <delete id="deleteNotice" parameterType="map">
+        DELETE FROM notice WHERE bno = #{bno} and writer = #{writer}
+    </delete>
+
+    <insert id="insertNotice" parameterType="NoticeDto">
+        INSERT INTO notice
+            (title, content, writer)
+        VALUES
+            (#{title}, #{content}, #{writer})
+    </insert>
+
+    <select id="selectAllNotice" resultType="NoticeDto">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM notice
+        ORDER BY reg_date DESC, bno DESC
+    </select>
+
+    <sql id="selectFromNotice">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM notice
+    </sql>
+
+    <select id="selectNotice" parameterType="int" resultType="NoticeDto">
+        <include refid="selectFromNotice"/>
+        WHERE bno = #{bno}
+    </select>
+
+    <select id="selectPageNotice" parameterType="map" resultType="NoticeDto">
+        <include refid="selectFromNotice"/>
+        ORDER BY reg_date DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <update id="updateNotice" parameterType="NoticeDto">
+        UPDATE notice
+        SET   title = #{title}
+          , content = #{content}
+          , up_date = now()
+        WHERE bno = #{bno}
+    </update>
+
+    <update id="updateCommentCntNotice" parameterType="map">
+        UPDATE notice
+        SET   comment_cnt = comment_cnt + #{cnt}
+        WHERE bno = #{bno}
+    </update>
+
+    <update id="increaseViewCntNotice" parameterType="int">
+        UPDATE notice
+        SET   view_cnt = view_cnt + 1
+        WHERE bno = #{bno}
+    </update>
+
+    <sql id="searchConditionNotice">
+        <choose>
+            <when test='option=="T"'>
+                AND title LIKE concat('%', #{keyword}, '%')
+            </when>
+            <when test='option=="W"'>
+                AND writer LIKE concat('%', #{keyword}, '%')
+            </when>
+            <otherwise>
+                AND (title   LIKE concat('%', #{keyword}, '%')
+                OR   content LIKE concat('%', #{keyword}, '%'))
+            </otherwise>
+        </choose>
+    </sql>
+
+    <select id="searchSelectPageNotice" parameterType="SearchCondition" resultType="NoticeDto">
+        SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date
+        FROM  notice
+        WHERE true
+        <include refid="searchConditionNotice"/>
+        ORDER BY reg_date DESC, bno DESC
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="searchResultCntNotice" parameterType="SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM  notice
+        WHERE true
+        <include refid="searchConditionNotice"/>
+    </select>
+
+
+</mapper>

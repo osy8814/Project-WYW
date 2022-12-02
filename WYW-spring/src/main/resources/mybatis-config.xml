@@ -26,6 +26,9 @@
 
         <typeAlias alias="BoardDto" type="com.project.WYW.dto.BoardDto" />
         <typeAlias alias="CommentDto" type="com.project.WYW.dto.CommentDto" />
+        <typeAlias alias="NoticeDto" type="com.project.WYW.dto.NoticeDto"/>
+        <typeAlias alias="QuestionDto" type="com.project.WYW.dto.QuestionDto" />
+
         <typeAlias alias="SearchCondition" type="com.project.WYW.model.SearchCondition" />
     </typeAliases>
 </configuration>
