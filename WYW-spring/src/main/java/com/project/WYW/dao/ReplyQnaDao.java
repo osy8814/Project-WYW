@@ -18,5 +18,5 @@ public interface ReplyQnaDao {
     ReplyQnaVo getUpdateReplyQna(Integer qnaId);
 
     /* 댓글 삭제 */
-    int deleteReply(ReplyQnaVo replyQnaVo);
+    int deleteReplyQna(ReplyQnaVo replyQnaVo);
 }

@@ -43,7 +43,7 @@ public class ReplyQnaDaoImpl implements ReplyQnaDao {
 
     /* 댓글 삭제 */
     @Override
-    public int deleteReply(ReplyQnaVo replyQnaVo){
+    public int deleteReplyQna(ReplyQnaVo replyQnaVo){
         return session.delete(namespace+"deleteReplyQna",replyQnaVo);
     };
 }

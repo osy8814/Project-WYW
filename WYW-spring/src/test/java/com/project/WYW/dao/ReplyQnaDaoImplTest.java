@@ -57,7 +57,7 @@ public class ReplyQnaDaoImplTest {
         ReplyQnaVo replyQnaVo = new ReplyQnaVo();
         replyQnaVo.setQnaId(2);
 
-        replyQnaDao.deleteReply(replyQnaVo);
+        replyQnaDao.deleteReplyQna(replyQnaVo);
 
         replyQnaVo = replyQnaDao.getUpdateReplyQna(2);
         assertTrue(replyQnaVo==null);
