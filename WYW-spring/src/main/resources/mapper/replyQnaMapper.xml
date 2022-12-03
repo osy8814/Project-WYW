@@ -53,7 +53,7 @@
 
     <update id="deleteReplyQna" parameterType="ReplyQnaVo">
 
-        UPDATE product_qna SET is_answered = true
+        UPDATE product_qna SET is_deleted = true
         WHERE qna_id = #{qnaId}
 
     </update>
