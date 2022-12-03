@@ -1,6 +1,7 @@
 package com.project.WYW.service;
 
 import com.project.WYW.domain.ReplyQnaVo;
+import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.Pagehandler;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface ReplyQnaService {
 
     int updateReplyQna(ReplyQnaVo replyQnaVo);
 
-    List<ReplyQnaVo> getReplyQnaList(Pagehandler pagehandler);
+    ReplyQnaPageDto replyQnaList(Pagehandler pagehandler);
 
     int getReplyQnaTotal(Integer productId);
 

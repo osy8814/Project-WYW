@@ -102,6 +102,9 @@
         </div>
         <div class="product_main-review">
             <h1 class="product_main-review_title">리뷰</h1>
+            <c:if test="${loggedInUser==null}">
+                (로그인 후에 이용하실 수 있습니다.)
+            </c:if>
             <div class="product_main-review_content">
                 <div class="reply_not_div">
 
@@ -109,11 +112,14 @@
                 <ul class="reply_content_ul">
 
                 </ul>
-                <c:if test="${loggedInUser!=null}">
-                    <div class="product_main-review_btn-set">
+
+                <div class="product_main-review_btn-set">
+                    <c:if test="${loggedInUser!=null}">
                         <button class="reply_button write_button">글쓰기</button>
-                    </div>
-                </c:if>
+                    </c:if>
+
+                </div>
+
                 <div class="reply_pageInfo_div">
                     <ul class="pageMarker">
 
@@ -124,11 +130,31 @@
         </div>
         <div class="product_main-QnA">
             <h1 class="product_main-QnA_title">문의</h1>
+            <c:if test="${loggedInUser==null}">
+                (로그인 후에 이용하실 수 있습니다.)
+            </c:if>
             <div class="product_main-QnA_content">
+                <div class="replyQnA_not_div">
+
+                </div>
+                <ul class="replyQnA_content_ul">
+
+                </ul>
+
+                <div class="product_main-QnA-set">
+                    <c:if test="${loggedInUser!=null}">
+                        <button class="QnA_button write_button">글쓰기</button>
+                    </c:if>
+
+                </div>
+
+                <div class="reply_pageInfo_div">
+                    <ul class="pageMarker">
+
+                    </ul>
+                </div>
             </div>
-            <div class="product_main-QnA-set">
-                <button class="QnA_button write_button">글쓰기</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -185,7 +211,7 @@
 
     // 장바구니 클릭
     $("#btn_cart").on("click", function (e) {
-        if ("${loggedInUser}" === "") {
+        if ("${loggedInUser.userId}" === "") {
             alert("로그인 후에 이용해 주십시오.");
         }
 
@@ -360,6 +386,7 @@
 
 </script>
 <script>
+    // 댓글리스트 전개
     let productId = ${productsViewVo.id};
 
     $.getJSON("/WYW/reply/list", {productId: productId}, function (obj) {
@@ -402,7 +429,7 @@
             $(".product_main-review_title").html('리뷰');
             $("#reply_count").html("0");
             $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
-            $(".reply_not_div").html('<span>리뷰가 없습니다.</span>');
+            $(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
             $(".reply_content_ul").html('');
             $(".pageMarker").html('');
         } else {
@@ -480,7 +507,106 @@
     }
 </script>
 <script>
+    // Qna댓글리스트 전개
+    $.getJSON("/WYW/replyqna/list", {productId: productId}, function (obj) {
+        makeReplyQnaContent(obj);
 
+    });
+
+    /* 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드 */
+    let replyQnaListInit = function () {
+        $.getJSON("/WYW/replyqna/list", pagehandler, function (obj) {
+            makeReplyQnaContent(obj);
+
+        });
+    }
+
+    /* 댓글 페이지 이동 버튼 동작 */
+    $(document).on('click', '.pageMarker_btn a', function (e) {
+        e.preventDefault();
+
+        let page = $(this).attr("href");
+        pagehandler.pageNum = page;
+
+        replyQnaListInit();
+
+    });
+
+    /* 댓글(리뷰) 동적 생성 메서드 */
+    function makeReplyQnaContent(obj) {
+
+        if (obj.list.length === 0) {
+            $(".product_main-QnA_title").html('문의');
+            $(".replyQnA_not_div").html('<span>등록된 문의가 없습니다.</span>');
+            $(".replyQnA_content_ul").html('');
+            $(".pageMarker").html('');
+        } else {
+
+            $(".replyQnA_not_div").html('');
+            let total = obj.pageInfo.total;
+            let list = obj.list;
+            let pf = obj.pageInfo;
+            let userId = '${loggedInUser.userId}';
+
+            // 댓글개수표시
+            $(".product_main-QnA_title").html('문의(' + total + ')');
+
+            /* list */
+            let replyQna_list = '';
+
+            $(list).each(function (i, obj) {
+                replyQna_list += '<li>';
+                replyQna_list += '<div class="comment_wrap">';
+                replyQna_list += '<div class="reply_top">';
+                /* 아이디 */
+                replyQna_list += '<span class="id_span">' + obj.userId + '</span>';
+                /* 날짜 */
+                replyQna_list += '<span class="date_span">' + obj.createdAt + '</span>';
+                if (obj.userId === userId) {
+                    replyQna_list += '<button class="update_reply_btn" href="' + obj.replyId + '">수정</button><button class="delete_reply_btn" href="' + obj.replyId + '">삭제</button>';
+                }
+                replyQna_list += '</div>'; //<div class="reply_top">
+                replyQna_list += '<div class="reply_bottom">';
+                replyQna_list += '<div class="reply_bottom_txt">' + obj.content + '</div>';
+                replyQna_list += '</div>';//<div class="reply_bottom">
+                replyQna_list += '</div>';//<div class="comment_wrap">
+                replyQna_list += '</li>';
+            });
+
+            $(".replyQnA_content_ul").html(replyQna_list);
+
+            /* 페이지 버튼 */
+            let replyQna_pageMarker = '';
+
+            /* prev */
+            if (pf.prev) {
+                let prev_num = pf.pageStart - 1;
+                replyQna_pageMarker += '<li class="pageMarker_btn prev">';
+                replyQna_pageMarker += '<a href="' + prev_num + '">이전</a>';
+                replyQna_pageMarker += '</li>';
+            }
+            /* numbre btn */
+            for (let i = pf.pageStart; i < pf.pageEnd + 1; i++) {
+                replyQna_pageMarker += '<li class="pageMarker_btn ';
+                if (pf.pagehandler.pageNum === i) {
+                    replyQna_pageMarker += 'active';
+                }
+                replyQna_pageMarker += '">';
+                replyQna_pageMarker += '<a href="' + i + '">' + i + '</a>';
+                replyQna_pageMarker += '</li>';
+            }
+            /* next */
+            if (pf.next) {
+                let next_num = pf.pageEnd + 1;
+                replyQna_pageMarker += '<li class="pageMarker_btn next">';
+                replyQna_pageMarker += '<a href="' + next_num + '">다음</a>';
+                replyQna_pageMarker += '</li>';
+            }
+
+            $(".PageMarker").html(replyQna_pageMarker);
+
+        }
+    }
 </script>
 </body>
 </html>

@@ -245,7 +245,6 @@
 }
 
 .reply_bottom {
-
     padding: 5px;
     margin-bottom: 20px;
 }
@@ -253,6 +252,8 @@
     height: 30px;
     background-color: #32343e;
     color: white;
+    cursor: pointer;
+    border: none;
 }
 
 .pageMarker_btn {

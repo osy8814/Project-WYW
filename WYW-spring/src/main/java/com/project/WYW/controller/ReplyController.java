@@ -61,7 +61,6 @@ public class ReplyController {
     /* 리뷰 수정 팝업창 */
     @GetMapping("/replyUpdate")
     public String replyUpdateWindowGet(ReplyVo replyVo, Model model) {
-        System.out.println("replyVo = " + replyVo);
         ProductsViewVo productsViewVo = productService.readProductDetail(replyVo.getProductId());
         model.addAttribute("productInfo", productsViewVo);
         model.addAttribute("replyInfo", replyService.getUpdateReply(replyVo.getReplyId()));
