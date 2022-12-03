@@ -315,7 +315,7 @@
         let productId = "${productsViewVo.id}";
 
         let popUrl = "/WYW/reply/replyReg/" + userId + "?productId=" + productId;
-        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes";
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no";
 
         window.open(popUrl, "리뷰 쓰기", popOption);
 
@@ -327,7 +327,7 @@
         let productId = "${productsViewVo.id}";
 
         let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + productId + "&userId=" + '${loggedInUser.userId}';
-        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes"
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no"
 
         window.open(popUrl, "리뷰 수정", popOption);
     });
