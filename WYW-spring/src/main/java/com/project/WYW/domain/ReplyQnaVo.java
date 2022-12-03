@@ -19,6 +19,8 @@ public class ReplyQnaVo {
 
     private boolean isAnswered;
 
+    private boolean isDeleted;
+
     public int getQnaId() {
         return qnaId;
     }
@@ -67,6 +69,14 @@ public class ReplyQnaVo {
         isAnswered = answered;
     }
 
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
     @Override
     public String toString() {
         return "ReplyQnaVo{" +
@@ -76,6 +86,7 @@ public class ReplyQnaVo {
                 ", createdAt=" + createdAt +
                 ", content='" + content + '\'' +
                 ", isAnswered=" + isAnswered +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

@@ -60,7 +60,7 @@ public class ReplyQnaDaoImplTest {
         replyQnaDao.deleteReplyQna(replyQnaVo);
 
         replyQnaVo = replyQnaDao.getUpdateReplyQna(2);
-        assertTrue(replyQnaVo==null);
+        assertTrue(replyQnaVo.isDeleted()==true);
 
 
     }

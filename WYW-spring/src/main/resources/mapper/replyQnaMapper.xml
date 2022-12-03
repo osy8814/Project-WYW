@@ -16,7 +16,8 @@
                user_id    AS userId,
                created_at AS createdAt,
                content,
-               is_answered AS isAnswered
+               is_answered AS isAnswered,
+               is_deledte AS
         FROM product_qna
         WHERE product_id =
               #{productId}
@@ -50,10 +51,17 @@
 
     </update>
 
-    <delete id="deleteReplyQna" parameterType="ReplyQnaVo">
+    <update id="deleteReplyQna" parameterType="ReplyQnaVo">
 
-        DELETE FROM product_qna
+        UPDATE product_qna SET is_answered = true
         WHERE qna_id = #{qnaId}
 
-    </delete>
+    </update>
+
+<!--    <delete id="deleteReplyQna" parameterType="ReplyQnaVo">-->
+
+<!--        DELETE FROM product_qna-->
+<!--        WHERE qna_id = #{qnaId}-->
+
+<!--    </delete>-->
 </mapper>
