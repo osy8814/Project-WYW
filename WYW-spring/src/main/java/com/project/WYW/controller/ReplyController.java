@@ -47,7 +47,11 @@ public class ReplyController {
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ReplyPageDto replyListPost(Pagehandler pagehandler) {
 
-        return replyService.replyList(pagehandler);
+        ProductsViewVo productsViewVo = productService.readProductDetail(pagehandler.getProductId());
+        ReplyPageDto replyPageDto = replyService.replyList(pagehandler);
+        replyPageDto.setRatingAvg(productsViewVo.getRatingAvg());
+
+        return replyPageDto;
     }
 
     /* 댓글 수정 */

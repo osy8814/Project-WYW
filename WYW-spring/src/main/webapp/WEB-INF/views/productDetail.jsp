@@ -427,7 +427,6 @@
     /* 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드 */
     let replyListInit = function () {
         $.getJSON("/WYW/reply/list", pagehandler, function (obj) {
-
             makeReplyContent(obj);
 
         });
@@ -446,11 +445,12 @@
 
     /* 댓글(리뷰) 동적 생성 메서드 */
     function makeReplyContent(obj) {
+        // 평점 갱신
+        $("#product_ratingAvg").html(obj.ratingAvg.toFixed(1));
 
         if (obj.list.length === 0) {
             $("#review_count").html('');
             $("#reply_count").html("0");
-            $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
             $(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
             $(".reply_content_ul").html('');
             $(".reply_pageInfo_div").find(".pageMarker").html('');
@@ -465,9 +465,6 @@
             // 댓글개수표시
             $("#review_count").html('(' + total + ')');
             $("#reply_count").html(total);
-
-            //평점표시
-            $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
 
             /* list */
             let reply_list = '';
@@ -614,7 +611,7 @@
 
         if (obj.list.length === 0) {
             $("#qna_count").html('');
-            $(".replyQnA_not_div").html('<span>등록된 문의가 없습니다.</span>');
+            $(".replyQnA_not_div").html('<span>등록된 문의글이 없습니다.</span>');
             $(".replyQnA_content_ul").html('');
             $(".replyQnA_pageInfo_div").find(".pageMarker").html('');
         } else {

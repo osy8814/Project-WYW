@@ -11,6 +11,8 @@ public class ReplyPageDto {
 
     PageDto pageInfo;
 
+    double ratingAvg;
+
     public java.util.List<ReplyVo> getList() {
         return List;
     }
@@ -27,11 +29,20 @@ public class ReplyPageDto {
         this.pageInfo = pageInfo;
     }
 
+    public double getRatingAvg() {
+        return ratingAvg;
+    }
+
+    public void setRatingAvg(double ratingAvg) {
+        this.ratingAvg = ratingAvg;
+    }
+
     @Override
     public String toString() {
         return "ReplyPageDto{" +
                 "List=" + List +
                 ", pageInfo=" + pageInfo +
+                ", ratingAvg=" + ratingAvg +
                 '}';
     }
 }
