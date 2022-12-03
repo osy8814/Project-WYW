@@ -31,7 +31,7 @@ public class ReplyController {
         model.addAttribute("productInfo", productsViewVo);
         model.addAttribute("userId", userId);
 
-        return "replyPage";
+        return "reply/replyPage";
     }
 
     /* 댓글 등록 */
@@ -66,7 +66,7 @@ public class ReplyController {
         model.addAttribute("replyInfo", replyService.getUpdateReply(replyVo.getReplyId()));
         model.addAttribute("userId", replyVo.getUserId());
 
-        return "replyUpdate";
+        return "reply/replyUpdate";
     }
 
     @ResponseBody
