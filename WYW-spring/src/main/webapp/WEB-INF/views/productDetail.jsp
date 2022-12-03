@@ -436,7 +436,7 @@
             $(".reply_pageInfo_div").find(".pageMarker").html('');
         } else {
 
-            $(".reply_not_div").html('');
+            $(".reply_not_div").addClass("hidden_div");
             let total = obj.pageInfo.total;
             let list = obj.list;
             let pf = obj.pageInfo;
@@ -597,7 +597,7 @@
             $(".replyQnA_pageInfo_div").find(".pageMarker").html('');
         } else {
 
-            $(".replyQnA_not_div").html('');
+            $(".replyQnA_not_div").addClass("hidden_div");
             let total = obj.pageInfo.total;
             let list = obj.list;
             let pf = obj.pageInfo;
