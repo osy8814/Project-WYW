@@ -22,14 +22,7 @@ public class ReplyController {
     @Autowired
     ProductService productService;
 
-    @ResponseBody
-    @PostMapping("/reg")
-    public void regReplyPost(ReplyVo replyVo) {
-
-        replyService.regReply(replyVo);
-    }
-
-    /* 리뷰 쓰기 */
+    /* 리뷰 쓰기페이지 팝업 */
     @GetMapping("/replyReg/{userId}")
     public String replyEnrollWindowGet(@PathVariable("userId") String userId, int productId, Model model) {
 
@@ -39,6 +32,14 @@ public class ReplyController {
         model.addAttribute("userId", userId);
 
         return "replyPage";
+    }
+
+    /* 댓글 등록 */
+    @ResponseBody
+    @PostMapping("/reg")
+    public void regReplyPost(ReplyVo replyVo) {
+
+        replyService.regReply(replyVo);
     }
 
     /* 댓글 페이징 */
