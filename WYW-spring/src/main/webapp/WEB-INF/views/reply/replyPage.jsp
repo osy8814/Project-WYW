@@ -20,7 +20,7 @@
 
 <div class="reply_main">
     <div class="reply-main-outter">
-        <h1 class="reply_main_title">Review</h1>
+        <h1 class="reply_main_title">리뷰</h1>
         <div class="reply_product_name">
             <h1>제품명 : ${productInfo.name}[${productInfo.cate_name}]</h1>
         </div>
