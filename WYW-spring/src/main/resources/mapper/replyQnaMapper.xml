@@ -17,7 +17,7 @@
                created_at AS createdAt,
                content,
                is_answered AS isAnswered,
-               is_deledte AS
+               is_deleted AS isDeleted
         FROM product_qna
         WHERE product_id =
               #{productId}
