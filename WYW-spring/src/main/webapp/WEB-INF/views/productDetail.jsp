@@ -100,12 +100,11 @@
                 ${productsViewVo.description}
             </div>
         </div>
+        <div class="review_qna_swap_div">
+            <h1 class="product_main-review_title active_title">리뷰<span id="review_count"></span></h1>
+            <h1 class="product_main-QnA_title inactive_title">문의<span id="qna_count"></span></h1>
+        </div>
         <div class="product_main-review">
-            <h1 class="product_main-review_title">리뷰<span id="review_count"></span>
-                <c:if test="${loggedInUser==null}">
-                    (로그인 후에 이용하실 수 있습니다.)
-                </c:if>
-            </h1>
             <div class="product_main-review_content">
                 <div class="reply_not_div">
 
@@ -129,12 +128,7 @@
             </div>
 
         </div>
-        <div class="product_main-QnA">
-            <h1 class="product_main-QnA_title">문의<span id="qna_count"></span>
-                <c:if test="${loggedInUser==null}">
-                    (로그인 후에 이용하실 수 있습니다.)
-                </c:if>
-            </h1>
+        <div class="product_main-QnA hidden_div">
             <div class="product_main-QnA_content">
                 <div class="replyQnA_not_div">
 
@@ -167,6 +161,26 @@
 </form>
 
 <jsp:include page="index_bottom.jsp" flush="false"/>
+<%--게시판스왑--%>
+<script>
+    $(".product_main-review_title").on("click", function (){
+        $(".product_main-review_title").addClass("active_title");
+        $(".product_main-QnA_title").removeClass("active_title");
+
+        $(".product_main-QnA").addClass("hidden_div");
+        $(".product_main-review").removeClass("hidden_div");
+    });
+
+    $(".product_main-QnA_title").on("click", function (){
+        $(".product_main-QnA_title").addClass("active_title");
+        $(".product_main-review_title").removeClass("active_title");
+
+
+        $(".product_main-review").addClass("hidden_div");
+        $(".product_main-QnA").removeClass("hidden_div");
+    });
+</script>
+<%--수량조절--%>
 <script>
     let max = parseInt(${productsViewVo.stock});
     let min = 1;
@@ -204,6 +218,7 @@
         $(".product_info_total-quantity").text("(" + quantity + "개)")
     }
 </script>
+<%--장바구니담기--%>
 <script>
     const form = {
         user_id: '${loggedInUser.userId}',
@@ -246,6 +261,7 @@
         }
     }
 </script>
+<%--찜하기--%>
 <script>
     const wishform = {
         user_id: '${loggedInUser.userId}',
@@ -280,6 +296,7 @@
         }
     }
 </script>
+<%--바로구매--%>
 <script>
     /* 바로구매 버튼 */
     $("#buy-now").on("click", function () {
@@ -294,6 +311,7 @@
         $(".order_form").submit();
     });
 </script>
+<%--이미지로더--%>
 <script>
     // 이미지로더
     let product_id = ${productsViewVo.id};
@@ -334,6 +352,7 @@
         });
     });
 </script>
+<%--리뷰쓰기--%>
 <script>
     /* 리뷰쓰기 */
     $(".reply_button").on("click", function (e) {
@@ -387,6 +406,7 @@
     });
 
 </script>
+<%--리뷰 가져오기--%>
 <script>
     // 댓글리스트 전개
     let productId = ${productsViewVo.id};
@@ -508,6 +528,7 @@
         }
     }
 </script>
+<%--문의쓰기--%>
 <script>
     /* 문의쓰기 */
     $(".QnA_button").on("click", function (e) {
@@ -561,6 +582,7 @@
     });
 
 </script>
+<%--문의가져오기--%>
 <script>
     // Qna댓글리스트 전개
     $.getJSON("/WYW/replyqna/list", {productId: productId}, function (obj) {

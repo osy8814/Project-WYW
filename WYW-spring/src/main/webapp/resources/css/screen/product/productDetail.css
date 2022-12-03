@@ -265,3 +265,18 @@
     font-weight: bold;
     color: black;
 }
+
+.review_qna_swap_div{
+    display: flex;
+    width: 100%;
+}
+.review_qna_swap_div > h1{
+    cursor: pointer;
+}
+.active_title{
+    background-color: #32343e !important;
+    color: white;
+}
+.active_board{
+
+}
