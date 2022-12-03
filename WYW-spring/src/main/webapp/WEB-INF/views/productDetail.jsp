@@ -101,10 +101,11 @@
             </div>
         </div>
         <div class="product_main-review">
-            <h1 class="product_main-review_title">리뷰</h1>
-            <c:if test="${loggedInUser==null}">
-                (로그인 후에 이용하실 수 있습니다.)
-            </c:if>
+            <h1 class="product_main-review_title">리뷰<span id="review_count"></span>
+                <c:if test="${loggedInUser==null}">
+                    (로그인 후에 이용하실 수 있습니다.)
+                </c:if>
+            </h1>
             <div class="product_main-review_content">
                 <div class="reply_not_div">
 
@@ -129,10 +130,11 @@
 
         </div>
         <div class="product_main-QnA">
-            <h1 class="product_main-QnA_title">문의</h1>
-            <c:if test="${loggedInUser==null}">
-                (로그인 후에 이용하실 수 있습니다.)
-            </c:if>
+            <h1 class="product_main-QnA_title">문의<span id="qna_count"></span>
+                <c:if test="${loggedInUser==null}">
+                    (로그인 후에 이용하실 수 있습니다.)
+                </c:if>
+            </h1>
             <div class="product_main-QnA_content">
                 <div class="replyQnA_not_div">
 
@@ -148,7 +150,7 @@
 
                 </div>
 
-                <div class="reply_pageInfo_div">
+                <div class="replyQnA_pageInfo_div">
                     <ul class="pageMarker">
 
                     </ul>
@@ -426,12 +428,12 @@
     function makeReplyContent(obj) {
 
         if (obj.list.length === 0) {
-            $(".product_main-review_title").html('리뷰');
+            $("#review_count").html('');
             $("#reply_count").html("0");
             $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
             $(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
             $(".reply_content_ul").html('');
-            $(".pageMarker").html('');
+            $(".reply_pageInfo_div").find(".pageMarker").html('');
         } else {
 
             $(".reply_not_div").html('');
@@ -441,7 +443,7 @@
             let userId = '${loggedInUser.userId}';
 
             // 댓글개수표시
-            $(".product_main-review_title").html('리뷰(' + total + ')');
+            $("#review_count").html('(' + total + ')');
             $("#reply_count").html(total);
 
             //평점표시
@@ -501,10 +503,63 @@
                 reply_pageMarker += '</li>';
             }
 
-            $(".pageMarker").html(reply_pageMarker);
+            $(".reply_pageInfo_div").find(".pageMarker").html(reply_pageMarker);
 
         }
     }
+</script>
+<script>
+    /* 문의쓰기 */
+    $(".QnA_button").on("click", function (e) {
+
+        e.preventDefault();
+        let userId = "${loggedInUser.userId}";
+        let productId = "${productsViewVo.id}";
+
+        let popUrl = "/WYW/replyqna/replyqnaReg/" + userId + "?productId=" + productId;
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no";
+
+        window.open(popUrl, "문의", popOption);
+
+    });
+    /* 문의 수정 버튼 */
+    $(document).on('click', '.update_replyQna_btn', function (e) {
+        e.preventDefault();
+        let qnaId = $(this).attr("href");
+        let productId = "${productsViewVo.id}";
+
+        let popUrl = "/WYW/replyqna/replyQnaUpdate?qnaId=" + qnaId + "&productId=" + productId + "&userId=" + '${loggedInUser.userId}';
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no"
+
+        window.open(popUrl, "문의 수정", popOption);
+    });
+
+    /* 문의 삭제 버튼 */
+    $(document).on('click', '.delete_replyQna_btn', function (e) {
+
+        e.preventDefault();
+        let qnaId = $(this).attr("href");
+        let productId = "${productsViewVo.id}";
+
+        if (!confirm("문의사항을 삭제하시겠습니까?")) {
+            return false;
+        }
+
+        $.ajax({
+            data: {
+                qnaId: qnaId,
+                productId: productId
+            },
+            url: '/WYW/replyqna/delete',
+            type: 'POST',
+            success: function (result) {
+                replyQnaListInit();
+                alert('삭제가 완료되엇습니다.');
+            }
+        });
+
+    });
+
 </script>
 <script>
     // Qna댓글리스트 전개
@@ -513,7 +568,7 @@
 
     });
 
-    /* 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드 */
+    /* 문의 데이터 서버 요청 및 문의 동적 생성 메서드 */
     let replyQnaListInit = function () {
         $.getJSON("/WYW/replyqna/list", pagehandler, function (obj) {
             makeReplyQnaContent(obj);
@@ -521,7 +576,7 @@
         });
     }
 
-    /* 댓글 페이지 이동 버튼 동작 */
+    /* 문의 페이지 이동 버튼 동작 */
     $(document).on('click', '.pageMarker_btn a', function (e) {
         e.preventDefault();
 
@@ -532,14 +587,14 @@
 
     });
 
-    /* 댓글(리뷰) 동적 생성 메서드 */
+    /* 문의 동적 생성 메서드 */
     function makeReplyQnaContent(obj) {
 
         if (obj.list.length === 0) {
-            $(".product_main-QnA_title").html('문의');
+            $("#qna_count").html('');
             $(".replyQnA_not_div").html('<span>등록된 문의가 없습니다.</span>');
             $(".replyQnA_content_ul").html('');
-            $(".pageMarker").html('');
+            $(".replyQnA_pageInfo_div").find(".pageMarker").html('');
         } else {
 
             $(".replyQnA_not_div").html('');
@@ -547,9 +602,11 @@
             let list = obj.list;
             let pf = obj.pageInfo;
             let userId = '${loggedInUser.userId}';
+            let isAdmin = '${loggedInUser.isAdmin}';
 
             // 댓글개수표시
-            $(".product_main-QnA_title").html('문의(' + total + ')');
+            $("#qna_count").html('(' + total + ')');
+
 
             /* list */
             let replyQna_list = '';
@@ -562,12 +619,32 @@
                 replyQna_list += '<span class="id_span">' + obj.userId + '</span>';
                 /* 날짜 */
                 replyQna_list += '<span class="date_span">' + obj.createdAt + '</span>';
-                if (obj.userId === userId) {
-                    replyQna_list += '<button class="update_reply_btn" href="' + obj.replyId + '">수정</button><button class="delete_reply_btn" href="' + obj.replyId + '">삭제</button>';
+
+                // 작성자만 수정삭제 가능
+                if (obj.userId === userId && !obj.deleted) {
+                    replyQna_list += '<button class="update_replyQna_btn" href="' + obj.qnaId + '">수정</button><button class="delete_replyQna_btn" href="' + obj.qnaId + '">삭제</button>';
+                }
+
+                // 답변상태 표기
+                if (obj.answered) {
+                    replyQna_list += '<span style="color: green; font-weight: bold; margin-left: 10px" >답변완료</span>'
+                } else {
+                    replyQna_list += '<span style="color: red; font-weight: bold; margin-left: 10px" >답변대기</span>'
                 }
                 replyQna_list += '</div>'; //<div class="reply_top">
                 replyQna_list += '<div class="reply_bottom">';
-                replyQna_list += '<div class="reply_bottom_txt">' + obj.content + '</div>';
+
+                //삭제된 글은 삭제표시 데이터삭제 X
+                if (obj.deleted) {
+                    replyQna_list += '<div class="reply_bottom_txt">삭제된 글입니다. <i class="fas fa-trash-alt"></i></div>';
+                } else {
+                    // 문의사항은 본인과 관리자만 확인가능
+                    if (obj.userId === userId || isAdmin) {
+                        replyQna_list += '<div class="reply_bottom_txt">' + obj.content + '</div>';
+                    } else {
+                        replyQna_list += '<div class="reply_bottom_txt">문의사항은 본인과 관리자만 확인 볼 수 있습니다. <i class="fas fa-lock"></i></div>';
+                    }
+                }
                 replyQna_list += '</div>';//<div class="reply_bottom">
                 replyQna_list += '</div>';//<div class="comment_wrap">
                 replyQna_list += '</li>';
@@ -603,7 +680,7 @@
                 replyQna_pageMarker += '</li>';
             }
 
-            $(".PageMarker").html(replyQna_pageMarker);
+            $(".replyQnA_pageInfo_div").find(".pageMarker").html(replyQna_pageMarker);
 
         }
     }
