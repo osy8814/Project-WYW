@@ -3,12 +3,10 @@ package com.project.WYW.controller;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.domain.ReplyVo;
-import com.project.WYW.dto.ReplyPageDto;
 import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.Pagehandler;
 import com.project.WYW.service.ProductService;
 import com.project.WYW.service.ReplyQnaService;
-import com.project.WYW.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -42,41 +40,40 @@ public class ReplyQnaController {
         model.addAttribute("productInfo", productsViewVo);
         model.addAttribute("userId", userId);
 
-        return "replyPage";
+        return "replyQna/replyQnaPage";
     }
 
-    /* 댓글 페이징 */
+    /* 문의 페이징 */
     @ResponseBody
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ReplyQnaPageDto replyQnaListPost(Pagehandler pagehandler) {
 
         return replyQnaService.replyQnaList(pagehandler);
     }
-//
-//    /* 댓글 수정 */
-//    @ResponseBody
-//    @PostMapping("/update")
-//    public void replyModifyPost(ReplyVo replyVo) {
-//
-//        replyService.updateReply(replyVo);
-//    }
-//
-//    /* 리뷰 수정 팝업창 */
-//    @GetMapping("/replyUpdate")
-//    public String replyUpdateWindowGet(ReplyVo replyVo, Model model) {
-//        System.out.println("replyVo = " + replyVo);
-//        ProductsViewVo productsViewVo = productService.readProductDetail(replyVo.getProductId());
-//        model.addAttribute("productInfo", productsViewVo);
-//        model.addAttribute("replyInfo", replyService.getUpdateReply(replyVo.getReplyId()));
-//        model.addAttribute("userId", replyVo.getUserId());
-//
-//        return "replyUpdate";
-//    }
-//
-//    @ResponseBody
-//    @PostMapping("/delete")
-//    public void replyDeletePost(ReplyVo replyVo) {
-//
-//        replyService.deleteReply(replyVo);
-//    }
+
+    /* 문의 수정 */
+    @ResponseBody
+    @PostMapping("/update")
+    public void replyQnaModifyPost(ReplyQnaVo replyQnaVo) {
+
+        replyQnaService.updateReplyQna(replyQnaVo);
+    }
+
+    /* 문의 수정 팝업창 */
+    @GetMapping("/replyQnaUpdate")
+    public String replyQnaUpdateWindowGet(ReplyQnaVo replyQnaVo, Model model) {
+        ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaVo.getProductId());
+        model.addAttribute("productInfo", productsViewVo);
+        model.addAttribute("replyQnaInfo", replyQnaService.getReplyQna(replyQnaVo));
+        model.addAttribute("userId", replyQnaVo.getUserId());
+
+        return "replyQna/replyQnaUpdate";
+    }
+
+    @ResponseBody
+    @PostMapping("/delete")
+    public void replyQnaDeletePost(ReplyQnaVo replyQnaVo) {
+
+        replyQnaService.deleteReplyQna(replyQnaVo);
+    }
 }
