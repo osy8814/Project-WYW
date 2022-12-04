@@ -15,20 +15,25 @@
             <a href="<c:url value="/admin/productslist"/>" class="admin_list_02"><i
                     class="fas fa-list"></i>상품 목록</a>
         </li>
+        <%--        <lI>--%>
+        <%--            <a href="<c:url value="/admin/category"/>" class="admin_list_03"><i--%>
+        <%--                    class="fas fa-bezier-curve"></i>카테고리 등록</a>--%>
+        <%--        </lI>--%>
+        <%--        <lI>--%>
+        <%--            <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i--%>
+        <%--                    class="fas fa-scroll"></i>카테고리 관리</a>--%>
+        <%--        </lI>--%>
         <lI>
-            <a href="<c:url value="/admin/category"/>" class="admin_list_03"><i
-                    class="fas fa-bezier-curve"></i>카테고리 등록</a>
+            <a href="<c:url value="/admin/qnalist"/>" class="admin_list_05">
+                <i class="fas fa-question-circle"></i>문의사항 관리</a>
         </lI>
         <lI>
-            <a href="<c:url value="/admin/categoryManage"/>" class="admin_list_04"><i
-                    class="fas fa-scroll"></i>카테고리 관리</a>
+            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_06">
+                <i class="fas fa-truck"></i>배송 관리</a>
         </lI>
         <lI>
-            <a href="<c:url value="/admin/orderlist"/>" class="admin_list_05"><i
-                    class="fas fa-truck"></i>배송 관리</a>
-        </lI>
-        <lI>
-            <a href="<c:url value="/admin/membermanagement"/>" class="admin_list_06"><i class="fas fa-users-cog"></i>회원 관리</a>
+            <a href="<c:url value="/admin/membermanagement"/>" class="admin_list_07">
+                <i class="fas fa-users-cog"></i>회원 관리</a>
         </lI>
     </ul>
 

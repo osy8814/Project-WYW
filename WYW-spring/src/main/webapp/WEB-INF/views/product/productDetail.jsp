@@ -647,6 +647,9 @@
                 // 답변상태 표기
                 if (obj.answered) {
                     replyQna_list += '<span style="color: green; font-weight: bold; margin-left: 10px" >답변완료</span>'
+                    if(isAdmin || obj.userId==userId){
+                    replyQna_list += '<span class="answer-chk" data-qnaid="'+ obj.qnaId +'" style="cursor: pointer; font-weight: bold; margin-left: 10px" >[답변확인]</span>'
+                    }
                 } else {
                     replyQna_list += '<span style="color: red; font-weight: bold; margin-left: 10px" >답변대기</span>'
                 }
@@ -704,5 +707,19 @@
         }
     }
 </script>
+<%--답변확인--%>
+<script>
+    // 답변 확인버튼
+    $(document).on('click', '.answer-chk', function (e) {
+        e.preventDefault();
+        let qnaId = $(this).data("qnaid");
+
+        let popUrl = "/WYW/replyqna/answerchk?qnaId=" + qnaId;
+        let popOption = "width = 490px, height=650px, top=100px, left=100px, scrollbars=yes, resizable=no"
+
+        window.open(popUrl, "답변확인", popOption);
+    });
+</script>
+
 </body>
 </html>
