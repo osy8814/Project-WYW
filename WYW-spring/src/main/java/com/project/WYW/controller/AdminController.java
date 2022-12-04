@@ -1,19 +1,12 @@
 package com.project.WYW.controller;
 
 import com.project.WYW.dao.OrderDao;
-import com.project.WYW.domain.CategoryVo;
-import com.project.WYW.domain.ProductsViewVo;
-import com.project.WYW.domain.ProductsVo;
-import com.project.WYW.domain.UsersVo;
-import com.project.WYW.dto.OrderManageDto;
-import com.project.WYW.dto.OrderDto;
-import com.project.WYW.dto.OrderItemDto;
+import com.project.WYW.domain.*;
+import com.project.WYW.dto.*;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.PageVo;
 import com.project.WYW.model.Pagehandler;
-import com.project.WYW.service.AdminService;
-import com.project.WYW.service.OrderService;
-import com.project.WYW.service.UsersSecvice;
+import com.project.WYW.service.*;
 import net.coobird.thumbnailator.Thumbnails;
 import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +15,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.w3c.dom.ls.LSException;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +48,10 @@ public class AdminController {
     OrderDao orderDao;
     @Autowired
     OrderService orderService;
-
+    @Autowired
+    ReplyQnaService replyQnaService;
+    @Autowired
+    ProductService productService;
 
     @GetMapping("/main")
     public String toMain() {
@@ -258,18 +252,19 @@ public class AdminController {
     }
 
     @GetMapping("/memberdetail")
-    public String memberDetailGet(String userId,Model model) throws Exception {
+    public String memberDetailGet(String userId, Model model) throws Exception {
 
         UsersVo usersVo = usersSecvice.read(userId);
         model.addAttribute("userInfo", usersVo);
 
         return "admin/userInfoForAdmin";
     }
+
     @PostMapping("/modifyuserinfo")
-    public String modifyUserInfo(UsersVo usersVo,Model model,RedirectAttributes attributes)throws Exception{
+    public String modifyUserInfo(UsersVo usersVo, Model model, RedirectAttributes attributes) throws Exception {
         int rowCnt = adminService.modifyUserInfo(usersVo);
 
-        if(rowCnt==1){
+        if (rowCnt == 1) {
             attributes.addFlashAttribute("msg", "edit_ok");
             return "redirect:/admin/membermanagement";
         }
@@ -278,7 +273,7 @@ public class AdminController {
     }
 
     @PostMapping("/activeaccount")
-    public String activeAccountPost(String userId,RedirectAttributes attributes)throws Exception {
+    public String activeAccountPost(String userId, RedirectAttributes attributes) throws Exception {
         UsersVo usersVo = usersSecvice.read(userId);
         usersVo.setActive(true);
         int rowCnt = adminService.modifyUserInfo(usersVo);
@@ -291,20 +286,20 @@ public class AdminController {
     }
 
     @PostMapping("/inactiveaccount")
-    public String inActiveAccountPost(String userId, RedirectAttributes attributes)throws Exception{
+    public String inActiveAccountPost(String userId, RedirectAttributes attributes) throws Exception {
         UsersVo usersVo = usersSecvice.read(userId);
         usersVo.setActive(false);
         int rowCnt = adminService.modifyUserInfo(usersVo);
-        if(rowCnt==1){
-            attributes.addFlashAttribute("msg","inactive");
-            return "redirect:/admin/memberdetail?userId="+userId;
+        if (rowCnt == 1) {
+            attributes.addFlashAttribute("msg", "inactive");
+            return "redirect:/admin/memberdetail?userId=" + userId;
         }
-        attributes.addFlashAttribute("msg","err");
-        return "redirect:/admin/memberdetail?userId="+userId;
+        attributes.addFlashAttribute("msg", "err");
+        return "redirect:/admin/memberdetail?userId=" + userId;
     }
 
     @PostMapping("/adminaccount")
-    public String adminAccountPost(String userId,RedirectAttributes attributes)throws Exception {
+    public String adminAccountPost(String userId, RedirectAttributes attributes) throws Exception {
         UsersVo usersVo = usersSecvice.read(userId);
         usersVo.setAdmin(true);
         int rowCnt = adminService.modifyUserInfo(usersVo);
@@ -317,7 +312,7 @@ public class AdminController {
     }
 
     @PostMapping("/nonadminaccount")
-    public String nonAdminAccountPost(String userId,RedirectAttributes attributes)throws Exception {
+    public String nonAdminAccountPost(String userId, RedirectAttributes attributes) throws Exception {
         UsersVo usersVo = usersSecvice.read(userId);
         usersVo.setAdmin(false);
         int rowCnt = adminService.modifyUserInfo(usersVo);
@@ -471,6 +466,7 @@ public class AdminController {
         }
         return false;
     }
+
     @ResponseBody
     @PostMapping("/mobileChk")
     public boolean mobileChk(HttpServletRequest request) throws Exception {
@@ -491,4 +487,62 @@ public class AdminController {
         }
         return false;
     }
+
+    @GetMapping("/qnalist")
+    public String getQnalistGet(Pagehandler pagehandler, Model model) {
+
+        ReplyQnaPageDto replyQnaPageDto = replyQnaService.replyQnaList(pagehandler);
+
+        if (!replyQnaPageDto.getList().isEmpty()) {
+            model.addAttribute("list", replyQnaPageDto.getList());
+        } else {
+            model.addAttribute("listCheck", "empty");
+        }
+        model.addAttribute("pageMarker", replyQnaPageDto.getPageInfo());
+
+        return "admin/qnaList";
+    }
+
+    @GetMapping("/answerreg")
+    public String answerWindowGet(ReplyQnaDto replyQnaDto, Model model) {
+
+        replyQnaDto = replyQnaService.getReplyQna(replyQnaDto);
+        ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaDto.getProductId());
+
+        model.addAttribute("qnaInfo",replyQnaDto);
+        model.addAttribute("productInfo",productsViewVo);
+
+        return "admin/answerPage";
+    }
+
+    @ResponseBody
+    @PostMapping("/answer")
+    public void answerPost(AnswerVo answerVo){
+        replyQnaService.regAnswer(answerVo);
+    }
+
+    @GetMapping("/answermanage")
+    public String answerManageWindowGet(ReplyQnaDto replyQnaDto, Model model) {
+
+        replyQnaDto = replyQnaService.getReplyQna(replyQnaDto);
+        ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaDto.getProductId());
+
+        AnswerVo answerVo = new AnswerVo();
+        answerVo.setQnaId(replyQnaDto.getQnaId());
+
+        answerVo = replyQnaService.getAnswer(answerVo);
+
+        model.addAttribute("qnaInfo",replyQnaDto);
+        model.addAttribute("productInfo",productsViewVo);
+        model.addAttribute("answerInfo",answerVo);
+
+        return "admin/answerManagePage";
+    }
+
+    @ResponseBody
+    @PostMapping("/updateanswer")
+    public void updateAnswerPost(AnswerVo answerVo){
+        replyQnaService.updateAnswer(answerVo);
+    }
+
 }
