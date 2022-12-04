@@ -2,6 +2,7 @@ package com.project.WYW.dao;
 
 import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
+import com.project.WYW.dto.ReplyQnaDto;
 import com.project.WYW.model.Pagehandler;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ReplyQnaDaoImpl implements ReplyQnaDao {
     }
 
     @Override
-    public List<ReplyQnaVo> getReplyQnaList(Pagehandler pagehandler){
+    public List<ReplyQnaDto> getReplyQnaList(Pagehandler pagehandler){
         return session.selectList(namespace+"getReplyQnaList",pagehandler);
     }
 
@@ -33,12 +34,12 @@ public class ReplyQnaDaoImpl implements ReplyQnaDao {
     }
 
     @Override
-    public int updateReplyQna(ReplyQnaVo replyQnaVo){
-        return session.update(namespace+"updateReplyQna", replyQnaVo);
+    public int updateReplyQna(ReplyQnaDto replyQnaDto){
+        return session.update(namespace+"updateReplyQna", replyQnaDto);
     }
 
     @Override
-    public ReplyQnaVo getUpdateReplyQna(Integer qnaId){
+    public ReplyQnaDto getUpdateReplyQna(Integer qnaId){
         return session.selectOne(namespace+"getUpdateReplyQna", qnaId);
     }
 
@@ -61,5 +62,10 @@ public class ReplyQnaDaoImpl implements ReplyQnaDao {
     @Override
     public AnswerVo getAnswer(AnswerVo answerVo){
         return session.selectOne(namespace+"getAnswer",answerVo);
+    }
+
+    @Override
+    public int updateAnswer(AnswerVo answerVo){
+        return session.update(namespace+"updateAnswer",answerVo);
     }
 }

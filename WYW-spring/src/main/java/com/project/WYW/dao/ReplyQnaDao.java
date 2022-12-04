@@ -3,6 +3,7 @@ package com.project.WYW.dao;
 import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.domain.ReplyVo;
+import com.project.WYW.dto.ReplyQnaDto;
 import com.project.WYW.model.Pagehandler;
 
 import java.util.List;
@@ -10,13 +11,15 @@ import java.util.List;
 public interface ReplyQnaDao {
     int regReplyQna(ReplyQnaVo replyQnaVo);
 
-    List<ReplyQnaVo> getReplyQnaList(Pagehandler pagehandler);
+//    List<ReplyQnaVo> getReplyQnaList(Pagehandler pagehandler);
+
+    List<ReplyQnaDto> getReplyQnaList(Pagehandler pagehandler);
 
     int getReplyQnaTotal(Integer productId);
 
-    int updateReplyQna(ReplyQnaVo replyQnaVo);
+    int updateReplyQna(ReplyQnaDto replyQnaDto);
 
-    ReplyQnaVo getUpdateReplyQna(Integer qnaId);
+    ReplyQnaDto getUpdateReplyQna(Integer qnaId);
 
     /* 댓글 삭제 */
     int deleteReplyQna(ReplyQnaVo replyQnaVo);
@@ -26,4 +29,6 @@ public interface ReplyQnaDao {
     int updateState(AnswerVo answerVo);
 
     AnswerVo getAnswer(AnswerVo answerVo);
+
+    int updateAnswer(AnswerVo answerVo);
 }

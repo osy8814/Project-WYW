@@ -4,6 +4,7 @@ import com.project.WYW.dao.ReplyQnaDao;
 import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.dto.PageDto;
+import com.project.WYW.dto.ReplyQnaDto;
 import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.Pagehandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class ReplyQnaServiceImpl implements ReplyQnaService {
     }
 
     @Override
-    public int updateReplyQna(ReplyQnaVo replyQnaVo){
-        return replyQnaDao.updateReplyQna(replyQnaVo);
+    public int updateReplyQna(ReplyQnaDto replyQnaDto){
+        return replyQnaDao.updateReplyQna(replyQnaDto);
     }
 
     @Override
@@ -47,8 +48,8 @@ public class ReplyQnaServiceImpl implements ReplyQnaService {
     }
 
     @Override
-    public ReplyQnaVo getReplyQna(ReplyQnaVo replyQnaVo){
-        return replyQnaDao.getUpdateReplyQna(replyQnaVo.getQnaId());
+    public ReplyQnaDto getReplyQna(ReplyQnaDto replyQnaDto){
+        return replyQnaDao.getUpdateReplyQna(replyQnaDto.getQnaId());
     }
 
     @Override
@@ -64,6 +65,16 @@ public class ReplyQnaServiceImpl implements ReplyQnaService {
         replyQnaDao.regAnswer(answerVo);
         replyQnaDao.updateState(answerVo);
 
+    }
+
+    @Override
+    public AnswerVo getAnswer(AnswerVo answerVo){
+        return replyQnaDao.getAnswer(answerVo);
+    }
+
+    @Override
+    public int updateAnswer(AnswerVo answerVo){
+        return replyQnaDao.updateAnswer(answerVo);
     }
 
 }
