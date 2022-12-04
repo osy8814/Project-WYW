@@ -23,6 +23,7 @@
 
         <typeAlias alias="ReplyQnaVo" type="com.project.WYW.domain.ReplyQnaVo"/>
 
+        <typeAlias alias="AnswerVo" type="com.project.WYW.domain.AnswerVo"/>
 
         <typeAlias alias="WishVo" type="com.project.WYW.model.WishVo"/>
 

@@ -5,20 +5,27 @@
 <mapper namespace="com.project.WYW.mapper.replyQnaMapper">
     <insert id="regReplyQna" parameterType="ReplyQnaVo">
 
-        INSERT INTO product_qna (product_id, user_id, content)
+        INSERT INTO product_qna_q (product_id, user_id, content)
         VALUES (#{productId}, #{userId}, #{content});
 
     </insert>
 
+    <insert id="regAnswer" parameterType="AnswerVo">
+
+        INSERT INTO product_qna_a (qna_id, user_id, content)
+        VALUES (#{qnaId}, #{userId}, #{content});
+
+    </insert>
+
     <select id="getReplyQnaList" resultType="ReplyQnaVo">
-        SELECT qna_id   AS qnaId,
-               product_id AS productId,
-               user_id    AS userId,
-               created_at AS createdAt,
+        SELECT qna_id      AS qnaId,
+               product_id  AS productId,
+               user_id     AS userId,
+               created_at  AS createdAt,
                content,
                is_answered AS isAnswered,
-               is_deleted AS isDeleted
-        FROM product_qna
+               is_deleted  AS isDeleted
+        FROM product_qna_q
         WHERE product_id =
               #{productId}
         ORDER BY created_at DESC
@@ -27,41 +34,77 @@
 
     <select id="getReplyQnaTotal" resultType="int">
         SELECT count(*)
-        FROM product_qna
+        FROM product_qna_q
         WHERE product_id =
               #{productId}
     </select>
 
-    <select id="getUpdateReplyQna" resultType="ReplyQnaVo">
-        SELECT qna_id   AS qnaId,
-               product_id AS productId,
+    <select id="getAnswer" resultType="AnswerVo">
+        SELECT a_id       AS aId,
+               qna_id     AS qnaId,
                user_id    AS userId,
-               created_at AS createdAt,
+               content,
+               created_at AS createdAt
+        FROM product_qna_a
+        WHERE a_id = #{aId}
+    </select>
+
+    <select id="getAnswerList" resultType="AnswerVo">
+        SELECT a_id       AS aId,
+               qna_id     AS qnaId,
+               user_id    AS userId,
+               content,
+               created_at AS createdAt
+        FROM product_qna_a
+        ORDER BY created_at DESC
+            limit #{skip}, #{amount}
+    </select>
+
+    <select id="getAnswerTotal" resultType="int">
+        SELECT count(*)
+        FROM product_qna_a
+    </select>
+
+    <select id="getUpdateReplyQna" resultType="ReplyQnaVo">
+        SELECT qna_id      AS qnaId,
+               product_id  AS productId,
+               user_id     AS userId,
+               created_at  AS createdAt,
                content,
                is_answered AS isAnswered
-        FROM product_qna
+        FROM product_qna_q
         WHERE qna_id =
               #{qnaId}
     </select>
 
     <update id="updateReplyQna" parameterType="ReplyQnaVo">
 
-        UPDATE product_qna SET content = #{content}
+        UPDATE product_qna_q
+        SET content = #{content}
         WHERE qna_id = #{qnaId}
+
+    </update>
+
+    <update id="updateState">
+        UPDATE product_qna_q
+        SET is_answered = true
+        WHERE qna_id = #{qnaId}
+    </update>
+
+    <update id="updateAnswer" parameterType="AnswerVo">
+
+        UPDATE product_qna_a
+        SET content = #{content}
+        WHERE a_id = #{aId}
 
     </update>
 
     <update id="deleteReplyQna" parameterType="ReplyQnaVo">
 
-        UPDATE product_qna SET is_deleted = true
+        UPDATE product_qna_q
+        SET is_deleted = true
         WHERE qna_id = #{qnaId}
 
     </update>
 
-<!--    <delete id="deleteReplyQna" parameterType="ReplyQnaVo">-->
-
-<!--        DELETE FROM product_qna-->
-<!--        WHERE qna_id = #{qnaId}-->
-
-<!--    </delete>-->
 </mapper>
