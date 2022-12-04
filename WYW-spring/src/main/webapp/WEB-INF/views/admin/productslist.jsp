@@ -144,7 +144,7 @@
                         <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
-                        <input type="hidden" name="order" value="${cookie.order.value}">
+                        <input type="hidden" name="order" value="${pageMarker.pagehandler.order}">
                     </form>
                 </div>
 
@@ -166,22 +166,22 @@
 </script>
 <script>
     $(".sort_basic").on("click", function () {
-        document.cookie = "order="
+
         $("input[name='order']").val("");
         $("#moveForm").submit();
     });
     $(".sort_sale").on("click", function () {
-        document.cookie = "order=CS";
+
         $("input[name='order']").val("CS");
         $("#moveForm").submit();
     });
     $(".sort_price").on("click", function () {
-        document.cookie = "order=P";
+
         $("input[name='order']").val("P");
         $("#moveForm").submit();
     });
     $(".sort_stock").on("click", function () {
-        document.cookie = "order=ST";
+
         $("input[name='order']").val("ST");
         $("#moveForm").submit();
     });

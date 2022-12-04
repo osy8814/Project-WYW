@@ -11,6 +11,7 @@ import com.project.WYW.service.AdminService;
 import com.project.WYW.service.AttachService;
 import com.project.WYW.service.ProductService;
 import com.project.WYW.service.WishService;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -77,7 +78,11 @@ public class ProductController {
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
 
-        receiveCategory(model);
+//        receiveCategory(model);
+        List<CategoryVo> list = adminService.category();
+        model.addAttribute("categorys", JSONArray.fromObject(list));
+
+
         pagehandler.setAmount(12);
         toView(pagehandler, model, usersVo);
 
