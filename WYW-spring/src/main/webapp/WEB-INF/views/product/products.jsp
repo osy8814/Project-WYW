@@ -18,13 +18,15 @@
 <body>
 
 <jsp:include page="../index_top.jsp" flush="false"/>
-
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>PRODUCTS</span></h1>
+        <div class="products_main_top">
         <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}"
                                                                           var="categoryName"/>${fn:substring(categoryName,0,3)}
             용품 이 검색되었습니다.</h1>
+            <div class="secondary-category">분류 : </div>
+        </div>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
                 <c:forEach items="${list}" var="product">
@@ -226,6 +228,25 @@
             alert("로그인이 필요합니다.");
         }
     }
+</script>
+<script>
+    let categorys = JSON.parse('${categorys}');
+    for (let i = 0; i < categorys.length; i++) {
+        if("${pageMarker.pagehandler.category}"==categorys[i].cate_code_ref){
+            let obj = "";
+            obj += '<button class="manage_btn sort_btn" type="button" data-cateCode="'+ categorys[i].cate_code + '">'
+            obj += categorys[i].cate_name + '</button>'
+            $(".secondary-category").append(obj);
+        }
+    }
+
+    $(".sort_btn").on("click", function (){
+        let cateCode = $(this).text();
+
+        $("input[name='keyword']").val(cateCode);
+        $("#moveForm").submit();
+    });
+
 </script>
 </body>
 </html>

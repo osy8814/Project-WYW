@@ -39,5 +39,13 @@ public class CategoryVo {
         this.cate_code_ref = cate_code_ref;
     }
 
-
+    @Override
+    public String toString() {
+        return "CategoryVo{" +
+                "cate_name='" + cate_name + '\'' +
+                ", cate_code='" + cate_code + '\'' +
+                ", cate_code_ref='" + cate_code_ref + '\'' +
+                ", level=" + level +
+                '}';
+    }
 }
