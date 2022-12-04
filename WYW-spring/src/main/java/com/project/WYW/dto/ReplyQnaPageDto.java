@@ -7,15 +7,15 @@ import java.util.List;
 
 public class ReplyQnaPageDto {
 
-    List<ReplyQnaVo> List;
+    List<ReplyQnaDto> List;
 
     PageDto pageInfo;
 
-    public java.util.List<ReplyQnaVo> getList() {
+    public List<ReplyQnaDto> getList() {
         return List;
     }
 
-    public void setList(java.util.List<ReplyQnaVo> list) {
+    public void setList(List<ReplyQnaDto> list) {
         List = list;
     }
 
