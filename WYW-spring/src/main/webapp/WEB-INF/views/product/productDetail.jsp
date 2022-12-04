@@ -16,7 +16,7 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 
 <div class="product_main">
     <div class="product_main-outter">
@@ -100,8 +100,11 @@
                 ${productsViewVo.description}
             </div>
         </div>
+        <div class="review_qna_swap_div">
+            <h1 class="product_main-review_title active_title">리뷰<span id="review_count"></span></h1>
+            <h1 class="product_main-QnA_title inactive_title">문의<span id="qna_count"></span></h1>
+        </div>
         <div class="product_main-review">
-            <h1 class="product_main-review_title">리뷰</h1>
             <div class="product_main-review_content">
                 <div class="reply_not_div">
 
@@ -109,11 +112,14 @@
                 <ul class="reply_content_ul">
 
                 </ul>
-                <c:if test="${loggedInUser!=null}">
-                    <div class="product_main-review_btn-set">
+
+                <div class="product_main-review_btn-set">
+                    <c:if test="${loggedInUser!=null}">
                         <button class="reply_button write_button">글쓰기</button>
-                    </div>
-                </c:if>
+                    </c:if>
+
+                </div>
+
                 <div class="reply_pageInfo_div">
                     <ul class="pageMarker">
 
@@ -122,13 +128,29 @@
             </div>
 
         </div>
-        <div class="product_main-QnA">
-            <h1 class="product_main-QnA_title">문의</h1>
+        <div class="product_main-QnA hidden_div">
             <div class="product_main-QnA_content">
+                <div class="replyQnA_not_div">
+
+                </div>
+                <ul class="replyQnA_content_ul">
+
+                </ul>
+
+                <div class="product_main-QnA-set">
+                    <c:if test="${loggedInUser!=null}">
+                        <button class="QnA_button write_button">글쓰기</button>
+                    </c:if>
+
+                </div>
+
+                <div class="replyQnA_pageInfo_div">
+                    <ul class="pageMarker">
+
+                    </ul>
+                </div>
             </div>
-            <div class="product_main-QnA-set">
-                <button class="QnA_button write_button">글쓰기</button>
-            </div>
+
         </div>
     </div>
 </div>
@@ -138,7 +160,27 @@
     <input type="hidden" name="orders[0].productCount" value="">
 </form>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
+<%--게시판스왑--%>
+<script>
+    $(".product_main-review_title").on("click", function (){
+        $(".product_main-review_title").addClass("active_title");
+        $(".product_main-QnA_title").removeClass("active_title");
+
+        $(".product_main-QnA").addClass("hidden_div");
+        $(".product_main-review").removeClass("hidden_div");
+    });
+
+    $(".product_main-QnA_title").on("click", function (){
+        $(".product_main-QnA_title").addClass("active_title");
+        $(".product_main-review_title").removeClass("active_title");
+
+
+        $(".product_main-review").addClass("hidden_div");
+        $(".product_main-QnA").removeClass("hidden_div");
+    });
+</script>
+<%--수량조절--%>
 <script>
     let max = parseInt(${productsViewVo.stock});
     let min = 1;
@@ -176,6 +218,7 @@
         $(".product_info_total-quantity").text("(" + quantity + "개)")
     }
 </script>
+<%--장바구니담기--%>
 <script>
     const form = {
         user_id: '${loggedInUser.userId}',
@@ -185,7 +228,7 @@
 
     // 장바구니 클릭
     $("#btn_cart").on("click", function (e) {
-        if ("${loggedInUser}" === "") {
+        if ("${loggedInUser.userId}" === "") {
             alert("로그인 후에 이용해 주십시오.");
         }
 
@@ -218,6 +261,7 @@
         }
     }
 </script>
+<%--찜하기--%>
 <script>
     const wishform = {
         user_id: '${loggedInUser.userId}',
@@ -252,6 +296,7 @@
         }
     }
 </script>
+<%--바로구매--%>
 <script>
     /* 바로구매 버튼 */
     $("#buy-now").on("click", function () {
@@ -266,6 +311,7 @@
         $(".order_form").submit();
     });
 </script>
+<%--이미지로더--%>
 <script>
     // 이미지로더
     let product_id = ${productsViewVo.id};
@@ -306,6 +352,7 @@
         });
     });
 </script>
+<%--리뷰쓰기--%>
 <script>
     /* 리뷰쓰기 */
     $(".reply_button").on("click", function (e) {
@@ -315,7 +362,7 @@
         let productId = "${productsViewVo.id}";
 
         let popUrl = "/WYW/reply/replyReg/" + userId + "?productId=" + productId;
-        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes";
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no";
 
         window.open(popUrl, "리뷰 쓰기", popOption);
 
@@ -327,7 +374,7 @@
         let productId = "${productsViewVo.id}";
 
         let popUrl = "/WYW/reply/replyUpdate?replyId=" + replyId + "&productId=" + productId + "&userId=" + '${loggedInUser.userId}';
-        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes"
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no"
 
         window.open(popUrl, "리뷰 수정", popOption);
     });
@@ -359,7 +406,9 @@
     });
 
 </script>
+<%--리뷰 가져오기--%>
 <script>
+    // 댓글리스트 전개
     let productId = ${productsViewVo.id};
 
     $.getJSON("/WYW/reply/list", {productId: productId}, function (obj) {
@@ -378,7 +427,6 @@
     /* 댓글 데이터 서버 요청 및 댓글 동적 생성 메서드 */
     let replyListInit = function () {
         $.getJSON("/WYW/reply/list", pagehandler, function (obj) {
-
             makeReplyContent(obj);
 
         });
@@ -397,28 +445,26 @@
 
     /* 댓글(리뷰) 동적 생성 메서드 */
     function makeReplyContent(obj) {
+        // 평점 갱신
+        $("#product_ratingAvg").html(obj.ratingAvg.toFixed(1));
 
         if (obj.list.length === 0) {
-            $(".product_main-review_title").html('리뷰');
+            $("#review_count").html('');
             $("#reply_count").html("0");
-            $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
-            $(".reply_not_div").html('<span>리뷰가 없습니다.</span>');
+            $(".reply_not_div").html('<span>등록된 리뷰가 없습니다.</span>');
             $(".reply_content_ul").html('');
-            $(".pageMarker").html('');
+            $(".reply_pageInfo_div").find(".pageMarker").html('');
         } else {
 
-            $(".reply_not_div").html('');
+            $(".reply_not_div").addClass("hidden_div");
             let total = obj.pageInfo.total;
             let list = obj.list;
             let pf = obj.pageInfo;
             let userId = '${loggedInUser.userId}';
 
             // 댓글개수표시
-            $(".product_main-review_title").html('리뷰(' + total + ')');
+            $("#review_count").html('(' + total + ')');
             $("#reply_count").html(total);
-
-            //평점표시
-            $("#product_ratingAvg").html("${productsViewVo.ratingAvg}")
 
             /* list */
             let reply_list = '';
@@ -474,13 +520,206 @@
                 reply_pageMarker += '</li>';
             }
 
-            $(".pageMarker").html(reply_pageMarker);
+            $(".reply_pageInfo_div").find(".pageMarker").html(reply_pageMarker);
 
         }
     }
 </script>
+<%--문의쓰기--%>
 <script>
+    /* 문의쓰기 */
+    $(".QnA_button").on("click", function (e) {
+
+        e.preventDefault();
+        let userId = "${loggedInUser.userId}";
+        let productId = "${productsViewVo.id}";
+
+        let popUrl = "/WYW/replyqna/replyqnaReg/" + userId + "?productId=" + productId;
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no";
+
+        window.open(popUrl, "문의", popOption);
+
+    });
+    /* 문의 수정 버튼 */
+    $(document).on('click', '.update_replyQna_btn', function (e) {
+        e.preventDefault();
+        let qnaId = $(this).attr("href");
+        let productId = "${productsViewVo.id}";
+
+        let popUrl = "/WYW/replyqna/replyQnaUpdate?qnaId=" + qnaId + "&productId=" + productId + "&userId=" + '${loggedInUser.userId}';
+        let popOption = "width = 490px, height=400px, top=300px, left=300px, scrollbars=yes, resizable=no"
+
+        window.open(popUrl, "문의 수정", popOption);
+    });
+
+    /* 문의 삭제 버튼 */
+    $(document).on('click', '.delete_replyQna_btn', function (e) {
+
+        e.preventDefault();
+        let qnaId = $(this).attr("href");
+        let productId = "${productsViewVo.id}";
+
+        if (!confirm("문의사항을 삭제하시겠습니까?")) {
+            return false;
+        }
+
+        $.ajax({
+            data: {
+                qnaId: qnaId,
+                productId: productId
+            },
+            url: '/WYW/replyqna/delete',
+            type: 'POST',
+            success: function (result) {
+                replyQnaListInit();
+                alert('삭제가 완료되엇습니다.');
+            }
+        });
+
+    });
 
 </script>
+<%--문의가져오기--%>
+<script>
+    // Qna댓글리스트 전개
+    $.getJSON("/WYW/replyqna/list", {productId: productId}, function (obj) {
+        makeReplyQnaContent(obj);
+
+    });
+
+    /* 문의 데이터 서버 요청 및 문의 동적 생성 메서드 */
+    let replyQnaListInit = function () {
+        $.getJSON("/WYW/replyqna/list", pagehandler, function (obj) {
+            makeReplyQnaContent(obj);
+
+        });
+    }
+
+    /* 문의 페이지 이동 버튼 동작 */
+    $(document).on('click', '.pageMarker_btn a', function (e) {
+        e.preventDefault();
+
+        let page = $(this).attr("href");
+        pagehandler.pageNum = page;
+
+        replyQnaListInit();
+
+    });
+
+    /* 문의 동적 생성 메서드 */
+    function makeReplyQnaContent(obj) {
+
+        if (obj.list.length === 0) {
+            $("#qna_count").html('');
+            $(".replyQnA_not_div").html('<span>등록된 문의글이 없습니다.</span>');
+            $(".replyQnA_content_ul").html('');
+            $(".replyQnA_pageInfo_div").find(".pageMarker").html('');
+        } else {
+
+            $(".replyQnA_not_div").addClass("hidden_div");
+            let total = obj.pageInfo.total;
+            let list = obj.list;
+            let pf = obj.pageInfo;
+            let userId = '${loggedInUser.userId}';
+            let isAdmin = '${loggedInUser.isAdmin}';
+
+            // 댓글개수표시
+            $("#qna_count").html('(' + total + ')');
+
+
+            /* list */
+            let replyQna_list = '';
+
+            $(list).each(function (i, obj) {
+                replyQna_list += '<li>';
+                replyQna_list += '<div class="comment_wrap">';
+                replyQna_list += '<div class="reply_top">';
+                /* 아이디 */
+                replyQna_list += '<span class="id_span">' + obj.userId + '</span>';
+                /* 날짜 */
+                replyQna_list += '<span class="date_span">' + obj.createdAt + '</span>';
+
+                // 작성자만 수정삭제 가능
+                if (obj.userId === userId && !obj.deleted) {
+                    replyQna_list += '<button class="update_replyQna_btn" href="' + obj.qnaId + '">수정</button><button class="delete_replyQna_btn" href="' + obj.qnaId + '">삭제</button>';
+                }
+
+                // 답변상태 표기
+                if (obj.answered) {
+                    replyQna_list += '<span style="color: green; font-weight: bold; margin-left: 10px" >답변완료</span>'
+                    if(isAdmin || obj.userId==userId){
+                    replyQna_list += '<span class="answer-chk" data-qnaid="'+ obj.qnaId +'" style="cursor: pointer; font-weight: bold; margin-left: 10px" >[답변확인]</span>'
+                    }
+                } else {
+                    replyQna_list += '<span style="color: red; font-weight: bold; margin-left: 10px" >답변대기</span>'
+                }
+                replyQna_list += '</div>'; //<div class="reply_top">
+                replyQna_list += '<div class="reply_bottom">';
+
+                //삭제된 글은 삭제표시 데이터삭제 X
+                if (obj.deleted) {
+                    replyQna_list += '<div class="reply_bottom_txt">삭제된 글입니다. <i class="fas fa-trash-alt"></i></div>';
+                } else {
+                    // 문의사항은 본인과 관리자만 확인가능
+                    if (obj.userId === userId || isAdmin) {
+                        replyQna_list += '<div class="reply_bottom_txt">' + obj.content + '</div>';
+                    } else {
+                        replyQna_list += '<div class="reply_bottom_txt">문의사항은 본인과 관리자만 확인 볼 수 있습니다. <i class="fas fa-lock"></i></div>';
+                    }
+                }
+                replyQna_list += '</div>';//<div class="reply_bottom">
+                replyQna_list += '</div>';//<div class="comment_wrap">
+                replyQna_list += '</li>';
+            });
+
+            $(".replyQnA_content_ul").html(replyQna_list);
+
+            /* 페이지 버튼 */
+            let replyQna_pageMarker = '';
+
+            /* prev */
+            if (pf.prev) {
+                let prev_num = pf.pageStart - 1;
+                replyQna_pageMarker += '<li class="pageMarker_btn prev">';
+                replyQna_pageMarker += '<a href="' + prev_num + '">이전</a>';
+                replyQna_pageMarker += '</li>';
+            }
+            /* numbre btn */
+            for (let i = pf.pageStart; i < pf.pageEnd + 1; i++) {
+                replyQna_pageMarker += '<li class="pageMarker_btn ';
+                if (pf.pagehandler.pageNum === i) {
+                    replyQna_pageMarker += 'active';
+                }
+                replyQna_pageMarker += '">';
+                replyQna_pageMarker += '<a href="' + i + '">' + i + '</a>';
+                replyQna_pageMarker += '</li>';
+            }
+            /* next */
+            if (pf.next) {
+                let next_num = pf.pageEnd + 1;
+                replyQna_pageMarker += '<li class="pageMarker_btn next">';
+                replyQna_pageMarker += '<a href="' + next_num + '">다음</a>';
+                replyQna_pageMarker += '</li>';
+            }
+
+            $(".replyQnA_pageInfo_div").find(".pageMarker").html(replyQna_pageMarker);
+
+        }
+    }
+</script>
+<%--답변확인--%>
+<script>
+    // 답변 확인버튼
+    $(document).on('click', '.answer-chk', function (e) {
+        e.preventDefault();
+        let qnaId = $(this).data("qnaid");
+
+        let popUrl = "/WYW/replyqna/answerchk?qnaId=" + qnaId;
+        let popOption = "width = 490px, height=650px, top=100px, left=100px, scrollbars=yes, resizable=no"
+
+        window.open(popUrl, "답변확인", popOption);
+    });
+</script>
+
 </body>
 </html>

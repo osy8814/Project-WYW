@@ -22,14 +22,7 @@ public class ReplyController {
     @Autowired
     ProductService productService;
 
-    @ResponseBody
-    @PostMapping("/reg")
-    public void regReplyPost(ReplyVo replyVo) {
-
-        replyService.regReply(replyVo);
-    }
-
-    /* 리뷰 쓰기 */
+    /* 리뷰 쓰기페이지 팝업 */
     @GetMapping("/replyReg/{userId}")
     public String replyEnrollWindowGet(@PathVariable("userId") String userId, int productId, Model model) {
 
@@ -38,7 +31,15 @@ public class ReplyController {
         model.addAttribute("productInfo", productsViewVo);
         model.addAttribute("userId", userId);
 
-        return "replyPage";
+        return "reply/replyPage";
+    }
+
+    /* 댓글 등록 */
+    @ResponseBody
+    @PostMapping("/reg")
+    public void regReplyPost(ReplyVo replyVo) {
+
+        replyService.regReply(replyVo);
     }
 
     /* 댓글 페이징 */
@@ -46,7 +47,11 @@ public class ReplyController {
     @GetMapping(value = "/list", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ReplyPageDto replyListPost(Pagehandler pagehandler) {
 
-        return replyService.replyList(pagehandler);
+        ProductsViewVo productsViewVo = productService.readProductDetail(pagehandler.getProductId());
+        ReplyPageDto replyPageDto = replyService.replyList(pagehandler);
+        replyPageDto.setRatingAvg(productsViewVo.getRatingAvg());
+
+        return replyPageDto;
     }
 
     /* 댓글 수정 */
@@ -60,13 +65,12 @@ public class ReplyController {
     /* 리뷰 수정 팝업창 */
     @GetMapping("/replyUpdate")
     public String replyUpdateWindowGet(ReplyVo replyVo, Model model) {
-        System.out.println("replyVo = " + replyVo);
         ProductsViewVo productsViewVo = productService.readProductDetail(replyVo.getProductId());
         model.addAttribute("productInfo", productsViewVo);
         model.addAttribute("replyInfo", replyService.getUpdateReply(replyVo.getReplyId()));
         model.addAttribute("userId", replyVo.getUserId());
 
-        return "replyUpdate";
+        return "reply/replyUpdate";
     }
 
     @ResponseBody

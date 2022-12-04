@@ -1,23 +1,21 @@
 package com.project.WYW.dto;
 
+import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.domain.ReplyVo;
-import com.project.WYW.model.PageVo;
 
 import java.util.List;
 
-public class ReplyPageDto {
+public class ReplyQnaPageDto {
 
-    List<ReplyVo> List;
+    List<ReplyQnaDto> List;
 
     PageDto pageInfo;
 
-    double ratingAvg;
-
-    public java.util.List<ReplyVo> getList() {
+    public List<ReplyQnaDto> getList() {
         return List;
     }
 
-    public void setList(java.util.List<ReplyVo> list) {
+    public void setList(List<ReplyQnaDto> list) {
         List = list;
     }
 
@@ -29,20 +27,11 @@ public class ReplyPageDto {
         this.pageInfo = pageInfo;
     }
 
-    public double getRatingAvg() {
-        return ratingAvg;
-    }
-
-    public void setRatingAvg(double ratingAvg) {
-        this.ratingAvg = ratingAvg;
-    }
-
     @Override
     public String toString() {
-        return "ReplyPageDto{" +
+        return "ReplyQnaPageDto{" +
                 "List=" + List +
                 ", pageInfo=" + pageInfo +
-                ", ratingAvg=" + ratingAvg +
                 '}';
     }
 }

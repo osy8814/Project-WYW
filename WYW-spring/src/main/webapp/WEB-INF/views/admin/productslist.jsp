@@ -29,7 +29,7 @@
             <div class="admin_wrap">
                 <!-- 네비영역 -->
                 <jsp:include page="../admin/asideMenu.jsp" flush="false"/>
-`
+                `
                 <div class="admin_content_wrap">
                     <div class="admin_content_wrap_title">상품 목록</div>
                     <div class="admin_content_sort_btn">
@@ -58,7 +58,7 @@
                                     <td class="align_center">${product.id}</td>
                                     <td class="align_center">${product.user_id}</td>
                                     <td class="admin_product_img">
-                                      <c:choose>
+                                        <c:choose>
                                             <c:when test="${product.imageVOList.size()==0}">
                                                 <img src="<c:url value='/img/noimage.PNG'/>">
                                             </c:when>
@@ -67,7 +67,11 @@
                                             </c:when>
                                         </c:choose>
                                     </td>
-                                    <td>${product.name}</td>
+                                    <td>
+                                        <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
+                                                ${product.name}
+                                        </a>
+                                    </td>
                                     <td class="align_center">${product.cate_name}</td>
                                     <td class="align_end">
                                         <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>원

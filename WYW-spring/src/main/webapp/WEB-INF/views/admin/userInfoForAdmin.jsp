@@ -46,7 +46,7 @@
                         <td>
                             <select name="mobile1" id="info_mobile1" class="mobileCss">
                                 <option value="010">010</option>
-                                <option value="010">011</option>
+                                <option value="011">011</option>
                             </select>
                             <input
                                     type="text"
@@ -146,6 +146,18 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="${pageContext.request.contextPath}/js/addressAPI.js"></script>
 <script src="https://kit.fontawesome.com/6478f529f2.js" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+
+        let mobile1 = '${userInfo.mobile1}';
+
+        $("#info_mobile1 option").each(function(i,option){
+            if(mobile1 === $(option).val()){
+                $(option).attr("selected", "selected");
+            }
+        });
+    });
+</script>
 <script>
     let msg = "${msg}"
     if (msg == "err") {

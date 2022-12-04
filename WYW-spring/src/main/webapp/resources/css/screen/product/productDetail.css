@@ -214,7 +214,8 @@
     margin-bottom: 20px;
     border-bottom: 1px solid rgba(50, 52, 62, 0.2);
 }
-.reply_not_div{
+.reply_not_div, .replyQnA_not_div{
+    text-align: center;
     vertical-align: middle;
     height: 30px;
     margin-bottom: 20px;
@@ -245,7 +246,6 @@
 }
 
 .reply_bottom {
-
     padding: 5px;
     margin-bottom: 20px;
 }
@@ -253,6 +253,8 @@
     height: 30px;
     background-color: #32343e;
     color: white;
+    cursor: pointer;
+    border: none;
 }
 
 .pageMarker_btn {
@@ -262,4 +264,19 @@
 .pageMarker_btn > a {
     font-weight: bold;
     color: black;
+}
+
+.review_qna_swap_div{
+    display: flex;
+    width: 100%;
+}
+.review_qna_swap_div > h1{
+    cursor: pointer;
+}
+.active_title{
+    background-color: #32343e !important;
+    color: white;
+}
+.active_board{
+
 }

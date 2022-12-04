@@ -20,12 +20,12 @@
 
 <div class="reply_main">
     <div class="reply-main-outter">
-        <h1 class="reply_main_title">Review(Edit)</h1>
+        <h1 class="reply_main_title">리뷰</h1>
         <div class="reply_product_name">
             <h1>제품명 : ${productInfo.name}[${productInfo.cate_name}]</h1>
         </div>
         <div class="reply_product_userId">
-            <h1>작성자 : ${userId}</h1>
+            <h1>작성자 : ${loggedInUser.userId}</h1>
         </div>
         <div class="reply_rating">
             <h4>평점</h4>
@@ -44,11 +44,10 @@
             <h2>평점을 선택해주세요.</h2>
         </div>
         <div class="reply_content">
-            <textarea name="content" placeholder="내용을 작성해주세요.">${replyInfo.content}</textarea>
+            <textarea name="content" placeholder="내용을 작성해주세요."></textarea>
         </div>
         <div class="reply_btn-set">
-            <button class="update_btn">수정</button>
-            <button class="cancel_btn">취소</button>
+            <button class="reg_btn">등록</button><button class="cancel_btn">취소</button>
         </div>
 
     </div>
@@ -56,39 +55,37 @@
 <script>
 
     /* 취소 버튼 */
-    $(".cancel_btn").on("click", function (e) {
-        if (confirm("리뷰 수정을 취소하시겠습니까?")) {
+    $(".cancel_btn").on("click", function(e){
+        if(confirm("리뷰 등록을 취소하시겠습니까?")){
             window.close();
         }
         return false;
     });
 
-    /* 수정 버튼 */
-    $(".update_btn").on("click", function (e) {
+    /* 등록 버튼 */
+    $(".reg_btn").on("click", function(e){
 
-        if (!confirm("리뷰 수정을 하시겠습니까?")) {
+        if(!confirm("리뷰 등록을 하시겠습니까?")){
             return false;
         }
 
-        let replyId = "${replyInfo.replyId}"
-        let userId = "${userId}";
+        let userId = "${loggedInUser.userId}";
         let productId = "${productInfo.id}";
         let rating = $("select").val();
         let content = $("textarea").val();
 
         const data = {
-            replyId : replyId,
-            userId: userId,
-            productId: productId,
-            rating: rating,
-            content: content
+            userId : userId,
+            productId : productId,
+            rating : rating,
+            content : content
         }
 
         $.ajax({
-            data: data,
-            type: 'POST',
-            url: '/WYW/reply/update',
-            success: function (result) {
+            data : data,
+            type : 'POST',
+            url : '/WYW/reply/reg',
+            success : function(result){
                 /* 댓글 초기화 */
                 $(opener.location).attr("href", "javascript:replyListInit();");
                 window.close();
@@ -98,18 +95,6 @@
 
     });
 
-</script>
-<script>
-    $(document).ready(function(){
-
-        let rating = '${replyInfo.rating}';
-
-        $("option").each(function(i,obj){
-            if(rating === $(obj).val()){
-                $(obj).attr("selected", "selected");
-            }
-        });
-    });
 </script>
 </body>
 </html>

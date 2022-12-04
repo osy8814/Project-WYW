@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.WYW.mapper.replyQnaMapper">
+    <insert id="regReplyQna" parameterType="ReplyQnaVo">
+
+        INSERT INTO product_qna_q (product_id, user_id, content)
+        VALUES (#{productId}, #{userId}, #{content});
+
+    </insert>
+
+    <insert id="regAnswer" parameterType="AnswerVo">
+
+        INSERT INTO product_qna_a (qna_id, user_id, content)
+        VALUES (#{qnaId}, #{userId}, #{content});
+
+    </insert>
+
+    <select id="getReplyQnaList" resultType="ReplyQnaDto">
+        SELECT
+        q.qna_id AS qnaId,
+        q.product_id AS productId,
+        p.name AS productName,
+        q.user_id AS userId,
+        q.created_at AS createdAt,
+        q.content,
+        q.is_answered AS isAnswered,
+        q.is_deleted AS isDeleted
+        FROM product_qna_q q
+        INNER JOIN products p
+        ON q.product_id = p.id
+        <if test='productId!="0"'>
+            WHERE q.product_id =
+            #{productId}
+            ORDER BY q.created_at DESC
+        </if>
+        <if test='productId=="0"'>
+            ORDER BY q.created_at ASC
+        </if>
+        limit #{skip}, #{amount}
+    </select>
+
+    <select id="getReplyQnaTotal" resultType="int">
+        SELECT count(*)
+        FROM product_qna_q
+        <if test='productId!="0"'>
+        WHERE product_id =
+              #{productId}
+        </if>
+    </select>
+
+    <select id="getAnswer" resultType="AnswerVo">
+        SELECT a_id       AS aId,
+               qna_id     AS qnaId,
+               user_id    AS userId,
+               content,
+               created_at AS createdAt
+        FROM product_qna_a
+        WHERE qna_id = #{qnaId}
+    </select>
+
+    <select id="getAnswerList" resultType="AnswerVo">
+        SELECT a_id       AS aId,
+               qna_id     AS qnaId,
+               user_id    AS userId,
+               content,
+               created_at AS createdAt
+        FROM product_qna_a
+        ORDER BY created_at DESC
+            limit #{skip}, #{amount}
+    </select>
+
+    <select id="getAnswerTotal" resultType="int">
+        SELECT count(*)
+        FROM product_qna_a
+    </select>
+
+    <select id="getUpdateReplyQna" resultType="ReplyQnaDto">
+        SELECT qna_id      AS qnaId,
+               product_id  AS productId,
+               user_id     AS userId,
+               created_at  AS createdAt,
+               content,
+               is_answered AS isAnswered,
+               is_deleted AS isDeleted
+        FROM product_qna_q
+        WHERE qna_id =
+              #{qnaId}
+    </select>
+
+    <update id="updateReplyQna" parameterType="ReplyQnaVo">
+
+        UPDATE product_qna_q
+        SET content = #{content}
+        WHERE qna_id = #{qnaId}
+
+    </update>
+
+    <update id="updateState">
+        UPDATE product_qna_q
+        SET is_answered = true
+        WHERE qna_id = #{qnaId}
+    </update>
+
+    <update id="updateAnswer" parameterType="AnswerVo">
+
+        UPDATE product_qna_a
+        SET content = #{content}
+        WHERE qna_id = #{qnaId}
+
+    </update>
+
+    <update id="deleteReplyQna" parameterType="ReplyQnaVo">
+
+        UPDATE product_qna_q
+        SET is_deleted = true
+        WHERE qna_id = #{qnaId}
+
+    </update>
+
+</mapper>

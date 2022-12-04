@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -16,19 +17,18 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 
 <div class="products_main">
     <div class="products_main-outter">
-        <h1 class="main__new-title"><span>ALL</span> PRODUCT</h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개
-            <c:if test="${pageMarker.pagehandler.keyword!=null}">
-                "${pageMarker.pagehandler.keyword}"(이)가 검색되었습니다.
-            </c:if>
-        </h1>
+        <h1 class="main__new-title"><span>PRODUCTS</span></h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}"
+                                                                          var="categoryName"/>${fn:substring(categoryName,0,3)}
+            용품 이 검색되었습니다.</h1>
         <c:if test="${listCheck != 'empty' }">
             <div class="products_diplay">
                 <c:forEach items="${list}" var="product">
+
                     <div class="product">
                         <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
                             <div class="product_main-image">
@@ -49,7 +49,6 @@
                             <span class="product_price">
                             ￦ <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
                             </span>
-                            <h1 class="product_rating">${product.ratingAvg} / 5.0 </h1>
                             <div class="product_bottom-button">
                                 <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
                                    data-productId="${product.id}"></i>
@@ -92,12 +91,13 @@
         </c:if>
 
         <div class="search_wrap">
-            <form id="searchForm" action="/WYW/product.all" method="get">
+            <form id="searchForm" action="/WYW/products" method="get">
                 <div class="search_input">
                     <input type="text" name="keyword" value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
                     <input type="hidden" name="pageNum"
                            value='<c:out value="${pageMarker.pagehandler.pageNum }"></c:out>'>
                     <input type="hidden" name="amount" value='${pageMarker.pagehandler.amount}'>
+                    <input type="hidden" name="category" value="${pageMarker.pagehandler.category}">
                     <button class='btn search_btn'>검 색</button>
                 </div>
             </form>
@@ -129,17 +129,18 @@
             </ul>
         </div>
 
-        <form id="moveForm" action="/WYW/product.all" method="get">
+        <form id="moveForm" action="/WYW/products" method="get">
             <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
             <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
             <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+            <input type="hidden" name="category" value="${pageMarker.pagehandler.category}">
         </form>
 
 
     </div>
 </div>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
 <script>
     // 장바구니 클릭
@@ -187,7 +188,7 @@
 
     // 찜하기 클릭
     $(".wish_btn").on("click", function (e) {
-        if ("${loggedInUser}" === "") {
+        if ("${loggedInUser.userId}" === "") {
             alert("로그인 후에 이용해 주십시오.");
             return false
         }

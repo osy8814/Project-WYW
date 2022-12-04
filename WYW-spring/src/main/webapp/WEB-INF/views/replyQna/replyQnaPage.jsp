@@ -20,28 +20,12 @@
 
 <div class="reply_main">
     <div class="reply-main-outter">
-        <h1 class="reply_main_title">Review</h1>
+        <h1 class="reply_main_title">문의</h1>
         <div class="reply_product_name">
             <h1>제품명 : ${productInfo.name}[${productInfo.cate_name}]</h1>
         </div>
         <div class="reply_product_userId">
             <h1>작성자 : ${loggedInUser.userId}</h1>
-        </div>
-        <div class="reply_rating">
-            <h4>평점</h4>
-            <select name="rating">
-                <option value="0.5">0.5</option>
-                <option value="1.0">1.0</option>
-                <option value="1.5">1.5</option>
-                <option value="2.0">2.0</option>
-                <option value="2.5">2.5</option>
-                <option value="3.0">3.0</option>
-                <option value="3.5">3.5</option>
-                <option value="4.0">4.0</option>
-                <option value="4.5">4.5</option>
-                <option value="5.0" selected>5.0</option>
-            </select>
-            <h2>평점을 선택해주세요.</h2>
         </div>
         <div class="reply_content">
             <textarea name="content" placeholder="내용을 작성해주세요."></textarea>
@@ -56,7 +40,7 @@
 
     /* 취소 버튼 */
     $(".cancel_btn").on("click", function(e){
-        if(confirm("리뷰 등록을 취소하시겠습니까?")){
+        if(confirm("문의 등록을 취소하시겠습니까?")){
             window.close();
         }
         return false;
@@ -65,7 +49,7 @@
     /* 등록 버튼 */
     $(".reg_btn").on("click", function(e){
 
-        if(!confirm("리뷰 등록을 하시겠습니까?")){
+        if(!confirm("문의 등록을 하시겠습니까?")){
             return false;
         }
 
@@ -84,10 +68,10 @@
         $.ajax({
             data : data,
             type : 'POST',
-            url : '/WYW/reply/reg',
+            url : '/WYW/replyqna/reg',
             success : function(result){
-                /* 댓글 초기화 */
-                $(opener.location).attr("href", "javascript:replyListInit();");
+                /* 문의사항 초기화 */
+                $(opener.location).attr("href", "javascript:replyQnaListInit();");
                 window.close();
             }
 

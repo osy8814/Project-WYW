@@ -2,11 +2,15 @@ package com.project.WYW.service;
 
 import com.project.WYW.dao.AdminDao;
 import com.project.WYW.dao.OrderDao;
+import com.project.WYW.dao.ReplyQnaDao;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ProductsVo;
+import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.domain.UsersVo;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderItemDto;
+import com.project.WYW.dto.ReplyQnaDto;
+import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.AttachImageVO;
 import com.project.WYW.model.Pagehandler;
 import org.aspectj.weaver.ast.Or;
@@ -16,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,17 +33,16 @@ public class AdminServiceImplTest {
 
     @Autowired
     private AdminService adminService;
-
     @Autowired
     private OrderService orderService;
     @Autowired
     private OrderDao orderDao;
-
     @Autowired
     private AdminDao adminDao;
-
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ReplyQnaService replyQnaService;
 
     @Test
     public void category() {
@@ -140,5 +144,20 @@ public class AdminServiceImplTest {
         int users = adminService.getUserTotal();
         System.out.println("users = " + users);
     }
-    
+
+    @Autowired
+    ReplyQnaDao replyQnaDao;
+    @Test
+    public void getQnalistGet(){
+        Pagehandler pagehandler = new Pagehandler();
+        List<ReplyQnaDto>list = replyQnaDao.getReplyQnaList(pagehandler);
+        System.out.println("list = " + list);
+        
+        ReplyQnaPageDto replyQnaPageDto = replyQnaService.replyQnaList(pagehandler);
+        System.out.println("replyQnaPageDto = " + replyQnaPageDto);
+
+
+
+    }
+
 }
