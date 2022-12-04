@@ -1,6 +1,5 @@
 package com.project.WYW.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import com.project.WYW.domain.CategoryVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.UsersVo;
@@ -12,7 +11,6 @@ import com.project.WYW.service.AdminService;
 import com.project.WYW.service.AttachService;
 import com.project.WYW.service.ProductService;
 import com.project.WYW.service.WishService;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,7 +19,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -84,7 +81,7 @@ public class ProductController {
         pagehandler.setAmount(12);
         toView(pagehandler, model, usersVo);
 
-        return "products";
+        return "product/products";
     }
 
     @GetMapping("/product.all")
@@ -97,7 +94,7 @@ public class ProductController {
         pagehandler.setAmount(12);
         toView(pagehandler, model, usersVo);
 
-        return "productsAll";
+        return "product/productsAll";
     }
 
     @GetMapping("/product.new")
@@ -112,7 +109,7 @@ public class ProductController {
 
         toView(pagehandler, model, usersVo);
 
-        return "productsNew";
+        return "product/productsNew";
     }
 
     @GetMapping("/product.best")
@@ -127,7 +124,7 @@ public class ProductController {
 
         toView(pagehandler, model, usersVo);
 
-        return "productsBest";
+        return "product/productsBest";
     }
 
     @GetMapping("/productDetail")
@@ -137,7 +134,7 @@ public class ProductController {
         ProductsViewVo productsViewVo = productService.readProductDetail(product_id);
         model.addAttribute(productsViewVo);
 
-        return "productDetail";
+        return "product/productDetail";
     }
 
     private void toView(Pagehandler pagehandler, Model model, UsersVo usersVo) throws Exception {
