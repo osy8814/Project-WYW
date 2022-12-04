@@ -1,5 +1,6 @@
 package com.project.WYW.dao;
 
+import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.model.Pagehandler;
 import org.junit.Test;
@@ -61,7 +62,19 @@ public class ReplyQnaDaoImplTest {
 
         replyQnaVo = replyQnaDao.getUpdateReplyQna(2);
         assertTrue(replyQnaVo.isDeleted()==true);
+    }
 
+    @Test
+    public void regAnswerTest(){
+        AnswerVo answerVo = new AnswerVo();
+        answerVo.setQnaId(3);
+        answerVo.setUserId("admin");
+        answerVo.setContent("답변테스트");
 
+//        replyQnaDao.regAnswer(answerVo);
+        answerVo.setaId(1);
+
+        answerVo = replyQnaDao.getAnswer(answerVo);
+        System.out.println("answerVo = " + answerVo);
     }
 }
