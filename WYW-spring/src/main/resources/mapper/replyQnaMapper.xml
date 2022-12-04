@@ -17,26 +17,37 @@
 
     </insert>
 
-    <select id="getReplyQnaList" resultType="ReplyQnaVo">
-        SELECT qna_id      AS qnaId,
-               product_id  AS productId,
-               user_id     AS userId,
-               created_at  AS createdAt,
-               content,
-               is_answered AS isAnswered,
-               is_deleted  AS isDeleted
-        FROM product_qna_q
-        WHERE product_id =
-              #{productId}
-        ORDER BY created_at DESC
-            limit #{skip}, #{amount}
+    <select id="getReplyQnaList" resultType="ReplyQnaDto">
+        SELECT
+        q.qna_id AS qnaId,
+        q.product_id AS productId,
+        p.name AS productName,
+        q.user_id AS userId,
+        q.created_at AS createdAt,
+        q.content,
+        q.is_answered AS isAnswered,
+        q.is_deleted AS isDeleted
+        FROM product_qna_q q
+        INNER JOIN products p
+        ON q.product_id = p.id
+        <if test='productId!="0"'>
+            WHERE q.product_id =
+            #{productId}
+            ORDER BY q.created_at DESC
+        </if>
+        <if test='productId=="0"'>
+            ORDER BY q.created_at ASC
+        </if>
+        limit #{skip}, #{amount}
     </select>
 
     <select id="getReplyQnaTotal" resultType="int">
         SELECT count(*)
         FROM product_qna_q
+        <if test='productId!="0"'>
         WHERE product_id =
               #{productId}
+        </if>
     </select>
 
     <select id="getAnswer" resultType="AnswerVo">
@@ -46,7 +57,7 @@
                content,
                created_at AS createdAt
         FROM product_qna_a
-        WHERE a_id = #{aId}
+        WHERE qna_id = #{qnaId}
     </select>
 
     <select id="getAnswerList" resultType="AnswerVo">
@@ -65,13 +76,14 @@
         FROM product_qna_a
     </select>
 
-    <select id="getUpdateReplyQna" resultType="ReplyQnaVo">
+    <select id="getUpdateReplyQna" resultType="ReplyQnaDto">
         SELECT qna_id      AS qnaId,
                product_id  AS productId,
                user_id     AS userId,
                created_at  AS createdAt,
                content,
-               is_answered AS isAnswered
+               is_answered AS isAnswered,
+               is_deleted AS isDeleted
         FROM product_qna_q
         WHERE qna_id =
               #{qnaId}
@@ -95,7 +107,7 @@
 
         UPDATE product_qna_a
         SET content = #{content}
-        WHERE a_id = #{aId}
+        WHERE qna_id = #{qnaId}
 
     </update>
 
