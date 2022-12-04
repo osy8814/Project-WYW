@@ -1,6 +1,7 @@
 package com.project.WYW.dao;
 
 import com.project.WYW.domain.AnswerVo;
+import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.dto.ReplyQnaDto;
 import com.project.WYW.model.Pagehandler;
@@ -47,7 +48,7 @@ public class ReplyQnaDaoImplTest {
         
     @Test
     public void updateQna(){
-        ReplyQnaVo replyQnaVo = replyQnaDao.getUpdateReplyQna(1);
+        ReplyQnaDto replyQnaVo = replyQnaDao.getUpdateReplyQna(1);
         replyQnaVo.setContent("수정됨");
         replyQnaDao.updateReplyQna(replyQnaVo);
         replyQnaVo = replyQnaDao.getUpdateReplyQna(1);
@@ -57,12 +58,13 @@ public class ReplyQnaDaoImplTest {
     @Test
     public void deleteQna(){
         ReplyQnaVo replyQnaVo = new ReplyQnaVo();
-        replyQnaVo.setQnaId(2);
+        replyQnaVo.setQnaId(3);
 
         replyQnaDao.deleteReplyQna(replyQnaVo);
 
-        replyQnaVo = replyQnaDao.getUpdateReplyQna(2);
-        assertTrue(replyQnaVo.isDeleted()==true);
+        ReplyQnaDto replyQnaDto = new ReplyQnaDto();
+        replyQnaDto = replyQnaDao.getUpdateReplyQna(3);
+        assertTrue(replyQnaDto.isDeleted()==true);
     }
 
     @Test
@@ -78,4 +80,5 @@ public class ReplyQnaDaoImplTest {
         answerVo = replyQnaDao.getAnswer(answerVo);
         System.out.println("answerVo = " + answerVo);
     }
+
 }
