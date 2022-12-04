@@ -19,6 +19,7 @@
         <typeAlias alias="OrderItemDto" type="com.project.WYW.dto.OrderItemDto"/>
 
         <typeAlias alias="ReplyVo" type="com.project.WYW.domain.ReplyVo"/>
+        <typeAlias alias="ReplyQnaDto" type="com.project.WYW.dto.ReplyQnaDto"/>
         <typeAlias alias="ReplyPageDto" type="com.project.WYW.dto.ReplyPageDto"/>
 
         <typeAlias alias="ReplyQnaVo" type="com.project.WYW.domain.ReplyQnaVo"/>
