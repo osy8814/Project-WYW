@@ -1,8 +1,10 @@
 package com.project.WYW.controller;
 
+import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.domain.ReplyVo;
+import com.project.WYW.dto.ReplyQnaDto;
 import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.Pagehandler;
 import com.project.WYW.service.ProductService;
@@ -54,9 +56,9 @@ public class ReplyQnaController {
     /* 문의 수정 */
     @ResponseBody
     @PostMapping("/update")
-    public void replyQnaModifyPost(ReplyQnaVo replyQnaVo) {
+    public void replyQnaModifyPost(ReplyQnaDto replyQnaDto) {
 
-        replyQnaService.updateReplyQna(replyQnaVo);
+        replyQnaService.updateReplyQna(replyQnaDto);
     }
 
     /* 문의 수정 팝업창 */
@@ -64,7 +66,11 @@ public class ReplyQnaController {
     public String replyQnaUpdateWindowGet(ReplyQnaVo replyQnaVo, Model model) {
         ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaVo.getProductId());
         model.addAttribute("productInfo", productsViewVo);
-        model.addAttribute("replyQnaInfo", replyQnaService.getReplyQna(replyQnaVo));
+
+        ReplyQnaDto replyQnaDto = new ReplyQnaDto();
+        replyQnaDto.setQnaId(replyQnaVo.getQnaId());
+
+        model.addAttribute("replyQnaInfo", replyQnaService.getReplyQna(replyQnaDto));
         model.addAttribute("userId", replyQnaVo.getUserId());
 
         return "replyQna/replyQnaUpdate";
@@ -75,5 +81,23 @@ public class ReplyQnaController {
     public void replyQnaDeletePost(ReplyQnaVo replyQnaVo) {
 
         replyQnaService.deleteReplyQna(replyQnaVo);
+    }
+
+    @GetMapping("/answerchk")
+    public String answerManageWindowGet(ReplyQnaDto replyQnaDto, Model model) {
+
+        replyQnaDto = replyQnaService.getReplyQna(replyQnaDto);
+        ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaDto.getProductId());
+
+        AnswerVo answerVo = new AnswerVo();
+        answerVo.setQnaId(replyQnaDto.getQnaId());
+
+        answerVo = replyQnaService.getAnswer(answerVo);
+
+        model.addAttribute("qnaInfo",replyQnaDto);
+        model.addAttribute("productInfo",productsViewVo);
+        model.addAttribute("answerInfo",answerVo);
+
+        return "replyQna/answerChkPage";
     }
 }
