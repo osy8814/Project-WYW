@@ -2,6 +2,7 @@ package com.project.WYW.dao;
 
 import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
+import com.project.WYW.dto.ReplyQnaDto;
 import com.project.WYW.model.Pagehandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +38,7 @@ public class ReplyQnaDaoImplTest {
 
         Pagehandler pagehandler = new Pagehandler();
         pagehandler.setProductId(116);
-        List<ReplyQnaVo>list = replyQnaDao.getReplyQnaList(pagehandler);
+        List<ReplyQnaDto>list = replyQnaDao.getReplyQnaList(pagehandler);
         System.out.println("list = " + list);
         
         int totalQna = replyQnaDao.getReplyQnaTotal(116);

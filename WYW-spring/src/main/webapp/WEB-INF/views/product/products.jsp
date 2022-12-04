@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -16,62 +17,72 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 
 <div class="products_main">
     <div class="products_main-outter">
-        <h1 class="main__best-title"><span>BEST</span> PRODUCT</h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
+        <h1 class="main__new-title"><span>PRODUCTS</span></h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}"
+                                                                          var="categoryName"/>${fn:substring(categoryName,0,3)}
+            용품 이 검색되었습니다.</h1>
         <c:if test="${listCheck != 'empty' }">
-        <div class="products_diplay">
-            <c:forEach items="${list}" var="product">
+            <div class="products_diplay">
+                <c:forEach items="${list}" var="product">
 
-            <div class="product">
-                <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
-                    <div class="product_main-image">
-                        <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
-                    </div>
-                </a>
-                <div class="product_infomation">
-                    <h1 class="product_name">${product.name}</h1>
-                    <h1 class="product_category">${product.cate_name}</h1>
-                    <span class="product_price">
-                            ￦ <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
-                            </span>
-                    <div class="product_bottom-button">
-                        <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
-                           data-productId="${product.id}"></i>
-                        <c:if test="${product.wishList==null}">
-                            <i class="fas fa-heart wish_btn"
-                               data-productId="${product.id}"></i>
-                        </c:if>
-                        <c:if test="${product.wishList==[]}">
-                            <i class="fas fa-heart wish_btn"
-                               data-productId="${product.id}"></i>
-                        </c:if>
-                        <c:if test="${product.wishList!=[]}">
-                            <c:set var="isWish" value='false'/>
-                            <c:forEach items="${product.wishList}" var="wish" varStatus="status">
+                    <div class="product">
+                        <a href="<c:url value='/productDetail'/>?product_id=${product.id}">
+                            <div class="product_main-image">
                                 <c:choose>
-                                    <c:when test="${wish.product_id==product.id}">
-                                        <c:set var="isWish" value='true'/>
-                                        <i class="fas fa-heart wish_btn activeWish"
-                                           data-productId="${product.id}"></i>
+                                    <c:when test="${product.imageVOList.size()==0}">
+                                        <img src="<c:url value='/img/noimage.PNG'/>">
                                     </c:when>
-                                    <c:when test="${status.last && isWish=='false' && wish.product_id!=product.id}">
-                                        <c:set var="isWish" value='false'/>
-                                        <i class="fas fa-heart wish_btn"
-                                           data-productId="${product.id}"></i>
+
+                                    <c:when test="${product.imageVOList!=null}">
+                                        <img src="/WYW/display?fileName=${product.imageVOList[0].upload_path}/${product.imageVOList[0].uuid}_${product.imageVOList[0].file_name}">
                                     </c:when>
                                 </c:choose>
-                            </c:forEach>
-                        </c:if>
+                            </div>
+                        </a>
+                        <div class="product_infomation">
+                            <h1 class="product_name">${product.name}</h1>
+                            <h1 class="product_category">${product.cate_name}</h1>
+                            <span class="product_price">
+                            ￦ <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
+                            </span>
+                            <div class="product_bottom-button">
+                                <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
+                                   data-productId="${product.id}"></i>
+                                <c:if test="${product.wishList==null}">
+                                    <i class="fas fa-heart wish_btn"
+                                       data-productId="${product.id}"></i>
+                                </c:if>
+                                <c:if test="${product.wishList==[]}">
+                                    <i class="fas fa-heart wish_btn"
+                                       data-productId="${product.id}"></i>
+                                </c:if>
+                                <c:if test="${product.wishList!=[]}">
+                                    <c:set var="isWish" value='false'/>
+                                    <c:forEach items="${product.wishList}" var="wish" varStatus="status">
+                                        <c:choose>
+                                            <c:when test="${wish.product_id==product.id}">
+                                                <c:set var="isWish" value='true'/>
+                                                <i class="fas fa-heart wish_btn activeWish"
+                                                   data-productId="${product.id}"></i>
+                                            </c:when>
+                                            <c:when test="${status.last && isWish=='false' && wish.product_id!=product.id}">
+                                                <c:set var="isWish" value='false'/>
+                                                <i class="fas fa-heart wish_btn"
+                                                   data-productId="${product.id}"></i>
+                                            </c:when>
+                                        </c:choose>
+                                    </c:forEach>
+                                </c:if>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            </c:forEach>
-        </div>
+                </c:forEach>
+            </div>
         </c:if>
         <c:if test="${listCheck == 'empty'}">
             <div class="table_empty">
@@ -80,12 +91,13 @@
         </c:if>
 
         <div class="search_wrap">
-            <form id="searchForm" action="/WYW/product.best" method="get">
+            <form id="searchForm" action="/WYW/products" method="get">
                 <div class="search_input">
                     <input type="text" name="keyword" value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
                     <input type="hidden" name="pageNum"
                            value='<c:out value="${pageMarker.pagehandler.pageNum }"></c:out>'>
                     <input type="hidden" name="amount" value='${pageMarker.pagehandler.amount}'>
+                    <input type="hidden" name="category" value="${pageMarker.pagehandler.category}">
                     <button class='btn search_btn'>검 색</button>
                 </div>
             </form>
@@ -117,17 +129,18 @@
             </ul>
         </div>
 
-        <form id="moveForm" action="/WYW/product.best" method="get">
+        <form id="moveForm" action="/WYW/products" method="get">
             <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
             <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
             <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+            <input type="hidden" name="category" value="${pageMarker.pagehandler.category}">
         </form>
 
 
     </div>
 </div>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
 <script>
     // 장바구니 클릭

@@ -16,7 +16,7 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 
 <div class="product_main">
     <div class="product_main-outter">
@@ -160,7 +160,7 @@
     <input type="hidden" name="orders[0].productCount" value="">
 </form>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 <%--게시판스왑--%>
 <script>
     $(".product_main-review_title").on("click", function (){

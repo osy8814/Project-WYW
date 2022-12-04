@@ -16,11 +16,11 @@
 
 <body>
 
-<jsp:include page="index_top.jsp" flush="false"/>
+<jsp:include page="../index_top.jsp" flush="false"/>
 
 <div class="products_main">
     <div class="products_main-outter">
-        <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
+        <h1 class="main__best-title"><span>BEST</span> PRODUCT</h1>
         <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
         <c:if test="${listCheck != 'empty' }">
         <div class="products_diplay">
@@ -78,8 +78,9 @@
                 등록된 상품이 없습니다.
             </div>
         </c:if>
+
         <div class="search_wrap">
-            <form id="searchForm" action="/WYW/product.new" method="get">
+            <form id="searchForm" action="/WYW/product.best" method="get">
                 <div class="search_input">
                     <input type="text" name="keyword" value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
                     <input type="hidden" name="pageNum"
@@ -116,7 +117,7 @@
             </ul>
         </div>
 
-        <form id="moveForm" action="/WYW/product.new" method="get">
+        <form id="moveForm" action="/WYW/product.best" method="get">
             <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
             <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
             <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
@@ -126,7 +127,7 @@
     </div>
 </div>
 
-<jsp:include page="index_bottom.jsp" flush="false"/>
+<jsp:include page="../index_bottom.jsp" flush="false"/>
 <script src="${pageContext.request.contextPath}/js/pagehandler.js"></script>
 <script>
     // 장바구니 클릭
