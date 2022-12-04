@@ -1,5 +1,6 @@
 package com.project.WYW.dao;
 
+import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.domain.ReplyVo;
 import com.project.WYW.model.Pagehandler;
@@ -19,4 +20,10 @@ public interface ReplyQnaDao {
 
     /* 댓글 삭제 */
     int deleteReplyQna(ReplyQnaVo replyQnaVo);
+
+    int regAnswer(AnswerVo answerVo);
+
+    int updateState(AnswerVo answerVo);
+
+    AnswerVo getAnswer(AnswerVo answerVo);
 }

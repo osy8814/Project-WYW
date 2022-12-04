@@ -1,8 +1,10 @@
 package com.project.WYW.service;
 
+import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.Pagehandler;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,4 +20,7 @@ public interface ReplyQnaService {
     ReplyQnaVo getReplyQna(ReplyQnaVo replyQnaVo);
 
     int deleteReplyQna(ReplyQnaVo replyQnaVo);
+
+    @Transactional(rollbackFor = RuntimeException.class)
+    void regAnswer(AnswerVo answerVo);
 }

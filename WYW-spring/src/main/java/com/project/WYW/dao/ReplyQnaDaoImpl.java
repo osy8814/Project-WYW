@@ -1,5 +1,6 @@
 package com.project.WYW.dao;
 
+import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.model.Pagehandler;
 import org.apache.ibatis.session.SqlSession;
@@ -46,4 +47,19 @@ public class ReplyQnaDaoImpl implements ReplyQnaDao {
     public int deleteReplyQna(ReplyQnaVo replyQnaVo){
         return session.update(namespace+"deleteReplyQna",replyQnaVo);
     };
+
+    @Override
+    public int regAnswer(AnswerVo answerVo){
+        return session.insert(namespace+"regAnswer",answerVo);
+    }
+
+    @Override
+    public int updateState(AnswerVo answerVo) {
+        return session.update(namespace+"updateState",answerVo);
+    }
+
+    @Override
+    public AnswerVo getAnswer(AnswerVo answerVo){
+        return session.selectOne(namespace+"getAnswer",answerVo);
+    }
 }

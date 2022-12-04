@@ -1,12 +1,14 @@
 package com.project.WYW.service;
 
 import com.project.WYW.dao.ReplyQnaDao;
+import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.dto.PageDto;
 import com.project.WYW.dto.ReplyQnaPageDto;
 import com.project.WYW.model.Pagehandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ReplyQnaServiceImpl implements ReplyQnaService {
@@ -53,4 +55,15 @@ public class ReplyQnaServiceImpl implements ReplyQnaService {
     public int deleteReplyQna(ReplyQnaVo replyQnaVo){
         return replyQnaDao.deleteReplyQna(replyQnaVo);
     }
+
+
+    @Override
+    @Transactional(rollbackFor = RuntimeException.class)
+    public void regAnswer(AnswerVo answerVo){
+
+        replyQnaDao.regAnswer(answerVo);
+        replyQnaDao.updateState(answerVo);
+
+    }
+
 }
