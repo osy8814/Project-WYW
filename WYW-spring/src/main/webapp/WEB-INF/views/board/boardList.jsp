@@ -217,7 +217,7 @@
                     <tr>
                         <td id="nav_No_Value">${boardDto.bno}</td>
                         <td id="nav_SUBJECT_Value"><a
-                                href="<c:url value="/board/read${ph.sc.queryString}&bno=${boardDto.bno}"/>"><c:out
+                                href="<c:url value="/board/read${ph.sc.getQueryString(ph.sc.page)}&bno=${boardDto.bno}"/>"><c:out
                                 value="${boardDto.title}${boardDto.comment_cnt==0 ? '':[boardDto.comment_cnt]}"/></a>
                         </td>
                         <td id="nav_WRITER_Value">${boardDto.writer}</td>

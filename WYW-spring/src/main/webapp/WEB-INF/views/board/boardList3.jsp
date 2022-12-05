@@ -203,7 +203,7 @@ button{
            <tbody>
                 <tr>
                     <td id="nav_No_Value">${NoticeDto.bno}</td>
-                    <td id="nav_SUBJECT_Value"><a href="<c:url value="/board3/read3${ph.sc.queryString}&bno=${NoticeDto.bno}"/>"><c:out value="${NoticeDto.title}${NoticeDto.comment_cnt==0 ? '':[NoticeDto.comment_cnt]}"/></a></td>
+                    <td id="nav_SUBJECT_Value"><a href="<c:url value="/board3/read3${ph.sc.getQueryString(ph.sc.page)}&bno=${NoticeDto.bno}"/>"><c:out value="${NoticeDto.title}${NoticeDto.comment_cnt==0 ? '':[NoticeDto.comment_cnt]}"/></a></td>
                     <td id="nav_WRITER_Value">${NoticeDto.writer}</td>
                     <c:choose>
                         <c:when test="${NoticeDto.reg_date.time >= startOfToday}">
