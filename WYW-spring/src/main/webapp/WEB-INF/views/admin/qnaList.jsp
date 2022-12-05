@@ -92,7 +92,7 @@
                         </div>
                     </c:if>
                     <div class="search_wrap">
-                        <form id="searchForm" action="/WYW/admin/orderlist" method="get">
+                        <form id="searchForm" action="/WYW/admin/qnalist" method="get">
                             <div class="search_input">
                                 <input type="text" name="keyword"
                                        value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
@@ -130,7 +130,7 @@
                         </ul>
                     </div>
 
-                    <form id="moveForm" action="/WYW/admin/orderlist" method="get">
+                    <form id="moveForm" action="/WYW/admin/qnalist" method="get">
                         <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
