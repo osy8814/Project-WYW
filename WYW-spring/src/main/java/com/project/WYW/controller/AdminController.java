@@ -490,7 +490,8 @@ public class AdminController {
 
     @GetMapping("/qnalist")
     public String getQnalistGet(Pagehandler pagehandler, Model model) {
-
+        System.out.println("pagehandler = " + pagehandler);
+        
         ReplyQnaPageDto replyQnaPageDto = replyQnaService.replyQnaList(pagehandler);
 
         if (!replyQnaPageDto.getList().isEmpty()) {

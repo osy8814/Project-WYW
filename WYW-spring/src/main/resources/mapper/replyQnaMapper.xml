@@ -30,9 +30,15 @@
         FROM product_qna_q q
         INNER JOIN products p
         ON q.product_id = p.id
-        <if test='keyword!=null'>
+        <if test='keyword!=null and type==null'>
             WHERE p.name like concat ('%', #{keyword}, '%') OR
             q.user_id like concat ('%', #{keyword}, '%')
+        </if>
+        <if test='keyword=="" and type=="wait"'>
+            WHERE q.is_answered = false
+        </if>
+        <if test='keyword=="" and type=="complete"'>
+            WHERE q.is_answered = true
         </if>
         <if test='productId!="0"'>
             WHERE q.product_id =
@@ -40,7 +46,7 @@
             ORDER BY q.created_at DESC
         </if>
         <if test='productId=="0"'>
---         관리자페이지에서 답변관리
+            -- 관리자페이지에서 답변관리
             ORDER BY q.is_answered ASC, q.created_at ASC
         </if>
         limit #{skip}, #{amount}
@@ -51,13 +57,19 @@
         FROM product_qna_q q
         INNER JOIN products p
         ON q.product_id = p.id
-        <if test='keyword!=null'>
+        <if test='keyword!=null and type==null'>
             WHERE p.name like concat ('%', #{keyword}, '%') OR
             q.user_id like concat ('%', #{keyword}, '%')
         </if>
+        <if test='keyword=="" and type=="wait"'>
+            WHERE q.is_answered = false
+        </if>
+        <if test='keyword=="" and type=="complete"'>
+            WHERE q.is_answered = true
+        </if>
         <if test='productId!="0"'>
-        WHERE product_id =
-              #{productId}
+            WHERE product_id =
+            #{productId}
         </if>
     </select>
 
@@ -94,7 +106,7 @@
                created_at  AS createdAt,
                content,
                is_answered AS isAnswered,
-               is_deleted AS isDeleted
+               is_deleted  AS isDeleted
         FROM product_qna_q
         WHERE qna_id =
               #{qnaId}
