@@ -45,7 +45,7 @@
 
     <select id="selectAll" resultType="UsersVo">
         <include refid="selectFromUser"/>
-        ORDER BY is_admin DESC, created_at DESC
+        ORDER BY is_admin DESC, created_at ASC
     </select>
 
 
