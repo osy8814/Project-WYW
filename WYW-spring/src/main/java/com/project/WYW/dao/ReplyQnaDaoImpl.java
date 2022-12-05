@@ -29,8 +29,8 @@ public class ReplyQnaDaoImpl implements ReplyQnaDao {
     }
 
     @Override
-    public int getReplyQnaTotal(Integer productId){
-        return session.selectOne(namespace+"getReplyQnaTotal",productId);
+    public int getReplyQnaTotal(Pagehandler pagehandler){
+        return session.selectOne(namespace+"getReplyQnaTotal",pagehandler);
     }
 
     @Override

@@ -48,7 +48,13 @@
 
     <select id="getReplyQnaTotal" resultType="int">
         SELECT count(*)
-        FROM product_qna_q
+        FROM product_qna_q q
+        INNER JOIN products p
+        ON q.product_id = p.id
+        <if test='keyword!=null'>
+            WHERE p.name like concat ('%', #{keyword}, '%') OR
+            q.user_id like concat ('%', #{keyword}, '%')
+        </if>
         <if test='productId!="0"'>
         WHERE product_id =
               #{productId}

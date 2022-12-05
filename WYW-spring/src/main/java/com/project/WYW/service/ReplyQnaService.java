@@ -16,7 +16,8 @@ public interface ReplyQnaService {
 
     ReplyQnaPageDto replyQnaList(Pagehandler pagehandler);
 
-    int getReplyQnaTotal(Integer productId);
+
+    int getReplyQnaTotal(Pagehandler pagehandler);
 
     ReplyQnaDto getReplyQna(ReplyQnaDto replyQnaDto);
 
