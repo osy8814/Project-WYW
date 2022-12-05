@@ -107,7 +107,7 @@
                 <div class="total_wrap_delivery_price">
                     <div class="total_wrap_left">배송비</div>
                     <div class="total_wrap_right">
-                        <span class="delivery_price"></span>원
+                        <span class="delivery_price"></span>원 (100,000원 이상 무료)
                     </div>
                 </div>
                 <div class="total_wrap_totalKind_span">

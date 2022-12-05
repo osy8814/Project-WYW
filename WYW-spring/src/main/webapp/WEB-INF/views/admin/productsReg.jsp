@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="inputArea">
-                                <label>상품 이미지</label>
+                                <label style="width: 100%">상품 이미지 (1MB이하의 jpg,png만 등록가능)</label>
                                 <div>
                                     <div class="form_section_content">
                                         <input type="file" id="fileItem" name='uploadFile' style="height: 30px;">
