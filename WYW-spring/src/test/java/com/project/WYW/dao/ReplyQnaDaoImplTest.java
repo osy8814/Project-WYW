@@ -42,7 +42,7 @@ public class ReplyQnaDaoImplTest {
         List<ReplyQnaDto>list = replyQnaDao.getReplyQnaList(pagehandler);
         System.out.println("list = " + list);
         
-        int totalQna = replyQnaDao.getReplyQnaTotal(116);
+        int totalQna = replyQnaDao.getReplyQnaTotal(pagehandler);
         System.out.println("totalQna = " + totalQna);
     }
         
