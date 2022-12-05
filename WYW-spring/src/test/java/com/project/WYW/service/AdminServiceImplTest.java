@@ -135,13 +135,15 @@ public class AdminServiceImplTest {
     
     @Test
     public void getSelectAllTest()throws Exception{
-        List<UsersVo>list = adminService.getUserList();
+        Pagehandler pagehandler = new Pagehandler();
+        List<UsersVo>list = adminService.getUserList(pagehandler);
         System.out.println("list = " + list);
     }
     
     @Test
     public void getUserTotalTest()throws Exception{
-        int users = adminService.getUserTotal();
+        Pagehandler pagehandler = new Pagehandler();
+        int users = adminService.getUserTotal(pagehandler);
         System.out.println("users = " + users);
     }
 

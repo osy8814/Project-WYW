@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import com.project.WYW.model.Pagehandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,80 +24,88 @@ public class UsersDaoImplTest {
 	@Test
 	public void deleteAllTest() throws Exception {
 		usersDao.deleteAll();
-		assertTrue(usersDao.count()==0);
+		Pagehandler pagehandler = new Pagehandler();
+
+		assertTrue(usersDao.count(pagehandler)==0);
 
 		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersDao.insert(usersVo)==1);
 		assertTrue(usersDao.deleteAll()==1);
-		assertTrue(usersDao.count()==0);
+		assertTrue(usersDao.count(pagehandler)==0);
 
 		assertTrue(usersDao.insert(usersVo)==1);
 		usersVo = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 		assertTrue(usersDao.deleteAll()==1);
-		assertTrue(usersDao.count()==0);
+		assertTrue(usersDao.count(pagehandler)==0);
 	}
 	
 	@Test
     public void deleteTest() throws Exception {
-        usersDao.deleteAll();
-        assertTrue(usersDao.count()==0);
+		Pagehandler pagehandler = new Pagehandler();
+
+		usersDao.deleteAll();
+        assertTrue(usersDao.count(pagehandler)==0);
 
 		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersVo)==1);
-		System.out.println("list" + usersDao.selectAll());
-        String email = usersDao.selectAll().get(0).getEmail();
+		System.out.println("list" + usersDao.selectAll(pagehandler));
+        String email = usersDao.selectAll(pagehandler).get(0).getEmail();
 		System.out.println("getUserId = " + usersVo.getUserId());
 		System.out.println("email = " + email);
 		System.out.println("getName = " + usersVo.getName());
         assertTrue(usersDao.delete(usersVo.getUserId() ,email, usersVo.getName())==1);
-        assertTrue(usersDao.count()==0);
+        assertTrue(usersDao.count(pagehandler)==0);
 
         assertTrue(usersDao.insert(usersVo)==1);
-        String name = usersDao.selectAll().get(0).getName();
+        String name = usersDao.selectAll(pagehandler).get(0).getName();
         assertTrue(usersDao.delete(usersVo.getUserId(), usersVo.getEmail(), name)==1);
-        assertTrue(usersDao.count()==0);
+        assertTrue(usersDao.count(pagehandler)==0);
 
         assertTrue(usersDao.insert(usersVo)==1);
-        name = usersDao.selectAll().get(0).getName();
+        name = usersDao.selectAll(pagehandler).get(0).getName();
         assertTrue(usersDao.delete(usersVo.getUserId(), usersVo.getEmail(), name+"22")==0);
-        assertTrue(usersDao.count()==1);
+        assertTrue(usersDao.count(pagehandler)==1);
         
         assertTrue(usersDao.delete(usersVo.getUserId(), usersVo.getEmail(), name)==1);
-        assertTrue(usersDao.count()==0);
+        assertTrue(usersDao.count(pagehandler)==0);
         
     }
 	
 	@Test
 	public void selectAllTest() throws Exception {
+		Pagehandler pagehandler = new Pagehandler();
+
 		usersDao.deleteAll();
-		assertTrue(usersDao.count()==0);
+		assertTrue(usersDao.count(pagehandler)==0);
 		
-		List<UsersVo> list = usersDao.selectAll();
+		List<UsersVo> list = usersDao.selectAll(pagehandler);
 		assertTrue(list.size() == 0);
 		
 		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 		assertTrue(usersDao.insert(usersVo)==1);
 		
-		list = usersDao.selectAll();
+		list = usersDao.selectAll(pagehandler);
 		assertTrue(list.size() == 1);
 		
 		usersVo = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 		assertTrue(usersDao.insert(usersVo)==1);
-		list = usersDao.selectAll();
+		list = usersDao.selectAll(pagehandler);
 		System.out.println("UserList : " + list);
 		assertTrue(list.size() == 2);
 	}
 	
 	@Test
     public void selectTest() throws Exception {
-        usersDao.deleteAll();
-        assertTrue(usersDao.count()==0);
+		Pagehandler pagehandler = new Pagehandler();
+
+		usersDao.deleteAll();
+        assertTrue(usersDao.count(pagehandler)==0);
 
 		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersVo)==1);
 
-        String userId = usersDao.selectAll().get(0).getUserId();
-		System.out.println(usersDao.selectAll());
+        String userId = usersDao.selectAll(pagehandler).get(0).getUserId();
+		System.out.println(usersDao.selectAll(pagehandler));
 		usersVo.setUserId(userId);
 		UsersVo usersVo2 = usersDao.select(userId);
         System.out.println("usersVo : " + usersVo);
@@ -138,25 +147,29 @@ public class UsersDaoImplTest {
 	
 	@Test
 	public void countTest() throws Exception {
+		Pagehandler pagehandler = new Pagehandler();
+
 		usersDao.deleteAll();
-	    assertTrue(usersDao.count()==0);
+	    assertTrue(usersDao.count(pagehandler)==0);
 
 		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
 	    assertTrue(usersDao.insert(usersVo)==1);
-	    assertTrue(usersDao.count()==1);
+	    assertTrue(usersDao.count(pagehandler)==1);
 
 		usersVo = new UsersVo("id2", "name2", "1234", "bbb@aaa.com", "010","4321","4321");
 	    assertTrue(usersDao.insert(usersVo)==1);
-	    assertTrue(usersDao.count()==2);
+	    assertTrue(usersDao.count(pagehandler)==2);
 	}
 	
 	@Test
     public void updateTest() throws Exception {
-        usersDao.deleteAll();
+		Pagehandler pagehandler = new Pagehandler();
+
+		usersDao.deleteAll();
 		UsersVo usersVo = new UsersVo("id1", "name1", "1234", "aaa@aaa.com", "010","1234","1234");
         assertTrue(usersDao.insert(usersVo)==1);
 
-        String user_id = usersDao.selectAll().get(0).getUserId();
+        String user_id = usersDao.selectAll(pagehandler).get(0).getUserId();
         System.out.println("user_id= " + user_id);
         usersVo.setPassword("4321");
         usersVo.setName("name3");
