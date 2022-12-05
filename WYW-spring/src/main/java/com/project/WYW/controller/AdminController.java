@@ -238,14 +238,14 @@ public class AdminController {
     @GetMapping("/membermanagement")
     public String memberManagementGet(Pagehandler pagehandler, Model model) throws Exception {
 
-        List<UsersVo> list = adminService.getUserList();
+        List<UsersVo> list = adminService.getUserList(pagehandler);
 
         if (!list.isEmpty()) {
             model.addAttribute("list", list);
         } else {
             model.addAttribute("listCheck", "empty");
         }
-        PageVo pageMarker = new PageVo(pagehandler, adminService.getUserTotal());
+        PageVo pageMarker = new PageVo(pagehandler, adminService.getUserTotal(pagehandler));
         model.addAttribute("pageMarker", pageMarker);
 
         return "admin/memberList";

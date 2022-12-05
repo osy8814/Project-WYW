@@ -1,6 +1,7 @@
 package com.project.WYW.dao;
 
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.model.Pagehandler;
 
 
 import java.util.List;
@@ -8,9 +9,11 @@ import java.util.List;
 
 public interface UsersDao {
 
-	int count() throws Exception;
+	int count(Pagehandler pagehandler) throws Exception;
 
-	List<UsersVo> selectAll() throws Exception;
+
+	List<UsersVo> selectAll(Pagehandler pagehandler
+	);
 
 	UsersVo select(String userId) throws Exception;
 

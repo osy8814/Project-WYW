@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.model.Pagehandler;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,13 +21,14 @@ public class UsersDaoImpl implements UsersDao {
 	private static String namespace="com.project.WYW.mapper.usersMapper.";
 	
 	@Override
-	public int count() throws Exception{
-		return session.selectOne(namespace + "count");
+	public int count(Pagehandler pagehandler) throws Exception{
+		return session.selectOne(namespace + "count", pagehandler);
 	}
 	
 	@Override
-	public List<UsersVo> selectAll() {
-		return session.selectList(namespace + "selectAll");
+	public List<UsersVo> selectAll(Pagehandler pagehandler
+	) {
+		return session.selectList(namespace + "selectAll",pagehandler);
 	}
 	
 	@Override

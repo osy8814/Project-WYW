@@ -37,13 +37,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<UsersVo> getUserList() throws Exception {
-        return usersDao.selectAll();
+    public List<UsersVo> getUserList(Pagehandler pagehandler) throws Exception {
+        return usersDao.selectAll(pagehandler);
     }
 
     @Override
-    public int getUserTotal() throws Exception {
-        return usersDao.count();
+    public int getUserTotal(Pagehandler pagehandler) throws Exception {
+        return usersDao.count(pagehandler);
     }
 
 
