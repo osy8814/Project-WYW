@@ -21,7 +21,7 @@
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
+        <h1 class="products_main_title" style="width: 100%;">검색결과 총 : ${totalResult} 개</h1>
         <c:if test="${listCheck != 'empty' }">
         <div class="products_diplay">
             <c:forEach items="${list}" var="product">

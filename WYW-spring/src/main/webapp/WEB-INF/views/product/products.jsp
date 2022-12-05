@@ -22,9 +22,7 @@
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>PRODUCTS</span></h1>
         <div class="products_main_top">
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}"
-                                                                          var="categoryName"/>${fn:substring(categoryName,0,3)}
-            용품 이 검색되었습니다.</h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 ${list[0].cate_name} 용품 이 검색되었습니다.</h1>
             <div class="secondary-category">분류 : </div>
         </div>
         <c:if test="${listCheck != 'empty' }">
