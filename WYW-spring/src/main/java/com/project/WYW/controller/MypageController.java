@@ -59,7 +59,7 @@ public class MypageController {
 
         if (0 < isSuccessful) {
             redirectAttributes.addFlashAttribute("msg", "edit_ok");
-            return "redirect:/mypage/";
+            return "redirect:/mypage/main";
         }
         redirectAttributes.addFlashAttribute("msg", "edit_err");
 
