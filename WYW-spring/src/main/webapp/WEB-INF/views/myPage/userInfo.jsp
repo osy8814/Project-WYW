@@ -132,7 +132,7 @@
 
         <span style="font-weight: bold; font-size: 12px; margin-top: 20px">* 조건이 만족되면 수정 버튼이 활성화 됩니다.</span>
         <div class="manage_btn_set">
-            <button type="submit" class="editCancel" onclick="location.href='/WYW/mypage/'">
+            <button type="submit" class="editCancel" onclick="location.href='/WYW/mypage/main'">
                 수정취소
             </button>
             <button type="submit" class="editSubmit" disabled>정보수정</button>
