@@ -158,7 +158,7 @@
         }
 
         let stock = $(this).data("stock");
-        if (stock === "0") {
+        if (stock == "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }
