@@ -52,6 +52,8 @@ public class AdminController {
     ReplyQnaService replyQnaService;
     @Autowired
     ProductService productService;
+    @Autowired
+    ProductController controller;
 
     @GetMapping("/main")
     public String toMain() {
@@ -62,6 +64,7 @@ public class AdminController {
     /* 상품 등록 페이지 접속 */
     @GetMapping("/productsReg")
     public String getProductsReg(HttpSession session, Model model) throws Exception {
+        controller.receiveCategory(model);
 
         List<CategoryVo> category = adminService.category();
         UsersVo loginUser = (UsersVo) session.getAttribute("loggedInUser");
@@ -92,6 +95,7 @@ public class AdminController {
     /* 상품 목록 페이지 접속 */
     @GetMapping("/productslist")
     public String getProductsList(Pagehandler pagehandler, Model model) throws Exception {
+        controller.receiveCategory(model);
 
         List<ProductsViewVo> list = adminService.productsViewList(pagehandler);
 
@@ -110,7 +114,7 @@ public class AdminController {
 
     @GetMapping("/productsManage")
     public String getProductsManage(Integer id, Model model) throws Exception {
-
+        controller.receiveCategory(model);
         List<CategoryVo> category = adminService.category();
         ProductsViewVo productsViewVo = adminService.readProduct(id);
         model.addAttribute(productsViewVo);
@@ -186,8 +190,8 @@ public class AdminController {
 
 
     @GetMapping("/orderlist")
-    public String getOrderList(Pagehandler pagehandler, Model model) {
-
+    public String getOrderList(Pagehandler pagehandler, Model model) throws Exception {
+        controller.receiveCategory(model);
         List<OrderDto> list = adminService.getOrderList(pagehandler);
         if (!list.isEmpty()) {
             model.addAttribute("list", list);
@@ -204,8 +208,8 @@ public class AdminController {
     }
 
     @GetMapping("/orderdetail")
-    public String orderDetailGet(OrderDto orderDto, Model model) {
-
+    public String orderDetailGet(OrderDto orderDto, Model model) throws Exception {
+        controller.receiveCategory(model);
         OrderDto orderInfo = orderDao.getOrder(orderDto.getOrderId());
         List<OrderItemDto> list = orderService.getOrder(orderDto);
         orderInfo.setOrders(list);
@@ -237,7 +241,7 @@ public class AdminController {
 
     @GetMapping("/membermanagement")
     public String memberManagementGet(Pagehandler pagehandler, Model model) throws Exception {
-
+        controller.receiveCategory(model);
         List<UsersVo> list = adminService.getUserList(pagehandler);
 
         if (!list.isEmpty()) {
@@ -253,7 +257,7 @@ public class AdminController {
 
     @GetMapping("/memberdetail")
     public String memberDetailGet(String userId, Model model) throws Exception {
-
+        controller.receiveCategory(model);
         UsersVo usersVo = usersSecvice.read(userId);
         model.addAttribute("userInfo", usersVo);
 
@@ -489,8 +493,8 @@ public class AdminController {
     }
 
     @GetMapping("/qnalist")
-    public String getQnalistGet(Pagehandler pagehandler, Model model) {
-
+    public String getQnalistGet(Pagehandler pagehandler, Model model) throws Exception {
+        controller.receiveCategory(model);
         ReplyQnaPageDto replyQnaPageDto = replyQnaService.replyQnaList(pagehandler);
 
         if (!replyQnaPageDto.getList().isEmpty()) {
@@ -504,8 +508,8 @@ public class AdminController {
     }
 
     @GetMapping("/answerreg")
-    public String answerWindowGet(ReplyQnaDto replyQnaDto, Model model) {
-
+    public String answerWindowGet(ReplyQnaDto replyQnaDto, Model model) throws Exception {
+        controller.receiveCategory(model);
         replyQnaDto = replyQnaService.getReplyQna(replyQnaDto);
         ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaDto.getProductId());
 
@@ -522,8 +526,8 @@ public class AdminController {
     }
 
     @GetMapping("/answermanage")
-    public String answerManageWindowGet(ReplyQnaDto replyQnaDto, Model model) {
-
+    public String answerManageWindowGet(ReplyQnaDto replyQnaDto, Model model) throws Exception {
+        controller.receiveCategory(model);
         replyQnaDto = replyQnaService.getReplyQna(replyQnaDto);
         ProductsViewVo productsViewVo = productService.readProductDetail(replyQnaDto.getProductId());
 

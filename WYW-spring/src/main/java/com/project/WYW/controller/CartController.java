@@ -21,6 +21,9 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    ProductController controller;
+
     @PostMapping("/add")
     @ResponseBody
     public String postAddCart(CartVo cartVo, HttpServletRequest request) {
@@ -35,7 +38,8 @@ public class CartController {
     }
 
     @GetMapping("/cartlist")
-    public String cartPageGET(Model model, HttpServletRequest request) {
+    public String cartPageGET(Model model, HttpServletRequest request)throws Exception {
+        controller.receiveCategory(model);
 
         HttpSession session = request.getSession();
         UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");

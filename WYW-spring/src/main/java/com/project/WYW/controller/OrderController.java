@@ -22,10 +22,12 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    ProductController controller;
 
     @GetMapping("/list")
-    public String orderPageGet(OrderPageDto orderPageDto, Model model, HttpServletRequest request) {
-
+    public String orderPageGet(OrderPageDto orderPageDto, Model model, HttpServletRequest request)throws Exception {
+        controller.receiveCategory(model);
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
         model.addAttribute("orderList", orderService.getProductInfo(orderPageDto.getOrders()));

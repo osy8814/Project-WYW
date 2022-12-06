@@ -27,6 +27,8 @@ import java.util.List;
 public class MypageController {
 
     @Autowired
+    ProductController controller;
+    @Autowired
     MypageService mypageService;
     @Autowired
     UsersSecvice usersSecvice;
@@ -37,12 +39,15 @@ public class MypageController {
 
 
     @GetMapping("/main")
-    public String myPage() {
+    public String myPage(Model model)throws Exception {
+        controller.receiveCategory(model);
+
         return "myPage/mypage";
     }
 
     @GetMapping("/info")
     public String infoGet(Model model, HttpServletRequest request) throws Exception {
+        controller.receiveCategory(model);
 
         HttpSession session = request.getSession();
         UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");
@@ -68,6 +73,7 @@ public class MypageController {
 
     @GetMapping("/orders")
     public String orderGet(Model model, HttpServletRequest request) throws Exception {
+        controller.receiveCategory(model);
 
         HttpSession session = request.getSession();
         UsersVo loggedInUser = (UsersVo) session.getAttribute("loggedInUser");
@@ -103,6 +109,7 @@ public class MypageController {
 
     @GetMapping("/orderdetail")
     public String orderDetailGet(OrderDto orderDto,Model model) throws Exception {
+        controller.receiveCategory(model);
 
         OrderDto orderInfo = orderDao.getOrder(orderDto.getOrderId());
         List<OrderItemDto> list = orderService.getOrder(orderDto);

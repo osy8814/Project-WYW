@@ -39,7 +39,9 @@ public class HomeController {
         return "index";
     }
     @GetMapping("/introduce")
-    public String Intro(){
+    public String Intro(Model model)throws Exception{
+        controller.receiveCategory(model);
+
         return "Introduce";
     }
 }
