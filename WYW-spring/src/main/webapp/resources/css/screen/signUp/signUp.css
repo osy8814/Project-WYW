@@ -33,7 +33,9 @@
   width: 100%;
   border-top: 1px solid rgba(50, 52, 62, 0.4);
 }
-
+#info_mobile1{
+  height: 21px;
+}
 .mobileCss {
   width: 50px;
 }
@@ -212,7 +214,7 @@
 
   th,
   td {
-    line-height: 2;
+    vertical-align: middle;
     height: 50px;
   }
 
