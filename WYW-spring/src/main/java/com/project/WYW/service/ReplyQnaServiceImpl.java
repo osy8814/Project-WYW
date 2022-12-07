@@ -37,14 +37,14 @@ public class ReplyQnaServiceImpl implements ReplyQnaService {
     public ReplyQnaPageDto replyQnaList(Pagehandler pagehandler) {
         ReplyQnaPageDto replyQnaPageDto = new ReplyQnaPageDto();
         replyQnaPageDto.setList(replyQnaDao.getReplyQnaList(pagehandler));
-        replyQnaPageDto.setPageInfo(new PageDto(pagehandler, replyQnaDao.getReplyQnaTotal(pagehandler.getProductId())));
+        replyQnaPageDto.setPageInfo(new PageDto(pagehandler, replyQnaDao.getReplyQnaTotal(pagehandler)));
 
         return replyQnaPageDto;
     }
 
     @Override
-    public int getReplyQnaTotal(Integer productId){
-        return replyQnaDao.getReplyQnaTotal(productId);
+    public int getReplyQnaTotal(Pagehandler pagehandler){
+        return replyQnaDao.getReplyQnaTotal(pagehandler);
     }
 
     @Override

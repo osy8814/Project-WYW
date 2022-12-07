@@ -27,7 +27,7 @@ public class ReplyQnaController {
 
     /* 문의 등록 */
     @ResponseBody
-    @PostMapping("/reg")
+    @PostMapping(value = "/reg", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void regReplyQnaPost(ReplyQnaVo replyQnaVo) {
 
         replyQnaService.regReplyQna(replyQnaVo);
@@ -55,7 +55,7 @@ public class ReplyQnaController {
 
     /* 문의 수정 */
     @ResponseBody
-    @PostMapping("/update")
+    @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void replyQnaModifyPost(ReplyQnaDto replyQnaDto) {
 
         replyQnaService.updateReplyQna(replyQnaDto);
@@ -77,7 +77,7 @@ public class ReplyQnaController {
     }
 
     @ResponseBody
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void replyQnaDeletePost(ReplyQnaVo replyQnaVo) {
 
         replyQnaService.deleteReplyQna(replyQnaVo);

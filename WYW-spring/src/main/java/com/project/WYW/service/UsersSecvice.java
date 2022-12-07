@@ -3,12 +3,13 @@ package com.project.WYW.service;
 import java.util.List;
 
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.model.Pagehandler;
 
 public interface UsersSecvice {
 
-	int getCount() throws Exception;
+	int getCount(Pagehandler pagehandler) throws Exception;
 
-	List<UsersVo> getList() throws Exception;
+	List<UsersVo> getList(Pagehandler pagehandler) throws Exception;
 
 	UsersVo read(String userId) throws Exception;
 

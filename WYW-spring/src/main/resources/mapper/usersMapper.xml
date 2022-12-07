@@ -9,7 +9,7 @@
     </select>
 
     <select id="findId" resultType="UsersVo">
-        SELECT user_id AS userId,password
+        SELECT user_id AS userId, password
         FROM users
         WHERE name = #{name}
           AND email = #{email}
@@ -45,7 +45,12 @@
 
     <select id="selectAll" resultType="UsersVo">
         <include refid="selectFromUser"/>
-        ORDER BY is_admin DESC, created_at DESC
+        <if test='keyword!=null'>
+            WHERE
+            name like concat ('%', #{keyword}, '%') OR
+            user_id like concat ('%', #{keyword}, '%')
+        </if>
+        ORDER BY is_admin DESC, created_at ASC
     </select>
 
 

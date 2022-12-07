@@ -21,7 +21,7 @@
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>ALL</span> PRODUCT</h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개
+        <h1 class="products_main_title" style="width: 100%;">검색결과 총 : ${totalResult} 개
             <c:if test="${pageMarker.pagehandler.keyword!=null}">
                 "${pageMarker.pagehandler.keyword}"(이)가 검색되었습니다.
             </c:if>
@@ -156,7 +156,7 @@
         }
 
         let stock = $(this).data("stock");
-        if (stock === "0") {
+        if (stock == "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }

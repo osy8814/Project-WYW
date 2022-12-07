@@ -14,9 +14,10 @@ import java.util.List;
 public interface AdminService {
     List<CategoryVo> category()throws Exception;
 
-    List<UsersVo> getUserList() throws Exception;
 
-    int getUserTotal() throws Exception;
+    List<UsersVo> getUserList(Pagehandler pagehandler) throws Exception;
+
+    int getUserTotal(Pagehandler pagehandler) throws Exception;
 
     int regProduct(ProductsVo productsVo)throws Exception;
 

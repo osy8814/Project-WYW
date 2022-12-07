@@ -21,7 +21,7 @@
 <div class="products_main">
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>NEW</span> PRODUCT</h1>
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개</h1>
+        <h1 class="products_main_title" style="width: 100%;">검색결과 총 : ${totalResult} 개</h1>
         <c:if test="${listCheck != 'empty' }">
         <div class="products_diplay">
             <c:forEach items="${list}" var="product">
@@ -38,6 +38,7 @@
                     <span class="product_price">
                             ￦ <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
                             </span>
+                    <h1 class="product_rating">${product.ratingAvg} / 5.0 </h1>
                     <div class="product_bottom-button">
                         <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
                            data-productId="${product.id}"></i>
@@ -143,7 +144,7 @@
         }
 
         let stock = $(this).data("stock");
-        if (stock === "0") {
+        if (stock == "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }

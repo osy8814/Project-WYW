@@ -27,18 +27,20 @@ public class UsersController {
     UsersSecvice usersSecvice;
     @Autowired
     JavaMailSenderImpl mailSender;
-
+    @Autowired
+    ProductController controller;
     private String password;
     private String email;
 
     @GetMapping("/login")
-    public String getLogin() throws Exception {
+    public String getLogin(Model model) throws Exception {
+        controller.receiveCategory(model);
         return "login";
     }
 
     @PostMapping("/login.do")
-    public String postLogin(UsersVo vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
-
+    public String postLogin(Model model,UsersVo vo, HttpServletRequest req, RedirectAttributes rttr) throws Exception {
+        controller.receiveCategory(model);
 
         UsersVo loginUser = null;
         String loginUserPwd = null;
@@ -79,12 +81,15 @@ public class UsersController {
     }
 
     @GetMapping("/signup")
-    public String getSignup() throws Exception {
+    public String getSignup(Model model) throws Exception {
+        controller.receiveCategory(model);
+
         return "signUp/signUp";
     }
 
     @PostMapping("/signup")
     public String postSignup(@Valid UsersVo vo, Model m) throws Exception {
+        controller.receiveCategory(m);
         int isSuccessful = usersSecvice.singUp(vo);
 
         if (0 < isSuccessful) {
@@ -96,7 +101,8 @@ public class UsersController {
     }
 
     @GetMapping("/findid")
-    public String findIdGet() {
+    public String findIdGet(Model model)throws Exception {
+        controller.receiveCategory(model);
         return "find_id";
     }
 
@@ -116,7 +122,8 @@ public class UsersController {
     }
 
     @GetMapping("/findpwd")
-    public String findPwdGet() {
+    public String findPwdGet(Model model) throws Exception {
+        controller.receiveCategory(model);
         return "find_pwd";
     }
 

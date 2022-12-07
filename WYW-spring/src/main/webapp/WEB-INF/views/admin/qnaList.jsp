@@ -33,6 +33,11 @@
 
                 <div class="admin_content_wrap">
                     <div class="admin_content_wrap_title">문의사항 관리</div>
+                    <div style="margin-bottom: 10px; width: 100%; display: flex;justify-content: end; gap: 20px">
+                        <button class="basic manage_btn" type="button" data-answer="wait">전체보기</button>
+                        <button class="wait manage_btn" type="button" data-answer="wait">답변대기</button>
+                        <button class="complete manage_btn" type="button" data-answer="complete">답변완료</button>
+                    </div>
                     <c:if test="${listCheck != 'empty' }">
                         <table>
                             <tr>
@@ -92,7 +97,7 @@
                         </div>
                     </c:if>
                     <div class="search_wrap">
-                        <form id="searchForm" action="/WYW/admin/orderlist" method="get">
+                        <form id="searchForm" action="/WYW/admin/qnalist" method="get">
                             <div class="search_input">
                                 <input type="text" name="keyword"
                                        value='<c:out value="${pageMarker.pagehandler.keyword}"></c:out>'>
@@ -130,10 +135,11 @@
                         </ul>
                     </div>
 
-                    <form id="moveForm" action="/WYW/admin/orderlist" method="get">
+                    <form id="moveForm" action="/WYW/admin/qnalist" method="get">
                         <input type="hidden" name="pageNum" value="${pageMarker.pagehandler.pageNum}">
                         <input type="hidden" name="amount" value="${pageMarker.pagehandler.amount}">
                         <input type="hidden" name="keyword" value="${pageMarker.pagehandler.keyword}">
+                        <input type="hidden" name="type" value="${pageMarker.pagehandler.type}">
                     </form>
                 </div>
 
@@ -165,6 +171,27 @@
         let popOption = "width = 490px, height=650px, top=100px, left=100px, scrollbars=yes, resizable=no"
 
         window.open(popUrl, "답변확인", popOption);
+    });
+</script>
+<script>
+    $(".basic").on("click", function (){
+        let state = $(this).data("answer");
+
+        $("input[name='type']").val(null);
+        $("#moveForm").submit();
+    });
+    $(".wait").on("click", function (){
+        let state = $(this).data("answer");
+
+        $("input[name='type']").val(state);
+        $("#moveForm").submit();
+    });
+
+    $(".complete").on("click", function (){
+        let state = $(this).data("answer");
+
+        $("input[name='type']").val(state);
+        $("#moveForm").submit();
     });
 </script>
 </body>

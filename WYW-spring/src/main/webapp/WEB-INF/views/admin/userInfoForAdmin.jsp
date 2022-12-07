@@ -94,26 +94,48 @@
                     <tr>
                         <th>계정상태</th>
                         <td>
-                            <input type="hidden" name="isActive" value="${userInfo.active}">
-                            <c:if test="${userInfo.active==true}">
-                                활성화
-                                <button type="button" class="manage_btn inactive_btn">
-                                    계정비활성화
-                                </button>
+                            <c:if test="${userInfo.userId=='admin'}">
+                                최고관리자의 계정상태는 변경이 불가능합니다.
                             </c:if>
-                            <c:if test="${userInfo.active==false}">
-                                비활성화
-                                <button type="button" class="manage_btn active_btn">
-                                    계정활성화
-                                </button>
+                            <c:if test="${userInfo.userId!='admin'}">
+                                <input type="hidden" name="active" value="${userInfo.active}">
+                                <c:if test="${userInfo.active==true}">
+                                    활성화
+                                    <button type="button" class="manage_btn inactive_btn">
+                                        계정비활성화
+                                    </button>
+                                </c:if>
+                                <c:if test="${userInfo.active==false}">
+                                    비활성화
+                                    <button type="button" class="manage_btn active_btn">
+                                        계정활성화
+                                    </button>
+                                </c:if>
                             </c:if>
                         </td>
                     </tr>
-                    <c:if test="${loggedInUser.userId=='admin'}">
+                    <c:if test="${loggedInUser.userId=='admin' && userInfo.userId!='admin'}">
                         <tr>
                             <th>관리권한</th>
                             <td>
-                                <input type="hidden" name="isAdmin" value="${userInfo.admin}">
+                                <input type="hidden" name="admin" value="${userInfo.admin}">
+
+                                <c:if test="${userInfo.isAdmin==true}">
+                                    관리자
+                                    <button type="button" class="manage_btn non-admin_btn">관리권한해제</button>
+                                </c:if>
+                                <c:if test="${userInfo.isAdmin==false}">
+                                    비관리자
+                                    <button type="button" class="manage_btn admin_btn">관리권한부여</button>
+                                </c:if>
+                            </td>
+                        </tr>
+                    </c:if>
+                    <c:if test="${loggedInUser.userId!='admin'}">
+                        <tr class="hidden_div">
+                            <th>관리권한</th>
+                            <td>
+                                <input type="hidden" name="admin" value="${userInfo.admin}">
 
                                 <c:if test="${userInfo.isAdmin==true}">
                                     관리자
@@ -133,7 +155,9 @@
             <button type="button" class="editCancel" onclick="location.href='/WYW/admin/membermanagement'">
                 수정취소
             </button>
+            <c:if test="${userInfo.name!='admin'}">
             <button type="submit" class="editSubmit" disabled>정보수정</button>
+            </c:if>
         </div>
     </form>
 </div>
@@ -147,12 +171,12 @@
 <script src="${pageContext.request.contextPath}/js/addressAPI.js"></script>
 <script src="https://kit.fontawesome.com/6478f529f2.js" crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
 
         let mobile1 = '${userInfo.mobile1}';
 
-        $("#info_mobile1 option").each(function(i,option){
-            if(mobile1 === $(option).val()){
+        $("#info_mobile1 option").each(function (i, option) {
+            if (mobile1 === $(option).val()) {
                 $(option).attr("selected", "selected");
             }
         });
@@ -205,7 +229,7 @@
 
     $("#info_email").keyup(function () {
 
-        let query = {email: $("#info_email",).val(),userId:"${userInfo.userId}"};
+        let query = {email: $("#info_email",).val(), userId: "${userInfo.userId}"};
 
         $.ajax({
             url: `/WYW/admin/emailChk`,
@@ -236,7 +260,7 @@
             mobile1: $("#info_mobile1").val(),
             mobile2: $("#info_mobile2").val(),
             mobile3: $("#info_mobile3").val(),
-            userId : "${userInfo.userId}"
+            userId: "${userInfo.userId}"
         };
 
         $.ajax({
@@ -261,7 +285,7 @@
     });
 
     function allComplete() {
-        if (completeEmail && completeMobile){
+        if (completeEmail && completeMobile) {
             $(".editSubmit").attr("disabled", false);
             $(".editSubmit").css("background-color", "black");
         } else {

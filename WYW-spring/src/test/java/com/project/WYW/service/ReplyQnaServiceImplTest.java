@@ -4,11 +4,15 @@ import com.project.WYW.domain.AnswerVo;
 import com.project.WYW.domain.ProductsViewVo;
 import com.project.WYW.domain.ReplyQnaVo;
 import com.project.WYW.dto.ReplyQnaDto;
+import com.project.WYW.dto.ReplyQnaPageDto;
+import com.project.WYW.model.Pagehandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -63,5 +67,16 @@ public class ReplyQnaServiceImplTest {
 
     }
     
+    @Test
+    public void getQnaListTest(){
+        Pagehandler pagehandler = new Pagehandler();
+        pagehandler.setType("wait");
+        ReplyQnaPageDto list = replyQnaService.replyQnaList(pagehandler);
+        System.out.println("list = " + list);
+
+        pagehandler.setType("complete");
+        list = replyQnaService.replyQnaList(pagehandler);
+        System.out.println("list = " + list);
+    }
     
 }

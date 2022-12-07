@@ -36,7 +36,7 @@ public class ReplyController {
 
     /* 댓글 등록 */
     @ResponseBody
-    @PostMapping("/reg")
+    @PostMapping(value = "/reg", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void regReplyPost(ReplyVo replyVo) {
 
         replyService.regReply(replyVo);
@@ -56,7 +56,7 @@ public class ReplyController {
 
     /* 댓글 수정 */
     @ResponseBody
-    @PostMapping("/update")
+    @PostMapping(value = "/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void replyModifyPost(ReplyVo replyVo) {
 
         replyService.updateReply(replyVo);
@@ -74,7 +74,7 @@ public class ReplyController {
     }
 
     @ResponseBody
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public void replyDeletePost(ReplyVo replyVo) {
 
         replyService.deleteReply(replyVo);

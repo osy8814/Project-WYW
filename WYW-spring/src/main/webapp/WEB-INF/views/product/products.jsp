@@ -22,9 +22,7 @@
     <div class="products_main-outter">
         <h1 class="main__new-title"><span>PRODUCTS</span></h1>
         <div class="products_main_top">
-        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 <c:set value="${list[0].cate_name}"
-                                                                          var="categoryName"/>${fn:substring(categoryName,0,3)}
-            용품 이 검색되었습니다.</h1>
+        <h1 class="products_main_title">검색결과 총 : ${totalResult} 개의 ${list[0].cate_name} 용품 이 검색되었습니다.</h1>
             <div class="secondary-category">분류 : </div>
         </div>
         <c:if test="${listCheck != 'empty' }">
@@ -51,6 +49,7 @@
                             <span class="product_price">
                             ￦ <fmt:formatNumber value="${product.price}" pattern="###,###,###"/>
                             </span>
+                            <h1 class="product_rating">${product.ratingAvg} / 5.0 </h1>
                             <div class="product_bottom-button">
                                 <i class="fas fa-shopping-cart cart_btn" data-stock="${product.stock}"
                                    data-productId="${product.id}"></i>
@@ -159,7 +158,7 @@
         }
 
         let stock = $(this).data("stock");
-        if (stock === "0") {
+        if (stock == "0") {
             alert("죄송합니다. 상품의 재고가 모자랍니다. 나중에 다시 이용해 주십시오.");
             return false;
         }

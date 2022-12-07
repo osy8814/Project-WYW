@@ -3,6 +3,7 @@ package com.project.WYW.service;
 import java.util.List;
 
 import com.project.WYW.domain.UsersVo;
+import com.project.WYW.model.Pagehandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,13 @@ public class UsersServiceImpl implements UsersSecvice {
 	UsersDao usersDao;
 	
 	@Override
-	public int getCount() throws Exception{
-		return usersDao.count();
+	public int getCount(Pagehandler pagehandler) throws Exception{
+		return usersDao.count(pagehandler);
 	}
 	
 	@Override
-	public List<UsersVo> getList() throws Exception{
-		return usersDao.selectAll();
+	public List<UsersVo> getList(Pagehandler pagehandler) throws Exception{
+		return usersDao.selectAll(pagehandler);
 	}
 	
 	@Override

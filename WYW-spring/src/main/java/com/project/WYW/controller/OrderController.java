@@ -4,6 +4,7 @@ import com.project.WYW.domain.UsersVo;
 import com.project.WYW.dto.OrderDto;
 import com.project.WYW.dto.OrderPageDto;
 import com.project.WYW.service.OrderService;
+import com.project.WYW.service.UsersSecvice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,12 +23,17 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private UsersSecvice usersSecvice;
+    @Autowired
+    ProductController controller;
 
     @GetMapping("/list")
-    public String orderPageGet(OrderPageDto orderPageDto, Model model, HttpServletRequest request) {
-
+    public String orderPageGet(OrderPageDto orderPageDto, Model model, HttpServletRequest request)throws Exception {
+        controller.receiveCategory(model);
         HttpSession session = request.getSession();
         UsersVo usersVo = (UsersVo) session.getAttribute("loggedInUser");
+        usersVo = usersSecvice.read(usersVo.getUserId());
         model.addAttribute("orderList", orderService.getProductInfo(orderPageDto.getOrders()));
         model.addAttribute("memberInfo", usersVo);
 

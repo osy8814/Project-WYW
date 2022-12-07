@@ -65,7 +65,7 @@
                     </div>
                     <div class="product_info_dox_delivery-fee product_info_dox_inner">
                         <div class="product_info_dox_inner_left">배송비</div>
-                        <div class="product_info_dox_inner_right">20,000원</div>
+                        <div class="product_info_dox_inner_right">20,000원 (100,000원 이상 무료)</div>
                     </div>
 
                 </div>
