@@ -74,7 +74,7 @@
                 WHERE cumulative_sales > 10
             </when>
             <when test='order == "N"'>
-                WHERE created_at BETWEEN DATE_ADD(NOW(), INTERVAL -14 DAY ) AND NOW()
+                WHERE created_at BETWEEN DATE_ADD(NOW(), INTERVAL -30 DAY ) AND NOW()
             </when>
             <when test="category != null and keyword == null">
                 WHERE TRUE
